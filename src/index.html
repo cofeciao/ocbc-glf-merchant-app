@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mortgage Services Application Form | OCBC Singapore</title>
+  <link rel="apple-touch-icon" href="/public/images-favicon/favicon.png">
+  <link rel="shortcut icon" href="/public/images-favicon/favicon.png">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <% if (process.env.NODE_ENV  === 'production') { %>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','<%= htmlWebpackPlugin.options.gtm  %>');</script>
+  <!-- End Google Tag Manager -->
+  <!-- (START) Adobe Analytics - Header -->
+  <script type='text/javascript' src="<%= htmlWebpackPlugin.options.adobe %>"></script>
+  <% } %>
+  <% if (process.env.NODE_ENV  === 'development') { %>
+  <script>
+    window.markerConfig = {
+      destination: '61ade7d502410367b35e7b62', 
+      source: 'snippet'
+    };
+  </script>
+  <script>
+  !function(e,r,a){if(!e.__Marker){e.__Marker={};var t=[],n={__cs:t};["show","hide","isVisible","capture","cancelCapture","unload","reload","isExtensionInstalled","setReporter","setCustomData","on","off"].forEach(function(e){n[e]=function(){var r=Array.prototype.slice.call(arguments);r.unshift(e),t.push(r)}}),e.Marker=n;var s=r.createElement("script");s.async=1,s.src="https://edge.marker.io/latest/shim.js";var i=r.getElementsByTagName("script")[0];i.parentNode.insertBefore(s,i)}}(window,document);
+  </script>
+<% } %>
+  <% if (process.env.NODE_ENV  === 'production') { %>
+<!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=<%= htmlWebpackPlugin.options.gtm  %>" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <script type="text/javascript">
+      var _gaq = _gaq || [];
+      var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+      _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+      _gaq.push(['_setAccount', '<%= htmlWebpackPlugin.options.gaId  %>']);
+      // _gaq.push(['_setDomainName', 'ocbc.com']);
+      _gaq.push(['_trackPageview']);
+      (function() {
+          var ga = document.createElement('script');
+          ga.type = 'text/javascript';
+          ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' :
+              'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0];
+          s.parentNode.insertBefore(ga, s);
+      })();
+  </script>
+  <!-- End Google Tag Manager (noscript) -->
+  <% } %>
+</head>
+
+<body>
+  <% if (process.env.NODE_ENV  === 'production') { %>
+  <!--BEGIN QUALTRICS WEBSITE FEEDBACK SNIPPET-->
+  <script type='text/javascript'>
+  (function(){var g=function(e,h,f,g){
+  this.get=function(a){for(var
+  a=a+"=",c=document.cookie.split(";"),b=0,e=c.length;b<e;b++){for(var
+  d=c[b];""==d.charAt(0);)d=d.substring(1,d.length);if(0==d.indexOf(a))return
+  d.substring(a.length,d.length)}return null};
+  this.set=function(a,c){var b="",b=new Date;b.setTime(b.getTime()+6048E5);b=";expires="+b.toGMTString();document.cookie=a+"="+c+b+"; path=/; "};
+  this.check=function(){var a=this.get(f);if(a)a=a.split(":");else
+  if(100!=e)"v"==h&&(e=Math.random()>=e/100?0:100),a=[h,e,0],this.set(f,a.join(":"));else
+  return!0;var c=a[1];if(100==c)return!0;switch(a[0]){case
+  "v":return!1;case "r":return
+  c=a[2]%Math.floor(100/c),a[2]++,this.set(f,a.join(":")),!c}return!0};
+  this.go=function(){if(this.check()){var
+  a=document.createElement("script");a.type="text/javascript";a.src=g;document.body&&document.body.appendChild(a)}};
+  this.start=function(){var
+  t=this;"complete"!==document.readyState?window.addEventListener?window.addEventListener("load",function(){t.go()},!1):window.attachEvent&&window.attachEvent("onload",function(){t.go()}):t.go()};};
+  try{(new
+  g(100,"r","QSI_S_ZN_9QPdWtioy9UtOWp","https://zn9qpdwtioy9utowp-ocbc.siteintercept.qualtrics.com/SIE/?Q_ZID=ZN_9QPdWtioy9UtOWp")).start()}catch(i){}})();
+  </script><div id='ZN_9QPdWtioy9UtOWp'><!--DO NOT REMOVE-CONTENTS PLACED
+  HERE--></div>
+  <% } %>
+  <!--END WEBSITE FEEDBACK SNIPPET--> 
+  <div id="root"></div>
+  <div id="selected_requests" style="display: none;"></div>
+</body>
+
+</html>

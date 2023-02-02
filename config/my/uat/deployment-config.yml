@@ -1,0 +1,167 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: $(PROJECT_NAME)-my
+  name: $(PROJECT_NAME)-my
+  namespace: $(NAMESPACE)-my
+  selfLink: /apis/apps.openshift.io/v1/namespaces/$(NAMESPACE)-my/deploymentconfigs/$(PROJECT_NAME)-my
+spec:
+  replicas: 1
+  selector:
+    app: $(PROJECT_NAME)-my
+    deploymentconfig: $(PROJECT_NAME)-my
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 180
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      labels:
+        app: $(PROJECT_NAME)-my
+        deploymentconfig: $(PROJECT_NAME)-my
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: $(PROJECT_NAME)-my
+          env:
+            - name: CONJUR_APPLIANCE_URL
+              value: "https://follower.dapvault.svc.cluster.local/api"
+            - name: CONJUR_ACCOUNT
+              value: ocbc
+            - name: CONJUR_VERSION
+              value: "5"
+            - name: CONJUR_SSL_CERTIFICATE
+              valueFrom:
+                configMapKeyRef:
+                  name: conjur-certificate
+                  key: ssl-certificate
+            - name: CONJUR_AUTHN_TOKEN_FILE
+              value: /run/conjur/access-token
+          image: docker-registry.default.svc:5000/$(NAMESPACE)-my/$(PROJECT_NAME)-my:1.0
+          imagePullPolicy: Always
+          name: $(PROJECT_NAME)-my
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          securityContext:
+            runAsUser: 1000830000
+            supplementalGroups:
+              - 1000830000
+          volumeMounts:
+            - mountPath: /run/conjur
+              name: conjur-access-token
+              readOnly: true
+            # - mountPath: /etc/summon
+            #   name: volume-summon-config
+            #   readOnly: true
+            - mountPath: /$(NAMESPACE)-my
+              name: $(NAMESPACE)-my-pv
+              readOnly: true
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      initContainers:
+        - image: 'docker-registry.default.svc:5000/openshift/conjur-kubernetes-authenticator:0.13.0'
+          imagePullPolicy: Always
+          name: authenticator
+          env:
+            - name: CONTAINER_MODE
+              value: init
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: CONJUR_VERSION
+              value: "5"
+            - name: CONJUR_APPLIANCE_URL
+              value: "https://follower.dapvault.svc.cluster.local/api"
+            - name: CONJUR_AUTHN_URL
+              value: "https://follower.dapvault.svc.cluster.local/api/authn-k8s/uat-cluster"
+            - name: CONJUR_ACCOUNT
+              value: ocbc
+            - name: CONJUR_AUTHN_LOGIN
+              value: "host/conjur/authn-k8s/uat-cluster/apps/$(NAMESPACE)-my/*/*"
+            - name: CONJUR_SSL_CERTIFICATE
+              valueFrom:
+                configMapKeyRef:
+                  name: conjur-certificate
+                  key: ssl-certificate
+          volumeMounts:
+            - mountPath: /run/conjur
+              name: conjur-access-token
+      volumes:
+        - name: conjur-access-token
+          emptyDir:
+            medium: Memory
+        # - name: volume-summon-config
+        #   configMap:
+        #     name: $(PROJECT_NAME)-my-summon-config
+        - name: $(NAMESPACE)-my-pv
+          persistentVolumeClaim:
+            claimName: $(NAMESPACE)-my-pvc
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - $(PROJECT_NAME)-my
+        from:
+          kind: ImageStreamTag
+          name: '$(PROJECT_NAME)-my:1.0'
+          namespace: $(NAMESPACE)-my
+        lastTriggeredImage: docker-registry.default.svc:5000/$(NAMESPACE)-my/$(PROJECT_NAME)-my:1.0
+      type: ImageChange
+to:
+  apiVersion: v1
+  kind: Service
+  name: $(PROJECT_NAME)-my
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftWebConsole
+    labels:
+      app: $(PROJECT_NAME)-my
+    name: $(PROJECT_NAME)-my
+    namespace: $(NAMESPACE)-my
+  spec:
+    ports:
+      - name: 8443-tcp
+        port: 8443
+        protocol: TCP
+        targetPort: 8443
+    selector:
+      deploymentconfig: $(PROJECT_NAME)-my
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}

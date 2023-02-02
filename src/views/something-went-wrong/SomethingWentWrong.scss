@@ -1,0 +1,15 @@
+@import '../../assets/style/variable.scss';
+
+.something-went-wrong-page {
+  height: calc(100vh - 300px);
+  .description {
+    p {
+      font-size: $fzH5;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.67;
+      letter-spacing: normal;
+    }
+  }
+}

@@ -1,0 +1,103 @@
+@import "../../../assets/style/variable.scss";
+
+.review-submit {
+  max-width: 1150px;
+  width: 100%;
+  .align-items-center {
+    cursor: pointer;
+  }
+}
+
+.checkbox {
+  margin-top: -10px;
+}
+
+.error {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.71;
+  letter-spacing: normal;
+  color: #cb2d3e;
+  margin-top: 10px;
+}
+
+.title-review {
+  padding: 23px 0px 23px 0px;
+}
+
+.icon {
+  width: 14px;
+  height: 14px;
+  font-size: $fzBody;
+}
+
+.print-icon {
+  color: $dodgerBlue;
+}
+
+//css form contact information
+.edit-icon {
+  color: $dodgerBlue;
+}
+
+.edit-text {
+  color: $dodgerBlue;
+}
+
+.label {
+  margin-top: 10px;
+}
+
+// css form repricingRequest
+#repricingRequest .content {
+  color: $dodgerBlue;
+}
+
+//css form Partial Prepayment Request
+
+#partialPrepaymentRequest:last-child{
+  margin-bottom: 0px;
+}
+
+// css accept rulex block
+
+.submit-rules-box {
+  max-width: 1060px;
+  width: 100%;
+  padding: 0px ;
+  background-color: $white ;
+}
+
+.content-paragraph {
+  margin-left: 10px;
+  font-size: $fzH6;
+  a {
+    font-size: 16px !important;
+  }
+}
+
+#contentRules {
+  line-height: 28px;
+  &.custom-list-style-number {
+    list-style-type: decimal;
+    margin-top: 0;
+    li {
+      list-style-type: decimal;
+      padding-left: 0;
+    }
+  }
+
+  .custom-list-style-number-children {
+    li {
+      list-style: lower-alpha;
+      padding-left: 0;
+    }
+  }
+}
+
+.mrl-dt-15 {
+  margin-left: 15px;
+}
+

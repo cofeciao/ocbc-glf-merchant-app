@@ -1,0 +1,223 @@
+@import '../../../assets/style/variable.scss';
+
+.mod-review {
+  .wrap-form-review {
+    margin-top: 30px;
+  }
+
+  .address {
+    line-height: 30px;
+
+    @media(max-width: 768px) {
+      font-size: $fzH6;
+    }
+  }
+
+  .mb-30 {
+    margin-bottom: 30px;
+  }
+
+  .item-first {
+    margin-top: 60px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .sub {
+    font-size: $fzH6;
+    font-weight: normal;
+    line-height: 1.75;
+    letter-spacing: normal;
+    color: $tundora;
+  }
+
+  .documents {
+    .title-small {
+      font-size: $fzBody;
+      font-weight: bold;
+      line-height: 1.43;
+      color: $tundora;
+
+    }
+
+    .title-small-span {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+
+      span {
+        font-size: $fzBody;
+        font-weight: bold;
+        line-height: 1.43;
+        color: $tundora;
+      }
+    }
+
+    .info-document {
+      p {
+        font-size: $fzBody;
+        font-weight: normal;
+        line-height: 1.43;
+        color: $tundora;
+        margin-top: 20px;
+        margin-bottom: 4px;
+      }
+    }
+  }
+
+  .section {
+    .mb-mb-30 {
+      @media (max-width: 768px) {
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  ul {
+    margin-top: 30px;
+
+    li {
+      padding-left: 64px;
+      position: relative;
+      list-style: none;
+      margin-top: 10px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .checkboxTermAndConditionOptional {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+
+        .MuiFormGroup-root {
+          margin-top: 0;
+        }
+
+        .MuiTouchRipple-root {
+          &::before {
+            content: '';
+            left: 45.8%;
+          }
+        }
+      }
+
+      i {
+        font-size: $fzH6;
+        font-weight: normal;
+        line-height: 1.75;
+        color: $tundora;
+        font-style: normal;
+
+        position: absolute;
+        left: 35px;
+        top: 0;
+
+        @media (max-width: 768px) {
+          font-size: $fzBody;
+        }
+      }
+
+      p {
+        font-size: $fzH6;
+        font-weight: normal;
+        line-height: 1.75;
+        color: $tundora;
+
+        @media (max-width: 768px) {
+          font-size: $fzBody;
+        }
+      }
+    }
+
+    ul {
+      margin-top: 10px;
+
+      li {
+        padding-left: 30px;
+
+        i {
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .button-next {
+    border-radius: 6px;
+    border: 0;
+    font-size: $fzH5;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.22;
+    letter-spacing: normal;
+    text-align: center;
+    color: $white;
+    width: 125px;
+    height: 60px;
+    transition: 0.5s all;
+    cursor: pointer;
+    position: relative;
+
+    span {
+      z-index: 2;
+      position: relative;
+    }
+
+    &:hover {
+      &::before {
+        background-image: linear-gradient(to right, $riverBed, $riverBed 100%);
+
+      }
+
+    }
+
+    &::before {
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: "";
+      opacity: 1;
+      z-index: 1;
+      position: absolute;
+      transition: 0.5s all;
+      visibility: visible;
+      border-radius: 6px;
+      background-image: linear-gradient(to right, $riverBed, $slateGray 100%);
+    }
+
+    &.disable {
+      pointer-events: none;
+
+      &::before {
+        background-image: linear-gradient(to right, $altoWhite, $altoWhite 100%);
+      }
+    }
+  }
+
+  .btnBackSection {
+
+    font-size: $fzH6;
+    line-height: 24px;
+    color: $dodgerBlue;
+    cursor: pointer;
+
+    img {
+      margin-right: 10px;
+    }
+
+    &:hover {
+      color: $indigo,
+    }
+  }
+}

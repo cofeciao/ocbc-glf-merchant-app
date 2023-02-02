@@ -1,0 +1,59 @@
+{
+  "IMAGE_NAME": "$(PROJECT_NAME)-my",
+  "IMAGE_VERSION": "1.0",
+  "APPLICATION_NAME": "$(PROJECT_NAME)-my",
+  "NAMESPACE": "$(NAMESPACE)",
+  "APP_CONFMAP_NAME": "$(PROJECT_NAME)-my",
+  "SUMMON_CONF_NAME": "$(PROJECT_NAME)-my-summon-config",
+  "COUNTRY": "my",
+  "sit": {
+    "APP_CONFMAP_FILE": "app.env",
+    "SUMMON_CONF_FILE": "",
+    "CONJUR_CERTS": "false",
+    "CONJUR_CERTS_FILE": "",
+    "DEPLOY_CONF_FILE": "deployment-config.yml",
+    "AUTO_SCALE": "true",
+    "AUTO_SCALE_FILE": "hpa.yml",
+    "ROUTE_NAME": "$(PROJECT_NAME)-my.apps.dev.ocbc.com"
+  },
+  "uat": {
+    "APP_CONFMAP_FILE": "app.env",
+    "SUMMON_CONF_FILE": "",
+    "CONJUR_CERTS": "false",
+    "CONJUR_CERTS_FILE": "",
+    "DEPLOY_CONF_FILE": "deployment-config.yml",
+    "AUTO_SCALE": "true",
+    "AUTO_SCALE_FILE": "hpa.yml",
+    "ROUTE_NAME": "$(PROJECT_NAME)-my.apps.uat.ocbc.com"
+  },
+  "dr": {
+    "APP_CONFMAP_FILE": "app.env",
+    "SUMMON_CONF_FILE": "",
+    "CONJUR_CERTS": "true",
+    "CONJUR_CERTS_FILE": "conjur-certificate",
+    "DEPLOY_CONF_FILE": "deployment-config.yml",
+    "AUTO_SCALE": "true",
+    "AUTO_SCALE_FILE": "hpa.yml",
+    "ROUTE_NAME": "$(PROJECT_NAME)-my"
+  },
+  "prod1": {
+    "APP_CONFMAP_FILE": "app.env",
+    "SUMMON_CONF_FILE": "",
+    "CONJUR_CERTS": "true",
+    "CONJUR_CERTS_FILE": "conjur-certificate",
+    "DEPLOY_CONF_FILE": "deployment-config.yml",
+    "AUTO_SCALE": "true",
+    "AUTO_SCALE_FILE": "hpa.yml",
+    "ROUTE_NAME": "$(PROJECT_NAME)-my"
+  },
+  "prod2": {
+    "APP_CONFMAP_FILE": "app.env",
+    "SUMMON_CONF_FILE": "",
+    "CONJUR_CERTS": "true",
+    "CONJUR_CERTS_FILE": "conjur-certificate",
+    "DEPLOY_CONF_FILE": "deployment-config.yml",
+    "AUTO_SCALE": "true",
+    "AUTO_SCALE_FILE": "hpa.yml",
+    "ROUTE_NAME": "$(PROJECT_NAME)-my"
+  }
+}

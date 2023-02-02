@@ -1,0 +1,68 @@
+@import '../../assets/style/variable.scss';
+
+.demo-wrapper {
+  position: fixed;
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $white;
+  top: 0;
+  right: -500%;
+  bottom: 0;
+  z-index: 999;
+  text-align: center;
+  box-shadow: 0 2px 15px 8px rgba(0, 0, 0, 0.02) !important;
+  transition: all 0.3s ease;
+  &.open {
+    right: 0;
+    transition: all 0.3s ease;
+  }
+  button {
+    margin: 4px;
+  }
+}
+h6.title-demo {
+  text-align: center;
+  font-size: $fzH3;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.43;
+  letter-spacing: normal;
+  color: #484848;
+  margin-bottom: 16px;
+  margin-top: 16px;
+}
+.panel-image {
+  bottom: 20px;
+  position: fixed;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+  right: 20px;
+  transition: all ease-in-out 0.2s;
+  z-index: 998;
+  line-height: 60px;
+  font-size: 16px;
+  text-align: center;
+  background: $white;
+  box-shadow: 0 2px 15px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 50%;
+}
+.close-btn-demo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  color: $tundora;
+  .icon-style {
+    font-size: $fzH2;
+  }
+}
+.content-demo {
+  height: calc(100% - 150px);
+  overflow-y: scroll;
+  padding: 0 15px;
+}

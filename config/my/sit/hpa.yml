@@ -1,0 +1,17 @@
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: $(PROJECT_NAME)-my
+spec:
+  scaleTargetRef:
+    apiVersion: v1
+    kind: DeploymentConfig
+    name: $(PROJECT_NAME)-my
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 90
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+
