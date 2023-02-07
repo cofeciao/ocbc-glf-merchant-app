@@ -1,0 +1,33 @@
+@import "../../assets/style/variable.scss";
+
+.list-checkbox-wrapper {
+  display: flex;
+  flex-direction: column;
+  & .MuiFormControlLabel-root {
+    // padding: 10px;
+    padding: 17px 20px 17px 20px;
+    position: relative;
+    box-shadow: "0 0 10px 0 rgb(0 0 0 / 10%)";
+    box-sizing: "border-box";
+    min-height: 86px;
+    align-items: "flex-start";
+    margin-left: 0;
+    border-radius: 5px;
+    &:before {
+      top: 0;
+      left: 0;
+      width: 5px;
+      bottom: 0;
+      content: "";
+      display: block;
+      position: absolute;
+      border-radius: 5px 0px 0px 5px;
+      background-color: #566b76;
+    }
+    &:has(.Mui-checked) {
+      background-color: $slateGray;
+    }
+
+    
+  }
+}
