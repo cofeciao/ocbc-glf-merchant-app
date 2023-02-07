@@ -1,5 +1,12 @@
 @import '../../assets/style/variable.scss';
 
+.form-submit {
+  background-color: #9dc0d3;
+  margin-top: 80px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .landing-page {
   margin-top: 80px;
   overflow: hidden;
@@ -67,6 +74,22 @@
 
         @media (max-width: 767px) {
           font-size: $fzH6;
+        }
+      }
+
+      .MuiFormGroup-root {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        & label {
+          min-height: unset;
+        }
+        & .card-checkbox-content {
+          &--title {
+            font-size: 18px;
+          }
+          &--description {
+            font-size: 15px;
+          }
         }
       }
     }
