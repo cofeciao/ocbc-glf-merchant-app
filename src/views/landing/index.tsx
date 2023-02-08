@@ -1,20 +1,10 @@
 // import modules
-import { Container, Grid } from "@material-ui/core";
-import {
-  Dialog,
-  Footer,
-  Header,
-  Loading,
-  Button,
-  InputBase,
-  Radio,
-  InputNumberMobile,
-} from "@sectionsg/orc";
+import { Container } from "@material-ui/core";
+import { Footer, Header, Loading, Button } from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 
 //import icon
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
@@ -23,19 +13,9 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import {
   DATA_CARD_CHECKBOX,
   LINK_EXTERNAL_PAGE,
-  LIST_NATIONAL,
-  PERSONAL_INFORMATION_SINGPASS,
-  LIST_SELECT_PARTIAL,
-  LIST_SELECT_PURPOSE,
-  LIST_RADIO,
   TITLE_PAGE,
-  REVIEW,
   NEXT,
-  LIST_COUNTRIES_CODE,
 } from "../../utils/constants";
-
-// import utils
-import { scrollToError } from "../../utils/utils";
 
 // import types
 import { ILanding } from "./Landing";
@@ -46,6 +26,7 @@ import styles from "./Landing.scss";
 // import child component
 import LandingHomeLoanRequest from "./LandingHome";
 import moment from "moment";
+import { useSelector } from "react-redux";
 
 // render UI
 const Landing: React.FC = ({}) => {
@@ -54,47 +35,31 @@ const Landing: React.FC = ({}) => {
   const [key, setKey] = useState<number>(0);
   const [dataCardCheckbox, setDataCardCheckbox] =
     useState<ILanding.IItemCheckbox[]>(DATA_CARD_CHECKBOX);
-  const [listSelectPartialPrepayment, setListSelectPartialPrepayment] =
-    useState<any>(LIST_SELECT_PARTIAL);
-  const [listSelectPurpose, setListSelectPurpose] =
-    useState<any>(LIST_SELECT_PURPOSE);
   const [agree, setAgree] = useState<boolean>(false);
+  const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
   const [loading, setLoading] = useState(false);
-  const useQuery = () => {
-    const { search } = useLocation();
-    return React.useMemo(() => new URLSearchParams(search), [search]);
-  };
-  let query = useQuery();
-
-  const dispatch = useDispatch();
   const date = moment.utc().format();
-  const currentLocal = moment.utc(date).local().format();
-  const [currentDateTime, setCurrentDateTime] = useState(
-    moment(currentLocal, "YYYY-MM-DD HH:mm:ss")
-  );
-  const urlJson = "";
 
   /**
    * Retrieves data from Store
    */
-  const formReduxData = useSelector((state: any) => state.form);
+  const dataListCheckbox = useSelector((state: any) => state.form.checkboxList);
 
   /**
-   * Handle show condition
-   * @function
-   * @param {Array} data - List data of home loan request
-   * @param {string} itemChecked - Item have just click
-   * @param {boolean} checked - Status Item
+   * Handle disable next button
    */
-  const handleCheckShowContent = (
-    data: ILanding.IListSelect[],
-    itemChecked: string,
-    checked: boolean
-  ) => {
-    let div = document.getElementById("selected_requests");
-    let str: string[] = [];
-    // let listData: ILanding.IItemCheckbox[] = [...data];
-  };
+  useEffect(() => {
+    if (dataListCheckbox.data) {
+      const result = dataListCheckbox.data.findIndex(
+        (item: any) => item.checked === true
+      );
+      if (result !== -1) {
+        setHasDataCheckbox(false);
+      } else {
+        setHasDataCheckbox(true);
+      }
+    }
+  }, [dataListCheckbox]);
 
   /**
    * render UI button
@@ -105,17 +70,19 @@ const Landing: React.FC = ({}) => {
       <Button
         backgroundClass="bgGunmetalBluegrey"
         onClick={() => {
-          history.push("/form-submit");
+          history.push("/demo-form");
         }}
+        disabled={hasDataCheckbox}
         buttonType=""
       >
         <>
-          {agree ? <>{NEXT}</> : "I agree"}
+          {agree ? <>{NEXT}</> : "Next"}
           {agree && <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />}
         </>
       </Button>
     );
   };
+
   // Render UI
   return (
     <>
