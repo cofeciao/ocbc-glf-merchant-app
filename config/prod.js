@@ -1,6 +1,6 @@
 module.exports = {
   theme: {},
-  activeRule: 'personal-banking/loans/mortgage-form-repricing/',
+  activeRule: 'glf-merchant-app/',
   APIServer: 'https://www.frankbyocbc.com/soaproxy',
   env: 'prod',
   myinfo: {
