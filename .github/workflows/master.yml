@@ -70,7 +70,7 @@ jobs:
           node -v
           npm -v
           npm install --force
-          npm build:staging
+          npm run build:staging
       - name: 📂 Upload build folder to staging
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
@@ -103,7 +103,7 @@ jobs:
           node -v
           npm -v
           npm install --force
-          npm build:production
+          npm run build:production
 
       - name: Zip folder
         uses: montudor/action-zip@v1
