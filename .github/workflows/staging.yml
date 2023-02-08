@@ -69,7 +69,7 @@ jobs:
         run: |
           node -v
           npm -v
-          npm install --force
+          npm install
           npm run build:staging
       - name: 📂 Upload build folder to staging
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
@@ -102,7 +102,7 @@ jobs:
         run: |
           node -v
           npm -v
-          npm install --force
+          npm install
           npm run build:production
 
       - name: Zip folder
