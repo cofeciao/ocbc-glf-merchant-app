@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     library: '[name]',
-    publicPath: process.argv[2] === '--env.file=staging' ? './' : './',
+    publicPath: process.argv[2] === '--env.file=staging' ? '/' : './',
     libraryTarget: 'umd',
     jsonpFunction: 'webpackJsonp_[name]',
     filename: '[name].[contenthash].js',
@@ -87,7 +87,7 @@ module.exports = {
           {
             loader: 'file-loader',
             options: {
-              publicPath: process.argv[2] === '--env.file=staging' ? '/glf-merchant-app/public/images' : process.argv[2] === '--env.file=prod' ? '/personal-banking/loans/mortgage-form-repricing/public/images' : process.argv[2] === '--env.file=bau' ? '/personal-banking/loans/mortgage-form-repricing-bau/public/images' : '/personal-banking/loans/mortgage-form-repricing-uat/public/images',
+              publicPath: process.argv[2] === '--env.file=staging' ? '/public/images' : process.argv[2] === '--env.file=prod' ? '/personal-banking/loans/mortgage-form-repricing/public/images' : process.argv[2] === '--env.file=bau' ? '/personal-banking/loans/mortgage-form-repricing-bau/public/images' : '/personal-banking/loans/mortgage-form-repricing-uat/public/images',
               outputPath: 'public/images',
               name: '[name].[ext]',
               useRelativePath: true,
