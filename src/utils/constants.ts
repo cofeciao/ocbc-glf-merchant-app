@@ -116,8 +116,16 @@ export const SUB_TITLE_PAGE_LANDING_3 =
 export const SUB_TITLE_PAGE_LANDING_4 =
   "Please check the 'Partial Prepayment' section in your Letter of Offer (LO)/ latest Supplementary Letter of Offer (SLO) to confirm if any fees are payable.";
 export const SUB_TITLE_PAGE_LANDING_BORROWER =
-  "One of your co-borrowers have made a request regarding your home loan. We require you to verify the request.";
+  "Apply for OCBC Cashless Payments";
+export const TITLE_CASHLESS_PAYMENTS_HOME =
+  "Apply for OCBC Cashless Payments";
 export const HOME_LOAN_REQUEST = "HOME LOAN REQUESTS";
+export const CASHLESS_PAYMENTS_METHODS = "CASHLESS PAYMENTS METHODS";
+export const THINGS_TO_TAKE_NOTE_OF = "THINGS TO TAKE NOTE OF";
+export const LIST_THINGS_TO_TAKE_NOTE_OF = [
+  "You will need to provide information on your business such as name, Unique Entity Number (UEN), fulfilment type, and sales forecast",
+  "Your business details will be pulled from ACRA to access your application"
+];
 export const WHAT_YOU_NEED = "WHAT YOU NEED";
 export const UPLOAD_FILE_NRIC = "NRIC";
 export const UPLOAD_FILE_PASSPORT = "Passport";
@@ -138,16 +146,19 @@ export const DATA_CARD_CHECKBOX = [
     description: "This Application will take about you 10 minutes",
     value: "creditcards",
     checked: false,
+    writable: true
   },
   {
     label: "Paynow",
     value: "paynow",
     checked: false,
+    writable: true
   },
   {
     label: "NETS",
     value: "nets",
     checked: false,
+    writable: true
   },
 ];
 export const PERSONAL_INFORMATION_SINGPASS = {
