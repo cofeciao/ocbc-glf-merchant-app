@@ -3,16 +3,25 @@
 .list-checkbox-wrapper {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   & .MuiFormControlLabel-root {
-    // padding: 10px;
+    gap: 10px;
+    width: 100%;
     padding: 17px 20px 17px 20px;
     position: relative;
-    box-shadow: "0 0 10px 0 rgb(0 0 0 / 10%)";
+    box-shadow: 0px 0px 10px 0px #0000001a;
     box-sizing: "border-box";
     min-height: 86px;
     align-items: "flex-start";
     margin-left: 0;
     border-radius: 5px;
+    align-items: flex-start;
+    & .MuiIconButton-root {
+      padding: 0px;
+    }
+    & span {
+      color: $slateGray;
+    }
     &:before {
       top: 0;
       left: 0;
@@ -22,12 +31,13 @@
       display: block;
       position: absolute;
       border-radius: 5px 0px 0px 5px;
-      background-color: #566b76;
-    }
-    &:has(.Mui-checked) {
       background-color: $slateGray;
     }
-
-    
+    &:has(.Mui-checked) {
+      background-color: $shuttleGray;
+      & span {
+        color: white;
+      }
+    }
   }
 }
