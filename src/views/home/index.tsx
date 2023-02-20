@@ -1,6 +1,6 @@
 // import modules
 import { Container } from "@material-ui/core";
-import { Footer, Header, Loading, Button } from "@sectionsg/orc";
+import { Footer, Header, Loading, Button, CodeInput } from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
@@ -15,42 +15,47 @@ import {
   LINK_EXTERNAL_PAGE,
   TITLE_PAGE,
   NEXT,
+  TITLE_CASHLESS_PAYMENTS_HOME,
 } from "../../utils/constants";
 
 // import types
-import { ILanding } from "./Landing";
+import { IHome } from "./Home";
 
 // import style
-import styles from "./Landing.scss";
+import styles from "./Home.scss";
 
 // import child component
-import LandingHomeLoanRequest from "./LandingHome";
+import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
+import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
 import moment from "moment";
 import { useSelector } from "react-redux";
 
 // render UI
-const Landing: React.FC = ({}) => {
+const Home: React.FC = ({}) => {
   const cx = classnames.bind(styles);
   const history = useHistory();
   const [key, setKey] = useState<number>(0);
   const [dataCardCheckbox, setDataCardCheckbox] =
-    useState<ILanding.IItemCheckbox[]>(DATA_CARD_CHECKBOX);
+    useState<IHome.IItemCheckbox[]>(DATA_CARD_CHECKBOX);
   const [agree, setAgree] = useState<boolean>(false);
   const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
   const [loading, setLoading] = useState(false);
   const date = moment.utc().format();
+  const [contentShow, setContentShow] = useState<string[]>([]); // lists data checked
 
   /**
    * Retrieves data from Store
    */
-  const dataListCheckbox = useSelector((state: any) => state.form.checkboxList);
+  const dataListCheckbox = useSelector(
+    (state: any) => state.form.dataListCheckbox
+  );
 
   /**
    * Handle disable next button
    */
   useEffect(() => {
-    if (dataListCheckbox.data) {
-      const result = dataListCheckbox.data.findIndex(
+    if (dataListCheckbox.length) {
+      const result = dataListCheckbox.findIndex(
         (item: any) => item.checked === true
       );
       if (result !== -1) {
@@ -58,6 +63,7 @@ const Landing: React.FC = ({}) => {
       } else {
         setHasDataCheckbox(true);
       }
+      setDataCardCheckbox(dataListCheckbox);
     }
   }, [dataListCheckbox]);
 
@@ -86,6 +92,7 @@ const Landing: React.FC = ({}) => {
   // Render UI
   return (
     <>
+      {/* {Loading} */}
       {loading && (
         <div className={cx("container-loading")}>
           <div className={cx("content-loading")}>
@@ -94,21 +101,24 @@ const Landing: React.FC = ({}) => {
         </div>
       )}
 
+      {/* {Header} */}
       <Header
         namePage={TITLE_PAGE}
         backLink={{ name: TITLE_PAGE, href: LINK_EXTERNAL_PAGE }}
       />
-      {loading && (
-        <div className={cx("container-loading")}>
-          <div className={cx("content-loading")}>
-            <Loading />
-          </div>
-        </div>
-      )}
 
+      {/* {Container} */}
       <Container className={cx("container")}>
-        <section className={cx("landing-page")}>
-          <LandingHomeLoanRequest
+        {/* {Content Wrapper} */}
+        <section className={cx("home-wrapper")}>
+          {/* Section Title */}
+          <h3 className={cx("title")}>{<>{TITLE_CASHLESS_PAYMENTS_HOME}</>}</h3>
+
+          {/* {Section Home Things To Take Note Of} */}
+          <HomeThingsToTakeNoteOf cx={cx} />
+
+          {/* {Section Home Cashless Payment Methods} */}
+          <HomeCashlessPaymentMethods
             dataCardCheckbox={dataCardCheckbox}
             checkboxKey={key}
             cx={cx}
@@ -125,8 +135,10 @@ const Landing: React.FC = ({}) => {
           </div>
         </section>
       </Container>
+
+      {/* {Footer} */}
       <Footer />
     </>
   );
 };
-export default Landing;
+export default Home;

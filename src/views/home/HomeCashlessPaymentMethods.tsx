@@ -1,34 +1,41 @@
 // import modules
-import {
-  Category,
-  CardCheckbox,
-} from "@sectionsg/orc";
+import { Category } from "@sectionsg/orc";
 import ListCheckBox from "@/components/ListCheckBox";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { saveListCheckbox } from "@/store/form";
+import { saveDataListCheckbox } from "@/store/form";
 
 // import constants
 import {
-  HOME_LOAN_REQUEST,
+  CASHLESS_PAYMENTS_METHODS,
   WHAT_SERVICING_REQUEST,
   MSG_ERR_CARD_CHECKBOX,
 } from "../../utils/constants";
 
 // import types
-import { ILanding } from "./Landing";
+import { IHome } from "./Home";
 
 // render UI
-const LandingHome: React.FC<ILanding.IHome> = (props) => {
+const HomeCashlessPaymentMethods: React.FC<IHome.IHomeCashlessPaymentMethods> = (props) => {
   const { dataCardCheckbox, cx, checkboxKey, handleGetValueCheckbox } = props;
   const dispatch = useDispatch();
+
+  /**
+   * Get data from list check box
+   * @param data
+   */
+  const getDataFromListCheckbox = (data: any) => {
+    handleGetValueCheckbox(data);
+    dispatch(saveDataListCheckbox(data));
+  };
+
   return (
     <section className={cx("content")}>
       <div className={cx("col-left")}>
-        <Category>{HOME_LOAN_REQUEST}</Category>
+        <Category>{CASHLESS_PAYMENTS_METHODS}</Category>
       </div>
       <div className={cx("col-right")}>
-        <CardCheckbox
+        <ListCheckBox
           label={WHAT_SERVICING_REQUEST}
           textError={MSG_ERR_CARD_CHECKBOX}
           dataCardCheckbox={dataCardCheckbox}
@@ -37,14 +44,10 @@ const LandingHome: React.FC<ILanding.IHome> = (props) => {
           sm={6}
           xs={12}
           checkboxKey={checkboxKey}
-          getValue={(data: any) => {
-            handleGetValueCheckbox(data);
-            dispatch(saveListCheckbox(data));
-          }}
-          className={cx("item-card")}
+          getValue={getDataFromListCheckbox}
         />
       </div>
     </section>
   );
 };
-export default LandingHome;
+export default HomeCashlessPaymentMethods;
