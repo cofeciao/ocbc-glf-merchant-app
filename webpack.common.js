@@ -15,7 +15,7 @@ module.exports = {
   },
   output: {
     library: '[name]',
-    publicPath: process.argv[2] === '--env.file=staging' ? '/' : './',
+    publicPath: process.argv[2] === '--env.file=development' ? '/' : './',
     libraryTarget: 'umd',
     jsonpFunction: 'webpackJsonp_[name]',
     filename: '[name].[contenthash].js',
