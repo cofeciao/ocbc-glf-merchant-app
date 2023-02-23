@@ -56,6 +56,10 @@ export const ERROR = "error";
 export const TITLE_PAGE = "Cashless Payment Application";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 
+
+export const TITLE_LOGIN = 'OCBC Cashless Payments'
+export const WElCOME_LOGIN = "Welcome!"
+
 export const URL_SINGPASS_FLOW = {
   checkInformation: "/sing-pass-form/check-information",
   propertyInformation: "/sing-pass-form/property-information",
