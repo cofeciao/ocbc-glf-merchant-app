@@ -1,171 +1,68 @@
 @import "../../assets/style/variable.scss";
 
-.form-submit {
-  background-color: rgb(247, 248, 249);
-  margin-top: 80px;
-  padding: 20px;
-  border-radius: 10px;
-  gap: 20px;
-}
+.home-page-wrapper {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 61px;
 
-.title {
-  font-family: "Open Sans";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 22px;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-  color: #484848;
-  margin-bottom: 40px;
-}
-
-.home-wrapper {
-  margin-top: 80px;
-  overflow: hidden;
-
-  &.landing-page-borrower {
-    min-height: calc(100vh - 118px - 288px - 80px);
+  & .home-category {
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
   }
 
-  .padding-common {
-    padding-left: 10px;
-    padding-right: 10px;
-
-    @media (max-width: 768px) {
+  .title-checkbox {
+    @media (max-width: 1024px) {
       padding-left: 0;
-      padding-right: 0;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 767px) {
+      font-size: $fzH6;
     }
   }
 
-  .mb-40 {
-    @media (max-width: 768px) {
-      margin-bottom: 30px;
+  & .home-things-to-take-note-section {
+    margin-bottom: 36px;
+    & .section-title {
+      margin-bottom: 40px;
+      font-family: "Open Sans";
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 32px;
+      color: #363b40;
     }
-  }
-
-  .content {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 61px;
-
-    @media (max-width: 1024px) {
-      display: block;
-    }
-
-    .col-left {
-      width: 200px;
-
-      @media (max-width: 1024px) {
-        width: 100%;
-      }
-    }
-
-    .col-right {
-      width: calc(100% - 200px);
-      padding-left: 30px;
-
-      @media (max-width: 1024px) {
-        width: 100%;
-        padding-left: 0px;
-      }
-
-      .title-checkbox {
-        @media (max-width: 1024px) {
-          padding-left: 0;
-          margin-top: 40px;
-        }
-
-        @media (max-width: 767px) {
-          font-size: $fzH6;
-        }
-      }
-
-      .MuiFormGroup-root {
-        flex-direction: column;
-        flex-wrap: nowrap;
-        & label {
-          min-height: unset;
-        }
-        & .card-checkbox-content {
-          &--title {
-            font-size: 18px;
-          }
-          &--description {
-            font-size: 15px;
-          }
-        }
-      }
-
-      .things-to-take-note {
-        display: flex;
-        gap: 9px;
-      }
-    }
-
-    .item-card {
-      @media (max-width: 1070px) {
-        max-width: 50%;
-        flex-basis: 50%;
-      }
-
-      @media (max-width: 1024px) {
-        &:nth-child(odd) {
-          padding-left: 0;
-          padding-right: 10px;
-        }
-
-        &:nth-child(even) {
-          padding-left: 10px;
-          padding-right: 0;
-        }
-      }
-
-      @media (max-width: 667px) {
-        max-width: 100%;
-        flex-basis: 100%;
-
-        &:nth-child(odd) {
-          padding-left: 0;
-          padding-right: 0;
-        }
-
-        &:nth-child(even) {
-          padding-left: 0;
-          padding-right: 0;
-        }
+    .things-to-take-note-item {
+      display: flex;
+      gap: 9px;
+      align-items: baseline;
+      & .text-content {
+        color: #777e87;
       }
     }
   }
 
-  .home-things-to-take-note-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 61px;
-
-    @media (max-width: 1024px) {
-      display: block;
+  & .home-cashless-payment-methods-section {
+    margin-bottom: 40px;
+    & .section-title {
+      margin-bottom: 16px;
+      font-family: "Open Sans";
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 32px;
+      color: #363b40;
     }
-
-    .col-left {
-      @media (max-width: 1024px) {
-        width: 100%;
-      }
-      width: 200px;
-    }
-
-    .col-right {
-      @media (max-width: 1024px) {
-        width: 100%;
-        padding-left: 0px;
-      }
-      width: calc(100% - 200px);
-      padding-left: 30px;
-      .things-to-take-note {
-        display: flex;
-        gap: 9px;
-        align-items: baseline;
-      }
+    & .section-description {
+      margin-bottom: 40px;
+      font-family: "Open Sans";
+      font-weight: 400;
+      font-size: $fzH5;
+      line-height: 28px;
+      color: #777e87;
     }
   }
 }

@@ -1,45 +1,32 @@
 // import modules
 import {
   Typography,
-  Box,
   FormControlLabel,
   Checkbox,
   FormGroup,
   Grid,
   // Item,
 } from "@material-ui/core";
-import { CardCheckbox, Category } from "@sectionsg/orc";
 import classnames from "classnames/bind";
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 
 // import style
 import styles from "./ListCheckBox.scss";
 
 // import types
-import { IListCheckBox, ICheckBox } from "./ListCheckBox";
+import { IListCheckBox } from "./ListCheckBox";
 
 // render UI
 const ListCheckbox = (props: IListCheckBox) => {
   const {
-    label,
-    textError,
     dataCardCheckbox,
-    checkboxKey,
     getValue,
     xs,
     sm,
     md,
     lg,
   } = props;
-  // const [dataCard, setDataCard] = useState<ICheckBox[]>(dataCardCheckbox);
   const cx = classnames.bind(styles);
-
-  /**
-   * Listening for changes from data to update state
-   */
-  // useEffect(() => {
-  //   setDataCard(dataCard);
-  // }, [dataCardCheckbox]);
 
   /**
    * Run after clicking any item checkbox to process data stream
@@ -48,8 +35,7 @@ const ListCheckbox = (props: IListCheckBox) => {
    */
   const handleCheckBox = (event: any, checked: boolean) => {
     const newData: any = dataCardCheckbox.reduce((acc, item) => {
-      const newItem: any = { ...item };
-      newItem.checked = false;
+      const newItem: any = { ...item }; // Create a new object to avoid changing the original object
       if (newItem.value === event.target.value) {
         newItem.checked = checked;
       }
@@ -68,16 +54,16 @@ const ListCheckbox = (props: IListCheckBox) => {
             {/* {Form Control containing check boxes inside} */}
             <FormControlLabel
               label={
-                <div className={cx("item-checkbox-content")}>
+                <div className={cx("checkbox-content")}>
                   {item.label && (
-                    <span className={cx("item-checkbox-content--title")}>
+                    <Typography component={"span"} className={cx("title")}>
                       {item.label}
-                    </span>
+                    </Typography>
                   )}
                   {item.description && (
-                    <p className={cx("item-checkbox-content--description")}>
+                    <Typography component={"p"} className={cx("description")}>
                       {item.description}
-                    </p>
+                    </Typography>
                   )}
                 </div>
               }

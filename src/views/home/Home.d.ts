@@ -25,13 +25,18 @@ declare namespace IHome {
 
   export interface IHomeCashlessPaymentMethods {
     cx: any,
+    title: string,
+    description: string,
+    errorMessage: string,
     checkboxKey: number,
     dataCardCheckbox: IListSelect[],
-    handleGetValueCheckbox: (value: IDataCheckItem) => void
+    handleGetValueCheckbox?: (value: IDataCheckItem) => void
   }
 
   export interface IHomeThingsToTakeNoteOf {
-    cx: any
+    cx: any,
+    title: string,
+    listItem: string[]
   }
 }
 

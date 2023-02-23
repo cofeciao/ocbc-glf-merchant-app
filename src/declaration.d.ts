@@ -28,6 +28,8 @@ declare module "*.css" {
   export default content;
 }
 
+declare module "@sectionsg/orc";
+
 declare module "enzyme-adapter-react-16";
 
 declare module "react-router-dom";
