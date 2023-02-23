@@ -11,32 +11,40 @@
     position: relative;
     box-shadow: 0px 0px 10px 0px #0000001a;
     box-sizing: "border-box";
-    min-height: 86px;
     align-items: "flex-start";
     margin-left: 0;
-    border-radius: 5px;
+    border-radius: 8px;
     align-items: flex-start;
+    & .checkbox-content {
+      & .title {
+        font-family: "Open Sans";
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #575D65;
+      }
+      & .description {
+        margin-top: 8px;
+        font-family: "Open Sans";
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #575D65;
+      }
+    }
     & .MuiIconButton-root {
       padding: 0px;
     }
-    & span {
-      color: $slateGray;
-    }
-    &:before {
-      top: 0;
-      left: 0;
-      width: 5px;
-      bottom: 0;
-      content: "";
-      display: block;
-      position: absolute;
-      border-radius: 5px 0px 0px 5px;
-      background-color: $slateGray;
+    & .MuiIconButton-label {
+      color: #575d65;
     }
     &:has(.Mui-checked) {
+      & .MuiIconButton-label {
+        color: #FFFFFF;
+      }
       background-color: $shuttleGray;
-      & span {
-        color: white;
+      & .title, .description {
+        color: #FFFFFF;
       }
     }
   }
