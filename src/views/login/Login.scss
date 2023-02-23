@@ -1,0 +1,47 @@
+@import '../../assets/style/variable.scss';
+
+.container {
+  margin-top: 80px;
+  .title-login {
+    display: flex;
+    align-items: center;
+    padding: 0 19px 0 190px;
+  
+    .icon-welcome-login {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .title {
+      margin-left: 20px;
+      color: $tundora;
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 34px;
+    }
+
+  }
+  .login-form { 
+    padding: 0 190px 0 190px;
+  }
+
+  .btn-login {
+    margin-top: 136px;
+  }
+  
+  .title-form {
+    color: $tundora;
+    font-weight: 700;
+    font-size: $fzButton; 
+    line-height: 26px;
+  }
+  .form-submit {
+    margin-top: 39px;
+    padding: 30px;
+    border-radius: 5px;
+  }
+}
+
+.makeStyles-footerComponent-25 {
+  padding: 156px 0 0 !important;
+}
