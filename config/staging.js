@@ -1,6 +1,6 @@
 module.exports = {
   theme: {},
-  activeRule: 'glf-merchant-app/',
+  activeRule: 'glf-merchant-app-staging/',
   APIServer: 'https://ext1.wearesection.com/node/api/post',
   env: 'staging',
   myinfo: {
