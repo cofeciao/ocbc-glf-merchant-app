@@ -1,21 +1,23 @@
 // import modules
-import { Container } from "@material-ui/core";
-import { Footer, Header, Loading, Button, CodeInput } from "@sectionsg/orc";
+import { Container, Grid } from "@material-ui/core";
+import { Footer, Header, Loading, Button, Category } from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import moment from "moment";
+import { useSelector } from "react-redux";
 
 //import icon
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 // import constants
 import {
-  DATA_CARD_CHECKBOX,
   LINK_EXTERNAL_PAGE,
   TITLE_PAGE,
-  NEXT,
-  TITLE_CASHLESS_PAYMENTS_HOME,
+  HOME_PAGE,
+  START,
+  LIST_ROUTER,
 } from "../../utils/constants";
 
 // import types
@@ -27,21 +29,17 @@ import styles from "./Home.scss";
 // import child component
 import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
 import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
-import moment from "moment";
-import { useSelector } from "react-redux";
 
 // render UI
 const Home: React.FC = ({}) => {
   const cx = classnames.bind(styles);
   const history = useHistory();
   const [key, setKey] = useState<number>(0);
-  const [dataCardCheckbox, setDataCardCheckbox] =
-    useState<IHome.IItemCheckbox[]>(DATA_CARD_CHECKBOX);
-  const [agree, setAgree] = useState<boolean>(false);
+  const [dataCardCheckbox, setDataCardCheckbox] = useState<
+    IHome.IItemCheckbox[]
+  >(HOME_PAGE.cashless_payments_methods.data_list_checkbox);
   const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
-  const [loading, setLoading] = useState(false);
-  const date = moment.utc().format();
-  const [contentShow, setContentShow] = useState<string[]>([]); // lists data checked
+  const [loading] = useState(false);
 
   /**
    * Retrieves data from Store
@@ -68,25 +66,10 @@ const Home: React.FC = ({}) => {
   }, [dataListCheckbox]);
 
   /**
-   * render UI button
-   * @returns {HTML}
+   * Run after clicking the start button
    */
-  const renderButton = () => {
-    return (
-      <Button
-        backgroundClass="bgGunmetalBluegrey"
-        onClick={() => {
-          history.push("/demo-form");
-        }}
-        disabled={hasDataCheckbox}
-        buttonType=""
-      >
-        <>
-          {agree ? <>{NEXT}</> : "Next"}
-          {agree && <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />}
-        </>
-      </Button>
-    );
+  const handleClickButton = () => {
+    history.push(LIST_ROUTER.company_and_contact_information);
   };
 
   // Render UI
@@ -109,30 +92,54 @@ const Home: React.FC = ({}) => {
 
       {/* {Container} */}
       <Container className={cx("container")}>
-        {/* {Content Wrapper} */}
-        <section className={cx("home-wrapper")}>
-          {/* Section Title */}
-          <h3 className={cx("title")}>{<>{TITLE_CASHLESS_PAYMENTS_HOME}</>}</h3>
+        <section className={cx("home-page-wrapper")}>
+          <Grid container>
+            {/* {Column left} */}
+            <Grid item xs={12} md={3}>
+              {/* Category */}
+              <div className="home-category" >
+                <Category class="alo">{HOME_PAGE.title_cashless_payments_home}</Category>
+              </div>
+            </Grid>
 
-          {/* {Section Home Things To Take Note Of} */}
-          <HomeThingsToTakeNoteOf cx={cx} />
+            {/* {Column right} */}
+            <Grid item xs={12} md={8}>
+              {/* {Section Home Things To Take Note Of} */}
+              <HomeThingsToTakeNoteOf
+                cx={cx}
+                listItem={HOME_PAGE.things_to_take_note_of.list_item}
+                title={HOME_PAGE.things_to_take_note_of.title}
+              />
 
-          {/* {Section Home Cashless Payment Methods} */}
-          <HomeCashlessPaymentMethods
-            dataCardCheckbox={dataCardCheckbox}
-            checkboxKey={key}
-            cx={cx}
-            handleGetValueCheckbox={() => {}}
-          />
-        </section>
+              {/* {Section Home Cashless Payment Methods} */}
+              <HomeCashlessPaymentMethods
+                title={HOME_PAGE.cashless_payments_methods.title}
+                description={HOME_PAGE.cashless_payments_methods.description}
+                errorMessage={
+                  HOME_PAGE.cashless_payments_methods
+                    .messgase_error_list_checkbox
+                }
+                dataCardCheckbox={dataCardCheckbox}
+                checkboxKey={key}
+                cx={cx}
+              />
 
-        {/* Section button  */}
-        <section
-          className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
-        >
-          <div>
-            <div className="ml-dt-30 d-inline">{renderButton()}</div>
-          </div>
+              {/* Section button */}
+              <section
+                className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
+              >
+                <Button
+                  backgroundClass="bgGunmetalBluegrey"
+                  onClick={handleClickButton}
+                  disabled={hasDataCheckbox}
+                  buttonType=""
+                >
+                  {START}
+                  <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
+                </Button>
+              </section>
+            </Grid>
+          </Grid>
         </section>
       </Container>
 

@@ -1,36 +1,33 @@
 // import modules
-import { Category } from "@sectionsg/orc";
-import IconDone from "../../assets/images/done.svg";
+import IconDone from "@/assets/images/icon-checked.svg";
 import React from "react";
-
-// import constants
-import {
-  THINGS_TO_TAKE_NOTE_OF,
-  LIST_THINGS_TO_TAKE_NOTE_OF,
-} from "../../utils/constants";
 
 // import types
 import { IHome } from "./Home";
+import { Typography } from "@material-ui/core";
 
 // render UI
-const HomeThingsToTakeNoteOf: React.FC<IHome.IHomeThingsToTakeNoteOf> = (props) => {
-  const { cx } = props;
+const HomeThingsToTakeNoteOf: React.FC<IHome.IHomeThingsToTakeNoteOf> = (
+  props
+) => {
+  const { cx, listItem, title } = props;
 
   return (
-    <section className={cx("home-things-to-take-note-wrapper")}>
-      <div className={cx("col-left")}>
-        <Category>{THINGS_TO_TAKE_NOTE_OF}</Category>
-      </div>
-      <div className={cx("col-right")}>
-        {LIST_THINGS_TO_TAKE_NOTE_OF.map((item, index) => {
-          return (
-            <div key={index} className={cx("things-to-take-note")}>
-              <img src={IconDone} alt="icon" className={cx("left-image")} />
-              <p className={cx("titles")}>{item}</p>
-            </div>
-          );
-        })}
-      </div>
+    <section className={cx("home-things-to-take-note-section")}>
+      {/* {Title} */}
+      <Typography component={"div"} className="section-title">
+        {title}
+      </Typography>
+
+      {/* {List item} */}
+      {listItem.map((item: string, index: number) => {
+        return (
+          <div key={index} className={cx("things-to-take-note-item")}>
+            <img src={IconDone} alt="icon" className={cx("left-image")} />
+            <p className={cx("text-content")}>{item}</p>
+          </div>
+        );
+      })}
     </section>
   );
 };
