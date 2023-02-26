@@ -53,7 +53,7 @@ export const APEX_APP_ID_NONE_REPRICING_PROD =
 export const SECRET_PREPAYMENT_PROD = "p207G8uu5gEt0D3FJMFoiOrzl09AjH8e";
 export const ERROR = "error";
 
-export const TITLE_PAGE = "Cashless Payment Application";
+export const TITLE_PAGE = "OCBC Cashless Payments";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 
 
