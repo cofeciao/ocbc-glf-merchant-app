@@ -16,4 +16,14 @@ export interface ICheckBox {
   label: JSX.Element | string;
   description?: string;
   checked: boolean;
+  value: string;
+  expandedListCheckbox?: {
+    description?: string;
+    listCheckbox: Array<{
+      label: JSX.Element | string;
+      checked: boolean;
+      value: string;
+      disabled?: boolean;
+    }>;
+  };
 }

@@ -3,6 +3,7 @@
 .list-checkbox-wrapper {
   display: flex;
   flex-direction: column;
+  flex-wrap: unset !important;
   gap: 10px;
   & .MuiFormControlLabel-root {
     gap: 10px;
@@ -21,7 +22,7 @@
         font-weight: 600;
         font-size: 16px;
         line-height: 24px;
-        color: #575D65;
+        color: #575d65;
       }
       & .description {
         margin-top: 8px;
@@ -29,7 +30,7 @@
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
-        color: #575D65;
+        color: #575d65;
       }
     }
     & .MuiIconButton-root {
@@ -40,11 +41,40 @@
     }
     &:has(.Mui-checked) {
       & .MuiIconButton-label {
-        color: #FFFFFF;
+        color: #ffffff;
       }
       background-color: $shuttleGray;
-      & .title, .description {
-        color: #FFFFFF;
+      & .title,
+      .description {
+        color: #ffffff;
+      }
+    }
+  }
+
+  & .expanded-wrapper {
+    margin: 40px 0px;
+    & .expanded-description {
+      margin-bottom: 16px;
+      font-family: "Open Sans";
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      color: #777e87;
+    }
+    & .expanded-list-checkbox {
+      display: flex;
+      flex-direction: column;
+      & .MuiCheckbox-root {
+        justify-content: flex-start;
+      }
+      &:has(.Mui-checked) {
+        & .MuiIconButton-label {
+          color: $shuttleGray;
+        }
+        & .title,
+        .description {
+          color: #ffffff;
+        }
       }
     }
   }
