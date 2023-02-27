@@ -1,5 +1,5 @@
 // import modules
-import { Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid } from "@material-ui/core";
 import { Footer, Header, Loading, Button, Category } from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
@@ -77,11 +77,11 @@ const Home: React.FC = ({}) => {
     <>
       {/* {Loading} */}
       {loading && (
-        <div className={cx("container-loading")}>
-          <div className={cx("content-loading")}>
+        <Box className={cx("container-loading")}>
+          <Box className={cx("content-loading")}>
             <Loading />
-          </div>
-        </div>
+          </Box>
+        </Box>
       )}
 
       {/* {Header} */}
@@ -97,9 +97,9 @@ const Home: React.FC = ({}) => {
             {/* {Column left} */}
             <Grid item xs={12} md={3}>
               {/* Category */}
-              <div className="home-category" >
+              <Box className="home-category" >
                 <Category class="alo">{HOME_PAGE.title_cashless_payments_home}</Category>
-              </div>
+              </Box>
             </Grid>
 
             {/* {Column right} */}
