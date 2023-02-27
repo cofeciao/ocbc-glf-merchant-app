@@ -1,0 +1,30 @@
+@import '../../../assets/style/variable.scss';
+
+.group-item {
+  display: flex;
+  flex-direction: column;
+
+  .title {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: $tundora;
+  }
+
+  .content {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: $tundora;
+    margin-bottom: 30px;
+  }
+}
+
+.button-wrapper {
+  a {
+    text-decoration: none;
+    color: $dodgerBlue;
+  }
+}
