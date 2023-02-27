@@ -1,0 +1,22 @@
+@import "../../../assets/style/variable.scss";
+
+.company-and-contact-information-wrapper {
+  & .contact-details-wrapper {
+    & .formatted-numberphone-select {
+      .MuiSelect-icon {
+        border-right: 1px solid #e2e7ec;
+      }
+    }
+
+    & .formatted-numberphone-input {
+      height: 24px;
+      input {
+        padding-left: 10px;
+      }
+    }
+  }
+
+  & .button-wrapper {
+    justify-content: flex-end !important;
+  }
+}

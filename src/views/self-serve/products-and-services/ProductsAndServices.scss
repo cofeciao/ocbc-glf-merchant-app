@@ -1,0 +1,17 @@
+@import "../../../assets/style/variable.scss";
+
+.products-and-services-wrapper {
+  & .section-wrapper {
+    margin-bottom: 40px;
+    & .section-seperate {
+      display: none;
+    }
+  }
+  & .main-input-field {
+    margin-bottom: 40px;
+  }
+  & .header-wrapper,
+  .section-description {
+    margin-bottom: 16px !important;
+  }
+}
