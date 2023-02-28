@@ -13,7 +13,6 @@ export default [
   <Route exact path="/login" component={LoginPage} key="/login" />,
   <Route exact path="/welcome" component={Welcome} key="/welcome" />,
   <Route exact path="/launch-confirmtion" component={LaunchConfirmtion} key="/launch-confirmtion" />,
-  <Route exact path="/demo-form" component={DemoForm} key="/demo-form" />,
   <Route exact path="/manual-form/:slug" component={ContainerManual} key="/manual-form/:slug" />,
   <Route exact path="/self-serve" component={SelfServe} key="/self-serve" />,
   <Route exact path="/self-serve/:slug" component={SelfServe} key="/self-serve/:slug" />,
