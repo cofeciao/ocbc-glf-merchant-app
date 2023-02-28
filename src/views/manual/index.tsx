@@ -1,16 +1,8 @@
-/***
- * CONTAINER MANUAL
- *    >> child
- *      >> header
- *      >> form layout
- *      >> footer
- */
-
 // import modules
-import { ACCOUNT_INFORMATION, DATA_LENGTH, DATA_NON_REPRICING, DATA_REPRICING, DATA_STATE_REPRICING_LENGTHENING, DATA_TABS_DDA_BORROWER_MANUAL_LENGTH_ONLY, DATA_TABS_DDA_BORROWER_MANUAL_LENGTH_REPRICING, DATA_TABS_DDA_BORROWER_SINGPASS, DATA_TABS_DDA_FULL_SELECTED, DATA_TABS_DDA_MANUAL_FULL_SELECTED, DATA_TABS_NON_REPRICING_MANUAL_SELECTED, DATA_TABS_NON_REPRICING_SELECTED, DATA_TABS_REPRICING_MANUAL_SELECTED, DATA_TABS_REPRICING_NO_LIST_DOCUMENT_MANUAL_SELECTED, DATA_TABS_REPRICING_SELECTED, DATA_TABS_REP_NON_REPRICING_MANUAL_SELECTED, DATA_TABS_REP_NON_REPRICING_SELECTED, ERROR_DETAIL_ADDRESS, LIST_REQUEST_REPRICING, MANUAL, NON_REPRICING, PERSONAL_INFORMATION, PROPERTY_INFORMATION, REPRICING_REQUEST, REPRICING_SLUG, REVIEW, REVIEW_SLUG, TITLE_PAGE, YES } from '@/utils/constants';
+import { CONTACT_INFORMATION, DATA_TABS_NON_REPRICING_MANUAL_SELECTED, SERVICES_APPLIED, TITLE_PAGE } from '@/utils/constants';
+import _ from 'lodash';
+import { adobeAbandon } from '@/utils/adobeTracking';
 
-// import constant data
-// import RepricingRequest from '@/views/repricing-request';
 // import component lib
 import {
   Footer, FormLayout, Header, Tabs
@@ -20,17 +12,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from 'react-router';
 
 // import page
-// import PersonalInformation from './personal-information';
-// import NonRepricingRequest from '@/views/non-repricing-requests';
-// import PropertyInformation from '../property-information';
-// import AccountInformation from './account-information';
-// import ReviewSubmit from './review-submit';
-// import ReviewJoinBorrower from '@/views/manual/joint-borrower-review';
-import _ from 'lodash';
 import ContactInformation from './contact-information';
+import ServicesApplied from './services-applied';
 
 // render UI
-const RelationshipManagerPage = () => {
+const ContainerManual = () => {
   const { slug } = useParams();
   const history = useHistory();
   const childRef: any = useRef();
@@ -42,9 +28,9 @@ const RelationshipManagerPage = () => {
     // if (history.action === 'POP') {
     //   window.location.href = '/';
     // }
-    // let trackingEvent = window.attachEvent || window.addEventListener
-    // let chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'
-    // trackingEvent(chkevent, adobeAbandon);
+    let trackingEvent = window.attachEvent || window.addEventListener
+    let chkevent = window.attachEvent ? 'onbeforeunload' : 'beforeunload'
+    trackingEvent(chkevent, adobeAbandon);
   }, [])
 
   /**
@@ -64,6 +50,7 @@ const RelationshipManagerPage = () => {
  * @param {string} path - Slug for page 
  */
   const handleClick = (path: any) => {
+    console.log(path)
     if (childRef.current) {
       if (formReduxData.isBorrower) {
         if (childRef.current.validateForm()) {
@@ -97,8 +84,8 @@ const RelationshipManagerPage = () => {
         )}
         content={(
           <>
-            {<ContactInformation />}
-
+            {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
+            {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
           </>
         )}
       />
@@ -109,4 +96,4 @@ const RelationshipManagerPage = () => {
   )
 }
 
-export default RelationshipManagerPage;
+export default ContainerManual;

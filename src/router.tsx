@@ -7,7 +7,7 @@ import DemoForm from "./views/demo-form";
 import LoginPage from "./views/login";
 import LaunchConfirmtion from "./views/launch-confirmtion"
 import Welcome from "./views/welcome"
-import RelationshipManagerPage from "./views/relationship-manager";
+import ContainerManual from "./views/manual";
 
 export default [
   <Route exact path="/" component={Home} key="/" />,
@@ -15,6 +15,8 @@ export default [
   <Route exact path="/welcome" component={Welcome} key="/welcome" />,
   <Route exact path="/launch-confirmtion" component={LaunchConfirmtion} key="/launch-confirmtion" />,
   <Route exact path="/demo-form" component={DemoForm} key="/demo-form" />,
-  <Route exact path="/relationship-manager" component={RelationshipManagerPage} key="/relationship-manager" />,
+
+
+  <Route exact path="/manual-form/:slug" component={ContainerManual} key="/manual-form/:slug" />,
 
 ];
