@@ -6,6 +6,7 @@ import {
   SectionWrapper,
   Radio,
   CardCheckbox,
+  Checkbox
 } from '@sectionsg/orc';
 import { useHistory } from "react-router";
 import { Grid } from "@material-ui/core";
@@ -15,9 +16,20 @@ import { Link } from "react-router-dom";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconWelcome from "../../../assets/images/icon-welcome-login.svg";
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 // constants
-import { DATA_CARD_CHECKBOX_ACCEPTANCE1, DATA_CARD_CHECKBOX_ACCEPTANCE2, LIST_RADIO_QUESTION1, MSG_ERR_CARD_CHECKBOX, OTHER_SERVICES, URL_MANUAL_FLOW } from "@/utils/constants";
+import { 
+  DATA_CARD_CHECKBOX_ACCEPTANCE1, 
+  DATA_CARD_CHECKBOX_ACCEPTANCE2, 
+  LIST_ECOMMERCE, 
+  LIST_POINTS, 
+  LIST_RADIO_QUESTION1, 
+  LIST_REPAYMENT_PERIODS, 
+  MSG_ERR_CARD_CHECKBOX, 
+  OTHER_SERVICES, 
+  URL_MANUAL_FLOW } from "@/utils/constants";
 
 // import style
 import styles from "./ServicesApplied.scss";
@@ -30,6 +42,17 @@ const ServicesApplied= forwardRef(( ref) => {
   const [loading, setLoading] = useState(false);
   const [key, setKey] = useState<number>(0);
   const [agree, setAgree] = useState<boolean>(false);
+  const [seeMore, setSeeMore] = useState<boolean>(false);
+
+  const [groupCheckbox, setGroupCheckbox] = useState({
+    pointSales: false,
+    eCommerce: false,
+  });
+  const [groupCheckboxRepayment, setGroupCheckboxRepayment] = useState({
+    instalmentPaymentPlan: false,
+    directCurrencyConversion: false,
+    mailOrder: false,
+  });
 
   /**
    * Handle button prev
@@ -61,6 +84,38 @@ const ServicesApplied= forwardRef(( ref) => {
       )
     }
 
+    /**
+   * render UI List Checkbox
+   * @returns {HTML}
+   */
+  const renderListCheckboxTransaction = (label: string, list: any) => {
+    return (
+      <section className={cx("list-checkbox")}>
+        <div className={cx("label")}>{label}</div>
+        <Checkbox list={list} name="Accept rules" getValue={(value: string) => {
+          setKey(null);
+        }} />
+      </section>
+    )
+  }
+
+      /**
+   * render UI List Checkbox
+   * @returns {HTML}
+   */
+      const renderListCheckboxRepayment = (label: string, list: any) => {
+        // const renderIcon = !seeMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />;
+        return (
+          <section className={cx("list-checkbox-repayment")}>
+            <div className={cx("label")}>{label}</div>
+            <Checkbox list={list} name="Accept rules" getValue={(value: string) => {
+              setKey(null);
+            }} />
+            {/* <div className={cx('see-more')} onClick={() => setSeeMore(!seeMore)}>Show more repayment periods {renderIcon}</div> */}
+          </section>
+        )
+      }
+
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -90,11 +145,16 @@ const ServicesApplied= forwardRef(( ref) => {
                   checkboxKey={key}
                   getValue={(data: any) => {
                     console.log(data)
+                    setGroupCheckbox((preState) => ({
+                      ...preState,
+                      pointSales: data.checked
+                    }))
                     // handleGetValueCheckbox(data);
-                    // dispatch(saveListCheckbox(data));
                   }}
                   className={cx("item-card")}
                 />    
+                {groupCheckbox.pointSales && 
+                renderListCheckboxTransaction('Please select the payment options for your Point-of-Sales terminal', LIST_POINTS)}
               </Grid>
               <Grid item xs={12}>
                 <CardCheckbox
@@ -108,10 +168,14 @@ const ServicesApplied= forwardRef(( ref) => {
                   checkboxKey={key}
                   getValue={(data: any) => {
                     // handleGetValueCheckbox(data);
-                    // dispatch(saveListCheckbox(data));
-                  }}
+                    setGroupCheckbox((preState) => ({
+                      ...preState,
+                      eCommerce: data.checked
+                    }))                  }}
                   className={cx("item-card")}
-                />        
+                />      
+                {groupCheckbox.eCommerce && 
+                renderListCheckboxTransaction('Please select the payment options for your e-Commerce platform', LIST_ECOMMERCE)}
               </Grid>
             </Grid>
           </SectionWrapper>
@@ -122,50 +186,52 @@ const ServicesApplied= forwardRef(( ref) => {
           <Grid container spacing={3}>
             <Grid item xs={8}>
               <Radio
-              name="prepaymentInstructions"
-              listCheckBox={LIST_RADIO_QUESTION1}
-              label={OTHER_SERVICES.titleQuestions1}
-              radioKey={key}
-              value={true}
-              // getValue={(value: any) => {
-              //   setValueFormRedemption(
-              //     'prepaymentInstructions',
-              //     value,
-              //   );
-              // }}
-            />
+                name="instalmentPaymentPlan"
+                listCheckBox={LIST_RADIO_QUESTION1}
+                label={OTHER_SERVICES.titleQuestions1}
+                radioKey={key}
+                value={true}
+                getValue={(value: any) => {
+                  setGroupCheckboxRepayment((preState) => ({
+                    ...preState,
+                    instalmentPaymentPlan: value === 'Yes' ? true : false
+                  }))
+                }}
+              />
+              {groupCheckboxRepayment.instalmentPaymentPlan && 
+              renderListCheckboxRepayment('Please select repayment periods offered', LIST_REPAYMENT_PERIODS)}
             </Grid>
             <Grid item xs={4}></Grid>
             <Grid item xs={8}>
               <Radio
-              name="prepaymentInstructions"
-              listCheckBox={LIST_RADIO_QUESTION1}
-              label={OTHER_SERVICES.titleQuestions2}
-              radioKey={key}
-              value={true}
-              // getValue={(value: any) => {
-              //   setValueFormRedemption(
-              //     'prepaymentInstructions',
-              //     value,
-              //   );
-              // }}
-            />
+                name="directCurrencyConversion"
+                listCheckBox={LIST_RADIO_QUESTION1}
+                label={OTHER_SERVICES.titleQuestions2}
+                radioKey={key}
+                value={true}
+                getValue={(value: any) => {
+                  setGroupCheckboxRepayment((preState) => ({
+                    ...preState,
+                    directCurrencyConversion: value === 'Yes' ? true : false
+                  }))
+                }}
+              />
             </Grid>
             <Grid item xs={4}></Grid>
             <Grid item xs={8}>
               <Radio
-              name="prepaymentInstructions"
-              listCheckBox={LIST_RADIO_QUESTION1}
-              label={OTHER_SERVICES.titlequestions3}
-              radioKey={key}
-              value={true}
-              // getValue={(value: any) => {
-              //   setValueFormRedemption(
-              //     'prepaymentInstructions',
-              //     value,
-              //   );
-              // }}
-            />
+                name="mailOrder"
+                listCheckBox={LIST_RADIO_QUESTION1}
+                label={OTHER_SERVICES.titlequestions3}
+                radioKey={key}
+                value={true}
+                getValue={(value: any) => {
+                  setGroupCheckboxRepayment((preState) => ({
+                    ...preState,
+                    mailOrder: value === 'Yes' ? true : false
+                  }))
+                }}
+              />
             </Grid>
           </Grid>
         </SectionWrapper>

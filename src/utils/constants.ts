@@ -1706,12 +1706,91 @@ export const LIST_CHECKBOX_YES_NO = [
   },
 ];
 
-export const LIST_CHECKBOX_ACCEPT = [
+export const LIST_POINTS = [
   {
-    text: "",
+    text: "Union Pay",
+    check: false,
+  },
+  {
+    text: "JCB",
+    check: false,
+  },
+  {
+    text: "WeChat Pay",
+    check: false,
+  },
+  {
+    text: "Alipay",
+    check: false,
+  },  
+  {
+    text: "OCBC Instalment Payment Plan (IPP)",
+    check: false,
+  },
+  {
+    text: "AMEX",
+    check: false,
+  },
+  {
+    text: "Diners Club",
     check: false,
   },
 ];
+
+export const LIST_ECOMMERCE = [
+  {
+    text: "UnionPay",
+    check: false,
+  },
+   {
+    text: "JCB",
+    check: false,
+   },
+   {
+    text: "OCBC Instalment Payment Plan (IPP)",
+    check: false,
+  },
+];
+
+export const LIST_REPAYMENT_PERIODS = [
+  {
+    text: "3 months",
+    check: false,
+  },
+  {
+    text: "6 months",
+    check: false,
+  },
+  {
+    text: "12 months",
+    check: false,
+  },
+  {
+    text: "18 months",
+    check: false,
+  },
+  {
+    text: "24 months",
+    check: false,
+  },
+  {
+    text: "36 months",
+    check: false,
+  },
+  {
+    text: "48 months",
+    check: false,
+  },
+  {
+    text: "50 months",
+    check: false,
+  },
+  {
+    text: "60 months",
+    check: false,
+  },
+];
+
 
 export const LIST_SELECT_PURPOSE = [
   {
