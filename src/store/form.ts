@@ -1,11 +1,12 @@
-import {
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const Formslice = createSlice({
-  name: 'form',
+  name: "form",
   initialState: {
-    checkboxList: []
+    dataListCheckbox: [],
+    transactionAndCardAcceptanceTypeStep: {
+      dataListCheckbox: [],
+    },
   },
   reducers: {
     /**
@@ -13,14 +14,24 @@ const Formslice = createSlice({
      * @param state - State for form
      * @param action  - Payload
      */
-    saveListCheckbox: (state, action) => {
-      state.checkboxList = action.payload;
+    saveDataListCheckbox: (state, action) => {
+      state.dataListCheckbox = action.payload;
+    },
+
+    /**
+     * function save data of page
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataTransactionAndCardAcceptanceTypeStep: (state, action) => {
+      state.transactionAndCardAcceptanceTypeStep.dataListCheckbox = action.payload;
     },
   },
 });
 
 export const {
-  saveListCheckbox,
+  saveDataListCheckbox,
+  saveDataTransactionAndCardAcceptanceTypeStep,
 } = Formslice.actions;
 
 export default Formslice.reducer;

@@ -9,48 +9,331 @@ export const LANGUAGE = {
   ZH: "zh",
   EN: "en",
 };
-export const API_LINK = "https://test.api.myinfo.gov.sg/com/v3/authorise";
-export const REDIRECTURL =
-  "https://home-loan-services.ocbc-mfe.wearesection.com";
-export const REDIRECTURL_BAU =
-  "https://internet-uat.ocbc.com/personal-banking/loans/mortgage-form-repricing-bau";
-export const LIST_ATTRIBUTE_SIMULATOR =
-  "uinfin,name,aliasname,hanyupinyinname,hanyupinyinaliasname,marriedname,residentialstatus,birthcountry,sex,race,nationality,dob,email,mobileno,regadd,cpfcontributions,noa,hdbownership.outstandingloanbalance,hdbownership.monthlyloaninstalment,hdbownership.address,hdbownership.hdbtype,hdbownership.dateofpurchase,passexpirydate,passtype";
-export const ATTRIBUTE_LIST_REPRICING_LENGTHENING =
-  "email,mobileno,name,aliasname,hanyupinyinname,hanyupinyinaliasname,marriedname,nationality,residentialstatus,uinfin,sex,dob,birthcountry,race,passtype,passexpirydate,regadd,ownerprivate,cpfhousingwithdrawal,hdbownership.hdbtype,hdbownership.noofowners,hdbownership.dateofpurchase,hdbownership.dateofownershiptransfer,hdbownership.leasecommencementdate,hdbownership.termoflease,hdbownership.balanceloanrepayment,hdbownership.outstandingloanbalance,hdbownership.monthlyloaninstalment,hdbownership.address,noa,cpfcontributions";
-export const ATTRIBUTE_NONE_REPRICING =
-  "email,mobileno,name,aliasname,hanyupinyinname,hanyupinyinaliasname,marriedname,nationality,residentialstatus,uinfin,sex,dob,birthcountry,race,passtype,passexpirydate";
-export const APEX_APP_ID_REPRICING_LENGTHENING_UAT =
-  "STG-193200032W-OCBC-MORTGAGEREPRICE";
-export const SECRET_REPRICING_LENGTHENING_UAT =
-  "kbMksFgNFJFo7eHIVQqi4cX15wiVsjSg";
 
-export const APEX_APP_ID_NONE_REPRICING_UAT =
-  "STG-193200032W-OCBC-MORTGAGEPREPAYMENT";
-export const SECRET_NONE_REPRICING_UAT = "dcTplsUy3ouq8CTShv2ZuCJyv7SjBwVy";
+export const LIST_ROUTER = {
+  company_and_contact_information:
+    "/self-serve/company-and-contact-information",
+  transaction_and_card_acceptance_type:
+    "/self-serve/transaction-and-card-acceptance-type",
+  business_details: "/self-serve/business-details",
+  products_and_services: "/self-serve/products-and-services",
+};
 
-export const BANNER_STAGING =
-  "https://ocbc.ext1.wearesection.com/iwov-resources/sg/ocbc/personal/data/loans-loanservicing-maintenance.json";
-export const BANNER_PRODUCTION =
-  "https://www.ocbc.com/iwov-resources/sg/ocbc/personal/data/loans-loanservicing-maintenance.json";
+export const HOME_PAGE = {
+  title_cashless_payments_home: "Apply for OCBC Cashless Payments",
+  cashless_payments_methods: {
+    title: "Cashless payments methods",
+    description: "Which cashless payment methods are you applying for?",
+    messgase_error_list_checkbox: "Please select at least one service",
+    data_list_checkbox: [
+      {
+        label: "Credit/Debit cards",
+        description: "This Application will take about you 10 minutes",
+        value: "creditcards",
+        checked: false,
+      },
+      {
+        label: "Paynow",
+        value: "paynow",
+        checked: false,
+      },
+    ],
+  },
+  things_to_take_note_of: {
+    title: "Things to take note of",
+    list_item: [
+      "You will need to provide information on your business such as name, Unique Entity Number (UEN), fulfilment type, and sales forecast",
+      "Your business details will be pulled from ACRA to access your application",
+    ],
+  },
+};
 
-export const DATA_DOCUMENT_RESPONSE = {
-  LoanAttachmentMgmtResp: {
-    RespBody: {
-      Message: {
-        Results: [""],
+export const SELF_SERVE_PAGE = {
+  list_step: {
+    company_and_contact_information: {
+      id: "company-and-contact-information",
+      numerical: "0",
+      text: "Company and contact information",
+      check: false,
+      status: true,
+      data: {
+        id: "company-and-contact-information",
+        numerical: "0",
+        text: "Company and contact information",
+        check: false,
+        status: true,
+      },
+      section: {
+        company_registration: {
+          title: "Company registration",
+          description:
+            "Please enter your registered entity name and Unique Entity Number (UEN).",
+        },
+        contact_details: {
+          title: "Contact details",
+          description:
+            "Our Relationship Manager will reach out to you with these details.",
+        },
+      },
+    },
+    transaction_and_card_acceptance_type: {
+      id: "transaction-and-card-acceptance-type",
+      numerical: "1",
+      text: "Transaction and card acceptance type",
+      check: false,
+      status: true,
+      data: {
+        id: "transaction-and-card-acceptance-type",
+        numerical: "1",
+        text: "Transaction and card acceptance type",
+        check: false,
+        status: true,
+      },
+      section: {
+        which_service_are_you_applying_for: {
+          title: "Which service are you applying for?",
+          description:
+            "Both services automatically come with Mastercard and Visa. You may choose other card acceptance options.",
+          data_list_checkbox: [
+            {
+              label: "Point-of-Sales terminal",
+              value: "point-of-sales-terminal",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your Point-of-Sales terminal",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: false,
+                    value: "visa",
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: false,
+                    value: "mastercard",
+                  },
+                  {
+                    label: "UnionPay",
+                    checked: false,
+                    value: "unionPay",
+                  },
+                  {
+                    label: "JCB",
+                    checked: false,
+                    value: "jcb",
+                  },
+                  {
+                    label: "WeChat Pay",
+                    checked: false,
+                    value: "wechat-pay",
+                  },
+                  {
+                    label: "AliPay",
+                    checked: false,
+                    value: "alipay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    checked: false,
+                    value: "ocbc-ipp",
+                  },
+                  {
+                    label: "Diners Club",
+                    checked: false,
+                    value: "dinners-club",
+                  },
+                  {
+                    label: "AMEX",
+                    checked: false,
+                    value: "amex",
+                  },
+                  {
+                    label: "Paynow",
+                    checked: false,
+                    value: "paynow",
+                  },
+                ],
+              },
+            },
+            {
+              label: "e-Commerce",
+              value: "e-commerce",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your e-Commerce platform",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: false,
+                    value: "visa",
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: false,
+                    value: "mastercard",
+                  },
+                  {
+                    label: "JCB",
+                    checked: false,
+                    value: "jcb",
+                  },
+                  {
+                    label: "UnionPay",
+                    checked: false,
+                    value: "union-pay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    checked: false,
+                    value: "ocbc-ipp",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+    },
+    business_details: {
+      id: "business-details",
+      numerical: "2",
+      text: "Business details",
+      check: false,
+      status: true,
+      data: {
+        id: "business-details",
+        numerical: "2",
+        text: "Business details",
+        check: false,
+        status: true,
+      },
+      section: {
+        business_infomation: {
+          listRadioDescription: "Is your business ready for operation?",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          textFieldDescription:
+            "At how many outlets will you deploy Point-of-Sales terminals?",
+          textField: "",
+        },
+        website_infomation: {
+          listRadioDescription: "Is your business ready for operation?",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          textFieldDescription:
+            "At how many outlets will you deploy Point-of-Sales terminals?",
+          textField: "",
+        },
+        other_infomation: {
+          sections: [
+            {
+              listCheckboxDescription: "Is your business ready for operation?",
+              listCheckbox: [
+                {
+                  label: "Selling products",
+                  checked: false,
+                },
+                {
+                  label: "Providing services",
+                  checked: false,
+                },
+              ],
+            },
+            {
+              listCheckboxDescription:
+                "Do you currently have any of the following?",
+              listCheckbox: [
+                {
+                  label: "Office",
+                  checked: false,
+                },
+                {
+                  label: "Retail store",
+                  checked: false,
+                },
+                {
+                  label: "Warehouse",
+                  checked: false,
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    products_and_service: {
+      id: "products-and-services",
+      numerical: "3",
+      text: "Products and services",
+      check: false,
+      status: true,
+      data: {
+        id: "products-and-services",
+        numerical: "3",
+        text: "Products and services",
+        check: false,
+        status: true,
+      },
+      sections: {
+        is_your_business_offering: {
+          description:
+            "What products and/or services is your business offering?",
+          listRadioDescription:
+            "How quickly does your business fulfil these products and/or services?",
+          mainTextFieldLabel:
+            "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+          listRadio: [
+            {
+              text: "Immediate fulfillment",
+              checked: false,
+            },
+            {
+              text: "Fulfillment over a period of time",
+              checked: false,
+            },
+          ],
+        },
+        is_your_sales_forecast: {
+          description:
+            "Based on your products and/or services, what is your sales forecast?", 
+        },
+      },
+    },
+    review_and_submit: {
+      id: "review-and-submit",
+      numerical: "3",
+      text: "Review and submit",
+      check: false,
+      status: true,
+      data: {
+        id: "review",
+        numerical: "3",
+        text: "Review and submit",
+        check: false,
+        status: true,
       },
     },
   },
 };
 
-export const APEX_APP_ID_REPRICING_LENGTHENING_PROD =
-  "PROD-193200032W-OCBC-MORTGAGEREPRICE";
-export const SECRET_REPRICING_PROD = "k7siyudd7Mwn19cWBwUxQRMZ97uvdt1S";
-
-export const APEX_APP_ID_NONE_REPRICING_PROD =
-  "PROD-193200032W-OCBC-MORTGAGEPREPAYMENT";
-export const SECRET_PREPAYMENT_PROD = "p207G8uu5gEt0D3FJMFoiOrzl09AjH8e";
 export const ERROR = "error";
 
 export const TITLE_PAGE = "OCBC Cashless Payments";
@@ -101,6 +384,7 @@ export const LIST_DATA_INFORMATION = [
   "Lengthening of loan tenure",
 ];
 export const SINGAPORE = "Singapore";
+
 export const PERSONAL_INFORMATION = "personal-information";
 export const REPRICING_SLUG = "repricing-request";
 export const ERROR_OTP_MESSAGE =
@@ -711,6 +995,11 @@ export const DATA_TABS_REP_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
 ];
+
+export const NEXT = "Next";
+export const REVIEW = "Review";
+export const SUBMIT = "Submit";
+export const START = "START";
 
 export const LIST_COUNTRIES = [
   {
@@ -2435,386 +2724,144 @@ export const DOCUMENT_UPLOAD_UI = [
     label: "Passport",
   },
   {
-    key: "",
-    label: "IRAS NOA",
+    key: "SZ",
+    value: "Swaziland",
+  },
+  {
+    key: "SE",
+    value: "Sweden",
+  },
+  {
+    key: "CH",
+    value: "Switzerland",
+  },
+  {
+    key: "SY",
+    value: "Syrian Arab Republic",
+  },
+  {
+    key: "TW",
+    value: "Taiwan, Province of China",
+  },
+  {
+    key: "TJ",
+    value: "Tajikistan",
+  },
+  {
+    key: "TZ",
+    value: "Tanzania, United Republic of",
+  },
+  {
+    key: "TH",
+    value: "Thailand",
+  },
+  {
+    key: "TL",
+    value: "Timor-leste",
+  },
+  {
+    key: "TG",
+    value: "Togo",
+  },
+  {
+    key: "TK",
+    value: "Tokelau",
+  },
+  {
+    key: "TO",
+    value: "Tonga",
+  },
+  {
+    key: "TT",
+    value: "Trinidad and Tobago",
+  },
+  {
+    key: "TN",
+    value: "Tunisia",
+  },
+  {
+    key: "TR",
+    value: "Turkey",
+  },
+  {
+    key: "TM",
+    value: "Turkmenistan",
+  },
+  {
+    key: "TC",
+    value: "Turks and Caicos Islands",
+  },
+  {
+    key: "TV",
+    value: "Tuvalu",
+  },
+  {
+    key: "UG",
+    value: "Uganda",
+  },
+  {
+    key: "UA",
+    value: "Ukraine",
+  },
+  {
+    key: "AE",
+    value: "United Arab Emirates",
+  },
+  {
+    key: "UM",
+    value: "United States Minor Outlying Islands",
+  },
+  {
+    key: "UY",
+    value: "Uruguay",
+  },
+  {
+    key: "UZ",
+    value: "Uzbekistan",
+  },
+  {
+    key: "VU",
+    value: "Vanuatu",
+  },
+  {
+    key: "VE",
+    value: "Venezuela",
+  },
+  {
+    key: "VN",
+    value: "Viet Nam",
+  },
+  {
+    key: "VG",
+    value: "Virgin Islands, British",
+  },
+  {
+    key: "VI",
+    value: "Virgin Islands, U.S.",
   },
   {
     key: "",
-    label: "CPF Property Withdrawal",
+    value: "Wake Island",
   },
   {
-    key: "",
-    label: "HDB infoweb",
+    key: "WF",
+    value: "Wallis and Futuna",
   },
   {
-    key: "",
-    label: "Payslip",
+    key: "EH",
+    value: "Western Sahara",
   },
   {
-    key: "",
-    label: "CPF contribution",
-  },
-];
-export const LIST_DATA_UPLOAD = [
-  "IRAS Property Dashboard page obtained via",
-  "NRIC",
-  "Utilities bill dated within past 3 months showing your name and residential address",
-  "Past 12 months’ CPF contribution history",
-  "IRAS Notice of Assessment",
-  "CPF Property Withdrawal",
-  "HDB infoweb printout – Financial Info",
-  "Payslip",
-  "Passport",
-  "Past 3 months’ payslips",
-  "CPF Property Withdrawal Statement",
-];
-
-export const LIST_DATA_LABEL_UPLOAD = [
-  "Upload IRAS Property Dashboard page  ",
-  "Upload Front and back of NRIC",
-  "Upload Utilities bill dated within past 3 months showing your name and residential address",
-  "Upload Employer CPF contribution history (past 12 months)",
-  "Upload IRAS Notice of Assessment",
-  "Upload CPF Property Withdrawal",
-  "Upload HDB infoweb printout – Financial Info",
-  "Upload Payslip",
-  "Upload Passport",
-  "Upload Past 3 months’ payslips",
-  "Upload CPF Property Withdrawal Statement",
-];
-
-export const LIST_DATA_RENAMING_FILES = [
-  "IRAS Property Tax",
-  "NRIC",
-  "Utilities bill",
-  "CPF contribution",
-  "IRAS NOA",
-  "CPF Property Withdrawal",
-  "HDB infoweb",
-  "Payslip",
-  "Passport",
-  "Payslip",
-  "CPF Property Withdrawal",
-];
-
-export const LIST_DATA_LABEL_SHOW = [
-  "IRAS MyTax Portal Property Dashboard screenshot",
-  "Front and back of NRIC",
-  "Utilities bill dated within past 3 months showing your name and residential address",
-  "Employer CPF contribution history (past 12 months)",
-  "IRAS Notice of Assessment",
-  "CPF Property Withdrawal",
-  "HDB infoweb printout – Financial Info",
-  "Payslip",
-  "Passport",
-  "Past 3 months’ payslips",
-  "CPF Property Withdrawal Statement",
-];
-
-export const LIST_DOCUMENT_TENURE_2_INVEST_SG_NO_TERM = [
-  {
-    label: "Past 12 months’ CPF contribution history",
-    link: "",
-    href: "",
-    popupName: "CPF contributions",
+    key: "YE",
+    value: "Yemen",
   },
   {
-    label: "IRAS Notice of Assessment",
-    link: "",
-    href: "",
-    popupName: "NOA",
+    key: "ZM",
+    value: "Zambia",
   },
   {
-    label: "HDB infoweb printout – Financial Info",
-    link: "",
-    href: "",
-    popupName: "HDB",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_NONE_SG_NO_TERM = [
-  {
-    label: "IRAS Property Dashboard page obtained via",
-    link: "IRAS myTax portal",
-    href: "",
-    popupName: "IRAS",
-  },
-  {
-    label:
-      "Utilities bill dated within past 3 months showing your name and residential address",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_SG_HAVE_TERM = [
-  // {
-  //   label: 'IRAS Property Dashboard page obtained via',
-  //   link: 'IRAS myTax portal',
-  //   href: '',
-  //   popupName: 'IRAS'
-  // },
-  // {
-  //   label: 'NRIC',
-  //   link: '',
-  //   href: '',
-  //   popupName: ''
-  // },
-  // {
-  //   label: 'Past 12 months’ CPF contribution history',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'CPF contributions'
-  // },
-  // {
-  //   label: 'IRAS Notice of Assessment',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'NOA'
-  // },
-  {
-    label: "CPF Property Withdrawal",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "HDB infoweb printout – Financial Info",
-    link: "",
-    href: "",
-    popupName: "HDB",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_SG_HAVE_TERM_REPRICING_AND_NO_REPRICING_SG =
-  [
-    {
-      label: "CPF Property Withdrawal",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-    {
-      label: "HDB infoweb printout – Financial Info",
-      link: "",
-      href: "",
-      popupName: "HDB",
-    },
-    {
-      label: "NRIC",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-  ];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_SG_HAVE_TERM_REPRICING_AND_NO_REPRICING_NOT_SG =
-  [
-    {
-      label: "CPF Property Withdrawal",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-    {
-      label: "HDB infoweb printout – Financial Info",
-      link: "",
-      href: "",
-      popupName: "HDB",
-    },
-    {
-      label: "Passport",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-  ];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_NONE_SG_HAVE_TERM = [
-  {
-    label: "IRAS Property Dashboard page obtained via",
-    link: "IRAS myTax portal",
-    href: "",
-    popupName: "IRAS",
-  },
-  {
-    label:
-      "Utilities bill dated within past 3 months showing your name and residential address",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "Payslip",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "IRAS Notice of Assessment",
-    link: "",
-    href: "",
-    popupName: "NOA",
-  },
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_INVEST_NONE_SG_HAVE_TERM = [
-  // {
-  //   label: 'Past 12 months’ CPF contribution history',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'CPF contributions'
-  // },
-  // {
-  //   label: 'IRAS Notice of Assessment',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'NOA',
-  // },
-  {
-    label: "CPF Property Withdrawal Statement",
-    link: "",
-    href: "",
-    popupName: "CPF prop",
-  },
-  {
-    label: "HDB infoweb printout – Financial Info",
-    link: "",
-    href: "",
-    popupName: "HDB",
-  },
-];
-
-export const LIST_DOCUMENT_NON_REPRICING_SG = [
-  {
-    label: "NRIC",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_NON_REPRICING_NONE_SG = [
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_INVEST_NONE_SG_BOTH_TERM = [
-  {
-    label: "Past 3 months’ payslips",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "IRAS Notice of Assessment",
-    link: "",
-    href: "",
-    popupName: "NOA",
-  },
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_NATIONAL = [
-  {
-    key: "Singapore citizen/PR",
-    value: "Singapore citizen/PR",
-  },
-  {
-    key: "Foreigner",
-    value: "Foreigner",
-  },
-];
-
-export const LIST_TERM_LOAN = [
-  {
-    key: "do not have a term loan",
-    value: "do not have a term loan",
-  },
-  {
-    key: "have a term loan",
-    value: "have a term loan",
-  },
-];
-
-export const DATA_DOCUMENT = {
-  documentYouNeed: `Documents you’ll need if you are a`,
-  and: "and",
-  forYourMortgaged: "for your mortgaged property.",
-};
-
-export const NEXT = "Next";
-export const REVIEW = "Review";
-export const SUBMIT = "Submit";
-export const APPLY_WITH_SINGPASS = "Apply with Singpass";
-export const LOGIN_WITH_OCBC_MYINFO_SIMULATOR =
-  "Login with OCBC Myinfo Simulator";
-export const LOGIN_WITH_SINGPASS = "Log in with Singpass";
-export const SPEED_UP_APPLICATION = "Speed up application?";
-export const DONT_HAVE_SINGPASS = `Do not have Singpass?`;
-export const FILL_IN_ONLINE_APPLICATION_FORM =
-  "Fill in online application form";
-export const WHAT_SERVICING_REQUEST =
-  "What request(s) would you like to make today?";
-export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
-export const REVIEW_SLUG = "review";
-export const LIST_ACCOUNT_NUMBER = [
-  {
-    name: "one",
-    value: "1",
-  },
-  {
-    name: "two",
-    value: "2",
-  },
-  {
-    name: "three",
-    value: "3",
-  },
-  {
-    name: "four",
-    value: "4",
-  },
-];
-
-export const LIST_BORROWER_NUMBER = [
-  {
-    name: "Only myself",
-    value: "Only myself",
-  },
-  {
-    name: "2 borrowers",
-    value: "2 borrowers",
-  },
-  {
-    name: "3 borrowers",
-    value: "3 borrowers",
-  },
-  {
-    name: "4 borrowers",
-    value: "4 borrowers",
+    key: "ZW",
+    value: "Zimbabwe",
   },
 ];
 

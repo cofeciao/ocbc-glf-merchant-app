@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "webpack --env.file=staging --mode=development --config webpack.config.js",
-    "start": "webpack-dev-server --env.file=staging --mode=development --port 9000 --config webpack.config.js",
+    "build": "webpack --env.file=development --mode=development --config webpack.config.js",
+    "start": "webpack-dev-server --env.file=development --mode=development --port 9000 --config webpack.config.js",
     "build:staging": "webpack --env.file=staging --mode=development --config webpack.config.js",
     "build:bau": "webpack --env.file=bau --mode=none --config webpack.config.js",
     "build:uat": "webpack --env.file=uat --mode=none --config webpack.config.js",
