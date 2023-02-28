@@ -1,4 +1,4 @@
-declare namespace IDemoForm {
+declare namespace ISelfServe {
   export interface IDataCheckItem {
     data: any,
     checked: boolean,
@@ -25,4 +25,4 @@ declare namespace IDemoForm {
   }
 }
 
-export { IDemoForm };
+export { ISelfServe };

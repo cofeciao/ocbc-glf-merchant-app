@@ -1,0 +1,68 @@
+@import "../../assets/style/variable.scss";
+
+.home-page-wrapper {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 61px;
+
+  & .home-category {
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+
+  .title-checkbox {
+    @media (max-width: 1024px) {
+      padding-left: 0;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 767px) {
+      font-size: $fzH6;
+    }
+  }
+
+  & .home-things-to-take-note-section {
+    margin-bottom: 36px;
+    & .section-title {
+      margin-bottom: 40px;
+      font-family: "Open Sans";
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 32px;
+      color: #363b40;
+    }
+    .things-to-take-note-item {
+      display: flex;
+      gap: 9px;
+      align-items: baseline;
+      & .text-content {
+        color: #777e87;
+      }
+    }
+  }
+
+  & .home-cashless-payment-methods-section {
+    margin-bottom: 40px;
+    & .section-title {
+      margin-bottom: 16px;
+      font-family: "Open Sans";
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 32px;
+      color: #363b40;
+    }
+    & .section-description {
+      margin-bottom: 40px;
+      font-family: "Open Sans";
+      font-weight: 400;
+      font-size: $fzH5;
+      line-height: 28px;
+      color: #777e87;
+    }
+  }
+}
