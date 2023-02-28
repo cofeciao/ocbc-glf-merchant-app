@@ -3,7 +3,6 @@ import { Route } from "react-router-dom";
 import GlobalContext from "./common/GlobalContext";
 import Home from "./views/home";
 import SelfServe from "./views/self-serve";
-import Home from "./views/landing";
 import DemoForm from "./views/demo-form";
 import LoginPage from "./views/login";
 import LaunchConfirmtion from "./views/launch-confirmtion"

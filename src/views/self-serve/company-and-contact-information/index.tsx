@@ -11,7 +11,7 @@ import { formatNameField, preventSpecialCharacters } from "@/utils/utils";
 import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
-import styles from "./CompanyAndContactinformation.scss";
+import styles from "./CompanyAndContactInformation.scss";
 
 // import types
 
