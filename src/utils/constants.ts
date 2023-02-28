@@ -70,12 +70,14 @@ export const URL_SINGPASS_FLOW = {
 };
 
 export const URL_MANUAL_FLOW = {
-  personalInformation: "/manual-form/personal-information",
-  propertyInformation: "/manual-form/property-information",
-  accountInformation: "/manual-form/account-information",
-  repricingRequest: "/manual-form/repricing-request",
-  nonRepricingRequest: "/manual-form/non-repricing-request",
-  review: "/manual-form/review",
+  contactInformation: "/manual-form/contact-information",
+  servicesApplied: "/manual-form/services-applied",
+  businessOperation: "/manual-formbusiness-operation",
+  productsServices: "/manual-form/products-services",
+  feeRates: "/manual-form/fee-rates",
+  sensitiveData: "/manual-form/sensitive-data",
+  beneficialOwnership: "/manual-form/beneficial-ownership",
+  supplementaryDocument: "/manual-form/supplement-document"
 };
 export const URL_PERSONAL_BORROWER_MANUAL =
   "/manual-form/borrower/personal-information";
@@ -128,8 +130,17 @@ export const UPLOAD_FILE_PASSPORT = "Passport";
 export const PLEASE_UPLOAD_A_DOCUMENT = "Please upload a document";
 export const YOU_CAN_UPLOAD_UP_TO_TWO_DOCUMENTS =
   "You can upload up to 2 documents";
-export const CONTACT_INFORMATION = "Contact information";
 export const NO_UPLOAD_DOCUMENT = "No documents required for this request";
+  
+export const CONTACT_INFORMATION = "contact-information";
+export const SERVICES_APPLIED = "services-applied";
+export const BUSINESS_OPERATION = "business-operation";
+export const PRODUCTS_SERVICES = "products-services";
+export const FEE_RATES = "fee-rates";
+export const SENSITIVE_DATA = "sensitive-data";
+export const BENEFICIAL_OWNERSHIP = "benefical-ownership";
+export const SUPPLEMENTARY_DOCUMENT = "supplementary-document";
+
 
 export const ERROR_DETAIL_ADDRESS = {
   ErrorCode: "0120",
@@ -154,6 +165,24 @@ export const DATA_CARD_CHECKBOX = [
     checked: false,
   },
 ];
+
+export const DATA_CARD_CHECKBOX_ACCEPTANCE1= [
+  {
+    label: 'Point-of-Sales terminal',
+    value: "point-of-sales-terminal",
+    checked: false,
+  },
+];
+
+export const DATA_CARD_CHECKBOX_ACCEPTANCE2= [
+  {
+    label: 'e-Commerce',
+    value: "ecommerce",
+    checked: false,
+  },
+];
+
+
 export const PERSONAL_INFORMATION_SINGPASS = {
   emailAddress: "iamtracy@gmail.com",
   countryPhoneNumber: "Singapore",
@@ -565,28 +594,28 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
   },
   {
     id: "review",
-    numerical: "4",
+    numerical: "5",
     text: "Sensitive data",
     check: false,
     status: true,
   },
   {
     id: "review",
-    numerical: "4",
+    numerical: "6",
     text: "Benefit ownership of company",
     check: false,
     status: true,
   },
   {
     id: "review",
-    numerical: "4",
+    numerical: "7",
     text: "Supplement documents",
     check: false,
     status: true,
   },
   {
     id: "review",
-    numerical: "4",
+    numerical: "8",
     text: "Review and submit",
     check: false,
     status: true,
@@ -1721,14 +1750,14 @@ export const LIST_TERM_LOAN_YES_NO = [
   },
 ];
 
-export const LIST_RADIO_PREPAYMENT_INSTRUCTIONS = [
+export const LIST_RADIO_QUESTION1 = [
   {
-    text: "I agree to deduct the full redemption amount from the OCBC account used for my monthly instalments.",
+    text: "Yes",
     checked: false,
     disable: false,
   },
   {
-    text: "I will arrange for my appointed law firm to inform the Bank regarding the mode of settlement, including the use of CPF funds if relevant.",
+    text: "No",
     checked: false,
     disable: false,
   },
@@ -4074,16 +4103,11 @@ export const LIST_PROPERTY = ["Local", "Overseas"];
 
 export const LIST_PROPERTY_COUNTRY = ["Singapore", "Foreigner"];
 
-export const DAT_FULL_REDEMPTION_OF_ALL_LOANS = {
-  subTitleTwoMonths:
-    "Your prepayment date will be 2 months from now so that there will not be any interest-in-lieu payable. If your loan is tagged to Singapore Inter-Bank Offer Rate (SIBOR), Singapore Overnight Rate (SOR) or Cost of Funds, the prepayment date will be the next Rate Review Date (RRD) following the 2 months’ notice period. If the RRD does not fall on a working day, prepayment should be made on the preceding working day to avoid incurring any prepayment fee.",
-  subTitleThreeMonths:
-    "Your prepayment date will be 3 months from now so that there will not be any interest-in-lieu payable. If your loan is tagged to Singapore Inter-Bank Offer Rate (SIBOR), Singapore Overnight Rate (SOR) or Cost of Funds, the prepayment date will be the next Rate Review Date (RRD) following the 3 months’ notice period. If the RRD does not fall on a working day, prepayment should be made on the preceding working day to avoid incurring any prepayment fee.",
-  labelLawFirmAppointment: "Law firm appointment",
-  labelInput: "Law firm you want to appoint",
-  helperTextInput: "Provide full business name",
-  labelRadio: "Mode of settlement",
-};
+export const OTHER_SERVICES = {
+  titleQuestions1: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+  titleQuestions2: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+  titlequestions3: "Are you interested in Mail Order /Telephone Order?"
+}
 
 export const ACCOUNT_REQUEST = ["Single", "Multiple"];
 export const LIST_DOCUMENT_REQUEST = [

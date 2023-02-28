@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { forwardRef, useImperativeHandle, useState } from "react";
 import {
   Loading,
   Button,
@@ -20,14 +20,14 @@ import IconWelcome from "../../../assets/images/icon-welcome-login.svg";
 import styles from "./ContactInformation.scss";
 import { useHistory } from "react-router";
 import { Grid } from "@material-ui/core";
-import { DATA_LENGTHENING_OF_LOAN_TENURE, LIST_COUNTRIES_CODE } from "@/utils/constants";
+import { DATA_LENGTHENING_OF_LOAN_TENURE, LIST_COUNTRIES_CODE, URL_MANUAL_FLOW } from "@/utils/constants";
 import { PERSONAL_INFORMATION_SINGPASS } from "@/utils/constants";
 import { formatNameField, preventSpecialCharacters, restrictEmail } from "@/utils/utils";
 import { Link } from "react-router-dom";
 import { IContactInformation } from "./ContactInformation";
 
 
-const ContactInformation = () => {
+const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ handleCallAPI }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   
@@ -55,6 +55,7 @@ const ContactInformation = () => {
    * Handle button next
    */
    const handleNext = async () => {
+    history.push(URL_MANUAL_FLOW.servicesApplied);
     
   }
 
@@ -91,6 +92,22 @@ const ContactInformation = () => {
       [name]: value,
       [`error${formatNameField(name)}`]: error !== "",
   });
+
+    /**
+   * handle back to page when click on stepper
+   */
+    useImperativeHandle(ref, () => ({
+
+      validateForm() {
+        // if (formReduxData.form) {
+        //   // if (_.isEmpty(formReduxData.form.personalInformation)) {
+        //   //   return true;
+        //   // }
+        //   return handleNext();
+        // }
+        return true;
+      },
+    }));
 
   return (
     <React.Fragment>
@@ -259,6 +276,6 @@ const ContactInformation = () => {
     </React.Fragment>
   )
 
-}
+});
 
 export default ContactInformation;
