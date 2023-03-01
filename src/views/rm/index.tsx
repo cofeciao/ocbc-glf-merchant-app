@@ -60,11 +60,11 @@ const ContainerManual = () => {
     if (childRef.current) {
       if (formReduxData.isBorrower) {
         if (childRef.current.validateForm()) {
-          history.push(`/rm/manual-form/borrower/${path}`);
+          history.push(`/rm/borrower/${path}`);
         }
       } else {
         if (childRef.current.validateForm()) {
-          history.push(`/rm/manual-form/${path}`);
+          history.push(`/rm/${path}`);
         }
         childRef.current.handleNextPage();
       }

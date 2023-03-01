@@ -99,24 +99,24 @@ export const trackingData = (path: string, type: string) => {
       }
     } else {
       if (dataCardCheckbox.length >= 2 && _.includes(dataCardCheckbox, DATA_CARD_CHECKBOX[0].label) && !_.includes(dataCardCheckbox, DATA_CARD_CHECKBOX[1].label)) {
-        if (path === '/manual-form/repricing-request') {
+        if (path === '/rm/repricing-request') {
           window.ocbcData.page.applicationInfo.applicationStep4 = 'true';
         }
-        if (path === '/manual-form/non-repricing-request') {
+        if (path === '/rm/non-repricing-request') {
           window.ocbcData.page.applicationInfo.applicationStep5 = 'true';
         }
-        if (path === '/manual-form/review') {
+        if (path === '/rm/review') {
           window.ocbcData.page.applicationInfo.applicationStep6 = 'true';
         }
       } else if (dataCardCheckbox.length == 2 && _.includes(dataCardCheckbox, DATA_CARD_CHECKBOX[0].label) && _.includes(dataCardCheckbox, DATA_CARD_CHECKBOX[1].label)) {
-        if (path === '/manual-form/non-repricing-request') {
+        if (path === '/rm/non-repricing-request') {
           window.ocbcData.page.applicationInfo.applicationStep4 = 'true';
         }
-        if (path === '/manual-form/review') {
+        if (path === '/rm/review') {
           window.ocbcData.page.applicationInfo.applicationStep5 = 'true';
         }
       } else {
-        if (path === '/manual-form/review') {
+        if (path === '/rm/review') {
           window.ocbcData.page.applicationInfo.applicationStep4 = 'true';
         }
       }

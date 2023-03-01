@@ -14,14 +14,14 @@ export const SUPPLEMENTARY_DOCUMENT = "supplementary-document";
 export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 
 export const URL_MANUAL_FLOW = {
-  contactInformation: "/rm/manual-form/contact-information",
-  servicesApplied: "/rm/manual-form/services-applied",
-  businessOperation: "/rm/manual-formbusiness-operation",
-  productsServices: "/rm/manual-form/products-services",
-  feeRates: "/rm/manual-form/fee-rates",
-  sensitiveData: "/rm/manual-form/sensitive-data",
-  beneficialOwnership: "/rm/manual-form/beneficial-ownership",
-  supplementaryDocument: "/rm/manual-form/supplement-document"
+  contactInformation: "/rm/contact-information",
+  servicesApplied: "/rm/services-applied",
+  businessOperation: "/rm/formbusiness-operation",
+  productsServices: "/rm/products-services",
+  feeRates: "/rm/fee-rates",
+  sensitiveData: "/rm/sensitive-data",
+  beneficialOwnership: "/rm/beneficial-ownership",
+  supplementaryDocument: "/rm/supplement-document"
 };
 
 export const PERSONAL_INFORMATION_SINGPASS = {
