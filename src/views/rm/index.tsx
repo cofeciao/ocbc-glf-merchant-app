@@ -1,5 +1,4 @@
 // import modules
-import { CONTACT_INFORMATION, DATA_TABS_NON_REPRICING_MANUAL_SELECTED, SERVICES_APPLIED, TITLE_PAGE } from '@/utils/constants';
 import _ from 'lodash';
 import { adobeAbandon } from '@/utils/adobeTracking';
 
@@ -10,6 +9,13 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from 'react-router';
+
+// import constants
+import { 
+  CONTACT_INFORMATION, 
+  DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
+  SERVICES_APPLIED, TITLE_PAGE 
+} from '@/utils/constants-rm';
 
 // import page
 import ContactInformation from './contact-information';
@@ -54,11 +60,11 @@ const ContainerManual = () => {
     if (childRef.current) {
       if (formReduxData.isBorrower) {
         if (childRef.current.validateForm()) {
-          history.push(`/manual-form/borrower/${path}`);
+          history.push(`/rm/manual-form/borrower/${path}`);
         }
       } else {
         if (childRef.current.validateForm()) {
-          history.push(`/manual-form/${path}`);
+          history.push(`/rm/manual-form/${path}`);
         }
         childRef.current.handleNextPage();
       }
