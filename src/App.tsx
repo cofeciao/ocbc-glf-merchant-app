@@ -50,7 +50,6 @@ const App = (props: MFEPropsType) => {
             <HashRouter>
               <Switch>{routerRules}</Switch>
             </HashRouter>
-            <Redirect to="/" />
           </Router>
           {process.env.env !== "prod" && process.env.env !== "staging" && (
             <div className="check-build">
