@@ -8,9 +8,15 @@ import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
+import _ from "lodash";
 
 // import constants
-import { CONTINUE_LATER, LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
+import {
+  CONTINUE_LATER,
+  LIST_ROUTER,
+  NEXT,
+  SELF_SERVE_PAGE,
+} from "@/utils/constants";
 
 // import style
 import styles from "./TransactionAndCardAcceptanceType.scss";
@@ -39,6 +45,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const [dataCheckbox, setDataCheckbox] = useState(
     which_service_are_you_applying_for.data_list_checkbox
   );
+  const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
   /**
    * Get data from list check box
@@ -60,8 +67,17 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
    * Handle update state when dataListCheckbox updated from store
    */
   useEffect(() => {
-    if (dataListCheckbox && !!dataListCheckbox.length) {
+    if (!_.isEmpty(dataListCheckbox)) {
       setDataCheckbox(dataListCheckbox);
+
+      // find selected item to enable the next button
+      const findSelected = _.find(
+        dataListCheckbox,
+        (item) => item.checked === true
+      );
+      findSelected === undefined
+        ? setDisabledButton(true)
+        : setDisabledButton(false);
     }
   }, [dataListCheckbox]);
 
@@ -73,6 +89,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
+        disabled={disabledButton}
         onClick={() => {
           history.push(LIST_ROUTER.business_details);
         }}
