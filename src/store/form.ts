@@ -18,7 +18,7 @@ const Formslice = createSlice({
      * @param action  - Payload
      */
     saveDataListCheckbox: (state, action) => {
-      state.companyAndContactInformationStep.data = action.payload;
+      state.dataListCheckbox = action.payload;
     },
 
     /**
