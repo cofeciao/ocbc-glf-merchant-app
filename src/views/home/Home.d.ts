@@ -1,3 +1,5 @@
+import { IListCheckBox } from "@/components/ListCheckBox/ListCheckBox";
+
 declare namespace IHome {
   export interface IDataCheckItem {
     data: any,
@@ -29,7 +31,7 @@ declare namespace IHome {
     description: string,
     errorMessage: string,
     checkboxKey: number,
-    dataCardCheckbox: IListSelect[],
+    dataCardCheckbox: IItemCheckbox[],
     handleGetValueCheckbox?: (value: IDataCheckItem) => void
   }
 
