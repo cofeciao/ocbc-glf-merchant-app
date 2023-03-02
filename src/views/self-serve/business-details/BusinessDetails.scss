@@ -1,5 +1,12 @@
 @import "../../../assets/style/variable.scss";
 
 .transaction-and-card-acceptance-type-wrapper {
-  
+  & .sub-section-title {
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: #363B40;
+
+  }
 }

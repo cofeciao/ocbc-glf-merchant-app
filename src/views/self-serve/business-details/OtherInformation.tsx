@@ -1,23 +1,14 @@
 // import modules
-import { Radio, Button } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ListCheckBox from "@/components/ListCheckBox";
-import { saveDataListCheckbox } from "@/store/form";
+import React from "react";
 import {
   Box,
   Checkbox,
   FormControlLabel,
   Grid,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
-
-// import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import _ from "lodash";
 
 // import style
 import styles from "./BusinessDetails.scss";
@@ -28,15 +19,17 @@ import styles from "./BusinessDetails.scss";
 const OtherInformation: React.FC<any> = (props) => {
   const { sections } = props;
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
-  const history = useHistory();
 
   return (
-    <Box display="flex" flexDirection="column" gridRowGap="40px" className={cx("other-information-wrapper")}>
-      {sections.map((section: any) => {
+    <Box
+      display="flex"
+      flexDirection="column"
+      gridRowGap="40px"
+      className={cx("other-information-wrapper")}
+    >
+      {_.map(sections, (section: any, index: number) => {
         return (
-          <Grid container>
+          <Grid key={index} container>
             <Grid item xs={12}>
               {/* {Description} */}
               {section.listCheckboxDescription && (
@@ -47,15 +40,15 @@ const OtherInformation: React.FC<any> = (props) => {
 
               {/* {List Checkbox} */}
               {section.listCheckbox && (
-                <Box display="flex" flexDirection="column"> 
-                  {section.listCheckbox.map((checkbox: any) => {
+                <Box display="flex" flexDirection="column">
+                  {section.listCheckbox.map((checkbox: any, idx: number) => {
                     return (
                       <FormControlLabel
+                        key={idx}
                         control={
                           <Checkbox
                             checked={checkbox.checked}
-                            // onChange={handleChange}
-                            name="checkedB"
+                            name="checked"
                             color="primary"
                           />
                         }

@@ -16,6 +16,7 @@ export const LIST_ROUTER = {
     "/self/transaction-and-card-acceptance-type",
   business_details: "/self/business-details",
   products_and_services: "/self/products-and-services",
+  review_and_submit: "/self/review-and-submit",
 };
 
 export const ERROR_ICON = "\u26A0";
@@ -183,7 +184,7 @@ export const SELF_SERVE_PAGE = {
           data_list_checkbox: [
             {
               label: "Point-of-Sales terminal",
-              value: "point-of-sales-terminal",
+              value: "point-of-sales",
               checked: false,
               expandedListCheckbox: {
                 description:
@@ -295,73 +296,331 @@ export const SELF_SERVE_PAGE = {
         check: false,
         status: true,
       },
-      section: {
-        business_infomation: {
-          listRadioDescription: "Is your business ready for operation?",
-          listRadio: [
-            {
-              text: "Yes",
-              checked: false,
+      forms: {
+        pointOfSales: {
+          sections: {
+            business_infomation: {
+              title: "Point-of-Sales terminal",
+              subTitle: "Business information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Is your business ready for operation?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Do you currently have an OCBC business account?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description:
+                    "At how many outlets will you deploy Point-of-Sales terminals?",
+                  label: "eg. 10",
+                },
+              },
             },
-            {
-              text: "No",
-              checked: false,
+            website_infomation: {
+              title: "Website information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Do you have an existing website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Can customers place orders through your website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description: "Your website’s URL",
+                  label: "e.g. www.xxx.com",
+                },
+              },
             },
-          ],
-          textFieldDescription:
-            "At how many outlets will you deploy Point-of-Sales terminals?",
-          textField: "",
-        },
-        website_infomation: {
-          listRadioDescription: "Is your business ready for operation?",
-          listRadio: [
-            {
-              text: "Yes",
-              checked: false,
-            },
-            {
-              text: "No",
-              checked: false,
-            },
-          ],
-          textFieldDescription:
-            "At how many outlets will you deploy Point-of-Sales terminals?",
-          textField: "",
-        },
-        other_infomation: {
-          sections: [
-            {
-              listCheckboxDescription: "Is your business ready for operation?",
-              listCheckbox: [
+            other_infomation: {
+              title: "Other information",
+              sections: [
                 {
-                  label: "Selling products",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Is your business ready for operation?",
+                  listCheckbox: [
+                    {
+                      label: "Selling products",
+                      checked: false,
+                    },
+                    {
+                      label: "Providing services",
+                      checked: false,
+                    },
+                  ],
                 },
                 {
-                  label: "Providing services",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Do you currently have any of the following?",
+                  listCheckbox: [
+                    {
+                      label: "Office",
+                      checked: false,
+                    },
+                    {
+                      label: "Retail store",
+                      checked: false,
+                    },
+                    {
+                      label: "Warehouse",
+                      checked: false,
+                    },
+                  ],
                 },
               ],
             },
-            {
-              listCheckboxDescription:
-                "Do you currently have any of the following?",
-              listCheckbox: [
+          },
+        },
+        pointOfSalesAndEcommerce: {
+          sections: {
+            business_infomation: {
+              title: "Point-of-Sales terminal",
+              subTitle: "Business information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Is your business ready for operation?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Do you currently have an OCBC business account?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description:
+                    "At how many outlets will you deploy Point-of-Sales terminals?",
+                  label: "eg. 10",
+                },
+              },
+            },
+            website_infomation: {
+              title: "Website information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Do you have an existing website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Can customers place orders through your website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+            other_infomation: {
+              title: "Other information",
+              sections: [
                 {
-                  label: "Office",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Is your business ready for operation?",
+                  listCheckbox: [
+                    {
+                      label: "Selling products",
+                      checked: false,
+                    },
+                    {
+                      label: "Providing services",
+                      checked: false,
+                    },
+                  ],
                 },
                 {
-                  label: "Retail store",
-                  checked: false,
-                },
-                {
-                  label: "Warehouse",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Do you currently have any of the following?",
+                  listCheckbox: [
+                    {
+                      label: "Office",
+                      checked: false,
+                    },
+                    {
+                      label: "Retail store",
+                      checked: false,
+                    },
+                    {
+                      label: "Warehouse",
+                      checked: false,
+                    },
+                  ],
                 },
               ],
             },
-          ],
+          },
+        },
+        ecommerce: {
+          sections: {
+            business_infomation: {
+              title: "",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Is your business ready for operation?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Do you currently have an OCBC business account?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+              },
+            },
+            website_infomation: {
+              listRadioDescription: "Is your business ready for operation?",
+              listRadio: [
+                {
+                  text: "Yes",
+                  checked: true,
+                },
+                {
+                  text: "No",
+                  checked: false,
+                },
+              ],
+              textFieldDescription:
+                "At how many outlets will you deploy Point-of-Sales terminals?",
+              textField: "",
+            },
+            other_infomation: {
+              title: "Other information",
+              sections: [
+                {
+                  listCheckboxDescription:
+                    "Is your business ready for operation?",
+                  listCheckbox: [
+                    {
+                      label: "Selling products",
+                      checked: false,
+                    },
+                    {
+                      label: "Providing services",
+                      checked: false,
+                    },
+                  ],
+                },
+                {
+                  listCheckboxDescription:
+                    "Do you currently have any of the following?",
+                  listCheckbox: [
+                    {
+                      label: "Office",
+                      checked: false,
+                    },
+                    {
+                      label: "Retail store",
+                      checked: false,
+                    },
+                    {
+                      label: "Warehouse",
+                      checked: false,
+                    },
+                  ],
+                },
+              ],
+            },
+          },
         },
       },
     },
@@ -405,13 +664,13 @@ export const SELF_SERVE_PAGE = {
     },
     review_and_submit: {
       id: "review-and-submit",
-      numerical: "3",
+      numerical: "4",
       text: "Review and submit",
       check: false,
       status: true,
       data: {
-        id: "review",
-        numerical: "3",
+        id: "review-and-submit",
+        numerical: "4",
         text: "Review and submit",
         check: false,
         status: true,
