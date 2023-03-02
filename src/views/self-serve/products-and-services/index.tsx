@@ -20,7 +20,7 @@ import styles from "./ProductsAndServices.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import IsYourSalesForecast from "./IsYourSalesForecast";
-import IsYourBusinessOffering from "./ IsYourBusinessOffering";
+import IsYourBusinessOffering from "./IsYourBusinessOffering";
 
 // render UI
 const ProductsAndServices: React.FC<any> = () => {
@@ -50,7 +50,7 @@ const ProductsAndServices: React.FC<any> = () => {
       <Button
         backgroundClass="bgGunmetalBluegrey"
         onClick={() => {
-          history.push(LIST_ROUTER.business_details);
+          history.push(LIST_ROUTER.review_and_submit);
         }}
       >
         <>
