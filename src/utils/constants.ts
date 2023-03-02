@@ -299,7 +299,7 @@ export const SELF_SERVE_PAGE = {
       forms: {
         pointOfSales: {
           sections: {
-            business_infomation: {
+            businessInfomation: {
               title: "Point-of-Sales terminal",
               subTitle: "Business information",
               listField: {
@@ -339,7 +339,7 @@ export const SELF_SERVE_PAGE = {
                 },
               },
             },
-            website_infomation: {
+            websiteInfomation: {
               title: "Website information",
               listField: {
                 listRadio: [
@@ -377,7 +377,7 @@ export const SELF_SERVE_PAGE = {
                 },
               },
             },
-            other_infomation: {
+            otherInfomation: {
               title: "Other information",
               sections: [
                 {
@@ -418,7 +418,7 @@ export const SELF_SERVE_PAGE = {
         },
         pointOfSalesAndEcommerce: {
           sections: {
-            business_infomation: {
+            businessInfomation: {
               title: "Point-of-Sales terminal",
               subTitle: "Business information",
               listField: {
@@ -458,7 +458,7 @@ export const SELF_SERVE_PAGE = {
                 },
               },
             },
-            website_infomation: {
+            websiteInfomation: {
               title: "Website information",
               listField: {
                 listRadio: [
@@ -492,7 +492,7 @@ export const SELF_SERVE_PAGE = {
                 ],
               },
             },
-            other_infomation: {
+            otherInfomation: {
               title: "Other information",
               sections: [
                 {
@@ -533,8 +533,8 @@ export const SELF_SERVE_PAGE = {
         },
         ecommerce: {
           sections: {
-            business_infomation: {
-              title: "",
+            businessInfomation: {
+              title: "Business information",
               listField: {
                 listRadio: [
                   {
@@ -567,23 +567,45 @@ export const SELF_SERVE_PAGE = {
                 ],
               },
             },
-            website_infomation: {
-              listRadioDescription: "Is your business ready for operation?",
-              listRadio: [
-                {
-                  text: "Yes",
-                  checked: true,
+            websiteInfomation: {
+              title: "Website information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Do you have an existing website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Can customers place orders through your website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description: "Your website’s URL",
+                  label: "e.g. www.xxx.com",
                 },
-                {
-                  text: "No",
-                  checked: false,
-                },
-              ],
-              textFieldDescription:
-                "At how many outlets will you deploy Point-of-Sales terminals?",
-              textField: "",
+              },
             },
-            other_infomation: {
+            otherInfomation: {
               title: "Other information",
               sections: [
                 {

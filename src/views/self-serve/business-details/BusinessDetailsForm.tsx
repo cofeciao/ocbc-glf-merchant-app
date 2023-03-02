@@ -9,13 +9,15 @@ import _ from "lodash";
 
 // render UI
 const BusinessDetailsForm: React.FC<any> = (props) => {
+  const { cx, data, optionSelected } = props;
   const {
-    cx,
     businessInfomation,
     otherInfomation,
     websiteInfomation,
-    optionSelected,
-  } = props;
+  } = data;
+
+  console.log("data", data);
+
 
   return (
     <Box className={cx("ecommerce-option-wrapper")}>
@@ -34,15 +36,17 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
       </SectionWrapper>
 
       {/* {Section Website Information} */}
-      {websiteInfomation && <SectionWrapper cx={cx} title={websiteInfomation.title}>
-        {_.has(websiteInfomation, "subTitle") &&
-          optionSelected === "point-of-sales-e-commerce" && (
-            <Typography className={cx("sub-section-title")}>
-              {websiteInfomation.subTitle}
-            </Typography>
-          )}
-        <WebsiteInformation listField={websiteInfomation.listField} />
-      </SectionWrapper>}
+      {websiteInfomation && (
+        <SectionWrapper cx={cx} title={websiteInfomation.title}>
+          {_.has(websiteInfomation, "subTitle") &&
+            optionSelected === "point-of-sales-e-commerce" && (
+              <Typography className={cx("sub-section-title")}>
+                {websiteInfomation.subTitle}
+              </Typography>
+            )}
+          <WebsiteInformation listField={websiteInfomation.listField} />
+        </SectionWrapper>
+      )}
 
       {/* {Section Other information} */}
       {otherInfomation && (

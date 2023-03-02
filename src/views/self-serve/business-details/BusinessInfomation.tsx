@@ -15,9 +15,6 @@ const BusinessInfomation: React.FC<any> = (props) => {
   const { listField, optionSelected } = props;
   const cx = classnames.bind(styles);
 
-  console.log("optionSelected", optionSelected);
-
-
   return (
     <Box className={cx("business-infomation-wrapper")}>
       <Grid container>

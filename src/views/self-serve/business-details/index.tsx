@@ -110,15 +110,29 @@ const BusinessDetails: React.FC<any> = () => {
         <Category>{text}</Category>
       </Box>
 
-      <BusinessDetailsForm
-        cx={cx}
-        optionSelected={optionSelected}
-        businessInfomation={
-          pointOfSalesAndEcommerce.sections.business_infomation
-        }
-        otherInfomation={pointOfSalesAndEcommerce.sections.other_infomation}
-        websiteInfomation={pointOfSalesAndEcommerce.sections.website_infomation}
-      />
+      {optionSelected === "-e-commerce" && (
+        <BusinessDetailsForm
+          cx={cx}
+          optionSelected={optionSelected}
+          data={ecommerce.sections}
+        />
+      )}
+
+      {optionSelected === "point-of-sales-" && (
+        <BusinessDetailsForm
+          cx={cx}
+          optionSelected={optionSelected}
+          data={pointOfSales.sections}
+        />
+      )}
+
+      {optionSelected === "point-of-sales-e-commerce" && (
+        <BusinessDetailsForm
+          cx={cx}
+          optionSelected={optionSelected}
+          data={pointOfSalesAndEcommerce.sections}
+        />
+      )}
 
       {/* {Next Button}  */}
       <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
