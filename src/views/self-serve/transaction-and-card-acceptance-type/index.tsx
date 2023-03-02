@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
 
 // import constants
-import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
+import { CONTINUE_LATER, LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./TransactionAndCardAcceptanceType.scss";
@@ -20,6 +20,7 @@ import styles from "./TransactionAndCardAcceptanceType.scss";
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import { Link } from "react-router-dom";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
@@ -116,10 +117,18 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
 
       {/* {Next Button}  */}
       <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button backgroundClass="square" onClick={() => history.push(LIST_ROUTER.company_and_contact_information)}>
+        <Button
+          backgroundClass="square"
+          onClick={() =>
+            history.push(LIST_ROUTER.company_and_contact_information)
+          }
+        >
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
+          <Box className={cx("d-inline")}>
+            <Link to="/">{CONTINUE_LATER}</Link>
+          </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
       </section>

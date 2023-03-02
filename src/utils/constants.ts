@@ -191,53 +191,53 @@ export const SELF_SERVE_PAGE = {
                 listCheckbox: [
                   {
                     label: "Visa",
-                    checked: false,
-                    value: "visa",
+                    checked: true,
+                    value: "pos-visa",
                   },
                   {
                     label: "Mastercard",
                     checked: false,
-                    value: "mastercard",
+                    value: "pos-mastercard",
                   },
                   {
                     label: "UnionPay",
                     checked: false,
-                    value: "unionPay",
+                    value: "pos-unionPay",
                   },
                   {
                     label: "JCB",
                     checked: false,
-                    value: "jcb",
+                    value: "pos-jcb",
                   },
                   {
                     label: "WeChat Pay",
                     checked: false,
-                    value: "wechat-pay",
+                    value: "pos-wechat-pay",
                   },
                   {
                     label: "AliPay",
                     checked: false,
-                    value: "alipay",
+                    value: "pos-alipay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
                     checked: false,
-                    value: "ocbc-ipp",
+                    value: "pos-ocbc-ipp",
                   },
                   {
                     label: "Diners Club",
                     checked: false,
-                    value: "dinners-club",
+                    value: "pos-dinners-club",
                   },
                   {
                     label: "AMEX",
                     checked: false,
-                    value: "amex",
+                    value: "pos-amex",
                   },
                   {
                     label: "Paynow",
                     checked: false,
-                    value: "paynow",
+                    value: "pos-paynow",
                   },
                 ],
               },
@@ -252,28 +252,28 @@ export const SELF_SERVE_PAGE = {
                 listCheckbox: [
                   {
                     label: "Visa",
-                    checked: false,
-                    value: "visa",
+                    checked: true,
+                    value: "ecom-visa",
                   },
                   {
                     label: "Mastercard",
                     checked: false,
-                    value: "mastercard",
+                    value: "ecom-mastercard",
                   },
                   {
                     label: "JCB",
                     checked: false,
-                    value: "jcb",
+                    value: "ecom-jcb",
                   },
                   {
                     label: "UnionPay",
                     checked: false,
-                    value: "union-pay",
+                    value: "ecom-union-pay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
                     checked: false,
-                    value: "ocbc-ipp",
+                    value: "ecom-ocbc-ipp",
                   },
                 ],
               },
@@ -424,10 +424,10 @@ export const ERROR = "error";
 
 export const TITLE_PAGE = "OCBC Cashless Payments";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
+export const CONTINUE_LATER = "Continue later";
 
-
-export const TITLE_LOGIN = 'OCBC Cashless Payments'
-export const WElCOME_LOGIN = "Welcome!"
+export const TITLE_LOGIN = "OCBC Cashless Payments";
+export const WElCOME_LOGIN = "Welcome!";
 
 export const URL_SINGPASS_FLOW = {
   checkInformation: "/sing-pass-form/check-information",
@@ -446,7 +446,7 @@ export const URL_MANUAL_FLOW = {
   feeRates: "/manual-form/fee-rates",
   sensitiveData: "/manual-form/sensitive-data",
   beneficialOwnership: "/manual-form/beneficial-ownership",
-  supplementaryDocument: "/manual-form/supplement-document"
+  supplementaryDocument: "/manual-form/supplement-document",
 };
 export const URL_PERSONAL_BORROWER_MANUAL =
   "/manual-form/borrower/personal-information";
@@ -501,7 +501,7 @@ export const PLEASE_UPLOAD_A_DOCUMENT = "Please upload a document";
 export const YOU_CAN_UPLOAD_UP_TO_TWO_DOCUMENTS =
   "You can upload up to 2 documents";
 export const NO_UPLOAD_DOCUMENT = "No documents required for this request";
-  
+
 export const CONTACT_INFORMATION = "contact-information";
 export const SERVICES_APPLIED = "services-applied";
 export const BUSINESS_OPERATION = "business-operation";
@@ -511,7 +511,6 @@ export const SENSITIVE_DATA = "sensitive-data";
 export const BENEFICIAL_OWNERSHIP = "benefical-ownership";
 export const SUPPLEMENTARY_DOCUMENT = "supplementary-document";
 
-
 export const ERROR_DETAIL_ADDRESS = {
   ErrorCode: "0120",
   ErrorDescription: "Provider Error ",
@@ -519,7 +518,7 @@ export const ERROR_DETAIL_ADDRESS = {
 
 export const DATA_CARD_CHECKBOX = [
   {
-    label: 'Credit/Debit cards',
+    label: "Credit/Debit cards",
     description: "This Application will take about you 10 minutes",
     value: "creditcards",
     checked: false,
@@ -536,22 +535,21 @@ export const DATA_CARD_CHECKBOX = [
   },
 ];
 
-export const DATA_CARD_CHECKBOX_ACCEPTANCE1= [
+export const DATA_CARD_CHECKBOX_ACCEPTANCE1 = [
   {
-    label: 'Point-of-Sales terminal',
+    label: "Point-of-Sales terminal",
     value: "point-of-sales-terminal",
     checked: false,
   },
 ];
 
-export const DATA_CARD_CHECKBOX_ACCEPTANCE2= [
+export const DATA_CARD_CHECKBOX_ACCEPTANCE2 = [
   {
-    label: 'e-Commerce',
+    label: "e-Commerce",
     value: "ecommerce",
     checked: false,
   },
 ];
-
 
 export const PERSONAL_INFORMATION_SINGPASS = {
   emailAddress: "iamtracy@gmail.com",
@@ -2097,7 +2095,7 @@ export const LIST_POINTS = [
   {
     text: "Alipay",
     check: false,
-  },  
+  },
   {
     text: "OCBC Instalment Payment Plan (IPP)",
     check: false,
@@ -2117,11 +2115,11 @@ export const LIST_ECOMMERCE = [
     text: "UnionPay",
     check: false,
   },
-   {
+  {
     text: "JCB",
     check: false,
-   },
-   {
+  },
+  {
     text: "OCBC Instalment Payment Plan (IPP)",
     check: false,
   },
@@ -2165,7 +2163,6 @@ export const LIST_REPAYMENT_PERIODS = [
     check: false,
   },
 ];
-
 
 export const LIST_SELECT_PURPOSE = [
   {
@@ -4316,10 +4313,12 @@ export const LIST_PROPERTY = ["Local", "Overseas"];
 export const LIST_PROPERTY_COUNTRY = ["Singapore", "Foreigner"];
 
 export const OTHER_SERVICES = {
-  titleQuestions1: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
-  titleQuestions2: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
-  titlequestions3: "Are you interested in Mail Order /Telephone Order?"
-}
+  titleQuestions1:
+    "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+  titleQuestions2:
+    "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+  titlequestions3: "Are you interested in Mail Order /Telephone Order?",
+};
 
 export const ACCOUNT_REQUEST = ["Single", "Multiple"];
 export const LIST_DOCUMENT_REQUEST = [
