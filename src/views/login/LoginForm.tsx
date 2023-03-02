@@ -14,7 +14,7 @@ import IconWelcomeLogin from "../../assets/images/icon-welcome-login.svg"
 // import constants
 import {
   WElCOME_LOGIN,
-} from "../../utils/constants";
+} from "../../utils/constants-rm";
 
 // import style
 import styles from "./Login.scss";
@@ -64,7 +64,7 @@ const LoginForm = (props: any) => {
       <Button
         backgroundClass="bgGunmetalBluegrey"
         onClick={() => {
-          // history.push("/welcome");
+          history.push("/rm/welcome");
         }}
         buttonType="button"
         disabled={validateLoginInformation()}
