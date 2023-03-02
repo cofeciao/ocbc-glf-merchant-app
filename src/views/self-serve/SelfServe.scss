@@ -39,11 +39,9 @@
     }
 
     & .MuiFormControl-root {
-      // background-color: #fafcfc;
       & .MuiInputBase-root,
       .MuiFormLabel-root {
         color: #777e87;
-        // padding: 0px 8px;
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
@@ -54,17 +52,22 @@
           background-color: #fafcfc;
         }
       }
+
       & .MuiInputBase-root {
-        font-style: normal;
-        font-weight: 600;
+        font-weight: 400;
         font-size: 16px;
         line-height: 24px;
         color: #575d65;
         background-color: #fafcfc;
+        #mui-component-select-areaCode {
+          padding-right: 44px;
+        }
       }
+
       & .MuiInput-underline::before {
         border-color: #e2e7ec;
       }
+
       .MuiFormHelperText-root {
         font-weight: 400;
         font-size: 12px;
@@ -115,37 +118,25 @@
     }
   }
 
-  .item-card {
-    @media (max-width: 1070px) {
-      max-width: 50%;
-      flex-basis: 50%;
+  .formatted-numberphone-input {
+    background: #fafcfc;
+    .MuiInputLabel-root {
+      padding-left: 8px;
+    }
+    
+    & label + .MuiInput-formControl {
+      margin-top: 19px;
     }
 
-    @media (max-width: 1024px) {
-      &:nth-child(odd) {
-        padding-left: 0;
-        padding-right: 10px;
-      }
-
-      &:nth-child(even) {
-        padding-left: 10px;
-        padding-right: 0;
+    & .formatted-numberphone-select {
+      padding-left: 8px;
+      .MuiSelect-icon {
+        border-right: 1px solid #e2e7ec;
       }
     }
 
-    @media (max-width: 667px) {
-      max-width: 100%;
-      flex-basis: 100%;
-
-      &:nth-child(odd) {
-        padding-left: 0;
-        padding-right: 0;
-      }
-
-      &:nth-child(even) {
-        padding-left: 0;
-        padding-right: 0;
-      }
+    input {
+      padding-left: 10px;
     }
   }
 

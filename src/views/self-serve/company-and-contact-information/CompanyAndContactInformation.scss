@@ -1,24 +1,6 @@
 @import "../../../assets/style/variable.scss";
 
 .company-and-contact-information-wrapper {
-  & .contact-details-wrapper {
-    & .formatted-numberphone-input {
-      background: #fafcfc;
-      .MuiInputLabel-root {
-        padding-left: 8px;
-      }
-      & .formatted-numberphone-select {
-        padding-left: 8px;
-        .MuiSelect-icon {
-          border-right: 1px solid #e2e7ec;
-        }
-      }
-      input {
-        padding-left: 10px;
-      }
-    }
-  }
-
   & .button-wrapper {
     justify-content: flex-end !important;
   }
