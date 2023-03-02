@@ -20,6 +20,8 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import SectionWrapper from "../SectionWrapper";
 import CompanyRegistration from "./CompanyRegistration";
 import ContactDetails from "./ContactDetails";
+import { saveDataCompanyAndContactInformationStep } from "@/store/form";
+import { useSelector } from "react-redux";
 
 // render UI
 const CompanyAndContactInformation: React.FC<any> = () => {
@@ -40,11 +42,12 @@ const CompanyAndContactInformation: React.FC<any> = () => {
     formState: { errors, isValid, isDirty },
     watch,
     setValue,
+    getValues,
     setError,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      ContactNumber: "",
+      contactNumber: "",
     },
   });
 
@@ -59,6 +62,7 @@ const CompanyAndContactInformation: React.FC<any> = () => {
         disabled={!isValid || !isDirty}
         onClick={() => {
           history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+          dispatch(saveDataCompanyAndContactInformationStep(getValues()));
         }}
         buttonType=""
       >
