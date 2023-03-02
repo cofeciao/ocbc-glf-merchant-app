@@ -11,17 +11,10 @@ import routerRules from "./router";
 import theme from "./theme";
 import GlobalContext from "./common/GlobalContext";
 import { useEffect } from "react";
-import {
-  adobeAbandon,
-  adobeLastField,
-  getInitData,
-  trackingData,
-} from "./utils/adobeTracking";
+import { trackingData } from "./utils/adobeTracking";
 import { createStore } from "@reduxjs/toolkit";
 import form from "./store/form";
-import { useSelector } from "react-redux";
 import { HashRouter } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 
 const generateClassName = createGenerateClassName({
   productionPrefix: "$(DOMAIN)-$(PROJECT_NAME)-",

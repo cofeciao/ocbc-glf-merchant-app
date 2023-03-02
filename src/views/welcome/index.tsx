@@ -14,7 +14,7 @@ import classnames from "classnames/bind";
 import {
   TITLE_PAGE,
   LINK_EXTERNAL_PAGE,
-} from "../../utils/constants";
+} from "../../utils/constants-rm";
 
 // import images
 import IconWelcomeLogin from "../../assets/images/icon-welcome-login.svg";
