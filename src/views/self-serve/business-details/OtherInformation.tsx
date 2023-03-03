@@ -47,7 +47,7 @@ const OtherInformation: React.FC<any> = (props) => {
                         key={idx}
                         control={
                           <Checkbox
-                            checked={checkbox.checked}
+                            // checked={checkbox.checked}
                             name="checked"
                             color="primary"
                           />

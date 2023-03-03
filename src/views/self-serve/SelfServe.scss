@@ -25,6 +25,12 @@
     }
   }
 
+  & .MuiButtonBase-root {
+    .MuiIconButton-label {
+      color: #575d65;
+    }
+  }
+
   & .section-wrapper {
     background-color: transparent;
     padding: 0px;
@@ -55,7 +61,8 @@
 
       & .MuiInputBase-root {
         background-color: #fafcfc;
-        & input, .MuiSelect-root {
+        & input,
+        .MuiSelect-root {
           font-weight: 600;
           font-size: 16px;
           line-height: 24px;
