@@ -125,10 +125,9 @@ const ContactDetails: React.FC<any> = (props) => {
                   />
                 </Grid>
               )}
-              {console.log(
-                _.has(errors.contactNumber, "type") &&
-                  _.isEqual(errors.contactNumber.type, "required")
-              )}
+              
+              {_.has(errors.contactNumber, "type") &&
+                _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
@@ -176,9 +175,7 @@ const ContactDetails: React.FC<any> = (props) => {
                       })}
                       InputProps={{
                         startAdornment: (
-                          <Box
-                            className={cx("formatted-numberphone-select")}
-                          >
+                          <Box className={cx("formatted-numberphone-select")}>
                             {/* {Phone Number select field} */}
                             <Select
                               defaultValue={LIST_COUNTRIES_CODE[0].value}
