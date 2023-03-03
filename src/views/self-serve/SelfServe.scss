@@ -39,13 +39,11 @@
     }
 
     & .MuiFormControl-root {
-      background-color: #fafcfc;
-
+      // background-color: #fafcfc;
       & .MuiInputBase-root,
       .MuiFormLabel-root {
         color: #777e87;
         // padding: 0px 8px;
-        font-family: "Open Sans";
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
@@ -56,8 +54,22 @@
           background-color: #fafcfc;
         }
       }
+      & .MuiInputBase-root {
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #575d65;
+        background-color: #fafcfc;
+      }
       & .MuiInput-underline::before {
         border-color: #e2e7ec;
+      }
+      .MuiFormHelperText-root {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        color: #ed5347;
       }
     }
 
@@ -65,7 +77,6 @@
       margin-bottom: 40px;
       & .section-title {
         margin-bottom: 16px;
-        font-family: "Open Sans";
         font-weight: 700;
         font-size: $fzH2;
         line-height: 32px;
@@ -74,7 +85,6 @@
 
       & .section-description {
         margin-bottom: 40px;
-        font-family: "Open Sans";
         font-weight: 400;
         font-size: $fzH5;
         line-height: 28px;
@@ -83,7 +93,6 @@
     }
 
     & .sub-section-description {
-      font-family: "Open Sans";
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
@@ -94,8 +103,15 @@
     & .section-seperate {
       height: 1px;
       width: 100%;
-      background: #E2E7EC;
+      background: #e2e7ec;
       margin-top: 56px;
+    }
+
+    .company-type-select {
+      & .MuiInputBase-formControl {
+        height: 57px;
+        background: #fafcfc;
+      }
     }
   }
 

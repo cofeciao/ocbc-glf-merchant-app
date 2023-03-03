@@ -11,10 +11,9 @@ import {
   Button,
   Link,Header,Footer
 } from '@sectionsg/orc';
-import { useSelector } from "react-redux";
 
 //import contants
-import {TITLE_PAGE,LINK_EXTERNAL_PAGE} from "../../utils/constants";
+import {TITLE_PAGE, LINK_EXTERNAL_PAGE} from "../../utils/constants-rm";
 
 const LaunchConfirmtionPage: React.FC = ( { }) => {
   const cx = classnames.bind(styles);

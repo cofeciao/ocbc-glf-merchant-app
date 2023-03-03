@@ -2,14 +2,17 @@
 
 .company-and-contact-information-wrapper {
   & .contact-details-wrapper {
-    & .formatted-numberphone-select {
-      .MuiSelect-icon {
-        border-right: 1px solid #e2e7ec;
-      }
-    }
-
     & .formatted-numberphone-input {
-      height: 24px;
+      background: #fafcfc;
+      .MuiInputLabel-root {
+        padding-left: 8px;
+      }
+      & .formatted-numberphone-select {
+        padding-left: 8px;
+        .MuiSelect-icon {
+          border-right: 1px solid #e2e7ec;
+        }
+      }
       input {
         padding-left: 10px;
       }

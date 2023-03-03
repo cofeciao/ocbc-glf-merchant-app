@@ -5,13 +5,13 @@ import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { formatNameField, preventSpecialCharacters } from "@/utils/utils";
+import { useForm } from "react-hook-form";
 
 // import constants
 import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
-import styles from "./CompanyAndContactinformation.scss";
+import styles from "./CompanyAndContactInformation.scss";
 
 // import types
 
@@ -35,17 +35,17 @@ const CompanyAndContactInformation: React.FC<any> = () => {
   const dispatch = useDispatch();
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
-
-  // init data personal information
-  const [personalInformation, setPersonalInformation] = useState({
-    RegisteredEntityName: "",
-    UniqueEntityNumber: "",
-    CompanyType: "",
-    Salutation: "",
-    Name: "",
-    Designation: "",
-    Email: "",
-    ContactNumber: "",
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+    watch,
+    setValue,
+    setError,
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      ContactNumber: "",
+    },
   });
 
   /**
@@ -56,6 +56,7 @@ const CompanyAndContactInformation: React.FC<any> = () => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
+        disabled={!isValid || !isDirty}
         onClick={() => {
           history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
         }}
@@ -67,14 +68,6 @@ const CompanyAndContactInformation: React.FC<any> = () => {
       </Button>
     );
   };
-
-  // function get personalInformation attribute
-  const getPersonalInformation = (name: string, value: any, error: string) =>
-    setPersonalInformation({
-      ...personalInformation,
-      [name]: value,
-      [`error${formatNameField(name)}`]: error !== "",
-    });
 
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>
@@ -91,8 +84,9 @@ const CompanyAndContactInformation: React.FC<any> = () => {
       >
         <CompanyRegistration
           cx={cx}
-          personalInformation={personalInformation}
-          getPersonalInformation={getPersonalInformation}
+          errors={errors}
+          register={register}
+          data={company_registration}
         />
       </SectionWrapper>
 
@@ -103,7 +97,14 @@ const CompanyAndContactInformation: React.FC<any> = () => {
         title={contact_details.title}
         description={contact_details.description}
       >
-        <ContactDetails cx={cx} />
+        <ContactDetails
+          cx={cx}
+          errors={errors}
+          register={register}
+          setValue={setValue}
+          setError={setError}
+          data={contact_details}
+        />
       </SectionWrapper>
 
       {/* {Next Button}  */}

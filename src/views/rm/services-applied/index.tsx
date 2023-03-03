@@ -29,7 +29,7 @@ import {
   LIST_REPAYMENT_PERIODS, 
   MSG_ERR_CARD_CHECKBOX, 
   OTHER_SERVICES, 
-  URL_MANUAL_FLOW } from "@/utils/constants";
+  URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 // import style
 import styles from "./ServicesApplied.scss";

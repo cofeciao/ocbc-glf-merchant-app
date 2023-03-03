@@ -1,73 +1,105 @@
 // import modules
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { Box, FormHelperText, Grid, TextField, Typography } from "@material-ui/core";
-import { Select, InputNumberMobile } from "@sectionsg/orc";
+import {
+  Box,
+  FormControl,
+  Grid,
+  MenuItem,
+  TextField,
+  Select,
+  InputLabel,
+} from "@material-ui/core";
+import _ from "lodash";
 
 // import constant
-import { LIST_COUNTRIES, SELF_SERVE_PAGE } from "@/utils/constants";
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const CompanyRegistration: React.FC<any> = (props) => {
-  const { cx, getPersonalInformation, personalInformation, key } = props;
+  const { cx, data, register, errors } = props;
+  const { registeredEntityName, uniqueEntityNumber, companyType } =
+    data.inputFields;
 
   return (
     <Box className={cx("company-registration-wrapper")}>
       <Grid container direction="row" wrap={"nowrap"}>
+        {/* {Column left} */}
         <Grid item xs={12} md={6}>
           <Grid container>
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id={uuidv4()}
-                label="Registered entity name"
-                variant="filled"
-                onBlur={(event) => {
-                  getPersonalInformation(
-                    "RegisteredEntityName",
-                    event.target.value,
-                    ""
-                  );
-                }}
-              />
-              {personalInformation.RegisteredEntityName === "" && (
-                <FormHelperText id="error-text">&#9888; Error</FormHelperText>
-              )}
-            </Grid>
+            {/* {Registered Entity Name input field} */}
+            {_.has(registeredEntityName, "label") && (
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id={uuidv4()}
+                  label={registeredEntityName.label}
+                  variant="filled"
+                  {...register("registeredEntityName", {
+                    required: true,
+                  })}
+                />
+              </Grid>
+            )}
 
-            <Grid item xs={12}>
-              <TextField
-                fullWidth
-                id={uuidv4()}
-                label="Unique Entity Number (UEN)"
-                variant="filled"
-                onBlur={(event) => {
-                  getPersonalInformation(
-                    "UniqueEntityNumber",
-                    event.target.value,
-                    ""
-                  );
-                }}
-              />
-            </Grid>
+            {/* {Unique Entity Number (UEN) input field} */}
+            {_.has(uniqueEntityNumber, "label") && (
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  id={uuidv4()}
+                  error={errors.uniqueEntityNumber && true}
+                  label={uniqueEntityNumber.label}
+                  variant="filled"
+                  helperText={
+                    errors.uniqueEntityNumber &&
+                    `${ERROR_ICON} ${errors.uniqueEntityNumber.message}`
+                  }
+                  {...register("uniqueEntityNumber", {
+                    required: uniqueEntityNumber.requiredText,
+                    pattern: {
+                      // eslint-disable-next-line no-useless-escape
+                      value:
+                        /^((S|T)([\d]{2})([A-Z]{2})([\d]{4})([A-Z])|(\d{9})([A-Z]))$/,
+                      message: uniqueEntityNumber.helperText,
+                    },
+                  })}
+                />
+              </Grid>
+            )}
           </Grid>
         </Grid>
 
+        {/* {Column right} */}
         <Grid item xs={12} md={6}>
-          <Select
-            listValues={LIST_COUNTRIES}
-            single
-            size="large"
-            placeholder="Company type"
-            type="country"
-            selectKey={key}
-            positionLine={3}
-            defaultValue={""}
-            getValue={(value: any) => {
-              // setRenderData(false);
-              getPersonalInformation("CompanyType", value.value, value.error);
-            }}
-          />
+          {/* {Company Type select field} */}
+          {_.has(companyType, "label") && (
+            <FormControl
+              variant="filled"
+              className={cx("company-type-select")}
+              fullWidth
+            >
+              <InputLabel id="select-company-type-label">
+                {companyType.label}
+              </InputLabel>
+              <Select
+                fullWidth
+                labelId="select-company-type-label"
+                id="select-company-type"
+                {...register("companyType", {
+                  required: true,
+                })}
+              >
+                {_.map(SELF_SERVE_PAGE.list_company_type, (item, index) => {
+                  return (
+                    <MenuItem key={index} value={item.name}>
+                      {item.name}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          )}
         </Grid>
       </Grid>
     </Box>

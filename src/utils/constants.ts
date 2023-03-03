@@ -11,13 +11,14 @@ export const LANGUAGE = {
 };
 
 export const LIST_ROUTER = {
-  company_and_contact_information:
-    "/self-serve/company-and-contact-information",
+  company_and_contact_information: "/self/company-and-contact-information",
   transaction_and_card_acceptance_type:
-    "/self-serve/transaction-and-card-acceptance-type",
-  business_details: "/self-serve/business-details",
-  products_and_services: "/self-serve/products-and-services",
+    "/self/transaction-and-card-acceptance-type",
+  business_details: "/self/business-details",
+  products_and_services: "/self/products-and-services",
 };
+
+export const ERROR_ICON = "\u26A0";
 
 export const HOME_PAGE = {
   title_cashless_payments_home: "Apply for OCBC Cashless Payments",
@@ -49,6 +50,47 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
+  list_salutation: [
+    {
+      name: "Mrs",
+      value: "mrs",
+    },
+    {
+      name: "Ms",
+      value: "ms",
+    },
+  ],
+  list_company_type: [
+    {
+      name: "Private Limited",
+      value: "privateLimited",
+    },
+    {
+      name: "Sole Proprietorship",
+      value: "soleProprietorship",
+    },
+    {
+      name: "Partnership Proprietor Limited",
+      value: "partnershipProprietorLimited",
+    },
+    {
+      name: "Limited Liability Proprietary",
+      value: "limitedLiabilityProprietary",
+    },
+    {
+      name: "Public Limited",
+      value: "publicLimited",
+    },
+    {
+      name: "Non-Profit Organization",
+      value: "nonProfitOrganization",
+    },
+    {
+      name: "Other",
+      value: "other",
+    },
+  ],
+
   list_step: {
     company_and_contact_information: {
       id: "company-and-contact-information",
@@ -68,11 +110,55 @@ export const SELF_SERVE_PAGE = {
           title: "Company registration",
           description:
             "Please enter your registered entity name and Unique Entity Number (UEN).",
+          inputFields: {
+            registeredEntityName: {
+              label: "Registered entity name",
+              helperText: "",
+              requiredText: "",
+            },
+            uniqueEntityNumber: {
+              label: "Unique Entity Number (UEN)",
+              helperText: "Please enter a valid UEN",
+              requiredText: "",
+            },
+            companyType: {
+              label: "Company type",
+              helperText: "",
+              requiredText: "",
+            },
+          },
         },
         contact_details: {
           title: "Contact details",
           description:
             "Our Relationship Manager will reach out to you with these details.",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            email: {
+              label: "Email",
+              helperText: "Please enter a valid email address",
+              requiredText: "",
+            },
+            contactNumber: {
+              label: "Contact number",
+              helperText: "Please enter a valid contact number",
+              requiredText: "",
+            },
+          },
         },
       },
     },
@@ -313,7 +399,7 @@ export const SELF_SERVE_PAGE = {
         },
         is_your_sales_forecast: {
           description:
-            "Based on your products and/or services, what is your sales forecast?", 
+            "Based on your products and/or services, what is your sales forecast?",
         },
       },
     },

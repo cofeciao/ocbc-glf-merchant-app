@@ -10,7 +10,6 @@ import {
 } from '@sectionsg/orc';
 import { v4 as uuidv4 } from 'uuid';
 
-
 //import icon
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -20,8 +19,12 @@ import IconWelcome from "../../../assets/images/icon-welcome-login.svg";
 import styles from "./ContactInformation.scss";
 import { useHistory } from "react-router";
 import { Grid } from "@material-ui/core";
-import { DATA_LENGTHENING_OF_LOAN_TENURE, LIST_COUNTRIES_CODE, URL_MANUAL_FLOW } from "@/utils/constants";
-import { PERSONAL_INFORMATION_SINGPASS } from "@/utils/constants";
+import { 
+  DATA_LENGTHENING_OF_LOAN_TENURE, 
+  LIST_COUNTRIES_CODE, 
+  URL_MANUAL_FLOW, 
+  PERSONAL_INFORMATION_SINGPASS 
+} from "@/utils/constants-rm";
 import { formatNameField, preventSpecialCharacters, restrictEmail } from "@/utils/utils";
 import { Link } from "react-router-dom";
 import { IContactInformation } from "./ContactInformation";
