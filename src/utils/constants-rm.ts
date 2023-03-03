@@ -1,4 +1,4 @@
-export const TITLE_PAGE = "OCBC Cashless Payments";
+export const TITLE_PAGE = "Cashless Payments Application";
 export const ERROR = "error";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 export const WElCOME_LOGIN = "Welcome!"

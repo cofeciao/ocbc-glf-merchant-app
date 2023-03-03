@@ -885,3 +885,12 @@ body {
     opacity: 1;
   }
 }
+
+.MuiInputBase-input {
+  background: #fafcfc !important;
+  border-radius: 4px !important;
+}
+
+.MuiFilledInput-underline:before {
+  border-color: #E2E7EC !important;
+}
