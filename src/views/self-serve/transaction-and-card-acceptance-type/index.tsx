@@ -67,7 +67,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
    * Handle update state when dataListCheckbox updated from store
    */
   useEffect(() => {
-    if (!_.isEmpty(dataListCheckbox)) {
+    if (dataListCheckbox && !!dataListCheckbox.length) {
       setDataCheckbox(dataListCheckbox);
 
       // find selected item to enable the next button
@@ -100,6 +100,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       </Button>
     );
   };
+console.log("dataCheckbox", dataCheckbox);
 
   return (
     <Box
