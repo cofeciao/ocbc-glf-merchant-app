@@ -110,6 +110,7 @@ const LoginForm = (props: any) => {
                 id={uuidv4()}
                 error={errors.password && true}
                 label="Your password"
+                type="password"
                 variant="filled"
                 {...register("password", {
                   required: true,
