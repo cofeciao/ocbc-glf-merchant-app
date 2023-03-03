@@ -100,7 +100,6 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       </Button>
     );
   };
-console.log("dataCheckbox", dataCheckbox);
 
   return (
     <Box

@@ -16,9 +16,6 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
     websiteInfomation,
   } = data;
 
-  console.log("data", data);
-
-
   return (
     <Box className={cx("ecommerce-option-wrapper")}>
       {/* {Section Business Information} */}

@@ -63,8 +63,6 @@ const Home: React.FC = ({}) => {
       } else {
         setHasDataCheckbox(true);
       }
-      console.log("dataListCheckbox", dataListCheckbox);
-
       setDataCardCheckbox(dataListCheckbox);
     }
   }, [dataListCheckbox]);
