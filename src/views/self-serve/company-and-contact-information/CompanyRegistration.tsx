@@ -59,8 +59,7 @@ const CompanyRegistration: React.FC<any> = (props) => {
                     required: uniqueEntityNumber.requiredText,
                     pattern: {
                       // eslint-disable-next-line no-useless-escape
-                      value:
-                        /^((S|T)([\d]{2})([A-Z]{2})([\d]{4})([A-Z])|(\d{9})([A-Z]))$/,
+                      value: /^[A-Za-z0-9]{9}[A-Za-z0-9]{1}$|^[A-Za-z0-9]{10}$/,
                       message: uniqueEntityNumber.helperText,
                     },
                   })}
