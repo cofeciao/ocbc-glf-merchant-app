@@ -2,11 +2,12 @@
 import { Category, Button } from "@sectionsg/orc";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveDataListCheckbox } from "@/store/form";
+import { saveDataBusinessInfomation } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import BusinessDetailsForm from "./BusinessDetailsForm";
+import { useForm } from "react-hook-form";
 
 // import constants
 import {
@@ -37,12 +38,19 @@ const BusinessDetails: React.FC<any> = () => {
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
   const history = useHistory();
-  // const [dataCheckbox, setDataCheckbox] = useState(
-  //   SELF_SERVE_PAGE.list_step.transaction_and_card_acceptance_type.section
-  //     .which_service_are_you_applying_for.data_list_checkbox
-  // );
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+    getValues,
+    setValue,
+    watch
+  } = useForm({
+    mode: "onBlur",
+  });
+  const watchAll = watch()
+
+  console.log("get watchAll", watchAll);
 
   /**
    * Retrieves data of step transactionAndCardAcceptanceTypeStep from Store
@@ -54,30 +62,6 @@ const BusinessDetails: React.FC<any> = () => {
   );
 
   /**
-   * Get data from list check box
-   * @param data
-   */
-  const getDataFromListCheckbox = (data: any) => {
-    dispatch(saveDataListCheckbox(data));
-  };
-
-  /**
-   * Retrieves data from Store
-   */
-  const dataListCheckbox = useSelector(
-    (state: any) => state.form.dataListCheckbox
-  );
-
-  /**
-   * Handle update list checkbox
-   */
-  // useEffect(() => {
-  //   if (dataListCheckbox.length) {
-  //     setDataCheckbox(dataListCheckbox);
-  //   }
-  // }, [dataListCheckbox]);
-
-  /**
    * render UI button
    * @returns {HTML}
    */
@@ -85,9 +69,10 @@ const BusinessDetails: React.FC<any> = () => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
-        disabled={true}
+        disabled={!isValid || !isDirty}
         onClick={() => {
           history.push(LIST_ROUTER.products_and_services);
+          dispatch(saveDataBusinessInfomation(getValues("numberOutlets",)));
         }}
         buttonType=""
       >
@@ -110,29 +95,21 @@ const BusinessDetails: React.FC<any> = () => {
         <Category>{text}</Category>
       </Box>
 
-      {optionSelected === "-e-commerce" && (
-        <BusinessDetailsForm
-          cx={cx}
-          optionSelected={optionSelected}
-          data={ecommerce.sections}
-        />
-      )}
-
-      {optionSelected === "point-of-sales-" && (
-        <BusinessDetailsForm
-          cx={cx}
-          optionSelected={optionSelected}
-          data={pointOfSales.sections}
-        />
-      )}
-
-      {optionSelected === "point-of-sales-e-commerce" && (
-        <BusinessDetailsForm
-          cx={cx}
-          optionSelected={optionSelected}
-          data={pointOfSalesAndEcommerce.sections}
-        />
-      )}
+      {/* {Form with dynamic data} */}
+      <BusinessDetailsForm
+        cx={cx}
+        optionSelected={optionSelected}
+        data={
+          optionSelected === "-e-commerce"
+            ? ecommerce.sections
+            : optionSelected === "point-of-sales-"
+            ? pointOfSales.sections
+            : pointOfSalesAndEcommerce.sections
+        }
+        register={register}
+        errors={errors}
+        setValue={setValue}
+      />
 
       {/* {Next Button}  */}
       <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>

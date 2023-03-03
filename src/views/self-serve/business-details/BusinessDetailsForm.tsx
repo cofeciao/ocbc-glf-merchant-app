@@ -9,12 +9,8 @@ import _ from "lodash";
 
 // render UI
 const BusinessDetailsForm: React.FC<any> = (props) => {
-  const { cx, data, optionSelected } = props;
-  const {
-    businessInfomation,
-    otherInfomation,
-    websiteInfomation,
-  } = data;
+  const { cx, data, optionSelected, register, errors, setValue } = props;
+  const { businessInfomation, otherInfomation, websiteInfomation } = data;
 
   return (
     <Box className={cx("ecommerce-option-wrapper")}>
@@ -29,6 +25,9 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
         <BusinessInfomation
           listField={businessInfomation.listField}
           optionSelected={optionSelected}
+          register={register}
+          errors={errors}
+          setValue={setValue}
         />
       </SectionWrapper>
 
@@ -41,14 +40,20 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
                 {websiteInfomation.subTitle}
               </Typography>
             )}
-          <WebsiteInformation listField={websiteInfomation.listField} />
+          <WebsiteInformation
+            listField={websiteInfomation.listField}
+            setValue={setValue}
+          />
         </SectionWrapper>
       )}
 
       {/* {Section Other information} */}
       {otherInfomation && (
         <SectionWrapper cx={cx} title={otherInfomation.title}>
-          <OtherInformation sections={otherInfomation.sections} />
+          <OtherInformation
+            sections={otherInfomation.sections}
+            setValue={setValue}
+          />
         </SectionWrapper>
       )}
     </Box>

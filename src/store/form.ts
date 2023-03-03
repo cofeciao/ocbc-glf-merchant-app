@@ -10,6 +10,11 @@ const Formslice = createSlice({
     transactionAndCardAcceptanceTypeStep: {
       dataListCheckbox: [],
     },
+    businessDetailsStep: {
+      businessInfomation: {},
+      websiteInfomation: {},
+      otherInfomation: {},
+    },
   },
   reducers: {
     /**
@@ -40,6 +45,33 @@ const Formslice = createSlice({
       state.transactionAndCardAcceptanceTypeStep.dataListCheckbox =
         action.payload;
     },
+
+    /**
+     * function save data of step Business Details
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataBusinessInfomation: (state, action) => {
+      state.businessDetailsStep.businessInfomation = action.payload;
+    },
+
+    /**
+     * function save data of step Business Details
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataWebsiteInfomation: (state, action) => {
+      state.businessDetailsStep.websiteInfomation = action.payload;
+    },
+
+    /**
+     * function save data of step Business Details
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataOtherInfomation: (state, action) => {
+      state.businessDetailsStep.otherInfomation = action.payload;
+    },
   },
 });
 
@@ -47,6 +79,9 @@ export const {
   saveDataListCheckbox,
   saveDataCompanyAndContactInformationStep,
   saveDataTransactionAndCardAcceptanceTypeStep,
+  saveDataBusinessInfomation,
+  saveDataWebsiteInfomation,
+  saveDataOtherInfomation,
 } = Formslice.actions;
 
 export default Formslice.reducer;

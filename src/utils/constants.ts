@@ -51,6 +51,51 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
+  what_is_your_business_offering_checkbox: [
+    {
+      description: "Is your business ready for operation?",
+      listCheckbox: [
+        {
+          label: "Selling products",
+          checked: false,
+        },
+        {
+          label: "Providing services",
+          checked: false,
+        },
+      ],
+    },
+    {
+      description: "Do you currently have any of the following?",
+      listCheckbox: [
+        {
+          label: "Office",
+          checked: false,
+        },
+        {
+          label: "Retail store",
+          checked: false,
+        },
+        {
+          label: "Warehouse",
+          checked: false,
+        },
+      ],
+    },
+  ],
+  list_radio_yes_no: [
+    {
+      text: "Yes",
+      value: "yes",
+      checked: true,
+    },
+    {
+      text: "No",
+      value: "no",
+      checked: false,
+    },
+  ],
+  add_more_websites: "Add website more",
   list_salutation: [
     {
       name: "Mrs",
@@ -91,7 +136,6 @@ export const SELF_SERVE_PAGE = {
       value: "other",
     },
   ],
-
   list_step: {
     company_and_contact_information: {
       id: "company-and-contact-information",
@@ -455,6 +499,8 @@ export const SELF_SERVE_PAGE = {
                   description:
                     "At how many outlets will you deploy Point-of-Sales terminals?",
                   label: "eg. 10",
+                  helperText: "Enter numbers only",
+                  requiredText: "Enter numbers only",
                 },
               },
             },
@@ -490,6 +536,10 @@ export const SELF_SERVE_PAGE = {
                     ],
                   },
                 ],
+                textField: {
+                  description: "Your website’s URL",
+                  label: "e.g. www.xxx.com",
+                },
               },
             },
             otherInfomation: {
