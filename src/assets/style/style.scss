@@ -894,3 +894,24 @@ body {
 .MuiFilledInput-underline:before {
   border-color: #E2E7EC !important;
 }
+
+.MuiTableContainer-root {
+  box-shadow: none !important;
+}
+
+.MuiTableCell-head {
+  color: $slateGray !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+.MuiTableCell-root {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+.row-first {
+  color:$tundora !important;
+  font-weight: 700 !important;
+}
