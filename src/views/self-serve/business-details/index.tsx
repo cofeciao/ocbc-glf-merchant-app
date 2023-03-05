@@ -44,13 +44,9 @@ const BusinessDetails: React.FC<any> = () => {
     formState: { errors, isValid, isDirty },
     getValues,
     setValue,
-    watch
   } = useForm({
     mode: "onBlur",
   });
-  const watchAll = watch()
-
-  console.log("get watchAll", watchAll);
 
   /**
    * Retrieves data of step transactionAndCardAcceptanceTypeStep from Store
@@ -113,7 +109,7 @@ const BusinessDetails: React.FC<any> = () => {
 
       {/* {Next Button}  */}
       <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button backgroundClass="square" onClick={() => history.goBack()}>
+        <Button backgroundClass="square" onClick={() => history.push(LIST_ROUTER.transaction_and_card_acceptance_type)}>
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
