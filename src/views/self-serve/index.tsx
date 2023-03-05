@@ -22,6 +22,7 @@ import {
 // import style
 import styles from "./SelfServe.scss";
 import ProductsAndServices from "./products-and-services";
+import ReviewAndSubmit from "./review-and-submit";
 
 // import types
 
@@ -38,30 +39,6 @@ const SelfServe = (props: any) => {
   const { slug } = useParams<{ slug: string }>();
   const childRef: any = useRef();
 
-  // init data personal information
-  const [personalInformation, setPersonalInformation] = useState({
-    countryPhoneNumber: "",
-    phoneNumber: "",
-    emailAddress: "",
-    errorEmailAddress: false,
-    errorPhoneNumber: false,
-    singaporeCitizen: "",
-    nameNric: "",
-    nricNumber: "",
-    errorNricNumber: false,
-    errorPassPortNumber: false,
-    passportNumber: "",
-    namePassport: "",
-  });
-
-  // function get personalInformation attribute
-  const getPersonalInformation = (name: string, value: any, error: string) =>
-    setPersonalInformation({
-      ...personalInformation,
-      [name]: value,
-      [`error${formatNameField(name)}`]: error !== "",
-    });
-
   /**
    * Dynamic stepper
    */
@@ -71,25 +48,6 @@ const SelfServe = (props: any) => {
       dataListStep.push(item.data);
     });
     return dataListStep;
-  };
-
-  /**
-   * Handle click into on stepper
-   * @param {string} path - Slug for page
-   */
-  const handleClick = (path: any) => {
-    if (childRef.current) {
-      // if (formReduxData.isBorrower) {
-      //   if (childRef.current.validateForm()) {
-      //     history.push(`/manual-form/borrower/${path}`);
-      //   }
-      // } else {
-      //   if (childRef.current.validateForm()) {
-      //     history.push(`/manual-form/${path}`);
-      //   }
-      //   childRef.current.handleNextPage();
-      // }
-    }
   };
 
   return (
@@ -108,7 +66,6 @@ const SelfServe = (props: any) => {
             tabs={
               <Tabs
                 tabId={slug}
-                handleClick={handleClick}
                 dataTabs={handleDetectDynamicStepper()}
               />
             }
@@ -127,7 +84,7 @@ const SelfServe = (props: any) => {
                   <ProductsAndServices />
                 )}
                 {slug === SELF_SERVE_PAGE.list_step.review_and_submit.id && (
-                  <>NON_REPRICING</>
+                  <ReviewAndSubmit />
                 )}
               </>
             }
