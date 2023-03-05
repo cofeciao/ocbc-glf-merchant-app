@@ -87,21 +87,23 @@
 
     .header-wrapper {
       margin-bottom: 40px;
-      & .section-title {
-        margin-bottom: 16px;
-        font-weight: 700;
-        font-size: $fzH2;
-        line-height: 32px;
-        color: #363b40;
-      }
+      gap: 16px;
+    }
 
-      & .section-description {
-        margin-bottom: 40px;
-        font-weight: 400;
-        font-size: $fzH5;
-        line-height: 28px;
-        color: #777e87;
-      }
+    & .section-title {
+      margin-bottom: 16px;
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 32px;
+      color: #363b40;
+    }
+
+    & .section-description {
+      margin-bottom: 40px;
+      font-weight: 400;
+      font-size: $fzH5;
+      line-height: 28px;
+      color: #777e87;
     }
 
     & .sub-section-description {
