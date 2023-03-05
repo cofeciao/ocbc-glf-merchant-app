@@ -51,38 +51,116 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
-  what_is_your_business_offering_checkbox: [
+  LIST_CHECKBOX_AGREE_POLICY: {
+    description:
+      "Before submitting your application, please ensure that you read and understand the following:",
+    listCheckbox: [
+      {
+        text: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+        check: false,
+      },
+      {
+        text: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
+        check: false,
+      },
+      {
+        text: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+        check: false,
+      },
+    ],
+  },
+  LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM: {
+    description: "How will your products be delivered?",
+    listRadio: [
+      {
+        text: "Within Singapore",
+        check: false,
+      },
+      {
+        text: "Out of Singapore",
+        check: false,
+      },
+    ],
+  },
+  LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED: {
+    description: "How will your products be delivered?",
+    listRadio: [
+      {
+        text: "Delivered by my supplier",
+        checked: false,
+      },
+      {
+        text: "Delivered by my business (after receipt from supplier)",
+        checked: false,
+      },
+    ],
+  },
+  LABEL_BUSINESS_OFFERING: "Business offering",
+  LABEL_FULFILMENT_INFORMATION: "Fulfilment information",
+  LABEL_SALES_FORECAST: "Sales forecast",
+  LABEL_POINT_OF_SALES_TERMINAL: "Point-of-Sales terminal",
+  LABEL_E_COMMERCE: "e-Commerce",
+  LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY:
+    "Percentage of products/services not fulfilled immediately",
+  LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES:
     {
-      description: "Is your business ready for operation?",
-      listCheckbox: [
+      description:
+        "How quickly does your business fulfil these products and/or services?",
+      listRadio: [
         {
-          label: "Selling products",
-          checked: false,
+          text: "Immediate fulfillment",
+          checked: true,
         },
         {
-          label: "Providing services",
+          text: "Fulfillment over a period of time",
           checked: false,
         },
       ],
     },
-    {
-      description: "Do you currently have any of the following?",
-      listCheckbox: [
-        {
-          label: "Office",
-          checked: false,
-        },
-        {
-          label: "Retail store",
-          checked: false,
-        },
-        {
-          label: "Warehouse",
-          checked: false,
-        },
-      ],
-    },
-  ],
+  LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS: {
+    description: "Approximate delivery time to customers",
+    listDropdown: [
+      {
+        name: "Within a week",
+        value: "within-a-week",
+      },
+      {
+        name: "Within a month",
+        value: "within-a-month",
+      },
+      {
+        name: "Within 3 months",
+        value: "within-3-months",
+      },
+      {
+        name: "More than 3 months",
+        value: "more-than-3-months",
+      },
+    ],
+  },
+  LIST_PLEASE_INDICATE_DURATION: {
+    description: "Please indicate duration",
+    listDropdown: [
+      {
+        name: "Within a week",
+        value: "within-a-week",
+      },
+      {
+        name: "Within a month",
+        value: "within-a-month",
+      },
+      {
+        name: "Within 3 months",
+        value: "within-3-months",
+      },
+      {
+        name: "More than 3 months",
+        value: "more-than-3-months",
+      },
+    ],
+  },
+  PLEASE_SELECT_LABEL: "Please select",
+  PERCENT_CHARACTERS: "%",
   list_radio_yes_no: [
     {
       text: "Yes",
@@ -615,6 +693,11 @@ export const SELF_SERVE_PAGE = {
                     ],
                   },
                 ],
+                textField: {
+                  description:
+                    "At how many outlets will you deploy Point-of-Sales terminals?",
+                  label: "eg. 10",
+                },
               },
             },
             websiteInfomation: {
@@ -709,28 +792,100 @@ export const SELF_SERVE_PAGE = {
         check: false,
         status: true,
       },
-      sections: {
-        is_your_business_offering: {
+      pointOfSalesForm: {
+        title: "Point-of-Sales terminal",
+        businessOffering: {
+          title: "Business offering",
           description:
             "What products and/or services is your business offering?",
-          listRadioDescription:
-            "How quickly does your business fulfil these products and/or services?",
-          mainTextFieldLabel:
-            "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
-          listRadio: [
+          textField: {
+            label:
+              "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+            helperText: "Cannot exceed 180 characters",
+          },
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          listRadio: {
+            description:
+              "How quickly does your business fulfil these products and/or services?",
+            list: [
+              {
+                text: "Immediate fulfillment",
+                checked: true,
+              },
+              {
+                text: "Fulfillment over a period of time",
+                checked: false,
+              },
+            ],
+          },
+        },
+        salesForecast: {
+          title: "Sales forecast",
+          description:
+            "Based on your products and/or services, what is your sales forecast?",
+          listTextField: [
             {
-              text: "Immediate fulfillment",
-              checked: false,
+              keyName: "averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
             },
             {
-              text: "Fulfillment over a period of time",
-              checked: false,
+              keyName: "annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
             },
           ],
         },
-        is_your_sales_forecast: {
+      },
+      ecommerceForm: {
+        title: "e-Commerce",
+        businessOffering: {
+          description:
+            "What products and/or services is your business offering?",
+          textField: {
+            label:
+              "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+          },
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          listCheckbox: {
+            description: "Where will your products come from?",
+            list: [
+              {
+                text: "Within Singapore",
+                checked: false,
+              },
+              {
+                text: "Out of Singapore",
+                checked: false,
+              },
+            ],
+          },
+          listDropdown: {
+            description: "Approximate delivery time to customers",
+          },
+        },
+        salesForecast: {
+          title: "Sales forecast",
           description:
             "Based on your products and/or services, what is your sales forecast?",
+          listTextField: [
+            {
+              keyName: "averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              label: "SGD",
+            },
+            {
+              keyName: "annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              label: "SGD",
+            },
+          ],
         },
       },
     },
