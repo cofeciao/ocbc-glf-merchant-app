@@ -14,6 +14,12 @@ const Formslice = createSlice({
       businessInfomation: {},
       websiteInfomation: {},
       otherInfomation: {},
+      pointOfSales: {},
+      ecommerce: {},
+    },
+    productsAndServicesStep: {
+      pointOfSales: {},
+      eCommerce: {},
     },
   },
   reducers: {
@@ -72,6 +78,24 @@ const Formslice = createSlice({
     saveDataOtherInfomation: (state, action) => {
       state.businessDetailsStep.otherInfomation = action.payload;
     },
+
+    /**
+     * function save data of step Products And Services
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataProductsAndServicesEcom: (state, action) => {
+      state.productsAndServicesStep.eCommerce = action.payload;
+    },
+
+    /**
+     * function save data of step Products And Services
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataProductsAndServicesPOS: (state, action) => {
+      state.productsAndServicesStep.pointOfSales = action.payload;
+    },
   },
 });
 
@@ -82,6 +106,8 @@ export const {
   saveDataBusinessInfomation,
   saveDataWebsiteInfomation,
   saveDataOtherInfomation,
+  saveDataProductsAndServicesEcom,
+  saveDataProductsAndServicesPOS,
 } = Formslice.actions;
 
 export default Formslice.reducer;
