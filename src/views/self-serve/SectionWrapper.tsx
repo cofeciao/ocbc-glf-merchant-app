@@ -1,25 +1,31 @@
 // import modules
 import { Box, Grid, Typography } from "@material-ui/core";
 import React from "react";
+import _ from "lodash";
 
 const SectionWrapper = (props: any) => {
-  const { title, description, cx } = props;
+  const { title, description, cx, edit } = props;
   return (
     <Grid container className={cx("section-wrapper")}>
       <Grid item xs={12}>
-        <Box className="header-wrapper">
-          {/* {Title} */}
-          {title && (
-            <Typography className={cx("section-title")}>{title}</Typography>
-          )}
+        {!_.isEmpty(title || description) && (
+          <Box className="header-wrapper">
+            {/* {Title} */}
+            {title && (
+              <Box className={cx("header-wrapper d-flex")}>
+                <Typography className={cx("section-title")}>{title}</Typography>
+                {edit && <Box>Edit</Box>}
+              </Box>
+            )}
 
-          {/* {Description} */}
-          {description && (
-            <Typography className={cx("section-description")}>
-              {description}
-            </Typography>
-          )}
-        </Box>
+            {/* {Description} */}
+            {description && (
+              <Typography className={cx("section-description")}>
+                {description}
+              </Typography>
+            )}
+          </Box>
+        )}
       </Grid>
 
       {/* {Children} */}
