@@ -17,9 +17,23 @@ export const LIST_ROUTER = {
   business_details: "/self/business-details",
   products_and_services: "/self/products-and-services",
   review_and_submit: "/self/review-and-submit",
+  acknowledgement_successful: "/acknowledgement/successful",
+  acknowledgement_interest: "/acknowledgement/interest",
 };
 
 export const ERROR_ICON = "\u26A0";
+
+export const ACKNOWLEDGEMENT_PAGE = {
+  LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION:
+    "Great, we have received your application!",
+  LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS:
+    "Our Relationship Manager will contact you within 3 working days.",
+  LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS: "Apply for OCBC Cashless Payments",
+
+  LABEL_THANK_YOU_FOR_YOUR_INTEREST: "Thank you for your interest!",
+  LABEL_TO_APPLY_FOR_PAYNOW_PLEASE_VISIT: "To apply for PayNow, please visit",
+  LABEL_BUSINESS_INTERNET_BANKING: "Business Internet Banking",
+};
 
 export const HOME_PAGE = {
   title_cashless_payments_home: "Apply for OCBC Cashless Payments",
@@ -95,6 +109,41 @@ export const SELF_SERVE_PAGE = {
       },
     ],
   },
+
+  LABEL_COMPANY_AND_CONTACT_INFORMATION: "Company and contact information",
+  LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE:
+    "Transaction and card acceptance type",
+  LABEL_BUSINESS_DETAILS: "Business details",
+  LABEL_PRODUCTS_AND_SERVICES: "Products and services",
+  LABEL_REVIEW_AND_SUBMIT: "Review and submit",
+  LABEL_MODE: "Mode",
+  LABEL_REGISTERED_ENTITY_NAME: "Registered entity name",
+  LABEL_COMPANY_TYPE: "Company type",
+  LABEL_UNIQUE_ENTITY_NUMBER: "Unique Entity Number (UEN)",
+  LABEL_SALUTATION: "Salutation",
+  LABEL_NAME: "Name",
+  LABEL_EMAIL: "Email",
+  LABEL_DESIGNATION: "Designation",
+  LABEL_CONTACT_NUMBER: "Contact number",
+
+  LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS:
+    "Number of outlets with Point-of-Sales termimals",
+  LABEL_BUSINESS_READY_TO_OPERATE: "Business ready to operate",
+  LABEL_OCBC_BUSINESS_ACCOUNT: "OCBC business account",
+  LABEL_CASHLESS_PAYMENT_METHOD: "Cashless payment method(s)",
+  LABEL_ECOMMERCE: "eCommerce",
+
+  LABEL_EXISTING_WEBSITE: "Existing website",
+  LABEL_WEBSITE_URL: "Website’s URL",
+  LABEL_PLACE_ORDER_THROUGH_WEBSITE: "Place order through website",
+  LABEL_BUSINESS_OFFERINGS: "Business offerings",
+  LABEL_AVAILABLE_SPACES: "Available spaces",
+  LABEL_CARD_PAYMENT_AVAILABLE_AT_RETAIL_STORE:
+    "Card payment available at retail store",
+
+  LABEL_COMPANY_REGISTRATION: "Company registration",
+  LABEL_CONTACT_DETAILS: "Contact details",
+  LABEL_ADD_MORE_WEBSITES: "Add website more",
   LABEL_BUSINESS_OFFERING: "Business offering",
   LABEL_FULFILMENT_INFORMATION: "Fulfilment information",
   LABEL_SALES_FORECAST: "Sales forecast",
@@ -161,7 +210,7 @@ export const SELF_SERVE_PAGE = {
   },
   PLEASE_SELECT_LABEL: "Please select",
   PERCENT_CHARACTERS: "%",
-  list_radio_yes_no: [
+  LIST_RADIO_YES_NO: [
     {
       text: "Yes",
       value: "yes",
@@ -173,8 +222,8 @@ export const SELF_SERVE_PAGE = {
       checked: false,
     },
   ],
-  add_more_websites: "Add website more",
-  list_salutation: [
+
+  LIST_SALUTATION: [
     {
       name: "Mrs",
       value: "mrs",
@@ -184,7 +233,7 @@ export const SELF_SERVE_PAGE = {
       value: "ms",
     },
   ],
-  list_company_type: [
+  LIST_COMPANY_TYPE: [
     {
       name: "Private Limited",
       value: "privateLimited",
@@ -214,7 +263,7 @@ export const SELF_SERVE_PAGE = {
       value: "other",
     },
   ],
-  list_step: {
+  LIST_STEP: {
     company_and_contact_information: {
       id: "company-and-contact-information",
       numerical: "0",
@@ -827,13 +876,13 @@ export const SELF_SERVE_PAGE = {
             "Based on your products and/or services, what is your sales forecast?",
           listTextField: [
             {
-              keyName: "averageAmountPerCreditCardTransaction",
+              keyName: "POS.averageAmountPerCreditCardTransaction",
               description: "Average amount per credit card transaction",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },
             {
-              keyName: "annualCreditCardSalesForecast",
+              keyName: "POS.annualCreditCardSalesForecast",
               description: "Annual credit card sales forecast",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
@@ -876,12 +925,12 @@ export const SELF_SERVE_PAGE = {
             "Based on your products and/or services, what is your sales forecast?",
           listTextField: [
             {
-              keyName: "averageAmountPerCreditCardTransaction",
+              keyName: "Ecom.averageAmountPerCreditCardTransaction",
               description: "Average amount per credit card transaction",
               label: "SGD",
             },
             {
-              keyName: "annualCreditCardSalesForecast",
+              keyName: "Ecom.annualCreditCardSalesForecast",
               description: "Annual credit card sales forecast",
               label: "SGD",
             },
