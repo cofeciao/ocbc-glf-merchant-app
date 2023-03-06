@@ -32,7 +32,7 @@ declare namespace IHome {
     errorMessage: string,
     checkboxKey: number,
     dataCardCheckbox: ICheckBox[],
-    handleGetValueCheckbox?: (value: IDataCheckItem) => void
+    getValueCheckbox?: Function
   }
 
   export interface IHomeThingsToTakeNoteOf {
