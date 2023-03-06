@@ -3,20 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 const Formslice = createSlice({
   name: "form",
   initialState: {
-    dataListCheckbox: [],
-    companyAndContactInformationStep: {
-      data: [],
-    },
-    transactionAndCardAcceptanceTypeStep: {
-      dataListCheckbox: [],
-    },
-    businessDetailsStep: {
-      businessInfomation: {},
-      websiteInfomation: {},
-      otherInfomation: {},
-      pointOfSales: {},
-      ecommerce: {},
-    },
+    cashlessPaymentMethod: [],
+    companyAndContactInformationStep: {},
+    transactionAndCardAcceptanceTypeStep: [],
+    businessDetailsStep: {},
+    listWebsiteUrl: [],
     productsAndServicesStep: {
       pointOfSales: {},
       eCommerce: {},
@@ -24,12 +15,12 @@ const Formslice = createSlice({
   },
   reducers: {
     /**
-     * function save data of step
+     * function save data of Cashless Payment Method
      * @param state - State for form
      * @param action  - Payload
      */
-    saveDataListCheckbox: (state, action) => {
-      state.dataListCheckbox = action.payload;
+    saveDataCashlessPaymentMethod: (state, action) => {
+      state.cashlessPaymentMethod = action.payload;
     },
 
     /**
@@ -38,8 +29,7 @@ const Formslice = createSlice({
      * @param action  - Payload
      */
     saveDataCompanyAndContactInformationStep: (state, action) => {
-      state.transactionAndCardAcceptanceTypeStep.dataListCheckbox =
-        action.payload;
+      state.companyAndContactInformationStep = action.payload;
     },
 
     /**
@@ -48,8 +38,7 @@ const Formslice = createSlice({
      * @param action  - Payload
      */
     saveDataTransactionAndCardAcceptanceTypeStep: (state, action) => {
-      state.transactionAndCardAcceptanceTypeStep.dataListCheckbox =
-        action.payload;
+      state.transactionAndCardAcceptanceTypeStep = action.payload;
     },
 
     /**
@@ -57,26 +46,17 @@ const Formslice = createSlice({
      * @param state - State for form
      * @param action  - Payload
      */
-    saveDataBusinessInfomation: (state, action) => {
-      state.businessDetailsStep.businessInfomation = action.payload;
+    saveDataBusinessDetailsStep: (state, action) => {
+      state.businessDetailsStep = action.payload;
     },
 
     /**
-     * function save data of step Business Details
+     * function save data List Website Url of step Business Details
      * @param state - State for form
      * @param action  - Payload
      */
-    saveDataWebsiteInfomation: (state, action) => {
-      state.businessDetailsStep.websiteInfomation = action.payload;
-    },
-
-    /**
-     * function save data of step Business Details
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataOtherInfomation: (state, action) => {
-      state.businessDetailsStep.otherInfomation = action.payload;
+    saveDataListWebsiteUrl: (state, action) => {
+      state.listWebsiteUrl = action.payload;
     },
 
     /**
@@ -100,12 +80,11 @@ const Formslice = createSlice({
 });
 
 export const {
-  saveDataListCheckbox,
+  saveDataCashlessPaymentMethod,
   saveDataCompanyAndContactInformationStep,
   saveDataTransactionAndCardAcceptanceTypeStep,
-  saveDataBusinessInfomation,
-  saveDataWebsiteInfomation,
-  saveDataOtherInfomation,
+  saveDataBusinessDetailsStep,
+  saveDataListWebsiteUrl,
   saveDataProductsAndServicesEcom,
   saveDataProductsAndServicesPOS,
 } = Formslice.actions;
