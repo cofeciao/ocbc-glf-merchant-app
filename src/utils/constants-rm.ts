@@ -1452,73 +1452,27 @@ export const STEP_RM = {
   ],
 
   list_step: {
-    company_and_contact_information: {
-      id: "company-and-contact-information",
+    acra_and_contact_information: {
+      id: "acra-and-contact-information",
       numerical: "0",
-      text: "Company and contact information",
+      text: "Acra and contact information",
       check: false,
       status: true,
-      data: {
-        id: "company-and-contact-information",
-        numerical: "0",
-        text: "Company and contact information",
-        check: false,
-        status: true,
-      },
       section: {
-        company_registration: {
-          title: "Company registration",
+        arca_detail: {
+          title: "Arca details",
           description:
-            "Please enter your registered entity name and Unique Entity Number (UEN).",
-          inputFields: {
-            registeredEntityName: {
-              label: "Registered entity name",
-              helperText: "",
-              requiredText: "",
-            },
-            uniqueEntityNumber: {
-              label: "Unique Entity Number (UEN)",
-              helperText: "Please enter a valid UEN",
-              requiredText: "",
-            },
-            companyType: {
-              label: "Company type",
-              helperText: "",
-              requiredText: "",
-            },
-          },
-        },
-        contact_details: {
-          title: "Contact details",
-          description:
-            "Our Relationship Manager will reach out to you with these details.",
-          inputFields: {
-            salutation: {
-              label: "Salutation",
-              helperText: "",
-              requiredText: "",
-            },
-            name: {
-              label: "Name",
-              helperText: "",
-              requiredText: "",
-            },
-            designation: {
-              label: "Designation",
-              helperText: "",
-              requiredText: "",
-            },
-            email: {
-              label: "Email",
-              helperText: "Please enter a valid email address",
-              requiredText: "",
-            },
-            contactNumber: {
-              label: "Contact number",
-              helperText: "Please enter a valid contact number",
-              requiredText: "",
-            },
-          },
+            "Please ensure that these details from ACRA are updated.",
+          dataDetail: {
+            business_name: "AMZO Pte Ltd",
+            entity_type: "Private Limited Company",
+            registered_address: "35 Bedok North Road #09-39 Singapore 674902",
+            directors: "Lau Aik Miang S9300409F",
+            unique_entity_number: "2016347449N",
+            nature_of_business: "Café / Restaurant",
+            mailing_address: "35 Bedok North Road #09-39 Singapore 674902",
+            user: "Zunaidi Zainal Azmian S9000555C",
+          }
         },
       },
     },

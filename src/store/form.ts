@@ -7,6 +7,7 @@ const Formslice = createSlice({
     transactionAndCardAcceptanceTypeStep: {
       dataListCheckbox: [],
     },
+    dataAcraDetail: {}
   },
   reducers: {
     /**
@@ -17,6 +18,9 @@ const Formslice = createSlice({
     saveDataListCheckbox: (state, action) => {
       state.dataListCheckbox = action.payload;
     },
+    saveDataAcraDetail: (state, action) => {
+      state.dataAcraDetail = action.payload;
+    },
    
     /**
      * function save data of page
@@ -26,12 +30,16 @@ const Formslice = createSlice({
     saveDataTransactionAndCardAcceptanceTypeStep: (state, action) => {
       state.transactionAndCardAcceptanceTypeStep.dataListCheckbox = action.payload;
     },
+    saveDataAcraDetailStep: (state, action) => {
+      state.dataAcraDetail = action.payload;
+    },
   },
 });
 
 export const {
   saveDataListCheckbox,
   saveDataTransactionAndCardAcceptanceTypeStep,
+  saveDataAcraDetailStep
 } = Formslice.actions;
 
 export default Formslice.reducer;
