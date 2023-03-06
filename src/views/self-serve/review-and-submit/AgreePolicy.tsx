@@ -10,9 +10,19 @@ import styles from "./ReviewAndSubmit.scss";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
-const AgreePolicy: React.FC<any> = () => {
+const AgreePolicy: React.FC<any> = (props) => {
   const { LIST_CHECKBOX_AGREE_POLICY } = SELF_SERVE_PAGE;
+  const { getValue } = props;
   const cx = classnames.bind(styles);
+  const [valueCheckbox, setValueCheckbox] = useState();
+
+  useEffect(() => {
+    if (!_.isNil(valueCheckbox) && _.size(valueCheckbox) >= 3) {
+      getValue(true);
+    } else {
+      getValue(false);
+    }
+  }, [valueCheckbox]);
 
   return (
     <Box>
@@ -34,7 +44,9 @@ const AgreePolicy: React.FC<any> = () => {
             isFullWidth
             list={LIST_CHECKBOX_AGREE_POLICY.listCheckbox}
             checkBoxClass={cx("your-product-come-from-checkbox")}
-            getValue={(value: any) => {}}
+            getValue={(value: any) => {
+              setValueCheckbox(value);
+            }}
           />
         </Grid>
       </Grid>

@@ -6,10 +6,22 @@ import _ from "lodash";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
+import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
-const CompanyRegistration: React.FC<any> = (props) => {
+const CompanyAndContactInfomation: React.FC<any> = (props) => {
   const { data } = props;
+  const {
+    LABEL_CONTACT_DETAILS,
+    LABEL_REGISTERED_ENTITY_NAME,
+    LABEL_COMPANY_TYPE,
+    LABEL_UNIQUE_ENTITY_NUMBER,
+    LABEL_SALUTATION,
+    LABEL_NAME,
+    LABEL_EMAIL,
+    LABEL_DESIGNATION,
+    LABEL_CONTACT_NUMBER,
+  } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
 
   return (
@@ -17,10 +29,10 @@ const CompanyRegistration: React.FC<any> = (props) => {
       <Grid container>
         <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
-                  Registered entity name
+                  {LABEL_REGISTERED_ENTITY_NAME}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
                   {data.registeredEntityName}
@@ -28,10 +40,10 @@ const CompanyRegistration: React.FC<any> = (props) => {
               </Box>
             </Grid>
 
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
-                  Company type
+                  {LABEL_COMPANY_TYPE}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
                   {data.companyType}
@@ -44,7 +56,7 @@ const CompanyRegistration: React.FC<any> = (props) => {
         <Grid item xs={12}>
           <Box className={cx("d-flex-column")}>
             <Box component="span" className={cx("text-item-input")}>
-              Unique Entity Number (UEN)
+              {LABEL_UNIQUE_ENTITY_NUMBER}
             </Box>
             <Box component="span" className={cx("text-item-value")}>
               {data.uniqueEntityNumber}
@@ -52,25 +64,25 @@ const CompanyRegistration: React.FC<any> = (props) => {
           </Box>
         </Grid>
 
-        <Box className={cx("section-title")}>Contact details</Box>
+        <Box className={cx("section-title")}>{LABEL_CONTACT_DETAILS}</Box>
 
         <Grid item xs={12}>
           <Box className={cx("d-flex-column")}>
             <Box component="span" className={cx("text-item-input")}>
-              Salutation
+              {LABEL_SALUTATION}
             </Box>
             <Box component="span" className={cx("text-item-value")}>
-              Credit/Debit card
+              {data.salutation}
             </Box>
           </Box>
         </Grid>
 
         <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
-                  Name
+                  {LABEL_NAME}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
                   {data.name}
@@ -78,10 +90,10 @@ const CompanyRegistration: React.FC<any> = (props) => {
               </Box>
             </Grid>
 
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
-                  Designation
+                  {LABEL_DESIGNATION}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
                   {data.designation}
@@ -93,10 +105,10 @@ const CompanyRegistration: React.FC<any> = (props) => {
 
         <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
-                  Email
+                  {LABEL_EMAIL}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
                   {data.email}
@@ -104,10 +116,10 @@ const CompanyRegistration: React.FC<any> = (props) => {
               </Box>
             </Grid>
 
-            <Grid xs={12} md={6}>
+            <Grid item xs={12} md={6}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
-                  Contact number
+                  {LABEL_CONTACT_NUMBER}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
                   {data.contactNumber}
@@ -120,4 +132,4 @@ const CompanyRegistration: React.FC<any> = (props) => {
     </Box>
   );
 };
-export default CompanyRegistration;
+export default CompanyAndContactInfomation;

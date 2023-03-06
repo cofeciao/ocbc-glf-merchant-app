@@ -8,43 +8,54 @@ import _ from "lodash";
 import styles from "./ReviewAndSubmit.scss";
 
 // render UI
-const TransactionAndCardAcceptanceType: React.FC<any> = () => {
+const TransactionAndCardAcceptanceType: React.FC<any> = (props) => {
+  const { data } = props;
   const cx = classnames.bind(styles);
+  const listItemChecked = data.filter((item: any) => item.checked === true); // Filter from the data list to get checked items
 
   return (
     <Box>
       <Grid item xs={12} className={cx("n-wrap")}>
-        <Grid container className={cx("n-wrap")}>
-          <Grid xs={12} md={6}>
-            <Box className={cx("d-flex-column")}>
-              <Box component="span" className={cx("text-item-input")}>
-                Service
-              </Box>
-              <Box component="span" className={cx("text-item-value")}>
-                Point-of-Sales terminal
-              </Box>
-            </Box>
-          </Grid>
+        <Grid container>
+          {_.map(listItemChecked, (item) => {
+            return (
+              <Grid container className={cx("n-wrap")}>
+                <Grid xs={12} md={6}>
+                  <Box className={cx("d-flex-column")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      Service
+                    </Box>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {item.label}
+                    </Box>
+                  </Box>
+                </Grid>
 
-          <Grid xs={12} md={6}>
-            <Box className={cx("d-flex-column")}>
-              <Box component="span" className={cx("text-item-input")}>
-                Payment options (Includes Mastercard and Visa)
-              </Box>
-              <Box component="span" className={cx("text-item-value")}>
-                VISA
-              </Box>
-              <Box component="span" className={cx("text-item-value")}>
-                Mastercard
-              </Box>
-              <Box component="span" className={cx("text-item-value")}>
-                Alipay
-              </Box>
-              <Box component="span" className={cx("text-item-value")}>
-                JCB
-              </Box>
-            </Box>
-          </Grid>
+                <Grid xs={12} md={6}>
+                  <Box className={cx("d-flex-column")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      Payment options (Includes Mastercard and Visa)
+                    </Box>
+                    {_.map(
+                      item.expandedListCheckbox.listCheckbox,
+                      (subItem) => {
+                        if (subItem.checked === true) {
+                          return (
+                            <Box
+                              component="span"
+                              className={cx("text-item-value")}
+                            >
+                              {subItem.label}
+                            </Box>
+                          );
+                        }
+                      }
+                    )}
+                  </Box>
+                </Grid>
+              </Grid>
+            );
+          })}
         </Grid>
       </Grid>
     </Box>

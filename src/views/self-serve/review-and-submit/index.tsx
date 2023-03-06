@@ -1,9 +1,7 @@
 // import modules
 import { Category, Button } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ListCheckBox from "@/components/ListCheckBox";
-import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
 import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -14,7 +12,6 @@ import _ from "lodash";
 import {
   CONTINUE_LATER,
   LIST_ROUTER,
-  NEXT,
   SELF_SERVE_PAGE,
   SUBMIT,
 } from "@/utils/constants";
@@ -33,38 +30,73 @@ import CompanyAndContactInfomation from "./CompanyAndContactInfomation";
 import TransactionAndCardAcceptanceType from "./TransactionAndCardAcceptanceType";
 import AgreePolicy from "./AgreePolicy";
 import ProductsAndServices from "./ProductsAndServices";
+import BusinessDetails from "./BusinessDetails";
 
 // render UI
 const ReviewAndSubmit: React.FC<any> = () => {
   const {
-    list_step: {
-      review_and_submit: {
-        text,
-        // section: { which_service_are_you_applying_for },
-      },
+    LABEL_CASHLESS_PAYMENT_METHOD,
+    LABEL_COMPANY_REGISTRATION,
+    LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE,
+    LABEL_BUSINESS_DETAILS,
+    LABEL_PRODUCTS_AND_SERVICES,
+    LIST_STEP: {
+      review_and_submit: { text },
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
+  const [disabledButton, setDisableButton] = useState<boolean>(true);
   const history = useHistory();
-  const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
   /**
    * Retrieves data of Transaction And Card Acceptance Type step from Store
    */
   const cashlessPaymentsMethods = useSelector((state: any) =>
-    state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox.filter(
+    state.form.transactionAndCardAcceptanceTypeStep.filter(
       (item: any) => item.checked === true
     )
+  );
+
+  /**
+   * * Retrieves data of Transaction And Card Acceptance Type step from Store
+   * * return "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
+   */
+  const optionSelected = useSelector((state: any) =>
+    state.form.transactionAndCardAcceptanceTypeStep
+      .map((item: any) => (item.checked === true ? item.value : ""))
+      .filter((item: string) => item !== "")
+      .join("-")
   );
 
   /**
    * Retrieves data of Company And Contact Information step from Store
    */
   const companyAndContactInformationStep = useSelector(
-    (state: any) => state.form.companyAndContactInformationStep.data
+    (state: any) => state.form.companyAndContactInformationStep
   );
+
+  /**
+   * Retrieves data of Transaction And Card Acceptance Type step from Store
+   */
+  const transactionAndCardAcceptanceTypeStep = useSelector((state: any) =>
+    state.form.transactionAndCardAcceptanceTypeStep.filter(
+      (item: any) => item.checked === true
+    )
+  );
+
+  /**
+   * Retrieves data of Business Details step from Store
+   */
+  const businessDetailsStep = useSelector(
+    (state: any) => state.form.businessDetailsStep
+  );
+
+  /**
+   * Retrieves data of List Website Url step from Store
+   * List Website Url as data from Business Details step
+   */
+  const listWebsiteUrl = useSelector((state: any) => state.form.listWebsiteUrl);
 
   /**
    * Retrieves data of Products And Services step from Store
@@ -83,7 +115,7 @@ const ReviewAndSubmit: React.FC<any> = () => {
         backgroundClass="bgGunmetalBluegrey"
         disabled={disabledButton}
         onClick={() => {
-          history.push(LIST_ROUTER.business_details);
+          history.push(LIST_ROUTER.acknowledgement_successful);
         }}
       >
         <>{SUBMIT}</>
@@ -94,33 +126,48 @@ const ReviewAndSubmit: React.FC<any> = () => {
   return (
     <Box className={cx("review-and-submit-wrapper step-wrapper")}>
       {/* {Category} */}
-      <section className={cx("category-wrapper")}>
+      <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
-      </section>
+      </Box>
 
-      {/* {Section Contact details} */}
-      <SectionWrapper cx={cx} title="Cashless payment method(s)">
+      {/* {Section Cashless Payment Method} */}
+      <SectionWrapper cx={cx} title={LABEL_CASHLESS_PAYMENT_METHOD}>
         <CashlessPaymentMethod data={cashlessPaymentsMethods} />
       </SectionWrapper>
 
-      <SectionWrapper cx={cx} title="Company registration">
+      {/* {Section Company And Contact Infomation} */}
+      <SectionWrapper cx={cx} title={LABEL_COMPANY_REGISTRATION}>
         <CompanyAndContactInfomation data={companyAndContactInformationStep} />
       </SectionWrapper>
 
-      <SectionWrapper cx={cx} title="Transaction and card acceptance type">
-        <TransactionAndCardAcceptanceType />
+      {/* {Section Transaction And Card Acceptance Type} */}
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE}
+      >
+        <TransactionAndCardAcceptanceType
+          data={transactionAndCardAcceptanceTypeStep}
+        />
       </SectionWrapper>
 
-      <SectionWrapper cx={cx} title="Business details"></SectionWrapper>
+      {/* {Section Business Details} */}
+      <SectionWrapper cx={cx} title={LABEL_BUSINESS_DETAILS}>
+        <BusinessDetails
+          data={businessDetailsStep}
+          listWebsiteUrl={listWebsiteUrl}
+          optionSelected={optionSelected}
+        />
+      </SectionWrapper>
 
-      <SectionWrapper cx={cx} title="Products and services">
+      {/* {Section Products And Services} */}
+      <SectionWrapper cx={cx} title={LABEL_PRODUCTS_AND_SERVICES}>
         <ProductsAndServices data={productsAndServicesStep} />
       </SectionWrapper>
 
-      <AgreePolicy />
+      <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />
 
       {/* {Next Button}  */}
-      <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
+      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
         <Button
           backgroundClass="square"
           onClick={() => history.push(LIST_ROUTER.products_and_services)}
@@ -133,7 +180,7 @@ const ReviewAndSubmit: React.FC<any> = () => {
           </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
-      </section>
+      </Box>
     </Box>
   );
 };
