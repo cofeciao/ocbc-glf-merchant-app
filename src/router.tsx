@@ -23,8 +23,8 @@ export default [
   <Route exact path="/self/:slug" component={SelfServe} key="/self/:slug" />,
   <Route
     exact
-    path="/acknowledgement"
+    path="/acknowledgement/:slug"
     component={AcknowledgementPage}
-    key="/acknowledgemen"
+    key="/acknowledgement/:slug"
   />,
 ];
