@@ -1,0 +1,118 @@
+// import modules
+import React, { useEffect } from "react";
+import { Box, Grid, Typography } from "@material-ui/core";
+import _ from "lodash";
+import { useForm } from "react-hook-form";
+import SectionWrapper from "../SectionWrapper";
+import BusinessOfferingEcommerce from "./BusinessOfferingEcommerce";
+import FulfilmentInformationEcommerce from "./FulfilmentInformationEcommerce";
+import SalesForecastEcommerce from "./SalesForecastEcommerce";
+import { useDispatch } from "react-redux";
+import { saveDataProductsAndServicesEcom } from "@/store/form";
+
+// import constants
+import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { useSelector } from "react-redux";
+
+// import types
+
+// render UI
+const EcommerceForm: React.FC<any> = (props) => {
+  const {
+    cx,
+    data,
+    title,
+    variant = "point-of-sales",
+    // getValue,
+    // getValidation,
+  } = props;
+  const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
+  const {
+    LABEL_BUSINESS_OFFERING,
+    LABEL_FULFILMENT_INFORMATION,
+    LABEL_SALES_FORECAST,
+  } = SELF_SERVE_PAGE;
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
+    mode: "onBlur",
+  });
+  const watchAll = watch();
+  const dispatch = useDispatch();
+
+  /**
+   * Save data to Store
+   */
+  useEffect(() => {
+    if (watchAll) {
+      dispatch(saveDataProductsAndServicesEcom(getValues()));
+    }
+  }, [watchAll]);
+
+  return (
+    <Box className={cx("products-and-services-form-wrapper")}>
+      <SectionWrapper cx={cx} title={title}>
+        <Grid container>
+          {/* {Business Offering} */}
+          <Grid item xs={12}>
+            {LABEL_BUSINESS_OFFERING && (
+              <Typography className={cx("sub-section-title")}>
+                {LABEL_BUSINESS_OFFERING}
+              </Typography>
+            )}
+            {_.has(businessOffering, "description") && (
+              <Typography
+                className={cx(
+                  "business-offering-description sub-section-description"
+                )}
+              >
+                {businessOffering.description}
+              </Typography>
+            )}
+            <BusinessOfferingEcommerce
+              cx={cx}
+              data={businessOffering}
+              register={register}
+              errors={errors}
+            />
+          </Grid>
+
+          {/* {Fulfilment Information} */}
+          <Grid item xs={12}>
+            {LABEL_FULFILMENT_INFORMATION && (
+              <Typography className={cx("sub-section-title")}>
+                {LABEL_FULFILMENT_INFORMATION}
+              </Typography>
+            )}
+            <FulfilmentInformationEcommerce
+              cx={cx}
+              data={fulfilmentInformation}
+              variant={variant}
+              register={register}
+              setValue={setValue}
+            />
+          </Grid>
+
+          {/* {Sales Forecast} */}
+          <Grid item xs={12}>
+            {LABEL_SALES_FORECAST && (
+              <Typography className={cx("sub-section-title")}>
+                {LABEL_SALES_FORECAST}
+              </Typography>
+            )}
+            <SalesForecastEcommerce
+              cx={cx}
+              data={salesForecast}
+              register={register}
+            />
+          </Grid>
+        </Grid>
+      </SectionWrapper>
+    </Box>
+  );
+};
+export default EcommerceForm;

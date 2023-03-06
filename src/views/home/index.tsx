@@ -22,6 +22,7 @@ import {
 
 // import types
 import { IHome } from "./Home";
+import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // import style
 import styles from "./Home.scss";
@@ -32,12 +33,13 @@ import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
 
 // render UI
 const Home: React.FC = ({}) => {
+  const { cashless_payments_methods, things_to_take_note_of } = HOME_PAGE;
   const cx = classnames.bind(styles);
   const history = useHistory();
   const [key, setKey] = useState<number>(0);
-  const [dataCardCheckbox, setDataCardCheckbox] = useState<
-    IHome.IItemCheckbox[]
-  >(HOME_PAGE.cashless_payments_methods.data_list_checkbox);
+  const [dataCardCheckbox, setDataCardCheckbox] = useState<ICheckBox[]>(
+    cashless_payments_methods.data_list_checkbox
+  );
   const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
   const [loading] = useState(false);
 
@@ -97,8 +99,10 @@ const Home: React.FC = ({}) => {
             {/* {Column left} */}
             <Grid item xs={12} md={3}>
               {/* Category */}
-              <Box className="home-category" >
-                <Category class="alo">{HOME_PAGE.title_cashless_payments_home}</Category>
+              <Box className="home-category">
+                <Category class="alo">
+                  {HOME_PAGE.title_cashless_payments_home}
+                </Category>
               </Box>
             </Grid>
 

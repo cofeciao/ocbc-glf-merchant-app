@@ -1,89 +1,146 @@
 // import modules
-import { Radio, Button } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ListCheckBox from "@/components/ListCheckBox";
-import { saveDataListCheckbox } from "@/store/form";
-import { Box, Grid, TextField, Typography } from "@material-ui/core";
+import { Radio } from "@sectionsg/orc";
+import React, { useState } from "react";
+import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
-
-// import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import _ from "lodash";
 
 // import style
 import styles from "./BusinessDetails.scss";
+import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 
+// import icons
+import IconTrash from "@/assets/images/icon-trash.svg";
+
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
-  const { listRadio } = props;
+  const { listField, setValue } = props;
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
-  const history = useHistory();
+  const [listTextField, setListTextField] = useState([
+    { ...listField.textField },
+  ]);
+
+  /**
+   * After clicking "add more websites" button under the text field, the text field will have 1 more field per click
+   */
+  const handleAddWebsite = () => {
+    if (listTextField.length < 3) {
+      setListTextField([...listTextField, listTextField]);
+    }
+  };
+
+  /**
+   * After clicking on the trash icon next to the text field input, the text field will be removed
+   * @param index
+   */
+  const handleClickTrash = (index: number) => {
+    const filterListTextField = _.filter(
+      listTextField,
+      (_textField, idx) => idx !== index
+    );
+    setListTextField(filterListTextField);
+  };
+
+  const plus = "&plusmn;";
 
   return (
-    <Box className={cx("website-i nformation-wrapper")}>
+    <Box className={cx("website-information-wrapper")}>
       <Grid container>
         {/* {Is your business ready for operation?} */}
         <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            Do you have an existing website?
-          </Typography>
+          {_.has(listField.listRadio[0], "description") && (
+            <Typography className={cx("sub-section-description")}>
+              {listField.listRadio[0].description}
+            </Typography>
+          )}
 
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio}
-            // label="Is your business ready for operation?"
-            radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
-          />
-        </Grid>
-
-        {/* {Is your business ready for operation?} */}
-        <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            Your website’s URL
-          </Typography>
-
-          <Grid item xs={4}>
-            <TextField
-              fullWidth
-              id={`uuidv4()`}
-              label="Registered entity name"
-              variant="filled"
-              // onBlur={(event) => {
-              //   getPersonalInformation(
-              //     "RegisteredEntityName",
-              //     event.target.value,
-              //     ""
-              //   );
-              // }}
+          {_.has(SELF_SERVE_PAGE, "list_radio_yes_no") && (
+            <Radio
+              name="lockIn"
+              listCheckBox={SELF_SERVE_PAGE.list_radio_yes_no}
+              radioKey={0}
+              getValue={(value: any) => setValue("websiteExisting", value)}
             />
-          </Grid>
+          )}
         </Grid>
 
         {/* {Is your business ready for operation?} */}
-        <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            Can customers place orders through your website?
-          </Typography>
+        {
+          <Grid item xs={12}>
+            {/* {Description} */}
+            {_.has(listField.textField, "description") && (
+              <Typography className={cx("sub-section-description")}>
+                {listField.textField.description}
+              </Typography>
+            )}
 
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio}
-            radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
-          />
+            <Grid item xs={4}>
+              <Box className={cx("text-field-group-wrapper")}>
+                {/* {Text field group} */}
+                {_.map(listTextField, (_item, index) => {
+                  return (
+                    <Box className={cx("text-field-item")}>
+                      <TextField
+                        fullWidth
+                        id={`uuidv4()`}
+                        placeholder={listTextField[0].label}
+                        variant="filled"
+                      />
+                      {index >= 1 && (
+                        <img
+                          src={IconTrash}
+                          onClick={() => handleClickTrash(index)}
+                          alt="icon"
+                          className={cx("text-field-trash-icon")}
+                        />
+                      )}
+                    </Box>
+                  );
+                })}
+              </Box>
+
+              {/* {Add more websites button} */}
+              <Box display="flex" flexDirection="row">
+                {listTextField.length < 3 && (
+                  <Button
+                    className={cx("add-website-button")}
+                    onClick={handleAddWebsite}
+                  >
+                    <Box component="span" className={cx("large-plus")}>
+                      <img
+                        src={IconTrash}
+                        alt="icon"
+                        className={cx("text-field-trash-icon")}
+                      />
+                    </Box>
+                    <Box component="span" className={cx("add-website-label")}>
+                      {SELF_SERVE_PAGE.add_more_websites}
+                    </Box>
+                  </Button>
+                )}
+              </Box>
+            </Grid>
+          </Grid>
+        }
+
+        {/* {Is your business ready for operation?} */}
+        <Grid item xs={12}>
+          {_.has(listField.listRadio[1], "description") && (
+            <Typography className={cx("sub-section-description")}>
+              {listField.listRadio[1].description}
+            </Typography>
+          )}
+
+          {_.has(SELF_SERVE_PAGE, "list_radio_yes_no") && (
+            <Radio
+              name="lockIn"
+              listCheckBox={SELF_SERVE_PAGE.list_radio_yes_no}
+              radioKey={0}
+              getValue={(value: any) => setValue("websiteoOrders", value)}
+            />
+          )}
         </Grid>
       </Grid>
     </Box>

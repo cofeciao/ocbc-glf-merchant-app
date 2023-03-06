@@ -583,6 +583,16 @@ body {
     display: flex;
   }
 
+  .d-flex-row {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .d-flex-column {
+    display: flex;
+    flex-direction: column;
+  }
+
   .d-block {
     display: block;
   }
@@ -620,6 +630,10 @@ body {
     flex-wrap: wrap;
   }
 
+  .n-wrap {
+    flex-wrap: nowrap;
+  }
+
   .arrow {
     display: inline-flex;
     font-size: $fzH5;
@@ -641,7 +655,7 @@ body {
 }
 
 
-//Css link 
+//Css link
 .link_text {
   text-decoration: none;
   margin: 17px 12px 17px 0px;
@@ -808,7 +822,7 @@ body {
     .custom-gird-tablet-tabs {
       flex-basis: 100%;
       max-width: 100%;
-    } 
+    }
   }
 }
 
@@ -817,7 +831,7 @@ body {
     .custom-gird-tablet-content {
       flex-basis: 100%;
       max-width: 100%;
-    } 
+    }
   }
 }
 
