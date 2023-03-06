@@ -1,16 +1,37 @@
 @import '../../../assets/style/variable.scss';
 
+.contact-information {
+  & .contact-information-category {
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+
+  & .contact-details-wrapper {
+    & .formatted-numberphone-input {
+      background: #fafcfc;
+      .MuiInputLabel-root {
+        padding-left: 8px;
+      }
+      & .formatted-numberphone-select {
+        padding-left: 8px;
+        .MuiSelect-icon {
+          border-right: 1px solid #e2e7ec;
+        }
+      }
+      input {
+        padding-left: 10px;
+      }
+    }
+  }
+}
+
 .group-item {
   display: flex;
   flex-direction: column;
-
-  .title {
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 24px;
-    color: $tundora;
-  }
 
   .content {
     font-style: normal;

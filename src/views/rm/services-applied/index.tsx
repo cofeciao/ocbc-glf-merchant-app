@@ -1,260 +1,160 @@
-import classNames from "classnames";
-import React, { forwardRef, useState } from "react";
-import {
-  Loading,
-  Button,
-  SectionWrapper,
-  Radio,
-  CardCheckbox,
-  Checkbox
-} from '@sectionsg/orc';
-import { useHistory } from "react-router";
-import { Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
+// import modules
+import { Category, Button } from "@sectionsg/orc";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
+import { Box } from "@material-ui/core";
+import classnames from "classnames/bind";
+import { useHistory } from "react-router-dom";
+import SectionWrapper from "../SectionWrapper";
 
-//import icon
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import IconWelcome from "../../../assets/images/icon-welcome-login.svg";
-import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-
-// constants
-import { 
-  DATA_CARD_CHECKBOX_ACCEPTANCE1, 
-  DATA_CARD_CHECKBOX_ACCEPTANCE2, 
-  LIST_ECOMMERCE, 
-  LIST_POINTS, 
-  LIST_RADIO_QUESTION1, 
-  LIST_REPAYMENT_PERIODS, 
-  MSG_ERR_CARD_CHECKBOX, 
-  OTHER_SERVICES, 
-  URL_MANUAL_FLOW } from "@/utils/constants-rm";
+// import constants
+import { LIST_ROUTER, NEXT } from "@/utils/constants";
+import { STEP_RM } from "@/utils/constants-rm";
 
 // import style
 import styles from "./ServicesApplied.scss";
 
+// import types
 
-const ServicesApplied= forwardRef(( ref) => {
-  const cx = classNames.bind(styles);
-  const history = useHistory()
+//import icon
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+
+// import components
+import TransactionCard from "./TransactionCard";
+import OtherServices from "./OtherServices";
+import { IServicesApplied } from "./ServicesApplied";
+
+// render UI
+const ServicesApplied: React.FC<any> = () => {
+  const {
+    list_step: {
+      services_applied: {
+        text,
+        section: { transaction_and_card_acceptance_type, other_services },
+      },
+    },
+  } = STEP_RM;
+  const cx = classnames.bind(styles);
+  const dispatch = useDispatch();
   
-  const [loading, setLoading] = useState(false);
+  // States
   const [key, setKey] = useState<number>(0);
-  const [agree, setAgree] = useState<boolean>(false);
-  const [seeMore, setSeeMore] = useState<boolean>(false);
-
-  const [groupCheckbox, setGroupCheckbox] = useState({
-    pointSales: false,
-    eCommerce: false,
+  const history = useHistory();
+  const [dataCheckbox, setDataCheckbox] = useState(
+    transaction_and_card_acceptance_type.data_list_checkbox
+  );
+  
+  const [dataRadio, setDataRadio] = useState<IServicesApplied.ISectionRadios>({
+    instalment_payment_plan: other_services.sectionRadios.instalment_payment_plan,
+    direct_currency_conversion: other_services.sectionRadios.direct_currency_conversion,
+    mail_order: other_services.sectionRadios.mail_order,
   });
-  const [groupCheckboxRepayment, setGroupCheckboxRepayment] = useState({
-    instalmentPaymentPlan: false,
-    directCurrencyConversion: false,
-    mailOrder: false,
-  });
+  const [dataCheckboxRepayment, setDataCheckboxRepayment] = useState(
+    other_services.sectionRadios.instalment_payment_plan.repayment_periods_offered.listCheckBox
+  )
+  
+  /**
+   * Get data from list check box
+   * @param data
+   */
+  const getDataFromListCheckbox = (data: any) => {
+    dispatch(saveDataTransactionAndCardAcceptanceTypeStep(data));
+  };
 
   /**
-   * Handle button prev
+   * Retrieves data of dataListCheckbox from Store
    */
-  const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.contactInformation);
-  }
+  const dataListCheckbox = useSelector(
+    (state: any) =>
+      state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox
+  );
 
-   /**
-   * Handle button next
+  /**
+   * Handle update state when dataListCheckbox updated from store
    */
-   const handleNext = async () => {
-     if (agree) {
-       history.push(URL_MANUAL_FLOW.servicesApplied);
+  useEffect(() => {
+    if (dataListCheckbox && !!dataListCheckbox.length) {
+      setDataCheckbox(dataListCheckbox);
     }
+  }, [dataListCheckbox]);
 
-  }
+  /**
+   * Handle update state when dataRadio updated from store
+   */
+  useEffect(() => {
+    if (dataRadio && !!dataRadio.instalment_payment_plan.listRadio.length 
+      && !!dataRadio.direct_currency_conversion.listRadio.length 
+      && !!dataRadio.mail_order.listRadio.length) {
+      setDataRadio(dataRadio);
+    }
+  }, [dataRadio]);
 
-    /**
-   * render UI Button
+  /**
+   * render UI button
    * @returns {HTML}
    */
-    const renderButton = () => {
-      return (
-        <Button backgroundClass="bgGunmetalBluegrey" onClick={handleNext}>
-          Next
-          <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
-        </Button>
-      )
-    }
-
-    /**
-   * render UI List Checkbox
-   * @returns {HTML}
-   */
-  const renderListCheckboxTransaction = (label: string, list: any) => {
+  const renderButton = () => {
     return (
-      <section className={cx("list-checkbox")}>
-        <div className={cx("label")}>{label}</div>
-        <Checkbox list={list} name="Accept rules" getValue={(value: string) => {
-          setKey(null);
-        }} />
-      </section>
-    )
-  }
-
-      /**
-   * render UI List Checkbox
-   * @returns {HTML}
-   */
-      const renderListCheckboxRepayment = (label: string, list: any) => {
-        // const renderIcon = !seeMore ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />;
-        return (
-          <section className={cx("list-checkbox-repayment")}>
-            <div className={cx("label")}>{label}</div>
-            <Checkbox list={list} name="Accept rules" getValue={(value: string) => {
-              setKey(null);
-            }} />
-            {/* <div className={cx('see-more')} onClick={() => setSeeMore(!seeMore)}>Show more repayment periods {renderIcon}</div> */}
-          </section>
-        )
-      }
+      <Button
+        backgroundClass="bgGunmetalBluegrey"
+        onClick={() => {
+          history.push(LIST_ROUTER.business_details);
+        }}
+      >
+        <>
+          {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
+        </>
+      </Button>
+    );
+  };
 
   return (
-    <React.Fragment>
-      {loading && <div className={cx('container-loading')}>
-          <div className={cx('content-loading')}>
-            <Loading />
-          </div>
-        </div>
-      }
-      <section className={cx('contact-information')}>
-        <div className={"title-wrapper"}>
-          <img src={IconWelcome} alt="icon" className={cx("left-image")} />
-          <div className={cx("title-text d-flex align-flex-end")}><span>ACRA and contact information</span></div>
-        </div>
+    <Box
+      className={cx(
+        "servicer-applied-wrapper step-wrapper"
+      )}
+    >
+      {/* {Category} */}
+      <Box className={cx("category-wrapper")}>
+        <Category>{text}</Category>
+      </Box>
 
-       <section id="contact-information" className={cx('background-gray', 'mt-dt-40')}>
-          <SectionWrapper title="Transaction and card acceptance type" description='Both services automatically come with Mastercard and Visa.  '>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <CardCheckbox
-                  label=""
-                  textError={MSG_ERR_CARD_CHECKBOX}
-                  dataCardCheckbox={DATA_CARD_CHECKBOX_ACCEPTANCE1}
-                  lg={4}
-                  md={4}
-                  sm={6}
-                  xs={12}
-                  checkboxKey={key}
-                  getValue={(data: any) => {
-                    console.log(data)
-                    setGroupCheckbox((preState) => ({
-                      ...preState,
-                      pointSales: data.checked
-                    }))
-                    // handleGetValueCheckbox(data);
-                  }}
-                  className={cx("item-card")}
-                />    
-                {groupCheckbox.pointSales && 
-                renderListCheckboxTransaction('Please select the payment options for your Point-of-Sales terminal', LIST_POINTS)}
-              </Grid>
-              <Grid item xs={12}>
-                <CardCheckbox
-                  label=""
-                  textError={MSG_ERR_CARD_CHECKBOX}
-                  dataCardCheckbox={DATA_CARD_CHECKBOX_ACCEPTANCE2}
-                  lg={4}
-                  md={4}
-                  sm={6}
-                  xs={12}
-                  checkboxKey={key}
-                  getValue={(data: any) => {
-                    // handleGetValueCheckbox(data);
-                    setGroupCheckbox((preState) => ({
-                      ...preState,
-                      eCommerce: data.checked
-                    }))                  }}
-                  className={cx("item-card")}
-                />      
-                {groupCheckbox.eCommerce && 
-                renderListCheckboxTransaction('Please select the payment options for your e-Commerce platform', LIST_ECOMMERCE)}
-              </Grid>
-            </Grid>
-          </SectionWrapper>
-       </section>
+      {/* {Section Transaction and card acceptaner type} */}
+      <SectionWrapper
+        cx={cx}
+        title={transaction_and_card_acceptance_type.title}
+        description={transaction_and_card_acceptance_type.description}
+      >
+        <TransactionCard 
+          dataCheckbox={dataCheckbox}
+          key={key} 
+          getDataFromListCheckbox={getDataFromListCheckbox} 
+        />
+      </SectionWrapper>
 
-       <section className={cx('background-gray', 'mt-dt-10')}>
-        <SectionWrapper title="Other services" description=''>
-          <Grid container spacing={3}>
-            <Grid item xs={8}>
-              <Radio
-                name="instalmentPaymentPlan"
-                listCheckBox={LIST_RADIO_QUESTION1}
-                label={OTHER_SERVICES.titleQuestions1}
-                radioKey={key}
-                value={true}
-                getValue={(value: any) => {
-                  setGroupCheckboxRepayment((preState) => ({
-                    ...preState,
-                    instalmentPaymentPlan: value === 'Yes' ? true : false
-                  }))
-                }}
-              />
-              {groupCheckboxRepayment.instalmentPaymentPlan && 
-              renderListCheckboxRepayment('Please select repayment periods offered', LIST_REPAYMENT_PERIODS)}
-            </Grid>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={8}>
-              <Radio
-                name="directCurrencyConversion"
-                listCheckBox={LIST_RADIO_QUESTION1}
-                label={OTHER_SERVICES.titleQuestions2}
-                radioKey={key}
-                value={true}
-                getValue={(value: any) => {
-                  setGroupCheckboxRepayment((preState) => ({
-                    ...preState,
-                    directCurrencyConversion: value === 'Yes' ? true : false
-                  }))
-                }}
-              />
-            </Grid>
-            <Grid item xs={4}></Grid>
-            <Grid item xs={8}>
-              <Radio
-                name="mailOrder"
-                listCheckBox={LIST_RADIO_QUESTION1}
-                label={OTHER_SERVICES.titlequestions3}
-                radioKey={key}
-                value={true}
-                getValue={(value: any) => {
-                  setGroupCheckboxRepayment((preState) => ({
-                    ...preState,
-                    mailOrder: value === 'Yes' ? true : false
-                  }))
-                }}
-              />
-            </Grid>
-          </Grid>
-        </SectionWrapper>
-       </section>
-             
-        {/* Section button  */}
-        <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
-          <Button backgroundClass="square" onClick={handlePrev}>
-            <ArrowBackIcon className={cx('arrow')} />
-          </Button>
-          <div>
-            <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
-            </div>
-            <div className="ml-dt-30 d-inline">
-              {renderButton()}
-            </div>
-          </div>
-        </section>
+      {/* {Section Other Services} */}
+      <SectionWrapper cx={cx} title={other_services.title} >
+        <OtherServices 
+          cx={cx} 
+          sectionRadios={dataRadio} 
+          setDataRadio={setDataRadio} 
+          dataCheckboxRepayment={dataCheckboxRepayment}
+          setDataCheckboxRepayment={setDataCheckboxRepayment}
+        />
+      </SectionWrapper>
+
+      {/* {Next Button}  */}
+      <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
+        <Button backgroundClass="square" onClick={() => history.push(LIST_ROUTER.company_and_contact_information)}>
+          <ArrowBackIcon className={cx("arrow")} />
+        </Button>
+        <Box>
+          <div className="ml-dt-30 d-inline">{renderButton()}</div>
+        </Box>
       </section>
-    </React.Fragment>
-  )
-
-});
-
+    </Box>
+  );
+};
 export default ServicesApplied;

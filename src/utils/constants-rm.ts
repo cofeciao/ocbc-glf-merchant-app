@@ -1380,49 +1380,49 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "property-information",
+    id: "services-applied",
     numerical: "1",
     text: "Services applied",
     check: false,
     status: true,
   },
   {
-    id: "account-information",
+    id: "business-operation",
     numerical: "2",
     text: "Business operation details",
     check: false,
     status: true,
   },
   {
-    id: "non-repricing-request",
+    id: "product-services",
     numerical: "3",
     text: "Product and services",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "fee-rates",
     numerical: "4",
     text: "Fees and rates",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "sensitive",
     numerical: "5",
     text: "Sensitive data",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "benefit-ownership",
     numerical: "6",
     text: "Benefit ownership of company",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "supplement-documents",
     numerical: "7",
     text: "Supplement documents",
     check: false,
@@ -1436,3 +1436,446 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
 ];
+
+
+// Step
+export const STEP_RM = {
+  list_salutation: [
+    {
+      name: "Mrs",
+      value: "mrs",
+    },
+    {
+      name: "Ms",
+      value: "ms",
+    },
+  ],
+
+  list_step: {
+    company_and_contact_information: {
+      id: "company-and-contact-information",
+      numerical: "0",
+      text: "Company and contact information",
+      check: false,
+      status: true,
+      data: {
+        id: "company-and-contact-information",
+        numerical: "0",
+        text: "Company and contact information",
+        check: false,
+        status: true,
+      },
+      section: {
+        company_registration: {
+          title: "Company registration",
+          description:
+            "Please enter your registered entity name and Unique Entity Number (UEN).",
+          inputFields: {
+            registeredEntityName: {
+              label: "Registered entity name",
+              helperText: "",
+              requiredText: "",
+            },
+            uniqueEntityNumber: {
+              label: "Unique Entity Number (UEN)",
+              helperText: "Please enter a valid UEN",
+              requiredText: "",
+            },
+            companyType: {
+              label: "Company type",
+              helperText: "",
+              requiredText: "",
+            },
+          },
+        },
+        contact_details: {
+          title: "Contact details",
+          description:
+            "Our Relationship Manager will reach out to you with these details.",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            email: {
+              label: "Email",
+              helperText: "Please enter a valid email address",
+              requiredText: "",
+            },
+            contactNumber: {
+              label: "Contact number",
+              helperText: "Please enter a valid contact number",
+              requiredText: "",
+            },
+          },
+        },
+      },
+    },
+    services_applied: {
+      id: "services_applied",
+      numerical: "1",
+      text: "Services Applied",
+      check: false,
+      status: true,
+      data: {
+        id: "transaction-and-card-acceptance-type",
+        numerical: "1",
+        text: "Transaction and card acceptance type",
+        check: false,
+        status: true,
+      },
+      section: {
+        transaction_and_card_acceptance_type: {
+          title: "Transaction and card acceptance type",
+          description: "Both services automatically come with Mastercard and Visa.",
+          data_list_checkbox: [
+            {
+              label: "Point-of-Sales terminal",
+              value: "point-of-sales-terminal",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your Point-of-Sales terminal",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: false,
+                    value: "visa",
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: false,
+                    value: "mastercard",
+                  },
+                  {
+                    label: "UnionPay",
+                    checked: false,
+                    value: "unionPay",
+                  },
+                  {
+                    label: "JCB",
+                    checked: false,
+                    value: "jcb",
+                  },
+                  {
+                    label: "WeChat Pay",
+                    checked: false,
+                    value: "wechat-pay",
+                  },
+                  {
+                    label: "AliPay",
+                    checked: false,
+                    value: "alipay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    checked: false,
+                    value: "ocbc-ipp",
+                  },
+                  {
+                    label: "Diners Club",
+                    checked: false,
+                    value: "dinners-club",
+                  },
+                  {
+                    label: "AMEX",
+                    checked: false,
+                    value: "amex",
+                  },
+                  {
+                    label: "Paynow",
+                    checked: false,
+                    value: "paynow",
+                  },
+                ],
+              },
+            },
+            {
+              label: "e-Commerce",
+              value: "e-commerce",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your e-Commerce platform",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: false,
+                    value: "visa",
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: false,
+                    value: "mastercard",
+                  },
+                  {
+                    label: "JCB",
+                    checked: false,
+                    value: "jcb",
+                  },
+                  {
+                    label: "UnionPay",
+                    checked: false,
+                    value: "union-pay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    checked: false,
+                    value: "ocbc-ipp",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+        other_services: {
+          title: "Other services",
+          description: "",
+          sectionRadios: {
+            instalment_payment_plan: {
+              title: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+              name: "instalmentPaymentPlan",
+              checked: false,
+              listRadio: [
+                {
+                  text: "Yes",
+                  checked: false,
+                },
+                {
+                  text: "No",
+                  checked: false,
+                },
+              ],
+              repayment_periods_offered: {
+                title: "Please select repayment periods offered",
+                listCheckBox: [
+                  {
+                    label: "3 months",
+                    checked: false,
+                    value: "3_months",
+                  },
+                  {
+                    label: "6 months",
+                    checked: false,
+                    value: "6_months",
+                  },
+                  {
+                    label: "12 months",
+                    checked: false,
+                    value: "12_months",
+                  },
+                  {
+                    label: "18 months",
+                    checked: false,
+                    value: "18_months",
+                  },
+                  {
+                    label: "24 months",
+                    checked: false,
+                    value: "24_months",
+                  },
+                  {
+                    label: "36 months",
+                    checked: false,
+                    value: "36_months",
+                  },
+                  {
+                    label: "48 months",
+                    checked: false,
+                    value: "48_months",
+                  },
+                  {
+                    label: "50 months",
+                    checked: false,
+                    value: "50_months",
+                  },
+                  {
+                    label: "60 months",
+                    checked: false,
+                    value: "60_months",
+                  },
+                ]
+              }
+            },
+            direct_currency_conversion: {
+              title: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+              name: "directCurrencyConversion",
+              checked: false,
+              listRadio: [
+                {
+                  text: "Yes",
+                  checked: false,
+                },
+                {
+                  text: "No",
+                  checked: false,
+                },
+              ],
+            },
+            mail_order: {
+              title: "Will you be offering Mail Order/Telephone Order?",
+              name: "mailOrder",
+              checked: false,
+              listRadio: [
+                {
+                  text: "Yes",
+                  checked: false,
+                },
+                {
+                  text: "No",
+                  checked: false,
+                },
+              ],
+            },
+          }
+        }
+      },
+    },
+    business_details: {
+      id: "business-details",
+      numerical: "2",
+      text: "Business details",
+      check: false,
+      status: true,
+      data: {
+        id: "business-details",
+        numerical: "2",
+        text: "Business details",
+        check: false,
+        status: true,
+      },
+      section: {
+        business_infomation: {
+          listRadioDescription: "Is your business ready for operation?",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          textFieldDescription:
+            "At how many outlets will you deploy Point-of-Sales terminals?",
+          textField: "",
+        },
+        website_infomation: {
+          listRadioDescription: "Is your business ready for operation?",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          textFieldDescription:
+            "At how many outlets will you deploy Point-of-Sales terminals?",
+          textField: "",
+        },
+        other_infomation: {
+          sections: [
+            {
+              listCheckboxDescription: "Is your business ready for operation?",
+              listCheckbox: [
+                {
+                  label: "Selling products",
+                  checked: false,
+                },
+                {
+                  label: "Providing services",
+                  checked: false,
+                },
+              ],
+            },
+            {
+              listCheckboxDescription:
+                "Do you currently have any of the following?",
+              listCheckbox: [
+                {
+                  label: "Office",
+                  checked: false,
+                },
+                {
+                  label: "Retail store",
+                  checked: false,
+                },
+                {
+                  label: "Warehouse",
+                  checked: false,
+                },
+              ],
+            },
+          ],
+        },
+      },
+    },
+    products_and_service: {
+      id: "products-and-services",
+      numerical: "3",
+      text: "Products and services",
+      check: false,
+      status: true,
+      data: {
+        id: "products-and-services",
+        numerical: "3",
+        text: "Products and services",
+        check: false,
+        status: true,
+      },
+      sections: {
+        is_your_business_offering: {
+          description:
+            "What products and/or services is your business offering?",
+          listRadioDescription:
+            "How quickly does your business fulfil these products and/or services?",
+          mainTextFieldLabel:
+            "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+          listRadio: [
+            {
+              text: "Immediate fulfillment",
+              checked: false,
+            },
+            {
+              text: "Fulfillment over a period of time",
+              checked: false,
+            },
+          ],
+        },
+        is_your_sales_forecast: {
+          description:
+            "Based on your products and/or services, what is your sales forecast?",
+        },
+      },
+    },
+    review_and_submit: {
+      id: "review-and-submit",
+      numerical: "3",
+      text: "Review and submit",
+      check: false,
+      status: true,
+      data: {
+        id: "review",
+        numerical: "3",
+        text: "Review and submit",
+        check: false,
+        status: true,
+      },
+    },
+  },
+};

@@ -1,0 +1,110 @@
+@import "../../assets/style/variable.scss";
+
+.container {
+  .rm-wrapper {
+    & .section-wrapper {
+      background-color: transparent;
+      padding: 0px;
+      margin-bottom: 56px;
+      & .MuiGrid-container {
+        row-gap: 40px;
+        column-gap: 24px;
+      }
+  
+      & .error-text {
+        color: red;
+      }
+  
+      & .MuiFormControl-root {
+        // background-color: #fafcfc;
+        & .MuiInputBase-root,
+        .MuiFormLabel-root {
+          color: #777e87;
+          // padding: 0px 8px;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          &::before {
+            border-color: #e2e7ec;
+          }
+          & input {
+            background-color: #fafcfc;
+          }
+        }
+        & .MuiInputBase-root {
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          color: #575d65;
+          background-color: #fafcfc;
+        }
+        & .MuiInput-underline::before {
+          border-color: #e2e7ec;
+        }
+        .MuiFormHelperText-root {
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 16px;
+          color: #ed5347;
+        }
+      }
+  
+      .header-wrapper {
+        margin-bottom: 40px;
+        & .section-title {
+          margin-bottom: 16px;
+          font-weight: 700;
+          font-size: $fzH2;
+          line-height: 32px;
+          color: #363b40;
+        }
+  
+        & .section-description {
+          margin-bottom: 40px;
+          font-weight: 400;
+          font-size: $fzH5;
+          line-height: 28px;
+          color: #777e87;
+        }
+      }
+  
+      & .sub-section-description {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777e87;
+        margin-bottom: 16px;
+      }
+  
+      & .section-seperate {
+        height: 1px;
+        width: 100%;
+        background: #e2e7ec;
+        margin-top: 56px;
+      }
+  
+      .company-type-select {
+        & .MuiInputBase-formControl {
+          height: 57px;
+          background: #fafcfc;
+        }
+      }
+    }
+    & .section-title {
+      margin-bottom: 16px;
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 32px;
+      color: #363b40;
+    }
+  
+    & .section-description {
+      margin-bottom: 40px;
+      font-weight: 400;
+      font-size: $fzH5;
+      line-height: 28px;
+      color: #777e87;
+    }
+  }
+}
