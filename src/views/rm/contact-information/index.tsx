@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { forwardRef, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import {
   Loading,
   Button,
@@ -20,7 +20,8 @@ import styles from "./ContactInformation.scss";
 // import constants
 import { 
   URL_MANUAL_FLOW, 
-  PERSONAL_INFORMATION_SINGPASS 
+  PERSONAL_INFORMATION_SINGPASS,
+  STEP_RM
 } from "@/utils/constants-rm";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
@@ -28,12 +29,19 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 import { IContactInformation } from "./ContactInformation";
 import ContactDetails from "./ContactDetails";
 import SectionWrapper from "../SectionWrapper";
+import { useDispatch } from "react-redux";
+import { saveDataAcraDetailStep } from "@/store/form";
+import { useSelector } from "react-redux";
 
 
 const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ handleCallAPI }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
-  
+  const dispatch = useDispatch();
+
+  // get data from redux store
+  const dataAcraDetail = useSelector((state: any) => state.form.dataAcraDetail);
+  const { dataDetail } = dataAcraDetail;
 
   // States
   const [loading, setLoading] = useState(false);
@@ -46,6 +54,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
     contactNumber: "",
     countryPhoneNumber: PERSONAL_INFORMATION_SINGPASS.countryPhoneNumber,
   });
+  const [dataArca, setDataArca] = useState<any>({});
 
   const {
     list_step: {
@@ -54,6 +63,14 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
       },
     },
   } = SELF_SERVE_PAGE;
+
+  const {
+    list_step: {
+      acra_and_contact_information: {
+        section: { arca_detail },
+      },
+    },
+  } = STEP_RM;
 
 // form
   const {
@@ -111,19 +128,29 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
         )
       }
 
-  /**
-   * render UI
-   * @returns {HTML}
+ /**
+   * Get data acra detail
+   * @param data
    */
-    const renderTitleInformation = (title: string, subTitle: string) => {
-      return (
-        <div className={cx('group-title')}>
-          <span className={cx('title')}>{title}</span>
-          <span className={cx('sub-title')}>{subTitle}</span>
-        </div>
-      )
-    }
+  const getDataAcraDetail = (data: any) => {
+    dispatch(saveDataAcraDetailStep(data));
+  };
 
+   /**
+   * Handle update state when dataListCheckbox updated from store
+   */
+   useEffect(() => {
+    if (dataDetail) {
+      setDataArca(dataDetail);
+    }
+  }, [dataDetail]);
+
+  useEffect(() => {
+    if (arca_detail) {
+      getDataAcraDetail(arca_detail)
+    }
+  }, [arca_detail])
+    
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -147,16 +174,16 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
         >
           <Grid container spacing={3}>
             <Grid item xs={4}>
-              {renderItemInformation('Business name', 'AMZO Pte Ltd')}
-              {renderItemInformation('Entity type', 'Private Limited Company')}
-              {renderItemInformation('Registered address', '35 Bedok North Road #09-39 Singapore 674902')}
-              {renderItemInformation('Directors', 'Lau Aik Miang S9300409F')}
-              {renderItemInformation('', 'Zunaidi Zainal Azmian S9000555C')}
+              {renderItemInformation('Business name', dataArca.business_name)}
+              {renderItemInformation('Entity type', dataArca.entity_type)}
+              {renderItemInformation('Registered address', dataArca.registered_address)}
+              {renderItemInformation('Directors', dataArca.directors)}
+              {renderItemInformation('', dataArca.user)}
             </Grid>
             <Grid item xs={4}>
-              {renderItemInformation('Unique Entity Number (UEN)', '2016347449N')}
-              {renderItemInformation('Nature of business', 'Café / Restaurant')}
-              {renderItemInformation('Mailing address', '35 Bedok North Road #09-39 Singapore 674902')}
+              {renderItemInformation('Unique Entity Number (UEN)', dataArca.unique_entity_number)}
+              {renderItemInformation('Nature of business', dataArca.nature_of_business)}
+              {renderItemInformation('Mailing address', dataArca.mailing_address)}
             </Grid>
           </Grid>
         </SectionWrapper>
