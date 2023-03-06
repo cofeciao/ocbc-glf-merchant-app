@@ -1,15 +1,14 @@
 // import modules
 import { Header, Footer, FormLayout, Tabs } from "@sectionsg/orc";
-import React, { useState, useRef } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import { useParams } from "react-router";
 import { Container } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
-import { formatNameField, preventSpecialCharacters } from "@/utils/utils";
 import CompanyAndContactInformation from "@/views/self-serve/company-and-contact-information";
 import TransactionAndCardAcceptanceType from "./transaction-and-card-acceptance-type";
 import BusinessDetails from "./business-details";
+import ProductsAndServices from "./products-and-services";
+import ReviewAndSubmit from "./review-and-submit";
 
 // import constants
 import {
@@ -21,30 +20,20 @@ import {
 
 // import style
 import styles from "./SelfServe.scss";
-import ProductsAndServices from "./products-and-services";
-import ReviewAndSubmit from "./review-and-submit";
 
 // import types
 
 // render UI
-const SelfServe = (props: any) => {
-  const {} = props;
-  // const [listRadio, setListRadio] = useState(LIST_RADIO);
+const SelfServe = () => {
   const cx = classnames.bind(styles);
-  const [key, setKey] = useState<number>(0);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const [agree, setAgree] = useState<boolean>(false);
-  const [mounted, setMounted] = useState<boolean>(false);
   const { slug } = useParams<{ slug: string }>();
-  const childRef: any = useRef();
 
   /**
    * Dynamic stepper
    */
   const handleDetectDynamicStepper = () => {
     const dataListStep: any = [];
-    Object.values(SELF_SERVE_PAGE.list_step).forEach((item) => {
+    Object.values(SELF_SERVE_PAGE.LIST_STEP).forEach((item) => {
       dataListStep.push(item.data);
     });
     return dataListStep;
@@ -72,18 +61,18 @@ const SelfServe = (props: any) => {
             content={
               <>
                 {slug ===
-                  SELF_SERVE_PAGE.list_step.company_and_contact_information
+                  SELF_SERVE_PAGE.LIST_STEP.company_and_contact_information
                     .id && <CompanyAndContactInformation />}
                 {slug ===
-                  SELF_SERVE_PAGE.list_step.transaction_and_card_acceptance_type
+                  SELF_SERVE_PAGE.LIST_STEP.transaction_and_card_acceptance_type
                     .id && <TransactionAndCardAcceptanceType />}
-                {slug === SELF_SERVE_PAGE.list_step.business_details.id && (
+                {slug === SELF_SERVE_PAGE.LIST_STEP.business_details.id && (
                   <BusinessDetails />
                 )}
-                {slug === SELF_SERVE_PAGE.list_step.products_and_service.id && (
+                {slug === SELF_SERVE_PAGE.LIST_STEP.products_and_service.id && (
                   <ProductsAndServices />
                 )}
-                {slug === SELF_SERVE_PAGE.list_step.review_and_submit.id && (
+                {slug === SELF_SERVE_PAGE.LIST_STEP.review_and_submit.id && (
                   <ReviewAndSubmit />
                 )}
               </>

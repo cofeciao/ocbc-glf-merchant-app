@@ -9,6 +9,11 @@ import PointOfSalesForm from "./PointOfSalesForm";
 import { Link } from "react-router-dom";
 import _ from "lodash";
 import EcommerceForm from "./EcommerceForm";
+import { useForm } from "react-hook-form";
+import {
+  saveDataProductsAndServicesEcom,
+  saveDataProductsAndServicesPOS,
+} from "@/store/form";
 
 // import constants
 import {
@@ -32,7 +37,7 @@ const ProductsAndServices: React.FC<any> = () => {
   const {
     LABEL_E_COMMERCE,
     LABEL_POINT_OF_SALES_TERMINAL,
-    list_step: {
+    LIST_STEP: {
       products_and_service: { text, pointOfSalesForm, ecommerceForm },
     },
   } = SELF_SERVE_PAGE;
@@ -41,11 +46,30 @@ const ProductsAndServices: React.FC<any> = () => {
   const history = useHistory();
 
   /**
+   * Retrieves data of Products And Services step from Store
+   */
+  const productsAndServicesStep = useSelector(
+    (state: any) => state.form.productsAndServicesStep
+  );
+
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+    getValues,
+    setValue,
+    watch,
+  } = useForm({
+    mode: "onBlur",
+  });
+  const watchAll = watch();
+  console.log(watchAll);
+
+  /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
-   * return: "point-of-sales", "e-commerce", "point-of-sales-e-commerce"
+   * return: "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
    */
   const optionSelected = useSelector((state: any) =>
-    state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox
+    state.form.transactionAndCardAcceptanceTypeStep
       .map((item: any) => (item.checked === true ? item.value : ""))
       .filter((item: string) => item !== "")
       .join("-")
@@ -59,12 +83,11 @@ const ProductsAndServices: React.FC<any> = () => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
-        // disabled={!isValid || !isDirty}
+        disabled={!isValid || !isDirty}
         onClick={() => {
           history.push(LIST_ROUTER.review_and_submit);
-          // Temporarily hidden
-          // const dataEcommerce = useSelector((state: any) => state.form); // Retrieves data of form from Store
-          // localStorage.setItem("self-serve-steps", JSON.stringify(dataEcommerce));
+          dispatch(saveDataProductsAndServicesEcom(getValues("Ecom")));
+          dispatch(saveDataProductsAndServicesPOS(getValues("POS")));
         }}
       >
         <>
@@ -87,6 +110,10 @@ const ProductsAndServices: React.FC<any> = () => {
           cx={cx}
           variant="point-of-sales"
           data={pointOfSalesForm}
+          dataRedux={productsAndServicesStep.pointOfSales}
+          register={register}
+          setValue={setValue}
+          errors={errors}
         />
       ) : _.isEqual(optionSelected, "e-commerce") ? (
         <EcommerceForm
@@ -94,6 +121,10 @@ const ProductsAndServices: React.FC<any> = () => {
           variant="e-commerce"
           optionSelected={optionSelected}
           data={ecommerceForm}
+          dataRedux={productsAndServicesStep.eCommerce}
+          register={register}
+          setValue={setValue}
+          errors={errors}
         />
       ) : (
         <Box>
@@ -103,13 +134,21 @@ const ProductsAndServices: React.FC<any> = () => {
             variant="point-of-sales"
             optionSelected={optionSelected}
             data={pointOfSalesForm}
+            dataRedux={productsAndServicesStep.pointOfSales}
+            register={register}
+            setValue={setValue}
+            errors={errors}
           />
           <EcommerceForm
             cx={cx}
             title={LABEL_E_COMMERCE}
             optionSelected={optionSelected}
             variant="e-commerce"
-            data={pointOfSalesForm}
+            data={ecommerceForm}
+            dataRedux={productsAndServicesStep.eCommerce}
+            register={register}
+            setValue={setValue}
+            errors={errors}
           />
         </Box>
       )}

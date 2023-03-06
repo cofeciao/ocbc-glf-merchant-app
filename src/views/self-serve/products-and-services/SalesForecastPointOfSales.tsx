@@ -14,7 +14,7 @@ import _ from "lodash";
 
 // render UI
 const SalesForecast: React.FC<any> = (props) => {
-  const { cx, data, register } = props;
+  const { cx, data, register, dataRedux } = props;
 
   return (
     <Box className={cx("sales-forecast-wrapper")}>
@@ -47,6 +47,11 @@ const SalesForecast: React.FC<any> = (props) => {
                         </InputAdornment>
                       ),
                     }}
+                    defaultValue={
+                      _.has(dataRedux, textField.keyName)
+                        ? dataRedux[textField.keyName]
+                        : ""
+                    }
                     {...register(textField.keyName, {
                       required: true,
                     })}

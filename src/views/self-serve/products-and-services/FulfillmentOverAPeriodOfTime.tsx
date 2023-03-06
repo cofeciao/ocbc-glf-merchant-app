@@ -26,7 +26,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
     LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY,
     PERCENT_CHARACTERS,
   } = SELF_SERVE_PAGE;
-  const { cx, variant = "point-of-sales", register } = props;
+  const { cx, variant = "point-of-sales", register, dataRedux } = props;
   return (
     <Box className={cx("fulfillment-over-a-period-of-time-wrapper")}>
       {variant === "point-of-sales" && (
@@ -60,7 +60,11 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                   fullWidth
                   labelId="select-duration-label"
                   id="select-duration"
-                  {...register("deliveryTimeToCustomers", {
+                  // defaultValue={
+                  //   _.has(dataRedux, "deliveryTimeToCustomersPOS") &&
+                  //   dataRedux.deliveryTimeToCustomers
+                  // }
+                  {...register("POS.deliveryTimeToCustomers", {
                     required: false,
                   })}
                 >
@@ -103,7 +107,15 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                  {...register("percentageOfProductsNotFulfilledImmediately", {
+                  // defaultValue={
+                  //   _.has(
+                  //     dataRedux,
+                  //     "percentageOfProductsNotFulfilledImmediatelyPOS"
+                  //   )
+                  //     ? dataRedux.percentageOfProductsNotFulfilledImmediately
+                  //     : ""
+                  // }
+                  {...register("POS.percentageOfProductsNotFulfilledImmediately", {
                     required: false,
                   })}
                 />

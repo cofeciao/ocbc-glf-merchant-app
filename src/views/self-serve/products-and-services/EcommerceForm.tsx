@@ -7,8 +7,6 @@ import SectionWrapper from "../SectionWrapper";
 import BusinessOfferingEcommerce from "./BusinessOfferingEcommerce";
 import FulfilmentInformationEcommerce from "./FulfilmentInformationEcommerce";
 import SalesForecastEcommerce from "./SalesForecastEcommerce";
-import { useDispatch } from "react-redux";
-import { saveDataProductsAndServicesEcom } from "@/store/form";
 
 // import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
@@ -21,10 +19,12 @@ const EcommerceForm: React.FC<any> = (props) => {
   const {
     cx,
     data,
+    dataRedux,
     title,
     variant = "point-of-sales",
-    // getValue,
-    // getValidation,
+    register,
+    setValue,
+    errors,
   } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
   const {
@@ -32,26 +32,6 @@ const EcommerceForm: React.FC<any> = (props) => {
     LABEL_FULFILMENT_INFORMATION,
     LABEL_SALES_FORECAST,
   } = SELF_SERVE_PAGE;
-  const {
-    register,
-    formState: { errors, isValid, isDirty },
-    getValues,
-    setValue,
-    watch,
-  } = useForm({
-    mode: "onBlur",
-  });
-  const watchAll = watch();
-  const dispatch = useDispatch();
-
-  /**
-   * Save data to Store
-   */
-  useEffect(() => {
-    if (watchAll) {
-      dispatch(saveDataProductsAndServicesEcom(getValues()));
-    }
-  }, [watchAll]);
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
@@ -76,6 +56,7 @@ const EcommerceForm: React.FC<any> = (props) => {
             <BusinessOfferingEcommerce
               cx={cx}
               data={businessOffering}
+              dataRedux={dataRedux}
               register={register}
               errors={errors}
             />
@@ -91,6 +72,7 @@ const EcommerceForm: React.FC<any> = (props) => {
             <FulfilmentInformationEcommerce
               cx={cx}
               data={fulfilmentInformation}
+              dataRedux={dataRedux}
               variant={variant}
               register={register}
               setValue={setValue}
@@ -107,6 +89,7 @@ const EcommerceForm: React.FC<any> = (props) => {
             <SalesForecastEcommerce
               cx={cx}
               data={salesForecast}
+              dataRedux={dataRedux}
               register={register}
             />
           </Grid>

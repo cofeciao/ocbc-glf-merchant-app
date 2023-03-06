@@ -17,7 +17,8 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const CompanyRegistration: React.FC<any> = (props) => {
-  const { cx, data, register, errors } = props;
+  const { cx, data, register, errors, dataRedux } = props;
+  const { LIST_COMPANY_TYPE } = SELF_SERVE_PAGE;
   const { registeredEntityName, uniqueEntityNumber, companyType } =
     data.inputFields;
 
@@ -32,6 +33,11 @@ const CompanyRegistration: React.FC<any> = (props) => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
+                  defaultValue={
+                    _.has(dataRedux, "registeredEntityName")
+                      ? dataRedux.registeredEntityName
+                      : ""
+                  }
                   id={uuidv4()}
                   label={registeredEntityName.label}
                   variant="filled"
@@ -47,6 +53,11 @@ const CompanyRegistration: React.FC<any> = (props) => {
               <Grid item xs={12}>
                 <TextField
                   fullWidth
+                  defaultValue={
+                    _.has(dataRedux, "uniqueEntityNumber")
+                      ? dataRedux.uniqueEntityNumber
+                      : ""
+                  }
                   id={uuidv4()}
                   error={errors.uniqueEntityNumber && true}
                   label={uniqueEntityNumber.label}
@@ -83,13 +94,16 @@ const CompanyRegistration: React.FC<any> = (props) => {
               </InputLabel>
               <Select
                 fullWidth
+                defaultValue={
+                  _.has(dataRedux, "companyType") ? dataRedux.companyType : ""
+                }
                 labelId="select-company-type-label"
                 id="select-company-type"
                 {...register("companyType", {
                   required: true,
                 })}
               >
-                {_.map(SELF_SERVE_PAGE.list_company_type, (item, index) => {
+                {_.map(LIST_COMPANY_TYPE, (item, index) => {
                   return (
                     <MenuItem key={index} value={item.name}>
                       {item.name}

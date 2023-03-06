@@ -10,7 +10,7 @@ import { ERROR_ICON } from "@/utils/constants";
 
 // render UI
 const BusinessOfferingEcommerce: React.FC<any> = (props) => {
-  const { cx, data, register, errors } = props;
+  const { cx, data, register, errors, dataRedux } = props;
 
   return (
     <Box className={cx("business-offering-wrapper")}>
@@ -24,7 +24,7 @@ const BusinessOfferingEcommerce: React.FC<any> = (props) => {
             helperText={
               errors.numberOfOutlets && errors.numberOfOutlets.message
             }
-            {...register("typeOfProductAndService", {
+            {...register("Ecom.typeOfProductAndService", {
               required: true,
               pattern: {
                 // eslint-disable-next-line no-useless-escape

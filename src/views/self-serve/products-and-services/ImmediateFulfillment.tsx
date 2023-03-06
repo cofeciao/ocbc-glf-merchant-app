@@ -30,7 +30,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
     LIST_PLEASE_INDICATE_DURATION,
     PERCENT_CHARACTERS,
   } = SELF_SERVE_PAGE;
-  const { cx, variant = "point-of-sales", setValue, register } = props;
+  const { cx, variant = "point-of-sales", setValue, register, dataRedux } = props;
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
       <Grid container className={cx("mt-dt-40")}>
@@ -58,7 +58,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                   ),
                 }}
                 {...register(
-                  "percentageOfProductsNotFulfilledImmediately",
+                  "Ecom.percentageOfProductsNotFulfilledImmediately",
                   {
                     required: false,
                   }
@@ -76,7 +76,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
           ) && (
             <Typography
               className={cx(
-                "fulfilment-information-description input-field-description"
+                "fulfilment-information-description input-field-descriptionEcom"
               )}
             >
               {LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM.description}
@@ -87,7 +87,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
             list={LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM.listRadio}
             checkBoxClass={cx("your-product-come-from-checkbox")}
             getValue={(value: any) => {
-              setValue("productDeliveredFrom", value);
+              setValue("Ecom.productDeliveredFrom", value);
             }}
           />
         </Grid>
@@ -123,7 +123,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                 fullWidth
                 labelId="select-duration-label"
                 id="select-duration"
-                {...register("deliveryTimeToCustomers-ecom", {
+                {...register("Ecom.deliveryTimeToCustomers", {
                   required: true,
                 })}
               >
@@ -169,7 +169,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
               }
               vertical
               getValue={(value: any) => {
-                setValue("productDelivery", value);
+                setValue("Ecom.productDelivery", value);
               }}
             />
           )}

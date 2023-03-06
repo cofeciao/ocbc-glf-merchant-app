@@ -31,7 +31,7 @@ import { Link } from "react-router-dom";
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const {
-    list_step: {
+    LIST_STEP: {
       transaction_and_card_acceptance_type: {
         text,
         section: { which_service_are_you_applying_for },
@@ -60,7 +60,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
    */
   const dataListCheckbox = useSelector(
     (state: any) =>
-      state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox
+      state.form.transactionAndCardAcceptanceTypeStep
   );
 
   /**

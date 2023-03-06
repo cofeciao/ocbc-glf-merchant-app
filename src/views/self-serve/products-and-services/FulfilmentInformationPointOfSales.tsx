@@ -21,6 +21,7 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
     errors,
     setValue,
     variant = "point-of-sales",
+    dataRedux,
   } = props;
   const [valueSelected, setValueSelected] = useState();
 
@@ -57,7 +58,9 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
             radioKey={0}
             vertical
             getValue={(value: any) => {
-              setValue("orderFulfilment", value);
+              setValue("POS.orderFulfilment", value);
+              console.log(value);
+
               setValueSelected(value.toLowerCase().replace(/ /g, "-")); // get name string to value
             }}
           />
@@ -68,6 +71,7 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
       {_.isEqual(valueSelected, "fulfillment-over-a-period-of-time") && (
         <FulfillmentOverAPeriodOfTime
           cx={cx}
+          dataRedux={dataRedux}
           variant={variant}
           register={register}
           setValue={setValue}
