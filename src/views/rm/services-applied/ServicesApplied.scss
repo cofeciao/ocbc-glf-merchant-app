@@ -1,6 +1,72 @@
 @import '../../../assets/style/variable.scss';
+
+.servicer-applied-wrapper {
+  & .title-checkbox {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #777E87;
+  }
+  & .header-wrapper{ 
+    margin-top: 56px;
+  }
+  & .category-wrapper {
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+  & .checkbox-wrapper {
+    & .group-checkbox {
+      margin-top: 40px;
+  
+      & .MuiFormLabel-root {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: $tundora;
+      }
+      
+      & .MuiFormGroup-root {
+        margin: 18px 0px 18px 0px;
+        width: 50%;
+        gap: 10px;
+        
+        & .MuiFormControlLabel-root {
+          margin-right: 100px;
+        }
+  
+        input[type=checkbox] {
+         background-color: black !important;
+        }
+  
+        & .MuiFormControlLabel-label {
+          font-weight: 600;
+          font-size: 16px;
+          color: $tundora;
+          line-height: 24px;
+        }
+      }
+      & .see-more {
+        display: flex;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 28px;
+        color: #005EFD;
+        align-items: center;
+        cursor: pointer;
+  
+        svg {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+} 
+
 .label {
-  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
@@ -19,7 +85,6 @@
     display: flex;
     align-items: center;
     color: $dodgerBlue;
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 24px;
