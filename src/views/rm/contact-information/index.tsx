@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { Grid, Box } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { saveDataAcraAndContactInformationStep, saveDataAcraDetailStep } from "@/store/form";
 
 //import icon
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -23,16 +25,14 @@ import {
   PERSONAL_INFORMATION_SINGPASS,
   STEP_RM
 } from "@/utils/constants-rm";
-import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 //import types
 import { IContactInformation } from "./ContactInformation";
+
+//import components
 import ContactDetails from "./ContactDetails";
 import SectionWrapper from "../SectionWrapper";
-import { useDispatch } from "react-redux";
-import { saveDataAcraDetailStep } from "@/store/form";
-import { useSelector } from "react-redux";
-
+import AuthorisedPersonDetails from "./AuthorisedPersonDetails";
 
 const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ handleCallAPI }, ref) => {
   const cx = classNames.bind(styles);
@@ -45,47 +45,49 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
 
   // States
   const [loading, setLoading] = useState(false);
-  const [key, setKey] = useState<number>(0);
-  const [contactInformation, setContactInformation] = useState({
-    salution: "",
-    name: "",
-    designation: "",
-    email: "",
-    contactNumber: "",
-    countryPhoneNumber: PERSONAL_INFORMATION_SINGPASS.countryPhoneNumber,
-  });
   const [dataArca, setDataArca] = useState<any>({});
 
   const {
     LIST_STEP: {
-      company_and_contact_information: {
-        section: { contact_details },
-      },
-    },
-  } = SELF_SERVE_PAGE;
-
-  const {
-    list_step: {
       acra_and_contact_information: {
-        section: { arca_detail },
+        section: { arca_detail, contact_detail, authorised_person_details },
       },
     },
   } = STEP_RM;
+
+  /**
+   * Retrieves data of Company And Contact Information step from Store
+   */
+  const acraAndContactInformationStep = useSelector(
+    (state: any) => state.form.acraAndContactInformationStep
+  );
 
 // form
   const {
     register,
     formState: { errors, isValid, isDirty },
-    watch,
     setValue,
     setError,
+    getValues,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      ContactNumber: "",
+      contact_detail: {
+        contactNumber: acraAndContactInformationStep.contactNumber || "",
+        salutation: acraAndContactInformationStep.salutation || "",
+        name: acraAndContactInformationStep.name || "",
+        email: acraAndContactInformationStep.email || "",
+        designation: acraAndContactInformationStep.designation || "",
+      },
+      authorised_person_details: {
+        contactNumber: acraAndContactInformationStep.contactNumber || "",
+        salutation: acraAndContactInformationStep.salutation || "",
+        name: acraAndContactInformationStep.name || "",
+        email: acraAndContactInformationStep.email || "",
+        designation: acraAndContactInformationStep.designation || "",
+      }
     },
   });
-
 
   /**
    * Handle button prev
@@ -99,7 +101,10 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
    */
    const handleNext = async () => {
     history.push(URL_MANUAL_FLOW.servicesApplied);
-    
+    dispatch(saveDataAcraAndContactInformationStep({
+      contact_detail: getValues().contact_detail,
+      authorised_person_details: getValues().authorised_person_details,
+    }))
   }
 
     /**
@@ -108,7 +113,11 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
    */
     const renderButton = () => {
       return (
-        <Button backgroundClass="bgGunmetalBluegrey" onClick={handleNext}>
+        <Button 
+          backgroundClass="bgGunmetalBluegrey" 
+          onClick={handleNext}
+          // disabled={!isValid || !isDirty}
+        >
           Next
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
         </Button>
@@ -193,8 +202,8 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
         <SectionWrapper
           cx={cx}
           className={cx("contact-details-")}
-          title={'Contact details'}
-          description={'Please ensure that these details are accurate.'}
+          title={contact_detail.title}
+          description={contact_detail.description}
         >
           <ContactDetails 
             cx={cx}
@@ -202,27 +211,29 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
             register={register}
             setValue={setValue}
             setError={setError}
-            data={contact_details}
+            data={contact_detail}
+            dataRedux={acraAndContactInformationStep}
           />
         </SectionWrapper>
       </Box>
 
       <Box className={cx('mt-dt-56')}>
         <SectionWrapper
+          cx={cx}
+          className={cx("contact-details-")}
+          title={authorised_person_details.title}
+          description={authorised_person_details.description}
+        >
+          <AuthorisedPersonDetails 
             cx={cx}
-            className={cx("contact-details-")}
-            title={'Authorised person details'}
-            description={'Please ensure that these details are accurate.'}
-          >
-            <ContactDetails 
-              cx={cx}
-              errors={errors}
-              register={register}
-              setValue={setValue}
-              setError={setError}
-              data={contact_details}
-            />
-          </SectionWrapper>  
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            setError={setError}
+            data={authorised_person_details}
+            dataRedux={acraAndContactInformationStep}
+          />
+        </SectionWrapper>  
       </Box>
              
       {/* Section button  */}
