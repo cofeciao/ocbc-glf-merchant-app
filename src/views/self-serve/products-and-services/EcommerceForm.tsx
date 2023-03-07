@@ -1,5 +1,5 @@
 // import modules
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,6 @@ import SalesForecastEcommerce from "./SalesForecastEcommerce";
 
 // import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
-import { useSelector } from "react-redux";
 
 // import types
 
@@ -23,6 +22,7 @@ const EcommerceForm: React.FC<any> = (props) => {
     title,
     variant = "point-of-sales",
     register,
+    unregister,
     setValue,
     errors,
   } = props;
@@ -75,6 +75,7 @@ const EcommerceForm: React.FC<any> = (props) => {
               dataRedux={dataRedux}
               variant={variant}
               register={register}
+              unregister={unregister}
               setValue={setValue}
             />
           </Grid>

@@ -52,7 +52,7 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
                         ? dataRedux[textField.keyName]
                         : ""
                     }
-                    {...register(textField.keyName, {
+                    {...register(`Ecom.${textField.keyName}`, {
                       required: true,
                     })}
                   />

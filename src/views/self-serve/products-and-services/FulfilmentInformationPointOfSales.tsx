@@ -7,6 +7,7 @@ import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 
 // import constant
 import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { unregister } from "@/serviceWorker";
 
 // import types
 
@@ -18,6 +19,7 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
   const {
     cx,
     register,
+    unregister,
     errors,
     setValue,
     variant = "point-of-sales",
@@ -59,8 +61,6 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
             vertical
             getValue={(value: any) => {
               setValue("POS.orderFulfilment", value);
-              console.log(value);
-
               setValueSelected(value.toLowerCase().replace(/ /g, "-")); // get name string to value
             }}
           />
@@ -72,8 +72,9 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
         <FulfillmentOverAPeriodOfTime
           cx={cx}
           dataRedux={dataRedux}
-          variant={variant}
+          variant={valueSelected}
           register={register}
+          unregister={unregister}
           setValue={setValue}
           errors={errors}
         />

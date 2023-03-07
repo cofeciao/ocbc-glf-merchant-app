@@ -876,13 +876,13 @@ export const SELF_SERVE_PAGE = {
             "Based on your products and/or services, what is your sales forecast?",
           listTextField: [
             {
-              keyName: "POS.averageAmountPerCreditCardTransaction",
+              keyName: "averageAmountPerCreditCardTransaction",
               description: "Average amount per credit card transaction",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },
             {
-              keyName: "POS.annualCreditCardSalesForecast",
+              keyName: "annualCreditCardSalesForecast",
               description: "Annual credit card sales forecast",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
@@ -925,13 +925,15 @@ export const SELF_SERVE_PAGE = {
             "Based on your products and/or services, what is your sales forecast?",
           listTextField: [
             {
-              keyName: "Ecom.averageAmountPerCreditCardTransaction",
+              keyName: "averageAmountPerCreditCardTransaction",
               description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },
             {
-              keyName: "Ecom.annualCreditCardSalesForecast",
+              keyName: "annualCreditCardSalesForecast",
               description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },
           ],

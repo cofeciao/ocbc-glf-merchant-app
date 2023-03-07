@@ -24,11 +24,11 @@ const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
             helperText={
               errors.numberOfOutlets && errors.numberOfOutlets.message
             }
-            // defaultValue={
-            //   _.has(dataRedux, "typeOfProductAndServicePOS")
-            //     ? dataRedux.typeOfProductAndServicePOS
-            //     : ""
-            // }
+            defaultValue={
+              _.has(dataRedux, "typeOfProductAndService")
+                ? dataRedux.typeOfProductAndService
+                : ""
+            }
             {...register("POS.typeOfProductAndService", {
               required: true,
               pattern: {

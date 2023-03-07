@@ -9,12 +9,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import _ from "lodash";
+import { ERROR_ICON } from "@/utils/constants";
 
 // import types
 
 // render UI
 const SalesForecast: React.FC<any> = (props) => {
-  const { cx, data, register, dataRedux } = props;
+  const { cx, data, register, errors, dataRedux } = props;
 
   return (
     <Box className={cx("sales-forecast-wrapper")}>
@@ -52,8 +53,17 @@ const SalesForecast: React.FC<any> = (props) => {
                         ? dataRedux[textField.keyName]
                         : ""
                     }
-                    {...register(textField.keyName, {
+                    helperText={
+                      errors[textField.keyName] &&
+                      `${ERROR_ICON} ${errors[textField.keyName].message}`
+                    }
+                    {...register(`POS.${textField.keyName}`, {
                       required: true,
+                      pattern: {
+                        // eslint-disable-next-line no-useless-escape
+                        value: /^[1-9]\d*$/,
+                        message: textField.helperText,
+                      },
                     })}
                   />
                 </Grid>

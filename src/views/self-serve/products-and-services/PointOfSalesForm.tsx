@@ -22,6 +22,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
     optionSelected,
     variant = "point-of-sales",
     register,
+    unregister,
     setValue,
     errors,
   } = props;
@@ -74,6 +75,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
               dataRedux={dataRedux}
               variant={variant}
               register={register}
+              unregister={unregister}
               setValue={setValue}
             />
           </Grid>
@@ -90,6 +92,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
               data={salesForecast}
               dataRedux={dataRedux}
               register={register}
+              errors={errors}
             />
           </Grid>
         </Grid>

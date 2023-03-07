@@ -12,7 +12,6 @@ import _ from "lodash";
 
 // import constants
 import {
-  CONTINUE_LATER,
   LIST_ROUTER,
   NEXT,
   SELF_SERVE_PAGE,
@@ -59,8 +58,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
    * Retrieves data of dataListCheckbox from Store
    */
   const dataListCheckbox = useSelector(
-    (state: any) =>
-      state.form.transactionAndCardAcceptanceTypeStep
+    (state: any) => state.form.transactionAndCardAcceptanceTypeStep
   );
 
   /**
@@ -143,9 +141,6 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
-          <Box className={cx("d-inline")}>
-            <Link to="/">{CONTINUE_LATER}</Link>
-          </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
       </section>

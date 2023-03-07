@@ -54,6 +54,7 @@ const ProductsAndServices: React.FC<any> = () => {
 
   const {
     register,
+    unregister,
     formState: { errors, isValid, isDirty },
     getValues,
     setValue,
@@ -112,6 +113,7 @@ const ProductsAndServices: React.FC<any> = () => {
           data={pointOfSalesForm}
           dataRedux={productsAndServicesStep.pointOfSales}
           register={register}
+          unregister={unregister}
           setValue={setValue}
           errors={errors}
         />
@@ -123,6 +125,7 @@ const ProductsAndServices: React.FC<any> = () => {
           data={ecommerceForm}
           dataRedux={productsAndServicesStep.eCommerce}
           register={register}
+          unregister={unregister}
           setValue={setValue}
           errors={errors}
         />
@@ -136,6 +139,7 @@ const ProductsAndServices: React.FC<any> = () => {
             data={pointOfSalesForm}
             dataRedux={productsAndServicesStep.pointOfSales}
             register={register}
+            unregister={unregister}
             setValue={setValue}
             errors={errors}
           />
@@ -147,6 +151,7 @@ const ProductsAndServices: React.FC<any> = () => {
             data={ecommerceForm}
             dataRedux={productsAndServicesStep.eCommerce}
             register={register}
+            unregister={unregister}
             setValue={setValue}
             errors={errors}
           />

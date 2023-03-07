@@ -24,6 +24,11 @@ const BusinessOfferingEcommerce: React.FC<any> = (props) => {
             helperText={
               errors.numberOfOutlets && errors.numberOfOutlets.message
             }
+            defaultValue={
+              _.has(dataRedux, "typeOfProductAndService")
+                ? dataRedux.typeOfProductAndService
+                : ""
+            }
             {...register("Ecom.typeOfProductAndService", {
               required: true,
               pattern: {

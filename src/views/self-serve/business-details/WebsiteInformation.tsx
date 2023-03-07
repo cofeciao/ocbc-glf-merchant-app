@@ -83,9 +83,9 @@ const WebsiteInformation: React.FC<any> = (props) => {
             <Grid item xs={4}>
               <Box className={cx("text-field-group-wrapper")}>
                 {/* {Text field group} */}
-                {_.map(listTextField, (_item, index) => {
+                {_.map(listTextField, (item, index) => {
                   return (
-                    <Box className={cx("text-field-item")}>
+                    <Box key={item.label} className={cx("text-field-item")}>
                       <TextField
                         fullWidth
                         placeholder={listTextField[0].label}

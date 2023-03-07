@@ -1,5 +1,5 @@
 // import modules
-import React from "react";
+import React, { useEffect } from "react";
 import { Radio, Checkbox } from "@sectionsg/orc";
 import {
   Box,
@@ -35,14 +35,25 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
     variant = "point-of-sales",
     setValue,
     register,
+    unregister,
     dataRedux,
   } = props;
+
+  useEffect(() => {
+    if (!_.isEqual(variant, "fulfillment-over-a-period-of-time")) {
+      unregister("Ecom.percentageOfProductsNotFulfilledImmediately", {
+        keepDefaultValue: false,
+      });
+    }
+  }, [variant]);
+
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
       <Grid container className={cx("mt-dt-40")}>
-        {/* {TextField & Description} */}
+        {/* {Percentage of products/services not fulfilled immediately} */}
         {_.isEqual(variant, "fulfillment-over-a-period-of-time") && (
           <Grid item xs={12}>
+            {/* {Description} */}
             {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY && (
               <Typography
                 className={cx(
@@ -67,7 +78,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                 {...register(
                   "Ecom.percentageOfProductsNotFulfilledImmediately",
                   {
-                    required: false,
+                    required: true,
                   }
                 )}
               />
@@ -131,7 +142,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                 labelId="select-duration-label"
                 id="select-duration"
                 {...register("Ecom.deliveryTimeToCustomers", {
-                  required: true,
+                  required: false,
                 })}
               >
                 {_.map(
