@@ -107,6 +107,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                       </InputAdornment>
                     ),
                   }}
+                  className={cx("percentage-input-field")}
                   // defaultValue={
                   //   _.has(
                   //     dataRedux,

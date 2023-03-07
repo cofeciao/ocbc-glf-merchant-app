@@ -1,7 +1,7 @@
 // import modules
 import { Header, Footer, FormLayout, Tabs } from "@sectionsg/orc";
-import React from "react";
-import { useParams } from "react-router";
+import React, { useEffect } from "react";
+import { useHistory, useParams } from "react-router";
 import { Container } from "@material-ui/core";
 import classnames from "classnames/bind";
 import CompanyAndContactInformation from "@/views/self-serve/company-and-contact-information";
@@ -20,6 +20,7 @@ import {
 
 // import style
 import styles from "./SelfServe.scss";
+import { adobeAbandon } from "@/utils/adobeTracking";
 
 // import types
 
@@ -27,6 +28,43 @@ import styles from "./SelfServe.scss";
 const SelfServe = () => {
   const cx = classnames.bind(styles);
   const { slug } = useParams<{ slug: string }>();
+  const [shouldRedirect, setShouldRedirect] = React.useState(false);
+  const history = useHistory();
+
+  /**
+   * add event listener to handle page reload
+   */
+  useEffect(() => {
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, []);
+
+  /**
+   * Detect reload and show alert
+   * @param event
+   */
+  const handleBeforeUnload = (event: any) => {
+    event.preventDefault();
+    event.returnValue = '';
+  }
+
+
+  /**
+   * Detect reload and redirect to "/"
+   */
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (history.action === "POP") {
+      window.location.href = "/";
+    }
+    let trackingEvent = (window as any).attachEvent || window.addEventListener;
+    let chkevent = (window as any).attachEvent
+      ? "onbeforeunload"
+      : "beforeunload";
+    trackingEvent(chkevent, adobeAbandon);
+  }, []);
 
   /**
    * Dynamic stepper
@@ -52,12 +90,7 @@ const SelfServe = () => {
         <section className={cx("self-serve-wrapper")}>
           <FormLayout
             isMyInfo={true}
-            tabs={
-              <Tabs
-                tabId={slug}
-                dataTabs={handleDetectDynamicStepper()}
-              />
-            }
+            tabs={<Tabs tabId={slug} dataTabs={handleDetectDynamicStepper()} />}
             content={
               <>
                 {slug ===

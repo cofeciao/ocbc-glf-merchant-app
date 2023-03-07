@@ -131,6 +131,10 @@
 
   .formatted-numberphone-input {
     background: #fafcfc;
+    & .MuiInputBase-root {
+      height: unset;
+    }
+
     .MuiInputLabel-root {
       padding-left: 8px;
     }
@@ -149,6 +153,16 @@
     input {
       padding-left: 10px;
     }
+  }
+
+  & .percentage-input-field {
+    & .MuiInputBase-root {
+      padding-right: 8px;
+    }
+  }
+
+  & .MuiInputBase-root {
+    height: 57px;
   }
 
   .button-wrapper {
