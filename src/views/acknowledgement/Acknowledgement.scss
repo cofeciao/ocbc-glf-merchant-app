@@ -8,7 +8,7 @@
 }
 
 .pb-270 {
-  padding-bottom: 270px;
+  padding-bottom: 270px !important;
 }
 
 .acknowledgement {
@@ -33,5 +33,9 @@
     font-size: 18px;
     line-height: 28px;
     color: #777e87;
+  }
+
+  &-link {
+    color: #2979ff;
   }
 }

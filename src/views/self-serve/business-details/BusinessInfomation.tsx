@@ -13,16 +13,16 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const BusinessInfomation: React.FC<any> = (props) => {
-  const { listField, register, errors, setValue } = props;
-  const { list_radio_yes_no } = SELF_SERVE_PAGE;
+  const { listField, register, errors, setValue, dataRedux } = props;
+  const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
-  const defaultValueListRadio = list_radio_yes_no.filter(
+  const defaultValueListRadio = LIST_RADIO_YES_NO.filter(
     (item) => item.checked === true
   );
   const [businessReadyToOperate, setBusinessReadyToOperate] = useState<string>(
     defaultValueListRadio[0].text
   );
-    
+
   return (
     <Box className={cx("business-infomation-wrapper")}>
       <Grid container>
@@ -34,10 +34,10 @@ const BusinessInfomation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {!_.isEmpty(list_radio_yes_no) && (
+          {!_.isEmpty(LIST_RADIO_YES_NO) && (
             <Radio
               name="lockIn"
-              listCheckBox={list_radio_yes_no}
+              listCheckBox={LIST_RADIO_YES_NO}
               radioKey={0}
               getValue={(value: any) => {
                 setValue("businessReadyToOperate", value);
@@ -63,6 +63,11 @@ const BusinessInfomation: React.FC<any> = (props) => {
                     fullWidth
                     placeholder={listField.textField.label}
                     variant="filled"
+                    defaultValue={
+                      _.has(dataRedux, "numberOfOutlets")
+                        ? dataRedux.numberOfOutlets
+                        : ""
+                    }
                     error={errors.numberOutlets && true}
                     helperText={
                       errors.numberOfOutlets && errors.numberOfOutlets.message
@@ -89,10 +94,10 @@ const BusinessInfomation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {!_.isEmpty(list_radio_yes_no) && (
+          {!_.isEmpty(LIST_RADIO_YES_NO) && (
             <Radio
               name="lockIn"
-              listCheckBox={list_radio_yes_no}
+              listCheckBox={LIST_RADIO_YES_NO}
               radioKey={0}
               getValue={(value: any) => setValue("businessAccount", value)}
             />

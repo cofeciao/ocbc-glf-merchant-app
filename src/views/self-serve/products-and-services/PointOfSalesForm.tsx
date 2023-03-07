@@ -1,49 +1,36 @@
 // import modules
-import React, { useEffect } from "react";
+import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import SectionWrapper from "../SectionWrapper";
 import _ from "lodash";
-import { useForm } from "react-hook-form";
 import BusinessOfferingPointOfSales from "./BusinessOfferingPointOfSales";
 import FulfilmentInformationPointOfSales from "./FulfilmentInformationPointOfSales";
 import SalesForecastPointOfSales from "./SalesForecastPointOfSales";
 
 // import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
-import { saveDataProductsAndServicesPOS } from "@/store/form";
-import { useDispatch } from "react-redux";
 
 // import types
 
 // render UI
 const PointOfSalesForm: React.FC<any> = (props) => {
-  const { cx, data, title, optionSelected, variant = "point-of-sales" } = props;
+  const {
+    cx,
+    data,
+    dataRedux,
+    title,
+    optionSelected,
+    variant = "point-of-sales",
+    register,
+    setValue,
+    errors,
+  } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
   const {
     LABEL_BUSINESS_OFFERING,
     LABEL_FULFILMENT_INFORMATION,
     LABEL_SALES_FORECAST,
   } = SELF_SERVE_PAGE;
-  const {
-    register,
-    formState: { errors, isValid, isDirty },
-    getValues,
-    setValue,
-    watch,
-  } = useForm({
-    mode: "onBlur",
-  });
-  const watchAll = watch();
-  const dispatch = useDispatch();
-
-  /**
-   * Save data to Store
-   */
-  useEffect(() => {
-    if (watchAll) {
-      dispatch(saveDataProductsAndServicesPOS(getValues()));
-    }
-  }, [watchAll]);
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
@@ -68,6 +55,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
             <BusinessOfferingPointOfSales
               cx={cx}
               data={businessOffering}
+              dataRedux={dataRedux}
               register={register}
               errors={errors}
             />
@@ -83,6 +71,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
             <FulfilmentInformationPointOfSales
               cx={cx}
               data={fulfilmentInformation}
+              dataRedux={dataRedux}
               variant={variant}
               register={register}
               setValue={setValue}
@@ -99,6 +88,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
             <SalesForecastPointOfSales
               cx={cx}
               data={salesForecast}
+              dataRedux={dataRedux}
               register={register}
             />
           </Grid>

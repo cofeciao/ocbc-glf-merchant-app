@@ -16,11 +16,13 @@ import IconTrash from "@/assets/images/icon-trash.svg";
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
-  const { listField, setValue } = props;
+  const { listField, register, setValue, dataRedux } = props;
+  const { LIST_RADIO_YES_NO, LABEL_ADD_MORE_WEBSITES } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const [listTextField, setListTextField] = useState([
     { ...listField.textField },
   ]);
+  const [existingWebsite, setExistingWebsite] = useState("Yes");
 
   /**
    * After clicking "add more websites" button under the text field, the text field will have 1 more field per click
@@ -43,12 +45,10 @@ const WebsiteInformation: React.FC<any> = (props) => {
     setListTextField(filterListTextField);
   };
 
-  const plus = "&plusmn;";
-
   return (
     <Box className={cx("website-information-wrapper")}>
       <Grid container>
-        {/* {Is your business ready for operation?} */}
+        {/* {Do you have an existing website?} */}
         <Grid item xs={12}>
           {_.has(listField.listRadio[0], "description") && (
             <Typography className={cx("sub-section-description")}>
@@ -56,18 +56,21 @@ const WebsiteInformation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {_.has(SELF_SERVE_PAGE, "list_radio_yes_no") && (
+          {!_.isEmpty(LIST_RADIO_YES_NO) && (
             <Radio
               name="lockIn"
-              listCheckBox={SELF_SERVE_PAGE.list_radio_yes_no}
+              listCheckBox={LIST_RADIO_YES_NO}
               radioKey={0}
-              getValue={(value: any) => setValue("websiteExisting", value)}
+              getValue={(value: any) => {
+                setValue("existingWebsite", value);
+                setExistingWebsite(value);
+              }}
             />
           )}
         </Grid>
 
-        {/* {Is your business ready for operation?} */}
-        {
+        {/* {Your website’s URL?} */}
+        {_.isEqual(existingWebsite, "Yes") && (
           <Grid item xs={12}>
             {/* {Description} */}
             {_.has(listField.textField, "description") && (
@@ -84,9 +87,16 @@ const WebsiteInformation: React.FC<any> = (props) => {
                     <Box className={cx("text-field-item")}>
                       <TextField
                         fullWidth
-                        id={`uuidv4()`}
                         placeholder={listTextField[0].label}
                         variant="filled"
+                        defaultValue={
+                          _.has(dataRedux, `yourWebsiteURL${index}`)
+                            ? `${dataRedux.numberOfOutlets}${index}`
+                            : ""
+                        }
+                        {...register(`yourWebsiteURL${index}`, {
+                          required: false,
+                        })}
                       />
                       {index >= 1 && (
                         <img
@@ -116,16 +126,16 @@ const WebsiteInformation: React.FC<any> = (props) => {
                       />
                     </Box>
                     <Box component="span" className={cx("add-website-label")}>
-                      {SELF_SERVE_PAGE.add_more_websites}
+                      {LABEL_ADD_MORE_WEBSITES}
                     </Box>
                   </Button>
                 )}
               </Box>
             </Grid>
           </Grid>
-        }
+        )}
 
-        {/* {Is your business ready for operation?} */}
+        {/* {Can customers place orders through your website?} */}
         <Grid item xs={12}>
           {_.has(listField.listRadio[1], "description") && (
             <Typography className={cx("sub-section-description")}>
@@ -133,12 +143,14 @@ const WebsiteInformation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {_.has(SELF_SERVE_PAGE, "list_radio_yes_no") && (
+          {!_.isEmpty(LIST_RADIO_YES_NO) && (
             <Radio
               name="lockIn"
-              listCheckBox={SELF_SERVE_PAGE.list_radio_yes_no}
+              listCheckBox={LIST_RADIO_YES_NO}
               radioKey={0}
-              getValue={(value: any) => setValue("websiteoOrders", value)}
+              getValue={(value: any) =>
+                setValue("placeOrderThroughWebsite", value)
+              }
             />
           )}
         </Grid>

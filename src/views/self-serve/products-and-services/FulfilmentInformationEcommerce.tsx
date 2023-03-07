@@ -16,7 +16,7 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
   const {
     LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES,
   } = SELF_SERVE_PAGE;
-  const { cx, register, errors, setValue, variant = "point-of-sales" } = props;
+  const { cx, register, errors, setValue, variant = "point-of-sales", dataRedux } = props;
   const [valueSelected, setValueSelected] = useState();
 
   return (
@@ -52,7 +52,7 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
             radioKey={0}
             vertical
             getValue={(value: any) => {
-              setValue("orderFulfilment", value);
+              setValue("Ecom.orderFulfilment", value);
               setValueSelected(value.toLowerCase().replace(/ /g, "-")); // get name string to value
             }}
           />
@@ -63,6 +63,7 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
       {
         <ImmediateFulfillment
           cx={cx}
+          dataRedux={dataRedux}
           variant={valueSelected}
           register={register}
           errors={errors}
@@ -74,6 +75,7 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
       {_.isEqual(valueSelected, "fulfillment-over-a-period-of-time") && (
         <FulfillmentOverAPeriodOfTime
           cx={cx}
+          dataRedux={dataRedux}
           variant={variant}
           register={register}
           setValue={setValue}

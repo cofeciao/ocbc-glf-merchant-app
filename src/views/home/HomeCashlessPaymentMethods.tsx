@@ -1,12 +1,13 @@
 // import modules
 import ListCheckBox from "@/components/ListCheckBox";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { saveDataListCheckbox } from "@/store/form";
+import { saveDataCashlessPaymentMethod } from "@/store/form";
 
 // import types
 import { IHome } from "./Home";
 import { Typography } from "@material-ui/core";
+import _ from "lodash";
 
 // render UI
 const HomeCashlessPaymentMethods: React.FC<
@@ -19,15 +20,18 @@ const HomeCashlessPaymentMethods: React.FC<
     dataCardCheckbox,
     cx,
     checkboxKey,
+    getValueCheckbox,
   } = props;
   const dispatch = useDispatch();
+  // const [interest, setInterest] = useState<boolean>(false);
 
   /**
    * Get data from list check box
    * @param data
    */
   const getDataFromListCheckbox = (data: any) => {
-    dispatch(saveDataListCheckbox(data));
+    getValueCheckbox(data);
+    dispatch(saveDataCashlessPaymentMethod(data));
   };
 
   return (

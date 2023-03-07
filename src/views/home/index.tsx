@@ -42,20 +42,21 @@ const Home: React.FC = ({}) => {
   );
   const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
   const [loading] = useState(false);
+  const [interest, setInterest] = useState(false);
 
   /**
    * Retrieves data from Store
    */
-  const dataListCheckbox = useSelector(
-    (state: any) => state.form.dataListCheckbox
+  const dataCashlessPaymentMethod = useSelector(
+    (state: any) => state.form.cashlessPaymentMethod
   );
 
   /**
    * Handle disable next button
    */
   useEffect(() => {
-    if (dataListCheckbox.length) {
-      const result = dataListCheckbox.findIndex(
+    if (dataCashlessPaymentMethod.length) {
+      const result = dataCashlessPaymentMethod.findIndex(
         (item: any) => item.checked === true
       );
       if (result !== -1) {
@@ -63,15 +64,31 @@ const Home: React.FC = ({}) => {
       } else {
         setHasDataCheckbox(true);
       }
-      setDataCardCheckbox(dataListCheckbox);
+      setDataCardCheckbox(dataCashlessPaymentMethod);
     }
-  }, [dataListCheckbox]);
+  }, [dataCashlessPaymentMethod]);
+
+  /**
+   * Run after clicking the checkbox
+   */
+  const handleGetValueCheckbox = (data: any) => {
+    const selected = data.filter((item: any) => item.checked === true);
+    if (_.size(selected) === 1 && selected[0].value === "paynow") {
+      setInterest(true);
+    } else {
+      setInterest(false);
+    }
+  };
 
   /**
    * Run after clicking the start button
    */
   const handleClickButton = () => {
-    history.push(LIST_ROUTER.company_and_contact_information);
+    if (interest === true) {
+      history.push(LIST_ROUTER.acknowledgement_interest);
+    } else {
+      history.push(LIST_ROUTER.company_and_contact_information);
+    }
   };
 
   // Render UI
@@ -126,9 +143,10 @@ const Home: React.FC = ({}) => {
                 dataCardCheckbox={dataCardCheckbox}
                 checkboxKey={key}
                 cx={cx}
+                getValueCheckbox={handleGetValueCheckbox}
               />
 
-              {/* Section button */}
+              {/* Next button */}
               <section
                 className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
               >

@@ -17,7 +17,7 @@ import styles from "./BusinessDetails.scss";
 
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
-  const { sections, setValue } = props;
+  const { sections, setValue, dataRedux } = props;
   const cx = classnames.bind(styles);
   const [dataBusinessOperationCheckbox, setDataBusinessOperationCheckbox] =
     useState<any>(sections[0].listCheckbox || []);
@@ -79,7 +79,8 @@ const OtherInformation: React.FC<any> = (props) => {
           {/* {List Checkbox} */}
           {dataBusinessOperationCheckbox && (
             <Box display="flex" flexDirection="column">
-              {dataBusinessOperationCheckbox.map(
+              {_.map(
+                dataBusinessOperationCheckbox,
                 (checkbox: any, idx: number) => {
                   return (
                     <FormControlLabel
@@ -112,25 +113,28 @@ const OtherInformation: React.FC<any> = (props) => {
           )}
 
           {/* {List Checkbox} */}
-          {sections[1].listCheckbox && (
+          {
             <Box display="flex" flexDirection="column">
-              {sections[1].listCheckbox.map((checkbox: any, idx: number) => {
-                return (
-                  <FormControlLabel
-                    key={idx}
-                    control={
-                      <Checkbox
-                        name={checkbox.label}
-                        color="primary"
-                        onChange={handleChange}
-                      />
-                    }
-                    label={checkbox.label}
-                  />
-                );
-              })}
+              {_.map(
+                dataRedux.availableSpaces || sections[1].listCheckbox,
+                (checkbox: any, idx: number) => {
+                  return (
+                    <FormControlLabel
+                      key={idx}
+                      control={
+                        <Checkbox
+                          name={checkbox.label}
+                          color="primary"
+                          onChange={handleChange}
+                        />
+                      }
+                      label={checkbox.label}
+                    />
+                  );
+                }
+              )}
             </Box>
-          )}
+          }
         </Grid>
       </Grid>
     </Box>

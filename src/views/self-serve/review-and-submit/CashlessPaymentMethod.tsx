@@ -6,10 +6,12 @@ import _ from "lodash";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
+import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const CashlessPaymentMethod: React.FC<any> = (props) => {
   const { data } = props;
+  const { LABEL_MODE } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
 
   return (
@@ -18,7 +20,7 @@ const CashlessPaymentMethod: React.FC<any> = (props) => {
         <Grid item xs={12}>
           <Box className={cx("d-flex-column")}>
             <Box component="span" className={cx("text-item-input")}>
-              Cashless payment method(s)
+             {LABEL_MODE}
             </Box>
             {_.map(data, (item) => {
               return (

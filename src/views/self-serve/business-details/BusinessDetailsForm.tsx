@@ -9,7 +9,8 @@ import _ from "lodash";
 
 // render UI
 const BusinessDetailsForm: React.FC<any> = (props) => {
-  const { cx, data, optionSelected, register, errors, setValue } = props;
+  const { cx, data, optionSelected, register, errors, setValue, dataRedux } =
+    props;
   const { businessInfomation, otherInfomation, websiteInfomation } = data;
 
   return (
@@ -24,6 +25,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
           )}
         <BusinessInfomation
           listField={businessInfomation.listField}
+          dataRedux={dataRedux}
           optionSelected={optionSelected}
           register={register}
           errors={errors}
@@ -43,6 +45,8 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
           <WebsiteInformation
             listField={websiteInfomation.listField}
             setValue={setValue}
+            register={register}
+            dataRedux={dataRedux}
           />
         </SectionWrapper>
       )}
@@ -51,6 +55,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
       {otherInfomation && (
         <SectionWrapper cx={cx} title={otherInfomation.title}>
           <OtherInformation
+            dataRedux={dataRedux}
             sections={otherInfomation.sections}
             setValue={setValue}
           />

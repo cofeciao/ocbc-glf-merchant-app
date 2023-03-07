@@ -2,7 +2,10 @@
 import { Category, Button } from "@sectionsg/orc";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveDataBusinessInfomation } from "@/store/form";
+import {
+  saveDataBusinessDetailsStep,
+  saveDataListWebsiteUrl,
+} from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -29,7 +32,7 @@ import { Link } from "react-router-dom";
 
 const BusinessDetails: React.FC<any> = () => {
   const {
-    list_step: {
+    LIST_STEP: {
       business_details: {
         text,
         forms: { pointOfSales, pointOfSalesAndEcommerce, ecommerce },
@@ -39,20 +42,43 @@ const BusinessDetails: React.FC<any> = () => {
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  /**
+   * Retrieves data of Business Details step from Store
+   */
+  const businessDetailsStep = useSelector(
+    (state: any) => state.form.businessDetailsStep
+  );
+
   const {
     register,
     formState: { errors, isValid, isDirty },
+    watch,
     getValues,
     setValue,
   } = useForm({
     mode: "onBlur",
+    defaultValues: {
+      yourWebsiteURL0: "",
+      yourWebsiteURL1: "",
+      yourWebsiteURL2: "",
+      businessReadyToOperate: "Yes",
+      businessAccount: "Yes",
+      existingWebsite: "Yes",
+      placeOrderThroughWebsite: "Yes",
+    },
   });
 
+  const watchAll = watch();
+  console.log("watchAll", watchAll);
+  console.log("businessDetailsStep", businessDetailsStep);
+
   /**
-   * Retrieves data of step transactionAndCardAcceptanceTypeStep from Store
+   * Retrieves data of step Transaction And Card Acceptance Type from Store
+   * return: "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
    */
   const optionSelected = useSelector((state: any) =>
-    state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox
+    state.form.transactionAndCardAcceptanceTypeStep
       .map((item: any) => (item.checked === true ? item.value : ""))
       .join("-")
   );
@@ -68,7 +94,16 @@ const BusinessDetails: React.FC<any> = () => {
         disabled={!isValid || !isDirty}
         onClick={() => {
           history.push(LIST_ROUTER.products_and_services);
-          dispatch(saveDataBusinessInfomation(getValues("numberOutlets",)));
+          dispatch(saveDataBusinessDetailsStep(getValues()));
+          dispatch(
+            saveDataListWebsiteUrl(
+              getValues([
+                "yourWebsiteURL0",
+                "yourWebsiteURL1",
+                "yourWebsiteURL2",
+              ])
+            )
+          );
         }}
         buttonType=""
       >
@@ -102,6 +137,7 @@ const BusinessDetails: React.FC<any> = () => {
             ? pointOfSales.sections
             : pointOfSalesAndEcommerce.sections
         }
+        dataRedux={businessDetailsStep}
         register={register}
         errors={errors}
         setValue={setValue}
@@ -109,7 +145,12 @@ const BusinessDetails: React.FC<any> = () => {
 
       {/* {Next Button}  */}
       <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button backgroundClass="square" onClick={() => history.push(LIST_ROUTER.transaction_and_card_acceptance_type)}>
+        <Button
+          backgroundClass="square"
+          onClick={() =>
+            history.push(LIST_ROUTER.transaction_and_card_acceptance_type)
+          }
+        >
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
