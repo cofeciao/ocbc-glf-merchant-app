@@ -131,6 +131,10 @@
 
   .formatted-numberphone-input {
     background: #fafcfc;
+    & .MuiInputBase-root {
+      height: unset;
+    }
+
     .MuiInputLabel-root {
       padding-left: 8px;
     }
