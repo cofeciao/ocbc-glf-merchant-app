@@ -14,6 +14,7 @@ import classNames from 'classnames/bind';
 
 // import constants
 import { 
+  BUSINESS_OPERATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
   SERVICES_APPLIED, 
@@ -26,6 +27,7 @@ import ServicesApplied from './services-applied';
 
 // styles
 import styles from "./rm.scss"
+import BusinessOperation from './business-operation';
 
 // render UI
 const ContainerManual = () => {
@@ -68,7 +70,6 @@ const ContainerManual = () => {
  * @param {string} path - Slug for page 
  */
   const handleClick = (path: any) => {
-    console.log(path)
     if (childRef.current) {
       if (formReduxData.isBorrower) {
         if (childRef.current.validateForm()) {
@@ -106,6 +107,8 @@ const ContainerManual = () => {
               <>
                 {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
                 {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
+                {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
+
               </>
             )}
           />

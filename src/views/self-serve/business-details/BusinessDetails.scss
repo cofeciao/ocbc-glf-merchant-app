@@ -1,5 +1,60 @@
 @import "../../../assets/style/variable.scss";
 
 .transaction-and-card-acceptance-type-wrapper {
-  
+  & .MuiInputBase-root {
+    & input {
+      padding: 16px 8px 17px;
+    }
+  }
+
+  & .sub-section-title {
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: #363b40;
+  }
+
+  & .text-field-group-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    & .text-field-item {
+      display: flex;
+      flex-direction: row;
+      gap: 16px;
+      align-items: center;
+    }
+    & .text-field-trash-icon {
+      cursor: pointer;
+    }
+  }
+
+  & .add-website-button {
+    display: flex;
+    flex-direction: "row";
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #005efd;
+    margin-top: 16px;
+    padding: 0px;
+    & .large-plus {
+      font-size: 28px;
+    }
+    & .add-website-label {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #005efd;
+      text-transform: unset;
+    }
+    & .MuiButton-label {
+      gap: 4px;
+    }
+    &.MuiButton-root {
+      text-transform: unset;
+    }
+  }
+
 }

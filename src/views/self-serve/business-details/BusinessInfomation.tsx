@@ -1,93 +1,107 @@
 // import modules
-import { Radio, Button } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ListCheckBox from "@/components/ListCheckBox";
-import { saveDataListCheckbox } from "@/store/form";
+import { Radio } from "@sectionsg/orc";
+import React, { useState } from "react";
 import { Box, Grid, TextField, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
-
-// import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import _ from "lodash";
 
 // import style
 import styles from "./BusinessDetails.scss";
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 
 // render UI
 const BusinessInfomation: React.FC<any> = (props) => {
-  const { listRadio } = props;
+  const { listField, register, errors, setValue, dataRedux } = props;
+  const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
-  const history = useHistory();
+  const defaultValueListRadio = LIST_RADIO_YES_NO.filter(
+    (item) => item.checked === true
+  );
+  const [businessReadyToOperate, setBusinessReadyToOperate] = useState<string>(
+    defaultValueListRadio[0].text
+  );
 
   return (
-    <Box
-      className={cx(
-        "business-infomation-wrapper"
-      )}
-    >
+    <Box className={cx("business-infomation-wrapper")}>
       <Grid container>
-        {/* {Is your business ready for operation?} */}
+        {/* {Description & Radio checkbox} */}
         <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            Is your business ready for operation?
-          </Typography>
+          {_.has(listField.listRadio[0], "description") && (
+            <Typography className={cx("sub-section-description")}>
+              {listField.listRadio[0].description}
+            </Typography>
+          )}
 
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio}
-            // label="Is your business ready for operation?"
-            radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
-          />
-        </Grid>
-
-        {/* {Is your business ready for operation?} */}
-        <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            At how many outlets will you deploy Point-of-Sales terminals?
-          </Typography>
-
-          <Grid item xs={4}>
-            <TextField
-              fullWidth
-              id={`uuidv4()`}
-              label="Registered entity name"
-              variant="filled"
-              // onBlur={(event) => {
-              //   getPersonalInformation(
-              //     "RegisteredEntityName",
-              //     event.target.value,
-              //     ""
-              //   );
-              // }}
+          {!_.isEmpty(LIST_RADIO_YES_NO) && (
+            <Radio
+              name="lockIn"
+              listCheckBox={LIST_RADIO_YES_NO}
+              radioKey={0}
+              getValue={(value: any) => {
+                setValue("businessReadyToOperate", value);
+                setBusinessReadyToOperate(value);
+              }}
             />
-          </Grid>
+          )}
         </Grid>
 
-        {/* {Is your business ready for operation?} */}
-        <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            Do you currently have an OCBC business account?
-          </Typography>
+        {/* {Description & Textfield} */}
+        {_.has(listField, "textField") &&
+          _.isEqual(businessReadyToOperate, "Yes") && (
+            <Grid item xs={12}>
+              {_.has(listField.textField, "description") && (
+                <Typography className={cx("sub-section-description")}>
+                  {listField.textField.description}
+                </Typography>
+              )}
 
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio}
-            radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
-          />
+              <Grid item xs={4}>
+                {_.has(listField.textField, "label") && (
+                  <TextField
+                    fullWidth
+                    placeholder={listField.textField.label}
+                    variant="filled"
+                    defaultValue={
+                      _.has(dataRedux, "numberOfOutlets")
+                        ? dataRedux.numberOfOutlets
+                        : ""
+                    }
+                    error={errors.numberOutlets && true}
+                    helperText={
+                      errors.numberOfOutlets && errors.numberOfOutlets.message
+                    }
+                    {...register("numberOfOutlets", {
+                      required: true,
+                      pattern: {
+                        // eslint-disable-next-line no-useless-escape
+                        value: /^\d+$/,
+                        message: `${ERROR_ICON} ${listField.textField.helperText}`,
+                      },
+                    })}
+                  />
+                )}
+              </Grid>
+            </Grid>
+          )}
+
+        {/* {Description & Radio checkbox} */}
+        <Grid item xs={12}>
+          {_.has(listField.listRadio[1], "description") && (
+            <Typography className={cx("sub-section-description")}>
+              {listField.listRadio[1].description}
+            </Typography>
+          )}
+
+          {!_.isEmpty(LIST_RADIO_YES_NO) && (
+            <Radio
+              name="lockIn"
+              listCheckBox={LIST_RADIO_YES_NO}
+              radioKey={0}
+              getValue={(value: any) => setValue("businessAccount", value)}
+            />
+          )}
         </Grid>
       </Grid>
     </Box>

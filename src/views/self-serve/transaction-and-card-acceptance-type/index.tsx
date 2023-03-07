@@ -8,9 +8,15 @@ import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
+import _ from "lodash";
 
 // import constants
-import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
+import {
+  CONTINUE_LATER,
+  LIST_ROUTER,
+  NEXT,
+  SELF_SERVE_PAGE,
+} from "@/utils/constants";
 
 // import style
 import styles from "./TransactionAndCardAcceptanceType.scss";
@@ -20,11 +26,12 @@ import styles from "./TransactionAndCardAcceptanceType.scss";
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import { Link } from "react-router-dom";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const {
-    list_step: {
+    LIST_STEP: {
       transaction_and_card_acceptance_type: {
         text,
         section: { which_service_are_you_applying_for },
@@ -38,6 +45,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const [dataCheckbox, setDataCheckbox] = useState(
     which_service_are_you_applying_for.data_list_checkbox
   );
+  const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
   /**
    * Get data from list check box
@@ -52,7 +60,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
    */
   const dataListCheckbox = useSelector(
     (state: any) =>
-      state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox
+      state.form.transactionAndCardAcceptanceTypeStep
   );
 
   /**
@@ -61,6 +69,15 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   useEffect(() => {
     if (dataListCheckbox && !!dataListCheckbox.length) {
       setDataCheckbox(dataListCheckbox);
+
+      // find selected item to enable the next button
+      const findSelected = _.find(
+        dataListCheckbox,
+        (item) => item.checked === true
+      );
+      findSelected === undefined
+        ? setDisabledButton(true)
+        : setDisabledButton(false);
     }
   }, [dataListCheckbox]);
 
@@ -72,6 +89,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
+        disabled={disabledButton}
         onClick={() => {
           history.push(LIST_ROUTER.business_details);
         }}
@@ -116,10 +134,18 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
 
       {/* {Next Button}  */}
       <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button backgroundClass="square" onClick={() => history.push(LIST_ROUTER.company_and_contact_information)}>
+        <Button
+          backgroundClass="square"
+          onClick={() =>
+            history.push(LIST_ROUTER.company_and_contact_information)
+          }
+        >
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
+          <Box className={cx("d-inline")}>
+            <Link to="/">{CONTINUE_LATER}</Link>
+          </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
       </section>

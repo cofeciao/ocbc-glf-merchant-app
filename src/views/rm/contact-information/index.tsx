@@ -57,7 +57,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
   const [dataArca, setDataArca] = useState<any>({});
 
   const {
-    list_step: {
+    LIST_STEP: {
       company_and_contact_information: {
         section: { contact_details },
       },

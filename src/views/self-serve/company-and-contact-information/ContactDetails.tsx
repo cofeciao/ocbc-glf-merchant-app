@@ -9,7 +9,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  InputAdornment,
 } from "@material-ui/core";
 import _ from "lodash";
 
@@ -22,7 +21,9 @@ import {
 
 // render UI
 const ContactDetails: React.FC<any> = (props) => {
-  const { cx, key, data, register, errors, setValue, setError } = props;
+  const { cx, key, data, dataRedux, register, errors, setValue, setError } =
+    props;
+  const { LIST_SALUTATION } = SELF_SERVE_PAGE;
   const { salutation, name, designation, email, contactNumber } =
     data.inputFields;
 
@@ -43,13 +44,16 @@ const ContactDetails: React.FC<any> = (props) => {
               </InputLabel>
               <Select
                 fullWidth
+                defaultValue={
+                  _.has(dataRedux, "salutation") ? dataRedux.salutation : ""
+                }
                 labelId="salutation-select-filled-label"
                 id="salutation-select-filled"
                 {...register("salutation", {
                   required: true,
                 })}
               >
-                {_.map(SELF_SERVE_PAGE.list_salutation, (item, index) => {
+                {_.map(LIST_SALUTATION, (item, index) => {
                   return (
                     <MenuItem key={index} value={item.value}>
                       {item.name}
@@ -70,6 +74,9 @@ const ContactDetails: React.FC<any> = (props) => {
                   {/* {Name input field} */}
                   <TextField
                     fullWidth
+                    defaultValue={
+                      _.has(dataRedux, "name") ? dataRedux.name : ""
+                    }
                     id={uuidv4()}
                     label={name.label}
                     variant="filled"
@@ -86,6 +93,9 @@ const ContactDetails: React.FC<any> = (props) => {
                   <TextField
                     fullWidth
                     error={errors.email && true}
+                    defaultValue={
+                      _.has(dataRedux, "email") ? dataRedux.email : ""
+                    }
                     id={uuidv4()}
                     label={email.label}
                     key={null}
@@ -117,6 +127,11 @@ const ContactDetails: React.FC<any> = (props) => {
                   <TextField
                     fullWidth
                     id={uuidv4()}
+                    defaultValue={
+                      _.has(dataRedux, "designation")
+                        ? dataRedux.designation
+                        : ""
+                    }
                     label={designation.label}
                     variant="filled"
                     {...register("designation", {
@@ -125,10 +140,9 @@ const ContactDetails: React.FC<any> = (props) => {
                   />
                 </Grid>
               )}
-              {console.log(
-                _.has(errors.contactNumber, "type") &&
-                  _.isEqual(errors.contactNumber.type, "required")
-              )}
+
+              {_.has(errors.contactNumber, "type") &&
+                _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
@@ -136,6 +150,11 @@ const ContactDetails: React.FC<any> = (props) => {
                     <TextField
                       key={key}
                       fullWidth
+                      defaultValue={
+                        _.has(dataRedux, "contactNumber")
+                          ? dataRedux.contactNumber
+                          : ""
+                      }
                       type="number"
                       error={
                         _.has(errors, "contactNumber") &&
@@ -176,12 +195,14 @@ const ContactDetails: React.FC<any> = (props) => {
                       })}
                       InputProps={{
                         startAdornment: (
-                          <Box
-                            className={cx("formatted-numberphone-select")}
-                          >
+                          <Box className={cx("formatted-numberphone-select")}>
                             {/* {Phone Number select field} */}
                             <Select
-                              defaultValue={LIST_COUNTRIES_CODE[0].value}
+                              defaultValue={
+                                _.has(dataRedux, "areaCode")
+                                  ? dataRedux.areaCode
+                                  : LIST_COUNTRIES_CODE[0].value
+                              }
                               error={errors.AreaCode && true}
                               {...register("areaCode", {
                                 required: false,

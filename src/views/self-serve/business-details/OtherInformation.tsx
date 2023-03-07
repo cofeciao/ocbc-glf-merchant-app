@@ -1,23 +1,14 @@
 // import modules
-import { Radio, Button } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import ListCheckBox from "@/components/ListCheckBox";
-import { saveDataListCheckbox } from "@/store/form";
+import React, { ChangeEvent, useState } from "react";
 import {
   Box,
   Checkbox,
   FormControlLabel,
   Grid,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
-
-// import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import _ from "lodash";
 
 // import style
 import styles from "./BusinessDetails.scss";
@@ -26,49 +17,126 @@ import styles from "./BusinessDetails.scss";
 
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
-  const { sections } = props;
+  const { sections, setValue, dataRedux } = props;
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
-  const history = useHistory();
+  const [dataBusinessOperationCheckbox, setDataBusinessOperationCheckbox] =
+    useState<any>(sections[0].listCheckbox || []);
+  const [dataCurrentlyFollowingCheckbox, setDataCurrentlyFollowingCheckbox] =
+    useState<any>(sections[1].listCheckbox || []);
+
+  /**
+   * Clone data to avoid changing the original array, return new array after user clicked
+   * @param event
+   * @param data
+   */
+  const handleCloneData = (event: ChangeEvent<HTMLInputElement>, data: any) => {
+    const newData: any = data.reduce((pre: any, item: any) => {
+      const newItem: any = { ...item }; // Create a new object to avoid changing the original object
+      if (newItem.label === event.target.name) {
+        newItem.checked = event.target.checked;
+      }
+      pre.push(newItem);
+      return pre;
+    }, []);
+    return newData;
+  };
+
+  /**
+   *  handle on change after clicking checkbox
+   * @param event
+   */
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const dataBusinessOperation = handleCloneData(
+      event,
+      dataBusinessOperationCheckbox
+    );
+    const dataCurrentlyFollowing = handleCloneData(
+      event,
+      dataCurrentlyFollowingCheckbox
+    );
+    setDataBusinessOperationCheckbox(dataBusinessOperation);
+    setDataCurrentlyFollowingCheckbox(dataCurrentlyFollowing);
+    setValue("businessOfferings", dataBusinessOperation);
+    setValue("availableSpaces", dataCurrentlyFollowing);
+  };
 
   return (
-    <Box display="flex" flexDirection="column" gridRowGap="40px" className={cx("other-information-wrapper")}>
-      {sections.map((section: any) => {
-        return (
-          <Grid container>
-            <Grid item xs={12}>
-              {/* {Description} */}
-              {section.listCheckboxDescription && (
-                <Typography className={cx("sub-section-description")}>
-                  {section.listCheckboxDescription}
-                </Typography>
-              )}
+    <Box
+      display="flex"
+      flexDirection="column"
+      gridRowGap="40px"
+      className={cx("other-information-wrapper")}
+    >
+      <Grid container>
+        <Grid item xs={12}>
+          {/* {Description} */}
+          {sections[0].listCheckboxDescription && (
+            <Typography className={cx("sub-section-description")}>
+              {sections[0].listCheckboxDescription}
+            </Typography>
+          )}
 
-              {/* {List Checkbox} */}
-              {section.listCheckbox && (
-                <Box display="flex" flexDirection="column"> 
-                  {section.listCheckbox.map((checkbox: any) => {
-                    return (
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={checkbox.checked}
-                            // onChange={handleChange}
-                            name="checkedB"
-                            color="primary"
-                          />
-                        }
-                        label={checkbox.label}
-                      />
-                    );
-                  })}
-                </Box>
+          {/* {List Checkbox} */}
+          {dataBusinessOperationCheckbox && (
+            <Box display="flex" flexDirection="column">
+              {_.map(
+                dataBusinessOperationCheckbox,
+                (checkbox: any, idx: number) => {
+                  return (
+                    <FormControlLabel
+                      key={idx}
+                      control={
+                        <Checkbox
+                          name={checkbox.label}
+                          // checked={checkbox.checked}
+                          color="primary"
+                          onChange={handleChange}
+                        />
+                      }
+                      label={checkbox.label}
+                    />
+                  );
+                }
               )}
-            </Grid>
-          </Grid>
-        );
-      })}
+            </Box>
+          )}
+        </Grid>
+      </Grid>
+
+      <Grid container>
+        <Grid item xs={12}>
+          {/* {Description} */}
+          {sections[1].listCheckboxDescription && (
+            <Typography className={cx("sub-section-description")}>
+              {sections[1].listCheckboxDescription}
+            </Typography>
+          )}
+
+          {/* {List Checkbox} */}
+          {
+            <Box display="flex" flexDirection="column">
+              {_.map(
+                dataRedux.availableSpaces || sections[1].listCheckbox,
+                (checkbox: any, idx: number) => {
+                  return (
+                    <FormControlLabel
+                      key={idx}
+                      control={
+                        <Checkbox
+                          name={checkbox.label}
+                          color="primary"
+                          onChange={handleChange}
+                        />
+                      }
+                      label={checkbox.label}
+                    />
+                  );
+                }
+              )}
+            </Box>
+          }
+        </Grid>
+      </Grid>
     </Box>
   );
 };
