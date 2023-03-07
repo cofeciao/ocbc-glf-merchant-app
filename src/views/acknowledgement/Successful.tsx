@@ -1,18 +1,18 @@
 // import modules
 import React from "react";
 import classnames from "classnames/bind";
-import { Footer, Header, Category } from "@sectionsg/orc";
-import IconSuccessful from "./icon-successful.svg";
+import { Category } from "@sectionsg/orc";
+import { Box, Container, Grid } from "@material-ui/core";
+import _ from "lodash";
+
+// import images
+import AcknowledgementSuccess from "@/assets/images/acknowledgement-success.png";
 
 // import constants
-import { TITLE_PAGE } from "@/utils/constants-rm";
+import { ACKNOWLEDGEMENT_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./Acknowledgement.scss";
-
-import { Box, Container, Grid } from "@material-ui/core";
-import _ from "lodash";
-import { ACKNOWLEDGEMENT_PAGE } from "@/utils/constants";
 
 const Successful: React.FC<any> = () => {
   const {
@@ -27,14 +27,19 @@ const Successful: React.FC<any> = () => {
       {/* {Content} */}
       <Container className={cx("container pb-270")}>
         <Grid container spacing={2}>
-          <Grid xs={12} lg={3}>
+          <Grid item xs={12} lg={3}>
             {/* {Category} */}
             <Box className={cx("category-wrapper")}>
               <Category>{LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS}</Category>
             </Box>
           </Grid>
-          <Grid xs={12} lg={9}>
+          <Grid item xs={12} lg={9}>
             <Box className={cx("acknowledgement-wrapper")}>
+              <img
+                src={AcknowledgementSuccess}
+                alt="successful-image"
+                className={cx("acknowledgement-image")}
+              />
               <Box className={cx("acknowledgement-title")}>
                 {LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION}
               </Box>
