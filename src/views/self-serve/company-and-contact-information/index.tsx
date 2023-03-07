@@ -20,11 +20,13 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import SectionWrapper from "../SectionWrapper";
 import CompanyRegistration from "./CompanyRegistration";
 import ContactDetails from "./ContactDetails";
+import { saveDataCompanyAndContactInformationStep } from "@/store/form";
+import { useSelector } from "react-redux";
 
 // render UI
 const CompanyAndContactInformation: React.FC<any> = () => {
   const {
-    list_step: {
+    LIST_STEP: {
       company_and_contact_information: {
         text,
         section: { company_registration, contact_details },
@@ -35,16 +37,32 @@ const CompanyAndContactInformation: React.FC<any> = () => {
   const dispatch = useDispatch();
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
+
+  /**
+   * Retrieves data of Company And Contact Information step from Store
+   */
+  const companyAndContactInformationStep = useSelector(
+    (state: any) => state.form.companyAndContactInformationStep
+  );
+
   const {
     register,
     formState: { errors, isValid, isDirty },
-    watch,
     setValue,
+    getValues,
     setError,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      ContactNumber: "",
+    contactNumber: companyAndContactInformationStep.contactNumber || "",
+    registeredEntityName: companyAndContactInformationStep.registeredEntityName || "",
+    uniqueEntityNumber: companyAndContactInformationStep.uniqueEntityNumber || "",
+    companyType: companyAndContactInformationStep.companyType || "",
+    salutation: companyAndContactInformationStep.salutation || "",
+    name: companyAndContactInformationStep.name || "",
+    email: companyAndContactInformationStep.email || "",
+    designation: companyAndContactInformationStep.designation || "",
+    areaCode: companyAndContactInformationStep.areaCode || ""
     },
   });
 
@@ -59,6 +77,7 @@ const CompanyAndContactInformation: React.FC<any> = () => {
         disabled={!isValid || !isDirty}
         onClick={() => {
           history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+          dispatch(saveDataCompanyAndContactInformationStep(getValues()));
         }}
         buttonType=""
       >
@@ -87,6 +106,7 @@ const CompanyAndContactInformation: React.FC<any> = () => {
           errors={errors}
           register={register}
           data={company_registration}
+          dataRedux={companyAndContactInformationStep}
         />
       </SectionWrapper>
 
@@ -104,6 +124,7 @@ const CompanyAndContactInformation: React.FC<any> = () => {
           setValue={setValue}
           setError={setError}
           data={contact_details}
+          dataRedux={companyAndContactInformationStep}
         />
       </SectionWrapper>
 

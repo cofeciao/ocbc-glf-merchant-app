@@ -16,7 +16,7 @@ export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 export const URL_MANUAL_FLOW = {
   contactInformation: "/rm/contact-information",
   servicesApplied: "/rm/services-applied",
-  businessOperation: "/rm/formbusiness-operation",
+  businessOperation: "/rm/business-operation",
   productsServices: "/rm/products-services",
   feeRates: "/rm/fee-rates",
   sensitiveData: "/rm/sensitive-data",
@@ -1450,6 +1450,16 @@ export const STEP_RM = {
       value: "ms",
     },
   ],
+  list_bank_name: [
+    {
+      name: "Standard Chartered",
+      value: "standardChartered",
+    },
+    {
+      name: "OCBC",
+      value: "ocbc",
+    },
+  ],
 
   list_step: {
     acra_and_contact_information: {
@@ -1696,21 +1706,21 @@ export const STEP_RM = {
         }
       },
     },
-    business_details: {
-      id: "business-details",
+    business_operation: {
+      id: "business-operation",
       numerical: "2",
-      text: "Business details",
+      text: "Business operation details",
       check: false,
       status: true,
       data: {
-        id: "business-details",
+        id: "business-operation",
         numerical: "2",
-        text: "Business details",
+        text: "Business operation",
         check: false,
         status: true,
       },
       section: {
-        business_infomation: {
+        business_details: {
           listRadioDescription: "Is your business ready for operation?",
           listRadio: [
             {
@@ -1777,6 +1787,78 @@ export const STEP_RM = {
             },
           ],
         },
+        outlet_details: {
+          title: "Outlet details",
+          description: "We require the address of each outlet. You can choose to fill in the information here or upload a list.",
+          checkedOutlet: true,
+          checkedExistingWebsite: false,
+          listRadio: [
+            {
+              text: "Fill in here",
+              value: "fill_in_here",
+              checked: false,
+            },
+            {
+              text: "Upload a list",
+              value: "upload_a_list",
+              checked: false,
+            },
+          ],
+          inputFields: {
+            business_name: {
+              label: "Doing business name",
+              helperText: "",
+              requiredText: "",
+            },
+            block_number: {
+              label: "Block/House number",
+              helperText: "",
+              requiredText: "",
+            },
+            street_name: {
+              label: "Street name",
+              helperText: "",
+              requiredText: "",
+            },
+            unit_number: {
+              label: "Unit name",
+              helperText: "Please enter a valid unit number",
+              requiredText: "",
+            },
+            building_name: {
+              label: "Building name",
+              helperText: "Please enter a valid building name",
+              requiredText: "",
+            },
+            postal_code: {
+              label: "Postal code",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+          },
+          listRadioOutlet: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          inputFieldsIndicateBank: {
+            branch_code: {
+              label: "Branch code",
+              helperText: "",
+              requiredText: "",
+            },
+            account_number: {
+              label: "Account number",
+              helperText: "",
+              requiredText: "",
+            },
+          }
+        }
       },
     },
     products_and_service: {

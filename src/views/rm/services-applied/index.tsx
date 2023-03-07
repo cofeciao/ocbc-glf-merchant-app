@@ -10,7 +10,7 @@ import SectionWrapper from "../SectionWrapper";
 
 // import constants
 import { LIST_ROUTER, NEXT } from "@/utils/constants";
-import { STEP_RM } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 // import style
 import styles from "./ServicesApplied.scss";
@@ -25,6 +25,7 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import TransactionCard from "./TransactionCard";
 import OtherServices from "./OtherServices";
 import { IServicesApplied } from "./ServicesApplied";
+import { Link } from "react-router-dom";
 
 // render UI
 const ServicesApplied: React.FC<any> = () => {
@@ -100,7 +101,7 @@ const ServicesApplied: React.FC<any> = () => {
       <Button
         backgroundClass="bgGunmetalBluegrey"
         onClick={() => {
-          history.push(LIST_ROUTER.business_details);
+          history.push(URL_MANUAL_FLOW.businessOperation);
         }}
       >
         <>
@@ -109,6 +110,10 @@ const ServicesApplied: React.FC<any> = () => {
       </Button>
     );
   };
+
+  const handlePrev = () => {
+    history.push(URL_MANUAL_FLOW.contactInformation);
+  }
 
   return (
     <Box
@@ -145,14 +150,19 @@ const ServicesApplied: React.FC<any> = () => {
         />
       </SectionWrapper>
 
-      {/* {Next Button}  */}
-      <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button backgroundClass="square" onClick={() => history.push(LIST_ROUTER.company_and_contact_information)}>
-          <ArrowBackIcon className={cx("arrow")} />
+      {/* Section button  */}
+      <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
+        <Button backgroundClass="square" onClick={handlePrev}>
+          <ArrowBackIcon className={cx('arrow')} />
         </Button>
-        <Box>
-          <div className="ml-dt-30 d-inline">{renderButton()}</div>
-        </Box>
+        <div>
+          <div className={cx('d-inline')}>
+            <Link to="/">Continue later</Link>
+          </div>
+          <div className="ml-dt-30 d-inline">
+            {renderButton()}
+          </div>
+        </div>
       </section>
     </Box>
   );

@@ -1,15 +1,24 @@
 // import modules
 import { Category, Button } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveDataListCheckbox } from "@/store/form";
-import { Box, Grid } from "@material-ui/core";
+import {
+  saveDataBusinessDetailsStep,
+  saveDataListWebsiteUrl,
+} from "@/store/form";
+import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
+import BusinessDetailsForm from "./BusinessDetailsForm";
+import { useForm } from "react-hook-form";
 
 // import constants
-import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
+import {
+  CONTINUE_LATER,
+  LIST_ROUTER,
+  NEXT,
+  SELF_SERVE_PAGE,
+} from "@/utils/constants";
 
 // import style
 import styles from "./BusinessDetails.scss";
@@ -19,51 +28,60 @@ import styles from "./BusinessDetails.scss";
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import BusinessInfomation from "./BusinessInfomation";
-import WebsiteInformation from "./WebsiteInformation";
-import OtherInformation from "./OtherInformation";
+import { Link } from "react-router-dom";
 
 const BusinessDetails: React.FC<any> = () => {
   const {
-    list_step: {
+    LIST_STEP: {
       business_details: {
         text,
-        section: { business_infomation, other_infomation },
+        forms: { pointOfSales, pointOfSalesAndEcommerce, ecommerce },
       },
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
   const history = useHistory();
-  const [dataCheckbox, setDataCheckbox] = useState(
-    SELF_SERVE_PAGE.list_step.transaction_and_card_acceptance_type.section
-      .which_service_are_you_applying_for.data_list_checkbox
+
+  /**
+   * Retrieves data of Business Details step from Store
+   */
+  const businessDetailsStep = useSelector(
+    (state: any) => state.form.businessDetailsStep
   );
 
-  /**
-   * Get data from list check box
-   * @param data
-   */
-  const getDataFromListCheckbox = (data: any) => {
-    dispatch(saveDataListCheckbox(data));
-  };
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+    watch,
+    getValues,
+    setValue,
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      yourWebsiteURL0: "",
+      yourWebsiteURL1: "",
+      yourWebsiteURL2: "",
+      businessReadyToOperate: "Yes",
+      businessAccount: "Yes",
+      existingWebsite: "Yes",
+      placeOrderThroughWebsite: "Yes",
+    },
+  });
+
+  const watchAll = watch();
+  console.log("watchAll", watchAll);
+  console.log("businessDetailsStep", businessDetailsStep);
 
   /**
-   * Retrieves data from Store
+   * Retrieves data of step Transaction And Card Acceptance Type from Store
+   * return: "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
    */
-  const dataListCheckbox = useSelector(
-    (state: any) => state.form.dataListCheckbox
+  const optionSelected = useSelector((state: any) =>
+    state.form.transactionAndCardAcceptanceTypeStep
+      .map((item: any) => (item.checked === true ? item.value : ""))
+      .join("-")
   );
-
-  /**
-   * Handle disable next button
-   */
-  useEffect(() => {
-    if (dataListCheckbox.length) {
-      setDataCheckbox(dataListCheckbox);
-    }
-  }, [dataListCheckbox]);
 
   /**
    * render UI button
@@ -73,8 +91,19 @@ const BusinessDetails: React.FC<any> = () => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
+        disabled={!isValid || !isDirty}
         onClick={() => {
           history.push(LIST_ROUTER.products_and_services);
+          dispatch(saveDataBusinessDetailsStep(getValues()));
+          dispatch(
+            saveDataListWebsiteUrl(
+              getValues([
+                "yourWebsiteURL0",
+                "yourWebsiteURL1",
+                "yourWebsiteURL2",
+              ])
+            )
+          );
         }}
         buttonType=""
       >
@@ -97,27 +126,37 @@ const BusinessDetails: React.FC<any> = () => {
         <Category>{text}</Category>
       </Box>
 
-      {/* {Section Business Information} */}
-      <SectionWrapper cx={cx} title="Business information">
-        <BusinessInfomation listRadio={business_infomation.listRadio} />
-      </SectionWrapper>
-
-      {/* {Section Website Information} */}
-      <SectionWrapper cx={cx} title="Website Information">
-        <WebsiteInformation listRadio={business_infomation.listRadio} />
-      </SectionWrapper>
-
-      {/* {Section Other information} */}
-      <SectionWrapper cx={cx} title="Other Information">
-        <OtherInformation sections={other_infomation.sections} />
-      </SectionWrapper>
+      {/* {Form with dynamic data} */}
+      <BusinessDetailsForm
+        cx={cx}
+        optionSelected={optionSelected}
+        data={
+          optionSelected === "-e-commerce"
+            ? ecommerce.sections
+            : optionSelected === "point-of-sales-"
+            ? pointOfSales.sections
+            : pointOfSalesAndEcommerce.sections
+        }
+        dataRedux={businessDetailsStep}
+        register={register}
+        errors={errors}
+        setValue={setValue}
+      />
 
       {/* {Next Button}  */}
       <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button backgroundClass="square" onClick={() => history.goBack()}>
+        <Button
+          backgroundClass="square"
+          onClick={() =>
+            history.push(LIST_ROUTER.transaction_and_card_acceptance_type)
+          }
+        >
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
+          <Box className={cx("d-inline")}>
+            <Link to="/">{CONTINUE_LATER}</Link>
+          </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
       </Box>

@@ -16,9 +16,24 @@ export const LIST_ROUTER = {
     "/self/transaction-and-card-acceptance-type",
   business_details: "/self/business-details",
   products_and_services: "/self/products-and-services",
+  review_and_submit: "/self/review-and-submit",
+  acknowledgement_successful: "/acknowledgement/successful",
+  acknowledgement_interest: "/acknowledgement/interest",
 };
 
 export const ERROR_ICON = "\u26A0";
+
+export const ACKNOWLEDGEMENT_PAGE = {
+  LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION:
+    "Great, we have received your application!",
+  LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS:
+    "Our Relationship Manager will contact you within 3 working days.",
+  LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS: "Apply for OCBC Cashless Payments",
+
+  LABEL_THANK_YOU_FOR_YOUR_INTEREST: "Thank you for your interest!",
+  LABEL_TO_APPLY_FOR_PAYNOW_PLEASE_VISIT: "To apply for PayNow, please visit",
+  LABEL_BUSINESS_INTERNET_BANKING: "Business Internet Banking",
+};
 
 export const HOME_PAGE = {
   title_cashless_payments_home: "Apply for OCBC Cashless Payments",
@@ -50,7 +65,165 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
-  list_salutation: [
+  LIST_CHECKBOX_AGREE_POLICY: {
+    description:
+      "Before submitting your application, please ensure that you read and understand the following:",
+    listCheckbox: [
+      {
+        text: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+        check: false,
+      },
+      {
+        text: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
+        check: false,
+      },
+      {
+        text: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+        check: false,
+      },
+    ],
+  },
+  LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM: {
+    description: "How will your products be delivered?",
+    listRadio: [
+      {
+        text: "Within Singapore",
+        check: false,
+      },
+      {
+        text: "Out of Singapore",
+        check: false,
+      },
+    ],
+  },
+  LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED: {
+    description: "How will your products be delivered?",
+    listRadio: [
+      {
+        text: "Delivered by my supplier",
+        checked: false,
+      },
+      {
+        text: "Delivered by my business (after receipt from supplier)",
+        checked: false,
+      },
+    ],
+  },
+
+  LABEL_COMPANY_AND_CONTACT_INFORMATION: "Company and contact information",
+  LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE:
+    "Transaction and card acceptance type",
+  LABEL_BUSINESS_DETAILS: "Business details",
+  LABEL_PRODUCTS_AND_SERVICES: "Products and services",
+  LABEL_REVIEW_AND_SUBMIT: "Review and submit",
+  LABEL_MODE: "Mode",
+  LABEL_REGISTERED_ENTITY_NAME: "Registered entity name",
+  LABEL_COMPANY_TYPE: "Company type",
+  LABEL_UNIQUE_ENTITY_NUMBER: "Unique Entity Number (UEN)",
+  LABEL_SALUTATION: "Salutation",
+  LABEL_NAME: "Name",
+  LABEL_EMAIL: "Email",
+  LABEL_DESIGNATION: "Designation",
+  LABEL_CONTACT_NUMBER: "Contact number",
+
+  LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS:
+    "Number of outlets with Point-of-Sales termimals",
+  LABEL_BUSINESS_READY_TO_OPERATE: "Business ready to operate",
+  LABEL_OCBC_BUSINESS_ACCOUNT: "OCBC business account",
+  LABEL_CASHLESS_PAYMENT_METHOD: "Cashless payment method(s)",
+  LABEL_ECOMMERCE: "eCommerce",
+
+  LABEL_EXISTING_WEBSITE: "Existing website",
+  LABEL_WEBSITE_URL: "Website’s URL",
+  LABEL_PLACE_ORDER_THROUGH_WEBSITE: "Place order through website",
+  LABEL_BUSINESS_OFFERINGS: "Business offerings",
+  LABEL_AVAILABLE_SPACES: "Available spaces",
+  LABEL_CARD_PAYMENT_AVAILABLE_AT_RETAIL_STORE:
+    "Card payment available at retail store",
+
+  LABEL_COMPANY_REGISTRATION: "Company registration",
+  LABEL_CONTACT_DETAILS: "Contact details",
+  LABEL_ADD_MORE_WEBSITES: "Add website more",
+  LABEL_BUSINESS_OFFERING: "Business offering",
+  LABEL_FULFILMENT_INFORMATION: "Fulfilment information",
+  LABEL_SALES_FORECAST: "Sales forecast",
+  LABEL_POINT_OF_SALES_TERMINAL: "Point-of-Sales terminal",
+  LABEL_E_COMMERCE: "e-Commerce",
+  LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY:
+    "Percentage of products/services not fulfilled immediately",
+  LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES:
+    {
+      description:
+        "How quickly does your business fulfil these products and/or services?",
+      listRadio: [
+        {
+          text: "Immediate fulfillment",
+          checked: true,
+        },
+        {
+          text: "Fulfillment over a period of time",
+          checked: false,
+        },
+      ],
+    },
+  LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS: {
+    description: "Approximate delivery time to customers",
+    listDropdown: [
+      {
+        name: "Within a week",
+        value: "within-a-week",
+      },
+      {
+        name: "Within a month",
+        value: "within-a-month",
+      },
+      {
+        name: "Within 3 months",
+        value: "within-3-months",
+      },
+      {
+        name: "More than 3 months",
+        value: "more-than-3-months",
+      },
+    ],
+  },
+  LIST_PLEASE_INDICATE_DURATION: {
+    description: "Please indicate duration",
+    listDropdown: [
+      {
+        name: "Within a week",
+        value: "within-a-week",
+      },
+      {
+        name: "Within a month",
+        value: "within-a-month",
+      },
+      {
+        name: "Within 3 months",
+        value: "within-3-months",
+      },
+      {
+        name: "More than 3 months",
+        value: "more-than-3-months",
+      },
+    ],
+  },
+  PLEASE_SELECT_LABEL: "Please select",
+  PERCENT_CHARACTERS: "%",
+  LIST_RADIO_YES_NO: [
+    {
+      text: "Yes",
+      value: "yes",
+      checked: true,
+    },
+    {
+      text: "No",
+      value: "no",
+      checked: false,
+    },
+  ],
+
+  LIST_SALUTATION: [
     {
       name: "Mrs",
       value: "mrs",
@@ -60,7 +233,7 @@ export const SELF_SERVE_PAGE = {
       value: "ms",
     },
   ],
-  list_company_type: [
+  LIST_COMPANY_TYPE: [
     {
       name: "Private Limited",
       value: "privateLimited",
@@ -90,8 +263,7 @@ export const SELF_SERVE_PAGE = {
       value: "other",
     },
   ],
-
-  list_step: {
+  LIST_STEP: {
     company_and_contact_information: {
       id: "company-and-contact-information",
       numerical: "0",
@@ -183,7 +355,7 @@ export const SELF_SERVE_PAGE = {
           data_list_checkbox: [
             {
               label: "Point-of-Sales terminal",
-              value: "point-of-sales-terminal",
+              value: "point-of-sales",
               checked: false,
               expandedListCheckbox: {
                 description:
@@ -191,53 +363,53 @@ export const SELF_SERVE_PAGE = {
                 listCheckbox: [
                   {
                     label: "Visa",
-                    checked: false,
-                    value: "visa",
+                    checked: true,
+                    value: "pos-visa",
                   },
                   {
                     label: "Mastercard",
                     checked: false,
-                    value: "mastercard",
+                    value: "pos-mastercard",
                   },
                   {
                     label: "UnionPay",
                     checked: false,
-                    value: "unionPay",
+                    value: "pos-unionPay",
                   },
                   {
                     label: "JCB",
                     checked: false,
-                    value: "jcb",
+                    value: "pos-jcb",
                   },
                   {
                     label: "WeChat Pay",
                     checked: false,
-                    value: "wechat-pay",
+                    value: "pos-wechat-pay",
                   },
                   {
                     label: "AliPay",
                     checked: false,
-                    value: "alipay",
+                    value: "pos-alipay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
                     checked: false,
-                    value: "ocbc-ipp",
+                    value: "pos-ocbc-ipp",
                   },
                   {
                     label: "Diners Club",
                     checked: false,
-                    value: "dinners-club",
+                    value: "pos-dinners-club",
                   },
                   {
                     label: "AMEX",
                     checked: false,
-                    value: "amex",
+                    value: "pos-amex",
                   },
                   {
                     label: "Paynow",
                     checked: false,
-                    value: "paynow",
+                    value: "pos-paynow",
                   },
                 ],
               },
@@ -252,28 +424,28 @@ export const SELF_SERVE_PAGE = {
                 listCheckbox: [
                   {
                     label: "Visa",
-                    checked: false,
-                    value: "visa",
+                    checked: true,
+                    value: "ecom-visa",
                   },
                   {
                     label: "Mastercard",
                     checked: false,
-                    value: "mastercard",
+                    value: "ecom-mastercard",
                   },
                   {
                     label: "JCB",
                     checked: false,
-                    value: "jcb",
+                    value: "ecom-jcb",
                   },
                   {
                     label: "UnionPay",
                     checked: false,
-                    value: "union-pay",
+                    value: "ecom-union-pay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
                     checked: false,
-                    value: "ocbc-ipp",
+                    value: "ecom-ocbc-ipp",
                   },
                 ],
               },
@@ -295,73 +467,364 @@ export const SELF_SERVE_PAGE = {
         check: false,
         status: true,
       },
-      section: {
-        business_infomation: {
-          listRadioDescription: "Is your business ready for operation?",
-          listRadio: [
-            {
-              text: "Yes",
-              checked: false,
+      forms: {
+        pointOfSales: {
+          sections: {
+            businessInfomation: {
+              title: "Point-of-Sales terminal",
+              subTitle: "Business information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Is your business ready for operation?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Do you currently have an OCBC business account?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description:
+                    "At how many outlets will you deploy Point-of-Sales terminals?",
+                  label: "eg. 10",
+                },
+              },
             },
-            {
-              text: "No",
-              checked: false,
+            websiteInfomation: {
+              title: "Website information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Do you have an existing website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Can customers place orders through your website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description: "Your website’s URL",
+                  label: "e.g. www.xxx.com",
+                },
+              },
             },
-          ],
-          textFieldDescription:
-            "At how many outlets will you deploy Point-of-Sales terminals?",
-          textField: "",
-        },
-        website_infomation: {
-          listRadioDescription: "Is your business ready for operation?",
-          listRadio: [
-            {
-              text: "Yes",
-              checked: false,
-            },
-            {
-              text: "No",
-              checked: false,
-            },
-          ],
-          textFieldDescription:
-            "At how many outlets will you deploy Point-of-Sales terminals?",
-          textField: "",
-        },
-        other_infomation: {
-          sections: [
-            {
-              listCheckboxDescription: "Is your business ready for operation?",
-              listCheckbox: [
+            otherInfomation: {
+              title: "Other information",
+              sections: [
                 {
-                  label: "Selling products",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Is your business ready for operation?",
+                  listCheckbox: [
+                    {
+                      label: "Selling products",
+                      checked: false,
+                    },
+                    {
+                      label: "Providing services",
+                      checked: false,
+                    },
+                  ],
                 },
                 {
-                  label: "Providing services",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Do you currently have any of the following?",
+                  listCheckbox: [
+                    {
+                      label: "Office",
+                      checked: false,
+                    },
+                    {
+                      label: "Retail store",
+                      checked: false,
+                    },
+                    {
+                      label: "Warehouse",
+                      checked: false,
+                    },
+                  ],
                 },
               ],
             },
-            {
-              listCheckboxDescription:
-                "Do you currently have any of the following?",
-              listCheckbox: [
+          },
+        },
+        pointOfSalesAndEcommerce: {
+          sections: {
+            businessInfomation: {
+              title: "Point-of-Sales terminal",
+              subTitle: "Business information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Is your business ready for operation?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Do you currently have an OCBC business account?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description:
+                    "At how many outlets will you deploy Point-of-Sales terminals?",
+                  label: "eg. 10",
+                  helperText: "Enter numbers only",
+                  requiredText: "Enter numbers only",
+                },
+              },
+            },
+            websiteInfomation: {
+              title: "Website information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Do you have an existing website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Can customers place orders through your website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description: "Your website’s URL",
+                  label: "e.g. www.xxx.com",
+                },
+              },
+            },
+            otherInfomation: {
+              title: "Other information",
+              sections: [
                 {
-                  label: "Office",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Is your business ready for operation?",
+                  listCheckbox: [
+                    {
+                      label: "Selling products",
+                      checked: false,
+                    },
+                    {
+                      label: "Providing services",
+                      checked: false,
+                    },
+                  ],
                 },
                 {
-                  label: "Retail store",
-                  checked: false,
-                },
-                {
-                  label: "Warehouse",
-                  checked: false,
+                  listCheckboxDescription:
+                    "Do you currently have any of the following?",
+                  listCheckbox: [
+                    {
+                      label: "Office",
+                      checked: false,
+                    },
+                    {
+                      label: "Retail store",
+                      checked: false,
+                    },
+                    {
+                      label: "Warehouse",
+                      checked: false,
+                    },
+                  ],
                 },
               ],
             },
-          ],
+          },
+        },
+        ecommerce: {
+          sections: {
+            businessInfomation: {
+              title: "Business information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Is your business ready for operation?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Do you currently have an OCBC business account?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description:
+                    "At how many outlets will you deploy Point-of-Sales terminals?",
+                  label: "eg. 10",
+                },
+              },
+            },
+            websiteInfomation: {
+              title: "Website information",
+              listField: {
+                listRadio: [
+                  {
+                    description: "Do you have an existing website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                  {
+                    description:
+                      "Can customers place orders through your website?",
+                    list: [
+                      {
+                        text: "Yes",
+                        checked: true,
+                      },
+                      {
+                        text: "No",
+                        checked: false,
+                      },
+                    ],
+                  },
+                ],
+                textField: {
+                  description: "Your website’s URL",
+                  label: "e.g. www.xxx.com",
+                },
+              },
+            },
+            otherInfomation: {
+              title: "Other information",
+              sections: [
+                {
+                  listCheckboxDescription:
+                    "Is your business ready for operation?",
+                  listCheckbox: [
+                    {
+                      label: "Selling products",
+                      checked: false,
+                    },
+                    {
+                      label: "Providing services",
+                      checked: false,
+                    },
+                  ],
+                },
+                {
+                  listCheckboxDescription:
+                    "Do you currently have any of the following?",
+                  listCheckbox: [
+                    {
+                      label: "Office",
+                      checked: false,
+                    },
+                    {
+                      label: "Retail store",
+                      checked: false,
+                    },
+                    {
+                      label: "Warehouse",
+                      checked: false,
+                    },
+                  ],
+                },
+              ],
+            },
+          },
         },
       },
     },
@@ -378,40 +841,112 @@ export const SELF_SERVE_PAGE = {
         check: false,
         status: true,
       },
-      sections: {
-        is_your_business_offering: {
+      pointOfSalesForm: {
+        title: "Point-of-Sales terminal",
+        businessOffering: {
+          title: "Business offering",
           description:
             "What products and/or services is your business offering?",
-          listRadioDescription:
-            "How quickly does your business fulfil these products and/or services?",
-          mainTextFieldLabel:
-            "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
-          listRadio: [
+          textField: {
+            label:
+              "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+            helperText: "Cannot exceed 180 characters",
+          },
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          listRadio: {
+            description:
+              "How quickly does your business fulfil these products and/or services?",
+            list: [
+              {
+                text: "Immediate fulfillment",
+                checked: true,
+              },
+              {
+                text: "Fulfillment over a period of time",
+                checked: false,
+              },
+            ],
+          },
+        },
+        salesForecast: {
+          title: "Sales forecast",
+          description:
+            "Based on your products and/or services, what is your sales forecast?",
+          listTextField: [
             {
-              text: "Immediate fulfillment",
-              checked: false,
+              keyName: "POS.averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
             },
             {
-              text: "Fulfillment over a period of time",
-              checked: false,
+              keyName: "POS.annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
             },
           ],
         },
-        is_your_sales_forecast: {
+      },
+      ecommerceForm: {
+        title: "e-Commerce",
+        businessOffering: {
+          description:
+            "What products and/or services is your business offering?",
+          textField: {
+            label:
+              "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+          },
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          listCheckbox: {
+            description: "Where will your products come from?",
+            list: [
+              {
+                text: "Within Singapore",
+                checked: false,
+              },
+              {
+                text: "Out of Singapore",
+                checked: false,
+              },
+            ],
+          },
+          listDropdown: {
+            description: "Approximate delivery time to customers",
+          },
+        },
+        salesForecast: {
+          title: "Sales forecast",
           description:
             "Based on your products and/or services, what is your sales forecast?",
+          listTextField: [
+            {
+              keyName: "Ecom.averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              label: "SGD",
+            },
+            {
+              keyName: "Ecom.annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              label: "SGD",
+            },
+          ],
         },
       },
     },
     review_and_submit: {
       id: "review-and-submit",
-      numerical: "3",
+      numerical: "4",
       text: "Review and submit",
       check: false,
       status: true,
       data: {
-        id: "review",
-        numerical: "3",
+        id: "review-and-submit",
+        numerical: "4",
         text: "Review and submit",
         check: false,
         status: true,
@@ -424,10 +959,10 @@ export const ERROR = "error";
 
 export const TITLE_PAGE = "OCBC Cashless Payments";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
+export const CONTINUE_LATER = "Continue later";
 
-
-export const TITLE_LOGIN = 'OCBC Cashless Payments'
-export const WElCOME_LOGIN = "Welcome!"
+export const TITLE_LOGIN = "OCBC Cashless Payments";
+export const WElCOME_LOGIN = "Welcome!";
 
 export const URL_SINGPASS_FLOW = {
   checkInformation: "/sing-pass-form/check-information",
@@ -446,7 +981,7 @@ export const URL_MANUAL_FLOW = {
   feeRates: "/manual-form/fee-rates",
   sensitiveData: "/manual-form/sensitive-data",
   beneficialOwnership: "/manual-form/beneficial-ownership",
-  supplementaryDocument: "/manual-form/supplement-document"
+  supplementaryDocument: "/manual-form/supplement-document",
 };
 export const URL_PERSONAL_BORROWER_MANUAL =
   "/manual-form/borrower/personal-information";
@@ -501,7 +1036,7 @@ export const PLEASE_UPLOAD_A_DOCUMENT = "Please upload a document";
 export const YOU_CAN_UPLOAD_UP_TO_TWO_DOCUMENTS =
   "You can upload up to 2 documents";
 export const NO_UPLOAD_DOCUMENT = "No documents required for this request";
-  
+
 export const CONTACT_INFORMATION = "contact-information";
 export const SERVICES_APPLIED = "services-applied";
 export const BUSINESS_OPERATION = "business-operation";
@@ -511,7 +1046,6 @@ export const SENSITIVE_DATA = "sensitive-data";
 export const BENEFICIAL_OWNERSHIP = "benefical-ownership";
 export const SUPPLEMENTARY_DOCUMENT = "supplementary-document";
 
-
 export const ERROR_DETAIL_ADDRESS = {
   ErrorCode: "0120",
   ErrorDescription: "Provider Error ",
@@ -519,7 +1053,7 @@ export const ERROR_DETAIL_ADDRESS = {
 
 export const DATA_CARD_CHECKBOX = [
   {
-    label: 'Credit/Debit cards',
+    label: "Credit/Debit cards",
     description: "This Application will take about you 10 minutes",
     value: "creditcards",
     checked: false,
@@ -536,22 +1070,21 @@ export const DATA_CARD_CHECKBOX = [
   },
 ];
 
-export const DATA_CARD_CHECKBOX_ACCEPTANCE1= [
+export const DATA_CARD_CHECKBOX_ACCEPTANCE1 = [
   {
-    label: 'Point-of-Sales terminal',
+    label: "Point-of-Sales terminal",
     value: "point-of-sales-terminal",
     checked: false,
   },
 ];
 
-export const DATA_CARD_CHECKBOX_ACCEPTANCE2= [
+export const DATA_CARD_CHECKBOX_ACCEPTANCE2 = [
   {
-    label: 'e-Commerce',
+    label: "e-Commerce",
     value: "ecommerce",
     checked: false,
   },
 ];
-
 
 export const PERSONAL_INFORMATION_SINGPASS = {
   emailAddress: "iamtracy@gmail.com",
@@ -2097,7 +2630,7 @@ export const LIST_POINTS = [
   {
     text: "Alipay",
     check: false,
-  },  
+  },
   {
     text: "OCBC Instalment Payment Plan (IPP)",
     check: false,
@@ -2117,11 +2650,11 @@ export const LIST_ECOMMERCE = [
     text: "UnionPay",
     check: false,
   },
-   {
+  {
     text: "JCB",
     check: false,
-   },
-   {
+  },
+  {
     text: "OCBC Instalment Payment Plan (IPP)",
     check: false,
   },
@@ -2165,7 +2698,6 @@ export const LIST_REPAYMENT_PERIODS = [
     check: false,
   },
 ];
-
 
 export const LIST_SELECT_PURPOSE = [
   {
@@ -4316,10 +4848,12 @@ export const LIST_PROPERTY = ["Local", "Overseas"];
 export const LIST_PROPERTY_COUNTRY = ["Singapore", "Foreigner"];
 
 export const OTHER_SERVICES = {
-  titleQuestions1: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
-  titleQuestions2: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
-  titlequestions3: "Are you interested in Mail Order /Telephone Order?"
-}
+  titleQuestions1:
+    "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+  titleQuestions2:
+    "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+  titlequestions3: "Are you interested in Mail Order /Telephone Order?",
+};
 
 export const ACCOUNT_REQUEST = ["Single", "Multiple"];
 export const LIST_DOCUMENT_REQUEST = [

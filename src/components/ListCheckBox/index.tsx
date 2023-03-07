@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import classnames from "classnames/bind";
 import React from "react";
+import _ from "lodash";
 
 // import style
 import styles from "./ListCheckBox.scss";
@@ -118,47 +119,43 @@ const ListCheckbox = (props: IListCheckBox) => {
 
   return (
     <FormGroup className={cx("list-checkbox-wrapper")}>
-      {dataCardCheckbox &&
-        dataCardCheckbox.map((item: any, index: number) => {
-          return (
-            <Box>
-              <Grid key={index} item xs={xs} sm={sm} md={md} lg={lg}>
-                {/* {Form Control & Checkbox inside} */}
-                <FormControlLabel
-                  label={
-                    <Box className={cx("checkbox-content")}>
-                      {item.label && (
-                        <Typography component={"span"} className={cx("title")}>
-                          {item.label}
-                        </Typography>
-                      )}
-                      {item.description && (
-                        <Typography
-                          component={"p"}
-                          className={cx("description")}
-                        >
-                          {item.description}
-                        </Typography>
-                      )}
-                    </Box>
-                  }
-                  onChange={(event: any, checked: boolean) =>
-                    handleCheckBox(event, checked)
-                  }
-                  checked={item.checked}
-                  value={item.value}
-                  control={<Checkbox />} // Checkbox from Material
-                />
-              </Grid>
-              {/* {Expanded content} */}
-              {
-                item.checked &&
-                  !isEmpty(item.expandedListCheckbox) &&
-                  renderExpanded(item) // render expanded after checkbox item is checked
-              }
-            </Box>
-          );
-        })}
+      {_.map(dataCardCheckbox, (item: any, index: number) => {
+        return (
+          <Box>
+            <Grid key={index} item xs={xs} sm={sm} md={md} lg={lg}>
+              {/* {Form Control & Checkbox inside} */}
+              <FormControlLabel
+                label={
+                  <Box className={cx("checkbox-content")}>
+                    {item.label && (
+                      <Typography component={"span"} className={cx("title")}>
+                        {item.label}
+                      </Typography>
+                    )}
+                    {item.description && (
+                      <Typography component={"p"} className={cx("description")}>
+                        {item.description}
+                      </Typography>
+                    )}
+                  </Box>
+                }
+                onChange={(event: any, checked: boolean) =>
+                  handleCheckBox(event, checked)
+                }
+                checked={item.checked}
+                value={item.value}
+                control={<Checkbox />} // Checkbox from Material
+              />
+            </Grid>
+            {/* {Expanded content} */}
+            {
+              item.checked &&
+                !isEmpty(item.expandedListCheckbox) &&
+                renderExpanded(item) // render expanded after checkbox item is checked
+            }
+          </Box>
+        );
+      })}
     </FormGroup>
   );
 };

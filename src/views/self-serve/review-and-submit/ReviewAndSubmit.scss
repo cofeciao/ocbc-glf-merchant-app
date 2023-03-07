@@ -1,0 +1,18 @@
+@import "../../../assets/style/variable.scss";
+
+.review-and-submit-wrapper {
+  & .text-item-input {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #777e87;
+    margin-bottom: 4px;
+  }
+
+  & .text-item-value {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #575d65;
+  }
+}

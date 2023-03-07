@@ -1,17 +1,73 @@
 @import "../../../assets/style/variable.scss";
 
 .products-and-services-wrapper {
-  & .section-wrapper {
-    margin-bottom: 40px;
-    & .section-seperate {
-      display: none;
+  & .MuiInputBase-root {
+    & input {
+      padding: 16px 8px 17px;
     }
   }
-  & .main-input-field {
-    margin-bottom: 40px;
+
+  & .MuiInputAdornment-root {
+    padding-left: 8px;
   }
-  & .header-wrapper,
-  .section-description {
-    margin-bottom: 16px !important;
+
+  & .sales-forecast-wrapper {
+    & .text-field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+  }
+
+  & .fulfilment-information-wrapper {
+    & .your-product-come-from-checkbox {
+      & .MuiGrid-container {
+        gap: unset;
+      }
+    }
+    & .MuiFormControlLabel-label {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #575d65;
+    }
+  }
+
+  & .sub-section-title {
+    margin-bottom: 40px;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: #363b40;
+  }
+
+  & .sub-section-description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: #777e87;
+  }
+
+  & .section-description {
+    margin-bottom: 40px;
+    font-weight: 400;
+    font-size: $fzH5;
+    line-height: 28px;
+    color: #777e87;
+  }
+
+  & .input-field-description {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #777e87;
+    margin-bottom: 16px;
+  }
+
+  & .business-offering-description {
+    font-weight: 400;
+    font-size: $fzH5 !important;
+    line-height: 28px !important;
+    color: #777e87;
   }
 }
