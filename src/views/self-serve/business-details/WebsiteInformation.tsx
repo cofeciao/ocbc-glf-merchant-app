@@ -13,6 +13,7 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import icons
 import IconTrash from "@/assets/images/icon-trash.svg";
+import IconPlus from "@/assets/images/icon-plus.svg";
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
@@ -120,7 +121,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
                   >
                     <Box component="span" className={cx("large-plus")}>
                       <img
-                        src={IconTrash}
+                        src={IconPlus}
                         alt="icon"
                         className={cx("text-field-trash-icon")}
                       />
