@@ -30,7 +30,13 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
     LIST_PLEASE_INDICATE_DURATION,
     PERCENT_CHARACTERS,
   } = SELF_SERVE_PAGE;
-  const { cx, variant = "point-of-sales", setValue, register, dataRedux } = props;
+  const {
+    cx,
+    variant = "point-of-sales",
+    setValue,
+    register,
+    dataRedux,
+  } = props;
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
       <Grid container className={cx("mt-dt-40")}>
@@ -57,6 +63,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                     </InputAdornment>
                   ),
                 }}
+                className={cx("percentage-input-field")}
                 {...register(
                   "Ecom.percentageOfProductsNotFulfilledImmediately",
                   {

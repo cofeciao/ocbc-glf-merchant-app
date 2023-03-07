@@ -151,6 +151,16 @@
     }
   }
 
+  & .percentage-input-field {
+    & .MuiInputBase-root {
+      padding-right: 8px;
+    }
+  }
+
+  & .MuiInputBase-root {
+    height: 57px;
+  }
+
   .button-wrapper {
     justify-content: space-between;
     & > button {
