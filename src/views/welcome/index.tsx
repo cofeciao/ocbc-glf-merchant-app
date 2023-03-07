@@ -2,12 +2,11 @@
 import {
   Header,
   Footer,
-  Table,
-  InputBase
+  Loading,
+  Category 
 } from "@sectionsg/orc";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { Container } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
 
 // import constants
@@ -17,17 +16,19 @@ import {
 } from "../../utils/constants-rm";
 
 // import images
-import IconWelcomeLogin from "../../assets/images/icon-welcome-login.svg";
-import IconSearch from "../../assets/images/icon-search.svg";
 import IconEdit from "../../assets/images/icon-edit.svg";
 
 // import style
 import styles from "./Welcome.scss";
 
+import ListCompany from "./ListCompany";
+
 // render UI
-const WelcomePage = (props: any) => {
-  const {} = props;
+const WelcomePage = () => {
   const cx = classnames.bind(styles);
+
+  // States
+  const [loading, setLoading] = useState<false>(false);
 
   const data = [];
   for (let i = 0; i < 5; i++) {
@@ -46,35 +47,36 @@ const WelcomePage = (props: any) => {
 
   return (
     <>
+     {/* {Loading} */}
+     {loading && (
+        <div className={cx("container-loading")}>
+          <div className={cx("content-loading")}>
+            <Loading />
+          </div>
+        </div>
+      )}
+
       <Header
         namePage={TITLE_PAGE}
         backLink={{ name: TITLE_PAGE, href: LINK_EXTERNAL_PAGE }}
       />
+       {/* {Container} */}
+       <Container className={cx("container")}>
+        <section className={cx("welcome-page-wrapper")}>
+          <Grid container>
+            {/* {Column left} */}
+            <Grid item xs={12} md={3}>
+              {/* Category */}
+              <div className="welcome-category" >
+                <Category class="welcome">Welcome SAM!</Category>
+              </div>
+            </Grid>
 
-      <Container className={cx("container")}>
-        <section className={cx("title-welcome")}>
-          <img src={IconWelcomeLogin} alt="icon" className={cx("icon-welcome")} />
-          <div className='title'>Welcome, Sam</div>
-        </section>
-        <section className={cx("welcome-page", "background-gray")}>
-          <div className={cx("input-search")}>
-            <img className={cx("icon-search")} src={IconSearch} alt='icon search' />
-            <InputBase
-              label=""
-              placeholder=""
-              type="text"
-              size="large"
-              name="search"
-              value={''}
-            />
-          </div>
-
-          <Table
-          _useState5="See all 15 months"
-            thead={['Company', 'UEN', 'Status', '', '']}
-            tbody={data}
-            textButton={`See all ${data.length} months`}
-          />
+            {/* {Column right} */}
+            <Grid item xs={12} md={8}>
+              <ListCompany />
+            </Grid>
+          </Grid>
         </section>
       </Container>
       <Footer />

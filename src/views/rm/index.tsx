@@ -9,24 +9,38 @@ import {
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from 'react-router';
+import { Container } from '@material-ui/core';
+import classNames from 'classnames/bind';
 
 // import constants
 import { 
+  BUSINESS_OPERATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
-  SERVICES_APPLIED, TITLE_PAGE 
+  SERVICES_APPLIED, 
+  TITLE_PAGE 
 } from '@/utils/constants-rm';
 
 // import page
 import ContactInformation from './contact-information';
 import ServicesApplied from './services-applied';
 
+// styles
+import styles from "./rm.scss"
+import BusinessOperation from './business-operation';
+
 // render UI
 const ContainerManual = () => {
+  // hooks
   const { slug } = useParams();
   const history = useHistory();
   const childRef: any = useRef();
   const dispatch = useDispatch();
+
+  // style
+  const cx = classNames.bind(styles);
+
+  // States
   const [addressDetail, setAddressDetail] = useState<any>();
 
   useEffect(() => {
@@ -56,7 +70,6 @@ const ContainerManual = () => {
  * @param {string} path - Slug for page 
  */
   const handleClick = (path: any) => {
-    console.log(path)
     if (childRef.current) {
       if (formReduxData.isBorrower) {
         if (childRef.current.validateForm()) {
@@ -79,22 +92,28 @@ const ContainerManual = () => {
       />
 
       {/* section form layout */}
-      <FormLayout
-        isMyInfo={true}
-        tabs={(
-          <Tabs
-            tabId={slug}
-            handleClick={handleClick}
-            dataTabs={handleDetectDynamicStepper()}
+      <Container className={cx("container")}>
+        <section className={cx("rm-wrapper")}>
+          <FormLayout
+            isMyInfo={true}
+            tabs={(
+              <Tabs
+                tabId={slug}
+                handleClick={handleClick}
+                dataTabs={handleDetectDynamicStepper()}
+              />
+            )}
+            content={(
+              <>
+                {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
+                {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
+                {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
+
+              </>
+            )}
           />
-        )}
-        content={(
-          <>
-            {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
-            {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
-          </>
-        )}
-      />
+        </section>
+      </Container>
 
       {/* section footer */}
       <Footer />

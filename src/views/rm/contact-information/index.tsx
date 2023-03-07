@@ -1,57 +1,99 @@
 import classNames from "classnames";
-import React, { forwardRef, useImperativeHandle, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import {
   Loading,
   Button,
-  SectionWrapper,
-  Select,
-  InputNumberMobile,
-  InputBase
+  Category,
 } from '@sectionsg/orc';
-import { v4 as uuidv4 } from 'uuid';
+import { Link } from "react-router-dom";
+import { Grid, Box } from "@material-ui/core";
+import { useHistory } from "react-router";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { saveDataAcraAndContactInformationStep, saveDataAcraDetailStep } from "@/store/form";
 
 //import icon
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import IconWelcome from "../../../assets/images/icon-welcome-login.svg";
 
 // import style
 import styles from "./ContactInformation.scss";
-import { useHistory } from "react-router";
-import { Grid } from "@material-ui/core";
+
+// import constants
 import { 
-  DATA_LENGTHENING_OF_LOAN_TENURE, 
-  LIST_COUNTRIES_CODE, 
   URL_MANUAL_FLOW, 
-  PERSONAL_INFORMATION_SINGPASS 
+  PERSONAL_INFORMATION_SINGPASS,
+  STEP_RM
 } from "@/utils/constants-rm";
-import { formatNameField, preventSpecialCharacters, restrictEmail } from "@/utils/utils";
-import { Link } from "react-router-dom";
+
+//import types
 import { IContactInformation } from "./ContactInformation";
 
+//import components
+import ContactDetails from "./ContactDetails";
+import SectionWrapper from "../SectionWrapper";
+import AuthorisedPersonDetails from "./AuthorisedPersonDetails";
 
 const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ handleCallAPI }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
-  
+  const dispatch = useDispatch();
+
+  // get data from redux store
+  const dataAcraDetail = useSelector((state: any) => state.form.dataAcraDetail);
+  const { dataDetail } = dataAcraDetail;
+
+  // States
   const [loading, setLoading] = useState(false);
-  const [key, setKey] = useState<number>(0);
+  const [dataArca, setDataArca] = useState<any>({});
 
-  const [contactInformation, setContactInformation] = useState({
-    salution: "",
-    name: "",
-    designation: "",
-    email: "",
-    contactNumber: "",
-    countryPhoneNumber: PERSONAL_INFORMATION_SINGPASS.countryPhoneNumber,
+  const {
+    LIST_STEP: {
+      acra_and_contact_information: {
+        section: { arca_detail, contact_detail, authorised_person_details },
+      },
+    },
+  } = STEP_RM;
+
+  /**
+   * Retrieves data of Company And Contact Information step from Store
+   */
+  const acraAndContactInformationStep = useSelector(
+    (state: any) => state.form.acraAndContactInformationStep
+  );
+
+// form
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+    setValue,
+    setError,
+    getValues,
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      contact_detail: {
+        contactNumber: acraAndContactInformationStep.contactNumber || "",
+        salutation: acraAndContactInformationStep.salutation || "",
+        name: acraAndContactInformationStep.name || "",
+        email: acraAndContactInformationStep.email || "",
+        designation: acraAndContactInformationStep.designation || "",
+      },
+      authorised_person_details: {
+        contactNumber: acraAndContactInformationStep.contactNumber || "",
+        salutation: acraAndContactInformationStep.salutation || "",
+        name: acraAndContactInformationStep.name || "",
+        email: acraAndContactInformationStep.email || "",
+        designation: acraAndContactInformationStep.designation || "",
+      }
+    },
   });
-
 
   /**
    * Handle button prev
    */
   const handlePrev = () => {
-    // history.push(URL_MANUAL_FLOW.propertyInformation)
+    history.push('/rm/welcome')
   }
 
    /**
@@ -59,7 +101,10 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
    */
    const handleNext = async () => {
     history.push(URL_MANUAL_FLOW.servicesApplied);
-    
+    dispatch(saveDataAcraAndContactInformationStep({
+      contact_detail: getValues().contact_detail,
+      authorised_person_details: getValues().authorised_person_details,
+    }))
   }
 
     /**
@@ -68,50 +113,53 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
    */
     const renderButton = () => {
       return (
-        <Button backgroundClass="bgGunmetalBluegrey" onClick={handleNext}>
+        <Button 
+          backgroundClass="bgGunmetalBluegrey" 
+          onClick={handleNext}
+          // disabled={!isValid || !isDirty}
+        >
           Next
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
         </Button>
       )
     }
 
-    /**
+  /**
    * render UI
    * @returns {HTML}
    */
       const renderItemInformation = (title: string, content: string) => {
         return (
           <div className={cx('group-item')}>
-            <span className={cx('title')}>{title}</span>
+            <span className={cx('label')}>{title}</span>
             <span className={cx('content')}>{content}</span>
           </div>
         )
       }
 
-  // function get personalInformation attribute
-  const getContactInformation = (name: string, value: any, error: string) =>
-    setContactInformation({
-      ...contactInformation,
-      [name]: value,
-      [`error${formatNameField(name)}`]: error !== "",
-  });
-
-    /**
-   * handle back to page when click on stepper
+ /**
+   * Get data acra detail
+   * @param data
    */
-    useImperativeHandle(ref, () => ({
+  const getDataAcraDetail = (data: any) => {
+    dispatch(saveDataAcraDetailStep(data));
+  };
 
-      validateForm() {
-        // if (formReduxData.form) {
-        //   // if (_.isEmpty(formReduxData.form.personalInformation)) {
-        //   //   return true;
-        //   // }
-        //   return handleNext();
-        // }
-        return true;
-      },
-    }));
+   /**
+   * Handle update state when dataListCheckbox updated from store
+   */
+   useEffect(() => {
+    if (dataDetail) {
+      setDataArca(dataDetail);
+    }
+  }, [dataDetail]);
 
+  useEffect(() => {
+    if (arca_detail) {
+      getDataAcraDetail(arca_detail)
+    }
+  }, [arca_detail])
+    
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -120,165 +168,91 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
           </div>
         </div>
       }
-      <section className={cx('contact-information')}>
-        <div className={"title-wrapper"}>
-          <img src={IconWelcome} alt="icon" className={cx("left-image")} />
-          <div className={cx("title-text d-flex align-flex-end")}><span>ACRA and contact information</span></div>
+
+      <Box className={cx('contact-information')}>
+        <div className="contact-information-category" >
+          <Category class="title">ACRA and contact information </Category>
         </div>
 
-       <section id="contact-information" className={cx('background-gray', 'mt-dt-40')}>
-          <SectionWrapper title="Your contact information" description='Please ensure that these details from ACRA are updated.'>
-            <Grid container spacing={3}>
-              <Grid item xs={4}>
-                {renderItemInformation('Business name', 'AMZO Pte Ltd')}
-                {renderItemInformation('Entity type', 'Private Limited Company')}
-                {renderItemInformation('Registered address', '35 Bedok North Road #09-39 Singapore 674902')}
-                {renderItemInformation('Directors', 'Lau Aik Miang S9300409F')}
-              </Grid>
-              <Grid item xs={4}>
-                {renderItemInformation('Unique Entity Number (UEN)', '2016347449N')}
-                {renderItemInformation('Nature of business', 'Café / Restaurant')}
-                {renderItemInformation('Mailing address', '35 Bedok North Road #09-39 Singapore 674902')}
-                {renderItemInformation('', 'Zunaidi Zainal Azmian S9000555C')}
-              </Grid>
+      <Box id="contact-information" className={cx('mt-dt-40')}>
+        <SectionWrapper
+          cx={cx}
+          className={cx("contact-details-")}
+          title={'ACRA details'}
+          description={'Please ensure that these details from ACRA are updated.'}
+        >
+          <Grid container spacing={3}>
+            <Grid item xs={4}>
+              {renderItemInformation('Business name', dataArca.business_name)}
+              {renderItemInformation('Entity type', dataArca.entity_type)}
+              {renderItemInformation('Registered address', dataArca.registered_address)}
+              {renderItemInformation('Directors', dataArca.directors)}
+              {renderItemInformation('', dataArca.user)}
             </Grid>
-          </SectionWrapper>
-       </section>
-
-       <section className={cx('background-gray', 'mt-dt-10')}>
-          <SectionWrapper title="Contact details" description='Please ensure that these details are accurate'>
-            <Grid container>
-              <Grid item lg={4} md={4} sm={12} xs={12} className={cx('mb-dt-30', 'mr-dt-20')}>
-                <Select
-                  label="Salution"
-                  listValues={[{
-                    value: "Mrs",
-                    key: "mrs"
-                  }]}
-                  single
-                  placeholder={DATA_LENGTHENING_OF_LOAN_TENURE.select.placeholder}
-                  // selectKey={'keyValidation'}
-                  defaultValue={contactInformation.salution}
-                  getValue={(value: any) => {
-                    // setContactInformation(
-                    //   'salution',
-                    //   value.value,
-                    // );
-                  }}
-                />
-              </Grid>
-              <Grid item lg={4} md={4} sm={12} xs={12}></Grid>
-              <Grid item lg={4} md={4} sm={12} xs={12}></Grid>
-
-              <Grid item lg={5} md={5} sm={12} xs={12} className={cx('mb-dt-30')}>
-                <InputBase
-                  label="Name"
-                  placeholder=""
-                  type="text"
-                  size="large"
-                  inputKey={key}
-                  id={"123"}
-                  maxLength={15}
-                  kind="nric-only"
-                  name="name"
-                  getValue={(value: any) => {
-                    getContactInformation(
-                      "name",
-                      value.value,
-                      value.error
-                    );
-                  }}
-                />
-              </Grid>
-              <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
-              <Grid item lg={5} md={5} sm={12} xs={12}>
-                <InputBase
-                  label="Designation"
-                  placeholder=""
-                  type="text"
-                  size="large"
-                  inputKey={key}
-                  id={"123"}
-                  maxLength={15}
-                  kind="nric-only"
-                  name="designation"
-                  getValue={(value: any) => {
-                    getContactInformation(
-                      "designation",
-                      value.value,
-                      value.error
-                    );
-                  }}
-                />
-              </Grid>
-              <Grid item lg={5} md={5} sm={12} xs={12}>
-                <InputBase
-                    label="Email"
-                    placeholder=""
-                    type="email"
-                    size="large"
-                    name="email"
-                    kind="email"
-                    inputKey={key}
-                    id={uuidv4()}
-                    value={contactInformation.email}
-                    maxLength={50}
-                    preventSpecialCharacters={restrictEmail}
-                    getValue={(value: IContactInformation.IValueData) => {
-                      getContactInformation(
-                        'email',
-                        value.value,
-                        value.error,
-                      );
-                    }}
-                  />
-              </Grid>
-              <Grid item lg={2} md={2} sm={12} xs={12}></Grid>
-              <Grid
-                item lg={5} md={5} sm={12} xs={12}
-                id="countryValueSelect"
-              >
-                <InputNumberMobile
-                  label="Contact number"
-                  countryCodes={LIST_COUNTRIES_CODE}
-                  keyValidate={key}
-                  inputNameSelect="phone-1"
-                  inputNameBase="phone-2"
-                  countryCode="countryPhoneNumber"
-                  valueMobile="phoneNumber"
-                  kind={"phone"}
-                  getContactInformation={getContactInformation}
-                  contactInformation={contactInformation}
-                  preventSpecialCharacters={preventSpecialCharacters}
-                  isPhoneSG={
-                    contactInformation.countryPhoneNumber ===
-                    PERSONAL_INFORMATION_SINGPASS.countryPhoneNumber
-                  }
-                />
-              </Grid>
+            <Grid item xs={4}>
+              {renderItemInformation('Unique Entity Number (UEN)', dataArca.unique_entity_number)}
+              {renderItemInformation('Nature of business', dataArca.nature_of_business)}
+              {renderItemInformation('Mailing address', dataArca.mailing_address)}
             </Grid>
+          </Grid>
+        </SectionWrapper>
+      </Box>
+      
+      <Box className={cx('mt-dt-40', 'mb-dt-56')}>
+        <SectionWrapper
+          cx={cx}
+          className={cx("contact-details-")}
+          title={contact_detail.title}
+          description={contact_detail.description}
+        >
+          <ContactDetails 
+            cx={cx}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            setError={setError}
+            data={contact_detail}
+            dataRedux={acraAndContactInformationStep}
+          />
+        </SectionWrapper>
+      </Box>
 
-          </SectionWrapper>
-       </section>
+      <Box className={cx('mt-dt-56')}>
+        <SectionWrapper
+          cx={cx}
+          className={cx("contact-details-")}
+          title={authorised_person_details.title}
+          description={authorised_person_details.description}
+        >
+          <AuthorisedPersonDetails 
+            cx={cx}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            setError={setError}
+            data={authorised_person_details}
+            dataRedux={acraAndContactInformationStep}
+          />
+        </SectionWrapper>  
+      </Box>
              
-        {/* Section button  */}
-        <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
-          <Button backgroundClass="square" onClick={handlePrev}>
-            <ArrowBackIcon className={cx('arrow')} />
-          </Button>
-          <div>
-            <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
-            </div>
-            <div className="ml-dt-30 d-inline">
-              {renderButton()}
-            </div>
+      {/* Section button  */}
+      <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
+        <Button backgroundClass="square" onClick={handlePrev}>
+          <ArrowBackIcon className={cx('arrow')} />
+        </Button>
+        <div>
+          <div className={cx('d-inline')}>
+            <Link to="/">Continue later</Link>
           </div>
-        </section>
+          <div className="ml-dt-30 d-inline">
+            {renderButton()}
+          </div>
+        </div>
       </section>
-    </React.Fragment>
+    </Box>
+  </React.Fragment>
   )
-
 });
 
 export default ContactInformation;

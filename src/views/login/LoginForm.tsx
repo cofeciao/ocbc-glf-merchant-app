@@ -1,30 +1,20 @@
 // import modules
-import {
-  InputBase,
-  Button,
-} from "@sectionsg/orc";
-import React, { useState } from "react";
-import { Grid } from "@material-ui/core";
+import { Button } from "@sectionsg/orc";
+import React, { ChangeEvent, useState } from "react";
+import { Box, Divider, Grid, TextField } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router";
-
-// import images
-import IconWelcomeLogin from "../../assets/images/icon-welcome-login.svg"
-
-// import constants
-import {
-  WElCOME_LOGIN,
-} from "../../utils/constants-rm";
+import { v4 as uuidv4 } from "uuid";
 
 // import style
 import styles from "./Login.scss";
 
-// import types
-import { ILogin } from "./Login";
+// import icons
+import { ERROR_ICON } from "@/utils/constants";
 
 //import icon
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { formatNameField } from "@/utils/utils";
+import { useForm } from "react-hook-form";
 
 // render UI
 const LoginForm = (props: any) => {
@@ -36,24 +26,35 @@ const LoginForm = (props: any) => {
 
   // States
   const [key, setKey] = useState<number>(0);
-  const [loginInformation, setLoginInformation] = useState<ILogin.IInitialValues>({
-    username: '',
-    password: '',
-  })
 
-  /**
-   * Function validate section login information
-   * @returns {Boolean}
-   */
-  const validateLoginInformation = () => !loginInformation.username || !loginInformation.password;
+  const {
+    register,
+    formState: { errors, isValid, isDirty },
+    getValues,
+    setValue,
+    setError,
+    clearErrors,
+  } = useForm({
+    mode: "onSubmit",
+    defaultValues: {
+      username: "",
+      password: "",
+    },
+  });
 
-    // function getLoginInformation attribute
-    const getLoginInformation = (name: string, value: any, error: string) =>
-      setLoginInformation({
-        ...loginInformation,
-        [name]: value,
-        [`error${formatNameField(name)}`]: error !== "",
-      });
+  const handleLogin = (event: any) => {
+    event.preventDefault();
+    let yourUserNameDefault = "user";
+    let yourPasswordDefault ="user";
+    const { username, password } = getValues();
+    
+    if (username !== yourUserNameDefault || password !== yourPasswordDefault) {
+      setError("username", { type: 'custom', message: 'Incorrect username. Try again.' });
+      setError("password", { type: 'custom', message: 'Incorrect password. Try again.' });
+    } else {
+      history.push('/rm/welcome');
+    }
+  };
   
   /**
    * render UI button
@@ -63,11 +64,8 @@ const LoginForm = (props: any) => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
-        onClick={() => {
-          history.push("/rm/welcome");
-        }}
         buttonType="button"
-        disabled={validateLoginInformation()}
+        disabled={!isValid || !isDirty}
       >
         <div>
           Login
@@ -79,69 +77,68 @@ const LoginForm = (props: any) => {
 
   return (
     <React.Fragment>
-      <section className={cx("title-login")}>
-        <img src={IconWelcomeLogin} alt="icon" className={cx("icon-welcome-login")} />
-        <div className='title'>{WElCOME_LOGIN}</div>
-      </section>
+      <Box className={cx("login-form")}>
+        <form onSubmit={handleLogin}>
+          <Grid container spacing={6} className={cx("form-login")} direction="column">
+            <Grid item lg={12} md={12} sm={12} xs={12}>
+              <div className={cx("title-login")}>Log in</div>
+            </Grid>
+            <Grid item lg={6} md={6} sm={6} xs={12}>
+              <TextField
+                fullWidth
+                id={uuidv4()}
+                error={errors.password && true}
+                label="Your username"
+                variant="filled"
+                {...register("username", {
+                  required: true,
+                  onChange(event: ChangeEvent<HTMLInputElement>) {
+                    setValue('username', event.target.value);
+                    clearErrors("username");
+                  },
+                })}
+                helperText={
+                  errors.username &&
+                  `${ERROR_ICON} ${errors.username.message}`
+                }
+              />
+            </Grid>
+            {/* <Grid item lg={4} md={6} sm={6} xs={12}></Grid> */}
+            <Grid item lg={6} md={6} sm={6} xs={12}>
+              <TextField
+                fullWidth
+                id={uuidv4()}
+                error={errors.password && true}
+                label="Your password"
+                type="password"
+                variant="filled"
+                {...register("password", {
+                  required: true,
+                  onChange(event: ChangeEvent<HTMLInputElement>) {
+                    setValue('password', event.target.value);
+                    clearErrors("password");
+                  },
+                })}
+                helperText={
+                  errors.password &&
+                  `${ERROR_ICON} ${errors.password.message}`
+                }
+              />
+            </Grid>
+            {/* <Grid item lg={4} md={6} sm={6} xs={12}></Grid> */}
+          </Grid>
+          <Divider />
+          {/* Section button */}
+          <section
+            className={cx("button-wrapper btn-login", "d-flex justify-end")}
+          >
+            <div>
+              <div className="ml-dt-30 d-inline">{renderButton()}</div>
+            </div>
+          </section>
+        </form>
+      </Box>
 
-      <section className={cx("login-form")}>
-        <Grid container className={cx("form-submit")}>
-          <Grid item lg={8} md={12} sm={12} xs={12}>
-            <div className={cx("title-form")}>Log in</div>
-          </Grid>
-          <Grid item lg={5} md={6} sm={6} xs={12}>
-            <InputBase
-              label="Your username"
-              placeholder=""
-              type="text"
-              size="large"
-              inputKey={key}
-              value={loginInformation.username}
-              maxLength={70}
-              kind="name-nric"
-              name="username"
-              getValue={(value: any) => {
-                getLoginInformation(
-                  'username',
-                  value.value,
-                  value.error
-                )
-              }}
-            />
-          </Grid>
-          <Grid item lg={2} md={6} sm={6} xs={12}></Grid>
-          <Grid item lg={5} md={6} sm={6} xs={12}>
-            <InputBase
-              label="Your password"
-              placeholder=""
-              type="password"
-              size="large"
-              inputKey={key}
-              value={loginInformation.password}
-              maxLength={70}
-              kind="password-nric"
-              name="password"
-              getValue={(value: any) => {
-                getLoginInformation(
-                  'password',
-                  value.value,
-                  value.error
-                )
-              }}
-            />
-          </Grid>
-          <Grid item lg={2} md={6} sm={6} xs={12}></Grid>
-        </Grid>
-      </section>
-
-      {/* Section button */}
-      <section
-        className={cx("button-wrapper btn-login", "d-flex justify-end")}
-      >
-        <div>
-          <div className="ml-dt-30 d-inline">{renderButton()}</div>
-        </div>
-      </section>
     </React.Fragment>
   );
 };

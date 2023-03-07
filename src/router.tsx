@@ -13,6 +13,8 @@ export default [
   <Route exact path="/" component={HomePage} key="/" />,
   <Route exact path="/rm/login" component={LoginPage} key="/rm/login" />,
   <Route exact path="/rm/welcome" component={WelcomePage} key="/rm/welcome" />,
+  <Route exact path="/rm/launch-confirmtion" component={LaunchConfirmtionPage} key="/rm/launch-confirmtion" />,
+  <Route exact path="/rm/:slug" component={ContainerManual} key="/rm/:slug" />,
   <Route
     exact
     path="/rm/launch-confirmtion"

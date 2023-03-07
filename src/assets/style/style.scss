@@ -325,6 +325,10 @@ body {
     margin-top: 40px;
   }
 
+  .mt-dt-56 {
+    margin-top: 56px;
+  }
+
   .ml-dt-30 {
     margin-left: 30px;
   }
@@ -347,6 +351,10 @@ body {
 
   .mb-dt-40 {
     margin-bottom: 40px;
+  }
+
+  .mb-dt-56 {
+    margin-bottom: 56px;
   }
 
   .text-blur {
@@ -898,4 +906,34 @@ body {
     pointer-events: initial;
     opacity: 1;
   }
+}
+
+.MuiInputBase-input {
+  background: #fafcfc !important;
+  border-radius: 4px !important;
+}
+
+.MuiFilledInput-underline:before {
+  border-color: #E2E7EC !important;
+}
+
+.MuiTableContainer-root {
+  box-shadow: none !important;
+}
+
+.MuiTableCell-head {
+  color: $slateGray !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+.MuiTableCell-root {
+  font-size: 16px !important;
+  line-height: 24px !important;
+}
+
+.row-first {
+  color:$tundora !important;
+  font-weight: 700 !important;
 }

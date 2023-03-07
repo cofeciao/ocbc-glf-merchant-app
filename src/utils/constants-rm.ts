@@ -1,4 +1,4 @@
-export const TITLE_PAGE = "OCBC Cashless Payments";
+export const TITLE_PAGE = "Cashless Payments Application";
 export const ERROR = "error";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 export const WElCOME_LOGIN = "Welcome!"
@@ -16,7 +16,7 @@ export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 export const URL_MANUAL_FLOW = {
   contactInformation: "/rm/contact-information",
   servicesApplied: "/rm/services-applied",
-  businessOperation: "/rm/formbusiness-operation",
+  businessOperation: "/rm/business-operation",
   productsServices: "/rm/products-services",
   feeRates: "/rm/fee-rates",
   sensitiveData: "/rm/sensitive-data",
@@ -1380,49 +1380,49 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "property-information",
+    id: "services-applied",
     numerical: "1",
     text: "Services applied",
     check: false,
     status: true,
   },
   {
-    id: "account-information",
+    id: "business-operation",
     numerical: "2",
     text: "Business operation details",
     check: false,
     status: true,
   },
   {
-    id: "non-repricing-request",
+    id: "product-services",
     numerical: "3",
     text: "Product and services",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "fee-rates",
     numerical: "4",
     text: "Fees and rates",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "sensitive",
     numerical: "5",
     text: "Sensitive data",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "benefit-ownership",
     numerical: "6",
     text: "Benefit ownership of company",
     check: false,
     status: true,
   },
   {
-    id: "review",
+    id: "supplement-documents",
     numerical: "7",
     text: "Supplement documents",
     check: false,
@@ -1436,3 +1436,502 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
 ];
+
+
+// Step
+export const STEP_RM = {
+  list_salutation: [
+    {
+      name: "Mrs",
+      value: "mrs",
+    },
+    {
+      name: "Ms",
+      value: "ms",
+    },
+  ],
+  list_bank_name: [
+    {
+      name: "Standard Chartered",
+      value: "standardChartered",
+    },
+    {
+      name: "OCBC",
+      value: "ocbc",
+    },
+  ],
+
+  LIST_STEP: {
+    LIST_SALUTATION: [
+      {
+        name: "Mrs",
+        value: "mrs",
+      },
+      {
+        name: "Ms",
+        value: "ms",
+      },
+    ],
+    acra_and_contact_information: {
+      id: "acra-and-contact-information",
+      numerical: "0",
+      text: "Acra and contact information",
+      check: false,
+      status: true,
+      section: {
+        arca_detail: {
+          title: "Arca details",
+          description:
+            "Please ensure that these details from ACRA are updated.",
+          dataDetail: {
+            business_name: "AMZO Pte Ltd",
+            entity_type: "Private Limited Company",
+            registered_address: "35 Bedok North Road #09-39 Singapore 674902",
+            directors: "Lau Aik Miang S9300409F",
+            unique_entity_number: "2016347449N",
+            nature_of_business: "Café / Restaurant",
+            mailing_address: "35 Bedok North Road #09-39 Singapore 674902",
+            user: "Zunaidi Zainal Azmian S9000555C",
+          }
+        },
+        contact_detail: {
+          title: "Contact details",
+          description: "Please ensure that these details are accurate.",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            email: {
+              label: "Email",
+              helperText: "Please enter a valid email address",
+              requiredText: "",
+            },
+            contactNumber: {
+              label: "Contact number",
+              helperText: "Please enter a valid contact number",
+              requiredText: "",
+            },
+          },
+        },
+        authorised_person_details: {
+          title:"Authorised person details",
+          description: "Please ensure that these details are accurate.",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            email: {
+              label: "Email",
+              helperText: "Please enter a valid email address",
+              requiredText: "",
+            },
+            contactNumber: {
+              label: "Contact number",
+              helperText: "Please enter a valid contact number",
+              requiredText: "",
+            },
+          },
+        }
+      },
+    },
+    services_applied: {
+      id: "services_applied",
+      numerical: "1",
+      text: "Services Applied",
+      check: false,
+      status: true,
+      data: {
+        id: "transaction-and-card-acceptance-type",
+        numerical: "1",
+        text: "Transaction and card acceptance type",
+        check: false,
+        status: true,
+      },
+      section: {
+        transaction_and_card_acceptance_type: {
+          title: "Transaction and card acceptance type",
+          description: "Both services automatically come with Mastercard and Visa.",
+          data_list_checkbox: [
+            {
+              label: "Point-of-Sales terminal",
+              value: "point-of-sales-terminal",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your Point-of-Sales terminal",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: false,
+                    value: "visa",
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: false,
+                    value: "mastercard",
+                  },
+                  {
+                    label: "UnionPay",
+                    checked: false,
+                    value: "unionPay",
+                  },
+                  {
+                    label: "JCB",
+                    checked: false,
+                    value: "jcb",
+                  },
+                  {
+                    label: "WeChat Pay",
+                    checked: false,
+                    value: "wechat-pay",
+                  },
+                  {
+                    label: "AliPay",
+                    checked: false,
+                    value: "alipay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    checked: false,
+                    value: "ocbc-ipp",
+                  },
+                  {
+                    label: "Diners Club",
+                    checked: false,
+                    value: "dinners-club",
+                  },
+                  {
+                    label: "AMEX",
+                    checked: false,
+                    value: "amex",
+                  },
+                  {
+                    label: "Paynow",
+                    checked: false,
+                    value: "paynow",
+                  },
+                ],
+              },
+            },
+            {
+              label: "e-Commerce",
+              value: "e-commerce",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your e-Commerce platform",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: false,
+                    value: "visa",
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: false,
+                    value: "mastercard",
+                  },
+                  {
+                    label: "JCB",
+                    checked: false,
+                    value: "jcb",
+                  },
+                  {
+                    label: "UnionPay",
+                    checked: false,
+                    value: "union-pay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    checked: false,
+                    value: "ocbc-ipp",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+        other_services: {
+          title: "Other services",
+          description: "",
+          sectionRadios: {
+            instalment_payment_plan: {
+              title: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+              name: "instalmentPaymentPlan",
+              checked: false,
+              listRadio: [
+                {
+                  text: "Yes",
+                  checked: false,
+                },
+                {
+                  text: "No",
+                  checked: false,
+                },
+              ],
+              repayment_periods_offered: {
+                title: "Please select repayment periods offered",
+                listCheckBox: [
+                  {
+                    label: "3 months",
+                    checked: false,
+                    value: "3_months",
+                  },
+                  {
+                    label: "6 months",
+                    checked: false,
+                    value: "6_months",
+                  },
+                  {
+                    label: "12 months",
+                    checked: false,
+                    value: "12_months",
+                  },
+                  {
+                    label: "18 months",
+                    checked: false,
+                    value: "18_months",
+                  },
+                  {
+                    label: "24 months",
+                    checked: false,
+                    value: "24_months",
+                  },
+                  {
+                    label: "36 months",
+                    checked: false,
+                    value: "36_months",
+                  },
+                  {
+                    label: "48 months",
+                    checked: false,
+                    value: "48_months",
+                  },
+                  {
+                    label: "50 months",
+                    checked: false,
+                    value: "50_months",
+                  },
+                  {
+                    label: "60 months",
+                    checked: false,
+                    value: "60_months",
+                  },
+                ]
+              }
+            },
+            direct_currency_conversion: {
+              title: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+              name: "directCurrencyConversion",
+              checked: false,
+              listRadio: [
+                {
+                  text: "Yes",
+                  checked: false,
+                },
+                {
+                  text: "No",
+                  checked: false,
+                },
+              ],
+            },
+            mail_order: {
+              title: "Will you be offering Mail Order/Telephone Order?",
+              name: "mailOrder",
+              checked: false,
+              listRadio: [
+                {
+                  text: "Yes",
+                  checked: false,
+                },
+                {
+                  text: "No",
+                  checked: false,
+                },
+              ],
+            },
+          }
+        }
+      },
+    },
+    business_operation: {
+      id: "business-operation",
+      numerical: "2",
+      text: "Business operation details",
+      check: false,
+      status: true,
+      data: {
+        id: "business-operation",
+        numerical: "2",
+        text: "Business operation",
+        check: false,
+        status: true,
+      },
+      section: {
+        business_details: {
+          listRadioDescription: "Is your business ready for operation?",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          textFieldDescription:
+            "At how many outlets will you deploy Point-of-Sales terminals?",
+          textField: "",
+        },
+        website_infomation: {
+          listRadioDescription: "Is your business ready for operation?",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          textFieldDescription:
+            "At how many outlets will you deploy Point-of-Sales terminals?",
+          textField: "",
+        },
+        other_infomation: {
+          sections: [
+            {
+              listCheckboxDescription: "Is your business ready for operation?",
+              listCheckbox: [
+                {
+                  label: "Selling products",
+                  checked: false,
+                },
+                {
+                  label: "Providing services",
+                  checked: false,
+                },
+              ],
+            },
+            {
+              listCheckboxDescription:
+                "Do you currently have any of the following?",
+              listCheckbox: [
+                {
+                  label: "Office",
+                  checked: false,
+                },
+                {
+                  label: "Retail store",
+                  checked: false,
+                },
+                {
+                  label: "Warehouse",
+                  checked: false,
+                },
+              ],
+            },
+          ],
+        },
+        outlet_details: {
+          title: "Outlet details",
+          description: "We require the address of each outlet. You can choose to fill in the information here or upload a list.",
+          checkedOutlet: true,
+          checkedExistingWebsite: false,
+          listRadio: [
+            {
+              text: "Fill in here",
+              value: "fill_in_here",
+              checked: false,
+            },
+            {
+              text: "Upload a list",
+              value: "upload_a_list",
+              checked: false,
+            },
+          ],
+          inputFields: {
+            business_name: {
+              label: "Doing business name",
+              helperText: "",
+              requiredText: "",
+            },
+            block_number: {
+              label: "Block/House number",
+              helperText: "",
+              requiredText: "",
+            },
+            street_name: {
+              label: "Street name",
+              helperText: "",
+              requiredText: "",
+            },
+            unit_number: {
+              label: "Unit name",
+              helperText: "Please enter a valid unit number",
+              requiredText: "",
+            },
+            building_name: {
+              label: "Building name",
+              helperText: "Please enter a valid building name",
+              requiredText: "",
+            },
+            postal_code: {
+              label: "Postal code",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+          },
+          listRadioOutlet: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          inputFieldsIndicateBank: {
+            branch_code: {
+              label: "Branch code",
+              helperText: "",
+              requiredText: "",
+            },
+            account_number: {
+              label: "Account number",
+              helperText: "",
+              requiredText: "",
+            },
+          }
+        }
+      },
+    },
+  },
+};
