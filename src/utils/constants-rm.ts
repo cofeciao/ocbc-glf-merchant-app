@@ -1461,7 +1461,17 @@ export const STEP_RM = {
     },
   ],
 
-  list_step: {
+  LIST_STEP: {
+    LIST_SALUTATION: [
+      {
+        name: "Mrs",
+        value: "mrs",
+      },
+      {
+        name: "Ms",
+        value: "ms",
+      },
+    ],
     acra_and_contact_information: {
       id: "acra-and-contact-information",
       numerical: "0",
@@ -1484,6 +1494,68 @@ export const STEP_RM = {
             user: "Zunaidi Zainal Azmian S9000555C",
           }
         },
+        contact_detail: {
+          title: "Contact details",
+          description: "Please ensure that these details are accurate.",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            email: {
+              label: "Email",
+              helperText: "Please enter a valid email address",
+              requiredText: "",
+            },
+            contactNumber: {
+              label: "Contact number",
+              helperText: "Please enter a valid contact number",
+              requiredText: "",
+            },
+          },
+        },
+        authorised_person_details: {
+          title:"Authorised person details",
+          description: "Please ensure that these details are accurate.",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            email: {
+              label: "Email",
+              helperText: "Please enter a valid email address",
+              requiredText: "",
+            },
+            contactNumber: {
+              label: "Contact number",
+              helperText: "Please enter a valid contact number",
+              requiredText: "",
+            },
+          },
+        }
       },
     },
     services_applied: {
@@ -1859,58 +1931,6 @@ export const STEP_RM = {
             },
           }
         }
-      },
-    },
-    products_and_service: {
-      id: "products-and-services",
-      numerical: "3",
-      text: "Products and services",
-      check: false,
-      status: true,
-      data: {
-        id: "products-and-services",
-        numerical: "3",
-        text: "Products and services",
-        check: false,
-        status: true,
-      },
-      sections: {
-        is_your_business_offering: {
-          description:
-            "What products and/or services is your business offering?",
-          listRadioDescription:
-            "How quickly does your business fulfil these products and/or services?",
-          mainTextFieldLabel:
-            "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
-          listRadio: [
-            {
-              text: "Immediate fulfillment",
-              checked: false,
-            },
-            {
-              text: "Fulfillment over a period of time",
-              checked: false,
-            },
-          ],
-        },
-        is_your_sales_forecast: {
-          description:
-            "Based on your products and/or services, what is your sales forecast?",
-        },
-      },
-    },
-    review_and_submit: {
-      id: "review-and-submit",
-      numerical: "3",
-      text: "Review and submit",
-      check: false,
-      status: true,
-      data: {
-        id: "review",
-        numerical: "3",
-        text: "Review and submit",
-        check: false,
-        status: true,
       },
     },
   },
