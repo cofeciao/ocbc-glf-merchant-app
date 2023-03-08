@@ -15,6 +15,9 @@ const ProductsAndServices: React.FC<any> = (props) => {
   const { eCommerce, pointOfSales } = data;
   const cx = classnames.bind(styles);
 
+  console.log("optionSelected", optionSelected);
+  
+
   return (
     <Box>
       <Grid container>
