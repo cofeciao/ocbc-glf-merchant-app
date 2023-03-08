@@ -2,61 +2,44 @@
 import { Radio } from "@sectionsg/orc";
 import React, { useState } from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
-import _ from "lodash";
 import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
-
-// import constant
-import { SELF_SERVE_PAGE } from "@/utils/constants";
-import { unregister } from "@/serviceWorker";
+import _ from "lodash";
 
 // import types
 
 // render UI
 const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
   const {
-    LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES,
-  } = SELF_SERVE_PAGE;
-  const {
     cx,
+    data,
     register,
     unregister,
     errors,
     setValue,
-    variant = "point-of-sales",
     dataRedux,
   } = props;
+  const { listRadio } = data;
   const [valueSelected, setValueSelected] = useState();
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
       <Grid item xs={12}>
         {/* {Description} */}
-        {_.has(
-          LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES,
-          "description"
-        ) && (
+        {_.has(listRadio, "description") && (
           <Typography
             className={cx(
               "fulfilment-information-description input-field-description"
             )}
           >
-            {
-              LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES.description
-            }
+            {listRadio.description}
           </Typography>
         )}
 
         {/* {Radio Group} */}
-        {!_.isEmpty(
-          SELF_SERVE_PAGE
-            .LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES
-            .listRadio
-        ) && (
+        {!_.isEmpty(listRadio.list) && (
           <Radio
             name="lockIn"
-            listCheckBox={
-              LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES.listRadio
-            }
+            listCheckBox={listRadio.list}
             radioKey={0}
             vertical
             getValue={(value: any) => {
@@ -71,6 +54,7 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
       {_.isEqual(valueSelected, "fulfillment-over-a-period-of-time") && (
         <FulfillmentOverAPeriodOfTime
           cx={cx}
+          data={data}
           dataRedux={dataRedux}
           variant={valueSelected}
           register={register}

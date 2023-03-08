@@ -54,8 +54,9 @@ const SalesForecast: React.FC<any> = (props) => {
                         : ""
                     }
                     helperText={
-                      errors[textField.keyName] &&
-                      `${ERROR_ICON} ${errors[textField.keyName].message}`
+                      _.has(errors, "POS") &&
+                      _.has(errors.POS, textField.keyName) &&
+                      `${ERROR_ICON} ${errors.POS[textField.keyName].message}`
                     }
                     {...register(`POS.${textField.keyName}`, {
                       required: true,

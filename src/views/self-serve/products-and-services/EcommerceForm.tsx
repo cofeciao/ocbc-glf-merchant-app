@@ -2,14 +2,10 @@
 import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
-import { useForm } from "react-hook-form";
 import SectionWrapper from "../SectionWrapper";
 import BusinessOfferingEcommerce from "./BusinessOfferingEcommerce";
 import FulfilmentInformationEcommerce from "./FulfilmentInformationEcommerce";
 import SalesForecastEcommerce from "./SalesForecastEcommerce";
-
-// import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 
@@ -27,11 +23,6 @@ const EcommerceForm: React.FC<any> = (props) => {
     errors,
   } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
-  const {
-    LABEL_BUSINESS_OFFERING,
-    LABEL_FULFILMENT_INFORMATION,
-    LABEL_SALES_FORECAST,
-  } = SELF_SERVE_PAGE;
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
@@ -39,9 +30,9 @@ const EcommerceForm: React.FC<any> = (props) => {
         <Grid container>
           {/* {Business Offering} */}
           <Grid item xs={12}>
-            {LABEL_BUSINESS_OFFERING && (
+            {_.has(businessOffering, "title") && (
               <Typography className={cx("sub-section-title")}>
-                {LABEL_BUSINESS_OFFERING}
+                {businessOffering.title}
               </Typography>
             )}
             {_.has(businessOffering, "description") && (
@@ -64,9 +55,9 @@ const EcommerceForm: React.FC<any> = (props) => {
 
           {/* {Fulfilment Information} */}
           <Grid item xs={12}>
-            {LABEL_FULFILMENT_INFORMATION && (
+            {_.has(fulfilmentInformation, "title") && (
               <Typography className={cx("sub-section-title")}>
-                {LABEL_FULFILMENT_INFORMATION}
+                {fulfilmentInformation.title}
               </Typography>
             )}
             <FulfilmentInformationEcommerce
@@ -82,9 +73,9 @@ const EcommerceForm: React.FC<any> = (props) => {
 
           {/* {Sales Forecast} */}
           <Grid item xs={12}>
-            {LABEL_SALES_FORECAST && (
+            {_.has(salesForecast, "title") && (
               <Typography className={cx("sub-section-title")}>
-                {LABEL_SALES_FORECAST}
+                {salesForecast.title}
               </Typography>
             )}
             <SalesForecastEcommerce
@@ -92,6 +83,7 @@ const EcommerceForm: React.FC<any> = (props) => {
               data={salesForecast}
               dataRedux={dataRedux}
               register={register}
+              errors={errors}
             />
           </Grid>
         </Grid>

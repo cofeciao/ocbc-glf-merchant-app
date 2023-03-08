@@ -63,7 +63,6 @@ const ProductsAndServices: React.FC<any> = () => {
     mode: "onBlur",
   });
   const watchAll = watch();
-  console.log(watchAll);
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store

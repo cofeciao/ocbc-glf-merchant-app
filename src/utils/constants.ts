@@ -848,6 +848,7 @@ export const SELF_SERVE_PAGE = {
           description:
             "What products and/or services is your business offering?",
           textField: {
+            keyName: "typeOfProductAndService",
             label:
               "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
             helperText: "Cannot exceed 180 characters",
@@ -868,6 +869,31 @@ export const SELF_SERVE_PAGE = {
                 checked: false,
               },
             ],
+          },
+          listDropdown: {
+            description: "Please indicate duration",
+            list: [
+              {
+                name: "Within a week",
+                value: "within-a-week",
+              },
+              {
+                name: "Within a month",
+                value: "within-a-month",
+              },
+              {
+                name: "Within 3 months",
+                value: "within-3-months",
+              },
+              {
+                name: "More than 3 months",
+                value: "more-than-3-months",
+              },
+            ],
+          },
+          textField: {
+            description:
+              "Percentage of products/services not fulfilled immediately",
           },
         },
         salesForecast: {
@@ -893,15 +919,36 @@ export const SELF_SERVE_PAGE = {
       ecommerceForm: {
         title: "e-Commerce",
         businessOffering: {
+          title: "Business offering",
           description:
             "What products and/or services is your business offering?",
           textField: {
+            keyName: "typeOfProductAndService",
             label:
               "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+            helperText: "Cannot exceed 180 characters",
           },
         },
         fulfilmentInformation: {
           title: "Fulfilment information",
+          textField: {
+            description:
+              "Percentage of products/services not fulfilled immediately",
+          },
+          listRadio: {
+            description:
+              "How quickly does your business fulfil these products and/or services?",
+            list: [
+              {
+                text: "Immediate fulfillment",
+                checked: true,
+              },
+              {
+                text: "Fulfillment over a period of time",
+                checked: false,
+              },
+            ],
+          },
           listCheckbox: {
             description: "Where will your products come from?",
             list: [
@@ -917,6 +964,50 @@ export const SELF_SERVE_PAGE = {
           },
           listDropdown: {
             description: "Approximate delivery time to customers",
+            list: [
+              {
+                name: "Within a week",
+                value: "within-a-week",
+              },
+              {
+                name: "Within a month",
+                value: "within-a-month",
+              },
+              {
+                name: "Within 3 months",
+                value: "within-3-months",
+              },
+              {
+                name: "More than 3 months",
+                value: "more-than-3-months",
+              },
+            ],
+          },
+          listCheckboxSecondary: {
+            description: "Where will your products come from?",
+            list: [
+              {
+                text: "Within Singapore",
+                check: false,
+              },
+              {
+                text: "Out of Singapore",
+                check: false,
+              },
+            ],
+          },
+          listRadioSecondary: {
+            description: "How will your products be delivered?",
+            list: [
+              {
+                text: "Delivered by my supplier",
+                checked: false,
+              },
+              {
+                text: "Delivered by my business (after receipt from supplier)",
+                checked: false,
+              },
+            ],
           },
         },
         salesForecast: {
