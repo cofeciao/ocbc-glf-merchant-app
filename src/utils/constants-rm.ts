@@ -1460,6 +1460,8 @@ export const STEP_RM = {
       value: "ocbc",
     },
   ],
+  LABEL_ADD_MORE_WEBSITES: "Add website more",
+
 
   LIST_STEP: {
     LIST_SALUTATION: [
@@ -1820,9 +1822,10 @@ export const STEP_RM = {
               checked: false,
             },
           ],
-          textFieldDescription:
-            "At how many outlets will you deploy Point-of-Sales terminals?",
-          textField: "",
+          textField: {
+            description: "Your website’s URL",
+            label: "e.g. www.xxx.com",
+          },
         },
         other_infomation: {
           sections: [

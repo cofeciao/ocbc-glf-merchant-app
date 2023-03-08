@@ -4,6 +4,7 @@ const Formslice = createSlice({
   name: "form",
   initialState: {
     cashlessPaymentMethod: [],
+    dataCompanyDetail: {},
     companyAndContactInformationStep: {},
     acraAndContactInformationStep: {
       contact_detail: {},
@@ -30,6 +31,9 @@ const Formslice = createSlice({
     },
     saveDataAcraDetail: (state, action) => {
       state.dataAcraDetail = action.payload;
+    },
+    saveDataCompanyDetail: (state, action) => {
+      state.dataCompanyDetail = action.payload;
     },
    
     /**
@@ -96,6 +100,7 @@ const Formslice = createSlice({
 
 export const {
   saveDataCashlessPaymentMethod,
+  saveDataCompanyDetail,
   saveDataCompanyAndContactInformationStep,
   saveDataAcraAndContactInformationStep,
   saveDataTransactionAndCardAcceptanceTypeStep,

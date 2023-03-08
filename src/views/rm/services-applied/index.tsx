@@ -30,7 +30,7 @@ import { Link } from "react-router-dom";
 // render UI
 const ServicesApplied: React.FC<any> = () => {
   const {
-    list_step: {
+    LIST_STEP: {
       services_applied: {
         text,
         section: { transaction_and_card_acceptance_type, other_services },

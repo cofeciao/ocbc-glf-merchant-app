@@ -21,13 +21,16 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
       <Box className={cx("checkbox-wrapper")}>
         <FormControl margin="normal" className={cx("group-checkbox")} component="fieldset">
           <FormLabel component="legend">{instalment_payment_plan.repayment_periods_offered.title}</FormLabel>
-          <FormGroup row>
-            {dataCheckboxRepayment.slice(0, showAll ? dataCheckboxRepayment.length : 3).map((value: any, key: number) => {
+          <FormGroup row className={showAll ? cx("w-45") : cx("w-100")}>
+            {dataCheckboxRepayment.slice(0, showAll ? dataCheckboxRepayment.length : 3)
+              .map((value: any, key: number) => {
               return (
                 <FormControlLabel
+                  label={value.label}
                   key={key}
                   control={
                     <Checkbox 
+                      name={value.label} 
                       checked={value.checked} 
                       onChange={(e: any) => 
                         setDataCheckboxRepayment([
@@ -42,10 +45,8 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
                           })
                         ])
                       } 
-                      name={value.label} 
                     />
                   }
-                  label={value.label}
                 />
               )
             })}

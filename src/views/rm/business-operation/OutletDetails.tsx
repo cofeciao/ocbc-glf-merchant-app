@@ -14,8 +14,7 @@ import styles from "./BusinessOperation.scss";
 
 // import Component
 import OutletForm from "./OutletForm";
-
-// import types
+import UploadImage from "../UploadImage";
 
 // render UI
 const OutletDetails: React.FC<any> = (props) => {
@@ -25,7 +24,7 @@ const OutletDetails: React.FC<any> = (props) => {
   const history = useHistory();
   
   const {
-    list_step: {
+    LIST_STEP: {
       business_operation: {
         section: { outlet_details },
       },
@@ -129,7 +128,6 @@ const OutletDetails: React.FC<any> = (props) => {
    }
   }, [listRadio])
   
-
   useEffect(() => {
     if (outlet_details) {
       setDataSectionOutletDetail(outlet_details) 
@@ -148,7 +146,7 @@ const OutletDetails: React.FC<any> = (props) => {
             <RadioGroup 
               aria-label="prefer_type" 
               name="prefer_type" 
-              // value={checkedRadioPreferType} 
+              value={checkedRadioPreferType} 
               onChange={(e) => (
                 setCheckedRadioPreferType(e.target.value),
                 setListRadioPreferType([
@@ -171,13 +169,13 @@ const OutletDetails: React.FC<any> = (props) => {
               <FormControlLabel 
                 key={index} 
                 value={item.value} 
-                control={<Radio />} 
+                control={<Radio disableFocusRipple disableRipple disableTouchRipple />} 
                 label={item.text} 
               />
             ))}
           </RadioGroup>
         </Grid>
-        {checkedRadioPreferType === 'fill_in_here' ? (
+        {checkedRadioPreferType === 'fill_in_here' && (
           <OutletForm 
             cx={cx}
             errors={errors}
@@ -192,7 +190,12 @@ const OutletDetails: React.FC<any> = (props) => {
             setDataSectionOutletDetail={setDataSectionOutletDetail}
             handleSubmit={handleSubmit}
           />
-        ) : ""}
+        )}
+        {checkedRadioPreferType === 'upload_a_list' && (
+          <Grid item xs={12}>
+            <UploadImage onChange={(file) => console.log(file)} />
+          </Grid>
+        )}
       </Grid>
     </Box>
   );

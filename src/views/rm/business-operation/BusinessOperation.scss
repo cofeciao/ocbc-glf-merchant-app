@@ -9,6 +9,7 @@
       margin-bottom: 40px;
     }
   }
+
   & .outlet-details-wrapper{
     & .MuiFormGroup-root {
       flex-direction: column !important;
@@ -49,8 +50,40 @@
         color: #005EFD;
       }
     }
+
     & .MuiFormGroup-root {
       flex-direction: row !important;
+    }
+  }
+
+  & .website-information-wrapper {
+
+    & .group-fields {
+      display: flex;
+      align-items: center;
+      
+      img {
+        cursor: pointer;
+      }
+
+      & .text-field-trash-icon {
+        margin-left: 20px;
+      }
+    }
+
+    & .add-field {
+      display: flex;
+      align-items: center;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #005EFD;
+      margin-top: 16px;
+      cursor: pointer;
+
+      img {
+        margin-right: 8px;
+      }
     }
   }
 }
