@@ -9,7 +9,7 @@ import _ from "lodash";
 
 // render UI
 const BusinessDetailsForm: React.FC<any> = (props) => {
-  const { cx, data, optionSelected, register, errors, setValue, dataRedux } =
+  const { cx, data, optionSelected, register, unregister, errors, setValue, dataRedux } =
     props;
   const { businessInfomation, otherInfomation, websiteInfomation } = data;
 
@@ -28,6 +28,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
           dataRedux={dataRedux}
           optionSelected={optionSelected}
           register={register}
+          unregister={unregister}
           errors={errors}
           setValue={setValue}
         />

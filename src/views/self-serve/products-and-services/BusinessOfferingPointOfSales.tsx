@@ -11,30 +11,33 @@ import { ERROR_ICON } from "@/utils/constants";
 // render UI
 const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
+  const { textField } = data;
 
   return (
     <Box className={cx("business-offering-wrapper")}>
-      {_.has(data, "textField") && (
+      {!_.isNil(textField) && (
         <Box className={cx("main-input-field")}>
           <TextField
             fullWidth
-            placeholder={data.textField.label}
+            placeholder={textField.label}
             variant="filled"
-            error={errors.numberOutlets && true}
-            helperText={
-              errors.numberOfOutlets && errors.numberOfOutlets.message
+            error={errors.typeOfProductAndService && true}
+            defaultValue={
+              _.has(dataRedux, "typeOfProductAndService")
+                ? dataRedux.typeOfProductAndService
+                : ""
             }
-            // defaultValue={
-            //   _.has(dataRedux, "typeOfProductAndServicePOS")
-            //     ? dataRedux.typeOfProductAndServicePOS
-            //     : ""
-            // }
-            {...register("POS.typeOfProductAndService", {
+            helperText={
+              _.has(errors, "POS") &&
+              _.has(errors.POS, "typeOfProductAndService") &&
+              errors.POS.typeOfProductAndService.message
+            }
+            {...register(`POS.${textField.keyName}`, {
               required: true,
               pattern: {
                 // eslint-disable-next-line no-useless-escape
                 value: /^.{0,180}$/,
-                message: `${ERROR_ICON} ${data.textField.helperText}`,
+                message: `${ERROR_ICON} ${textField.helperText}`,
               },
             })}
           />
