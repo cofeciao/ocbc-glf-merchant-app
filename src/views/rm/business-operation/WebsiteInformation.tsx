@@ -78,7 +78,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
                   <TextField
                     fullWidth
                     id={`uuidv4()`}
-                    label="Registered entity name"
+                    label="e.g. www.xxx.com"
                     variant="filled"
                     // onBlur={(event) => {
                     //   getPersonalInformation(
