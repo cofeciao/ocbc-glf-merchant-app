@@ -2,7 +2,6 @@
 import { Category, Button } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveDataListCheckbox } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -30,7 +29,7 @@ import OutletDetails from "./OutletDetails";
 
 const BusinessOperation: React.FC<any> = () => {
   const {
-    list_step: {
+    LIST_STEP: {
       business_operation: {
         text,
         section: { business_details, other_infomation, website_infomation, outlet_details },
@@ -42,19 +41,13 @@ const BusinessOperation: React.FC<any> = () => {
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
-    STEP_RM.list_step.services_applied.section
+    STEP_RM.LIST_STEP.services_applied.section
       .transaction_and_card_acceptance_type.data_list_checkbox
   );
 
-  /**
-   * Get data from list check box
-   * @param data
-   */
-  const getDataFromListCheckbox = (data: any) => {
-    dispatch(saveDataListCheckbox(data));
-  };
 
   /**
+   * 
    * Retrieves data from Store
    */
   const dataListCheckbox = useSelector(
@@ -113,7 +106,9 @@ const BusinessOperation: React.FC<any> = () => {
 
       {/* {Section Website Information} */}
       <SectionWrapper cx={cx} title="Website Information">
-        <WebsiteInformation listRadio={website_infomation.listRadio} />
+        <WebsiteInformation 
+          listRadio={website_infomation.listRadio} 
+        />
       </SectionWrapper>
 
       {/* {Section Other information} */}

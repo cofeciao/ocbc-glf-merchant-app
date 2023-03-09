@@ -28,14 +28,20 @@
         line-height: 20px;
         color: $tundora;
       }
+
+      .w-45 {
+        width: 45%;
+      }
+      .w-100 {
+        width: 100%;
+      }
       
       & .MuiFormGroup-root {
         margin: 18px 0px 18px 0px;
-        width: 50%;
-        gap: 10px;
+        justify-content: space-between;
         
         & .MuiFormControlLabel-root {
-          margin-right: 100px;
+          margin-right: 40px;
         }
   
         input[type=checkbox] {
