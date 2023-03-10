@@ -1394,7 +1394,7 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "product-services",
+    id: "products-services",
     numerical: "3",
     text: "Product and services",
     check: false,

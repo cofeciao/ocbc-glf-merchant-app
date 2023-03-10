@@ -937,3 +937,7 @@ body {
   color:$tundora !important;
   font-weight: 700 !important;
 }
+
+.MuiIconButton-root:hover {
+  background-color: transparent !important;
+}
