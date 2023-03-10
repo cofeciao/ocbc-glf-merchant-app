@@ -72,7 +72,7 @@ const BusinessOperation: React.FC<any> = () => {
       <Button
         backgroundClass="bgGunmetalBluegrey"
         onClick={() => {
-          // history.push(URL_MANUAL_FLOW.productsServices);
+          history.push(URL_MANUAL_FLOW.productsServices);
         }}
         buttonType=""
       >

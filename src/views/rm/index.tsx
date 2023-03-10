@@ -17,6 +17,7 @@ import {
   BUSINESS_OPERATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
+  PRODUCTS_SERVICES, 
   SERVICES_APPLIED, 
   TITLE_PAGE 
 } from '@/utils/constants-rm';
@@ -24,10 +25,11 @@ import {
 // import page
 import ContactInformation from './contact-information';
 import ServicesApplied from './services-applied';
+import BusinessOperation from './business-operation';
+import ProductionServices from './ProductionServices';
 
 // styles
 import styles from "./rm.scss"
-import BusinessOperation from './business-operation';
 
 // render UI
 const ContainerManual = () => {
@@ -108,6 +110,7 @@ const ContainerManual = () => {
                 {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
                 {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
                 {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
+                {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}
 
               </>
             )}
