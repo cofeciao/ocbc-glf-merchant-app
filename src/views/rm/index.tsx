@@ -17,19 +17,21 @@ import {
   BUSINESS_OPERATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
+  FEE_RATES, 
   PRODUCTS_SERVICES, 
   SERVICES_APPLIED, 
   TITLE_PAGE 
 } from '@/utils/constants-rm';
 
-// import page
+// styles
+import styles from "./rm.scss"
+
+// import pages
 import ContactInformation from './contact-information';
 import ServicesApplied from './services-applied';
 import BusinessOperation from './business-operation';
-import ProductionServices from './ProductionServices';
-
-// styles
-import styles from "./rm.scss"
+import ProductionServices from './production-services';
+import FeesRates from './fees-rates';
 
 // render UI
 const ContainerManual = () => {
@@ -111,7 +113,7 @@ const ContainerManual = () => {
                 {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
                 {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
                 {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}
-
+                {slug === FEE_RATES && <FeesRates ref={childRef} />}
               </>
             )}
           />
