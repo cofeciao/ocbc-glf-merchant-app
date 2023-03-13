@@ -20,6 +20,7 @@ import { IBusinessOperations } from "./business-operation/BusinessOperation";
 const UploadImage: React.FC<IBusinessOperations.IUploadImage> = (props) => {
   const { 
     onChange,
+    onRemove,
     defaultImage,
     value,
     loading = false,
@@ -103,12 +104,19 @@ const UploadImage: React.FC<IBusinessOperations.IUploadImage> = (props) => {
                 <label className={cx("file-name")}>{infoFile.nameFile}</label>
                 <label className={cx("file-size")}>{infoFile.size}</label>
               </div>
-              <img src={IconRemove} alt="icon remove" onClick={() => setBase64('')}/>
+              <img 
+                src={IconRemove} 
+                alt="icon remove" 
+                onClick={() => {
+                  onRemove();
+                  setBase64('')
+                }}
+              />
             </div>
           </>
         ) : (
           <>
-            <label className={cx("upload-first")} htmlFor={'image-upload'}>
+            <label className={cx("upload-first")} htmlFor={name}>
               <img src={IconUploadImage} alt="icon upload image"  />
               <span>{placeholder} <label>browse</label></span>
             </label>
