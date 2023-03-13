@@ -161,7 +161,7 @@ const ReviewAndSubmit: React.FC<any> = () => {
 
       {/* {Section Products And Services} */}
       <SectionWrapper cx={cx} title={LABEL_PRODUCTS_AND_SERVICES}>
-        <ProductsAndServices data={productsAndServicesStep} />
+        <ProductsAndServices data={productsAndServicesStep} optionSelected={optionSelected} />
       </SectionWrapper>
 
       <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />

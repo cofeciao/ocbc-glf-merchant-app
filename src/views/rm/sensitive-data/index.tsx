@@ -17,35 +17,49 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 // import style
-import styles from "./FeesRates.scss";
+import styles from "./Sensitive.scss";
 
 // import constants
 import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
-import { IFeesRates } from "./FeesRates";
+import { ISensitive } from "./Sensitive";
 
 //import components
 import SectionWrapper from "../SectionWrapper";
-import Fees from "./Fees";
-import MerchantDiscountRate from "./MerchantDiscountRate";
+import SensitiveData from "./SensitiveData";
+import UploadImage from "../UploadImage";
 
-const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
+const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   const dispatch = useDispatch();
 
+  const listRadio = [
+    {
+      text: "Yes",
+      checked: false,
+    },
+    {
+      text: "No",
+      checked: false,
+    },
+  ];
+
   // States
   const [loading, setLoading] = useState(false);
-  const [paramsFeeRates, setParamsFeeRates] = useState<any>({
-    refundable_fees: ""
-  });
+  const [valueRadio, setValueRadio] = useState<any>({
+    storeCreditCard: "",
+    dataProtectedByHierachical: "",
+    compliantWithThePaymentCardIndustry: ""
+  }); 
+
 
   /**
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.productsServices)
+    history.push(URL_MANUAL_FLOW.feeRates)
   }
 
    /**
@@ -54,7 +68,6 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
    const handleNext = async () => {
     history.push(URL_MANUAL_FLOW.sensitiveData);
   }
-
     /**
    * render UI Button
    * @returns {HTML}
@@ -81,38 +94,24 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
         </div>
       }
 
-      <Box className={cx('fees-rates')}>
-        <div className="fees-rates-category" >
-          <Category class="title">Fees and rates</Category>
+      <Box className={cx('sensitive')}>
+        <div className="sensitive-category" >
+          <Category class="title">Products and services</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Merchant Discount Rate (MDR) ">
-          <MerchantDiscountRate cx={cx} />
+        <SectionWrapper cx={cx} title="Sensitive data">
+          <SensitiveData 
+            listRadio={listRadio} 
+            valueRadio={valueRadio} 
+            setValueRadio={setValueRadio} 
+          />
         </SectionWrapper>
-
-        <SectionWrapper cx={cx} title="Fees">
-          <Fees cx={cx} />
-        </SectionWrapper>
-
-        <SectionWrapper cx={cx} title="Refundable fees (if applicable)">
-          <Grid container>
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                name="refundable_fees"
-                defaultValue={paramsFeeRates.refundable_fees}
-                placeholder="Security deposit (one-time)"
-                id={uuidv4()}
-                // label={name.label}
-                variant="filled"
-                onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-                // {...register("authorised_person_details.name", {
-                //   required: true,
-                // })}
-              />
-            </Grid>
-          </Grid>
-        </SectionWrapper>
+        
+        {valueRadio.compliantWithThePaymentCardIndustry === "Yes" && (
+          <SectionWrapper cx={cx} title="Upload PCI DSS certificate">
+            <UploadImage onChange={(file: any) => console.log(file)} />
+          </SectionWrapper>
+        )}
   
         {/* Section button  */}
         <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
@@ -133,4 +132,4 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
   )
 });
 
-export default FeesRates;
+export default Sensitive;

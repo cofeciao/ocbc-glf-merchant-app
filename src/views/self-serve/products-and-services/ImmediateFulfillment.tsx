@@ -1,5 +1,5 @@
 // import modules
-import React from "react";
+import React, { useEffect } from "react";
 import { Radio, Checkbox } from "@sectionsg/orc";
 import {
   Box,
@@ -21,35 +21,36 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const ImmediateFulfillment: React.FC<any> = (props) => {
-  const {
-    LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM,
-    LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS,
-    LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED,
-    LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY,
-    PLEASE_SELECT_LABEL,
-    LIST_PLEASE_INDICATE_DURATION,
-    PERCENT_CHARACTERS,
-  } = SELF_SERVE_PAGE;
-  const {
-    cx,
-    variant = "point-of-sales",
-    setValue,
-    register,
-    dataRedux,
-  } = props;
+  const { PLEASE_SELECT_LABEL, PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
+  const { cx, data, variant, setValue, register, unregister } = props;
+  const { textField, listCheckboxSecondary, listDropdown, listRadioSecondary } =
+    data;
+
+  /**
+   * Handle unregister if fields are hidden
+   */
+  useEffect(() => {
+    if (!_.isEqual(variant, "fulfillment-over-a-period-of-time")) {
+      unregister("Ecom.percentageOfProductsNotFulfilledImmediately", {
+        keepDefaultValue: false,
+      });
+    }
+  }, [variant]);
+
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
       <Grid container className={cx("mt-dt-40")}>
-        {/* {TextField & Description} */}
+        {/* {Percentage of products/services not fulfilled immediately} */}
         {_.isEqual(variant, "fulfillment-over-a-period-of-time") && (
           <Grid item xs={12}>
-            {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY && (
+            {/* {Description} */}
+            {_.has(textField, "description") && (
               <Typography
                 className={cx(
                   "fulfilment-information-description input-field-description"
                 )}
               >
-                {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY}
+                {textField.description}
               </Typography>
             )}
             <Grid item xs={12} md={4}>
@@ -67,7 +68,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                 {...register(
                   "Ecom.percentageOfProductsNotFulfilledImmediately",
                   {
-                    required: false,
+                    required: true,
                   }
                 )}
               />
@@ -75,105 +76,95 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
           </Grid>
         )}
 
-        {/* {Checkbox & Description} */}
+        {/* {Where will your products come from?} */}
         <Grid item xs={12}>
-          {_.has(
-            LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM,
-            "description"
-          ) && (
-            <Typography
-              className={cx(
-                "fulfilment-information-description input-field-descriptionEcom"
-              )}
-            >
-              {LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM.description}
-            </Typography>
-          )}
-          <Checkbox
-            isFullWidth
-            list={LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM.listRadio}
-            checkBoxClass={cx("your-product-come-from-checkbox")}
-            getValue={(value: any) => {
-              setValue("Ecom.productDeliveredFrom", value);
-            }}
-          />
-        </Grid>
-
-        {/* {Dropdown & Description} */}
-        <Grid item xs={12}>
-          <Grid item xs={6}>
-            {_.has(
-              LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS,
-              "description"
-            ) && (
-              <Typography
-                className={cx(
-                  "fulfilment-information-description input-field-description"
-                )}
-              >
-                {
-                  LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS.description
-                }
-              </Typography>
-            )}
-            <FormControl
-              variant="filled"
-              className={cx("duration-select")}
-              fullWidth
-            >
-              {PLEASE_SELECT_LABEL && (
-                <InputLabel id="select-duration-label">
-                  {PLEASE_SELECT_LABEL}
-                </InputLabel>
-              )}
-              <Select
-                fullWidth
-                labelId="select-duration-label"
-                id="select-duration"
-                {...register("Ecom.deliveryTimeToCustomers", {
-                  required: true,
-                })}
-              >
-                {_.map(
-                  LIST_PLEASE_INDICATE_DURATION.listDropdown,
-                  (item, index) => {
-                    return (
-                      <MenuItem key={index} value={item.value}>
-                        {item.name}
-                      </MenuItem>
-                    );
-                  }
-                )}
-              </Select>
-            </FormControl>
-          </Grid>
-        </Grid>
-
-        {/* {Radio & Description} */}
-        <Grid item xs={12}>
-          {/* {Description} */}
-          {_.has(
-            LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED,
-            "description"
-          ) && (
+          {_.has(listCheckboxSecondary, "description") && (
             <Typography
               className={cx(
                 "fulfilment-information-description input-field-description"
               )}
             >
-              {LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED.description}
+              {listCheckboxSecondary.description}
+            </Typography>
+          )}
+
+          {!_.isEmpty(listCheckboxSecondary.list) && (
+            <Checkbox
+              isFullWidth
+              list={listCheckboxSecondary.list}
+              checkBoxClass={cx("your-product-come-from-checkbox")}
+              getValue={(value: any) => {
+                setValue("Ecom.productDeliveredFrom", value);
+              }}
+            />
+          )}
+        </Grid>
+
+        {/* {Approximate delivery time to customers} */}
+        <Grid item xs={12}>
+          {/* {Description} */}
+          <Grid item xs={6}>
+            {_.has(listDropdown, "description") && (
+              <Typography
+                className={cx(
+                  "fulfilment-information-description input-field-description"
+                )}
+              >
+                {listDropdown.description}
+              </Typography>
+            )}
+
+            {/* {Dropdown} */}
+            <FormControl
+              variant="filled"
+              className={cx("duration-select")}
+              fullWidth
+            >
+              {!_.isNil(PLEASE_SELECT_LABEL) && (
+                <InputLabel id="select-duration-label">
+                  {PLEASE_SELECT_LABEL}
+                </InputLabel>
+              )}
+              {!_.isEmpty(listDropdown.list) && (
+                <Select
+                  fullWidth
+                  labelId="select-duration-label"
+                  id="select-duration"
+                  {...register("Ecom.deliveryTimeToCustomers", {
+                    required: false,
+                  })}
+                >
+                  {_.map(listDropdown.list, (item, index) => {
+                    return (
+                      <MenuItem key={index} value={item.value}>
+                        {item.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              )}
+            </FormControl>
+          </Grid>
+        </Grid>
+
+        {/* {How will your products be delivered?} */}
+        <Grid item xs={12}>
+          {/* {Description} */}
+          {_.has(listRadioSecondary, "description") && (
+            <Typography
+              className={cx(
+                "fulfilment-information-description input-field-description"
+              )}
+            >
+              {listRadioSecondary.description}
             </Typography>
           )}
 
           {/* {Radio group} */}
-          {!_.isEmpty(
-            LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED.listRadio
-          ) && (
+          {!_.isEmpty(listRadioSecondary.list) && (
             <Radio
               name="lockIn"
-              listCheckBox={
-                LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED.listRadio
-              }
+              listCheckBox={listRadioSecondary.list}
               vertical
               getValue={(value: any) => {
                 setValue("Ecom.productDelivery", value);

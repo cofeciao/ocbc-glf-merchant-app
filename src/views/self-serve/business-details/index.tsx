@@ -56,6 +56,7 @@ const BusinessDetails: React.FC<any> = () => {
     watch,
     getValues,
     setValue,
+    unregister,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -70,8 +71,9 @@ const BusinessDetails: React.FC<any> = () => {
   });
 
   const watchAll = watch();
-  console.log("watchAll", watchAll);
-  console.log("businessDetailsStep", businessDetailsStep);
+  // Temporarily Hidden
+  // console.log("watchAll", watchAll);
+  // console.log("businessDetailsStep", businessDetailsStep);
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -139,6 +141,7 @@ const BusinessDetails: React.FC<any> = () => {
         }
         dataRedux={businessDetailsStep}
         register={register}
+        unregister={unregister}
         errors={errors}
         setValue={setValue}
       />

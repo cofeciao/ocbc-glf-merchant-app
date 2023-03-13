@@ -1,5 +1,10 @@
 // import modules
-import { Header, Footer, FormLayout, Tabs } from "@sectionsg/orc";
+import {
+  Header,
+  Footer,
+  FormLayout,
+  Tabs,
+} from "@sectionsg/orc";
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { Container } from "@material-ui/core";
@@ -34,37 +39,36 @@ const SelfServe = () => {
   /**
    * add event listener to handle page reload
    */
-  useEffect(() => {
-    window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, []);
 
   /**
    * Detect reload and show alert
    * @param event
    */
-  const handleBeforeUnload = (event: any) => {
-    event.preventDefault();
-    event.returnValue = '';
-  }
-
+  // const handleBeforeUnload = (event: any) => {
+  //   event.preventDefault();
+  //   event.returnValue = "";
+  // };
 
   /**
    * Detect reload and redirect to "/"
    */
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (history.action === "POP") {
-      window.location.href = "/";
-    }
-    let trackingEvent = (window as any).attachEvent || window.addEventListener;
-    let chkevent = (window as any).attachEvent
-      ? "onbeforeunload"
-      : "beforeunload";
-    trackingEvent(chkevent, adobeAbandon);
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  //   if (history.action === "POP") {
+  //     window.location.href = "/";
+  //   }
+  //   let trackingEvent = (window as any).attachEvent || window.addEventListener;
+  //   let chkevent = (window as any).attachEvent
+  //     ? "onbeforeunload"
+  //     : "beforeunload";
+  //   trackingEvent(chkevent, adobeAbandon);
+  // }, []);
 
   /**
    * Dynamic stepper
