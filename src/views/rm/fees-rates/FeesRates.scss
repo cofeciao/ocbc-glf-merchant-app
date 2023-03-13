@@ -1,7 +1,7 @@
 @import '../../../assets/style/variable.scss';
 
-.business-services {
-  & .business-services-category {
+.fees-rates {
+  & .fees-rates-category {
     margin-bottom: 56px;
 
     div::before {
@@ -11,47 +11,50 @@
       margin-bottom: 40px;
     }
   }
-  & .refund-policy {
-    & .radio-group-refund {
-      flex-direction: row;
-      margin-bottom: 40px;
-      gap: 40px;
-    }
-    & .radio-group-upload-policy {
-      margin-bottom: 20px;
-    }
-  }
-  & .business-information {
-    & .title {
-      font-weight: 400;
-      margin-bottom: 22px;
-      font-size: 18px;
-      line-height: 28px;
-      color: #777E87;
-    }
-    & .MuiTextField-root {
-      margin-bottom: 42px;
-      width: 100%;
-    }
-    & .MuiFormGroup-root {
-      margin-bottom: 30px;
-    }
+
+  & .fees-form {
     & .MuiGrid-container {
+      column-gap: 0px !important;
       row-gap: 0px !important;
     }
-    & .fulfillment-group {
-      display: grid;
-      grid-template-columns: 400px 430px;
-      row-gap: 15px;
+  }
+  & .second-table {
+    margin-top: 50px;
+  }
 
-      & .fulfillment-item {
-        margin-right: 30px;
-        & .textfield-percentage {
-          width: 60%;
+  & .MuiTable-root {
+    & .MuiTableHead-root {
+      & .MuiTableRow-root {
+        th {
+          font-weight: 700 !important;
+          font-size: 16px !important;
+          line-height: 24px !important;
+          color: #484848 !important;
+        }
+      }
+    }
+    & .MuiTableBody-root {
+      & .MuiTableRow-root {
+        th {
+          font-weight: 700 !important;
+          font-size: 16px !important;
+          line-height: 24px !important;
+          color: #484848 !important;
+        }
+        td {
+          padding: 10px !important;
+        }
+        input {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          height: 32px;
+          color: #575D65;
         }
       }
     }
   }
+  
 }
 
 .button-wrapper {

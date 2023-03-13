@@ -55,7 +55,7 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(({  
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.productsServices)
+    history.push(URL_MANUAL_FLOW.businessOperation)
   }
 
    /**
