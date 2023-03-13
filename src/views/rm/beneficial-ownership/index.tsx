@@ -55,8 +55,6 @@ const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({
     certificateIncumbencyImage: {},
   });
 
-  console.log(fileImage)
-
   /**
    * Handle button prev
    */
@@ -68,7 +66,7 @@ const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.beneficialOwnership);
+    history.push(URL_MANUAL_FLOW.supplementaryDocument);
   }
 
     /**
