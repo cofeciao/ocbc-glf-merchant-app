@@ -264,7 +264,7 @@ export const SELF_SERVE_PAGE = {
     },
   ],
   LIST_STEP: {
-    company_and_contact_information: {
+    companyAndContactInformation: {
       id: "company-and-contact-information",
       numerical: "0",
       text: "Company and contact information",
@@ -278,7 +278,7 @@ export const SELF_SERVE_PAGE = {
         status: true,
       },
       section: {
-        company_registration: {
+        companyRegistration: {
           title: "Company registration",
           description:
             "Please enter your registered entity name and Unique Entity Number (UEN).",
@@ -300,7 +300,7 @@ export const SELF_SERVE_PAGE = {
             },
           },
         },
-        contact_details: {
+        contactDetails: {
           title: "Contact details",
           description:
             "Our Relationship Manager will reach out to you with these details.",

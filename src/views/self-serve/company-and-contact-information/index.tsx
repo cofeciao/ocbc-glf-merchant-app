@@ -1,11 +1,16 @@
 // import modules
 import { Category, Button } from "@sectionsg/orc";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import { useForm } from "react-hook-form";
+import SectionWrapper from "../SectionWrapper";
+import CompanyRegistration from "./CompanyRegistration";
+import ContactDetails from "./ContactDetails";
+import { saveDataCompanyAndContactInformationStep } from "@/store/form";
+import { useSelector } from "react-redux";
 
 // import constants
 import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
@@ -14,34 +19,29 @@ import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
 import styles from "./CompanyAndContactInformation.scss";
 
 // import types
+// import {ICompanyAndContactInformation} from "./CompanyAndContactInformation"
 
 //import icon
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import SectionWrapper from "../SectionWrapper";
-import CompanyRegistration from "./CompanyRegistration";
-import ContactDetails from "./ContactDetails";
-import { saveDataCompanyAndContactInformationStep } from "@/store/form";
-import { useSelector } from "react-redux";
 
 // render UI
-const CompanyAndContactInformation: React.FC<any> = () => {
+const CompanyAndContactInformation: React.FC<unknown> = () => {
   const {
     LIST_STEP: {
-      company_and_contact_information: {
+      companyAndContactInformation: {
         text,
-        section: { company_registration, contact_details },
+        section: { companyRegistration, contactDetails },
       },
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
   const history = useHistory();
 
   /**
    * Retrieves data of Company And Contact Information step from Store
    */
-  const companyAndContactInformationStep = useSelector(
+  const dataCompanyAndContactInformationStep = useSelector(
     (state: any) => state.form.companyAndContactInformationStep
   );
 
@@ -54,15 +54,17 @@ const CompanyAndContactInformation: React.FC<any> = () => {
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-    contactNumber: companyAndContactInformationStep.contactNumber || "",
-    registeredEntityName: companyAndContactInformationStep.registeredEntityName || "",
-    uniqueEntityNumber: companyAndContactInformationStep.uniqueEntityNumber || "",
-    companyType: companyAndContactInformationStep.companyType || "",
-    salutation: companyAndContactInformationStep.salutation || "",
-    name: companyAndContactInformationStep.name || "",
-    email: companyAndContactInformationStep.email || "",
-    designation: companyAndContactInformationStep.designation || "",
-    areaCode: companyAndContactInformationStep.areaCode || ""
+      contactNumber: dataCompanyAndContactInformationStep.contactNumber || "",
+      registeredEntityName:
+        dataCompanyAndContactInformationStep.registeredEntityName || "",
+      uniqueEntityNumber:
+        dataCompanyAndContactInformationStep.uniqueEntityNumber || "",
+      companyType: dataCompanyAndContactInformationStep.companyType || "",
+      salutation: dataCompanyAndContactInformationStep.salutation || "",
+      name: dataCompanyAndContactInformationStep.name || "",
+      email: dataCompanyAndContactInformationStep.email || "",
+      designation: dataCompanyAndContactInformationStep.designation || "",
+      areaCode: dataCompanyAndContactInformationStep.areaCode || "",
     },
   });
 
@@ -98,24 +100,23 @@ const CompanyAndContactInformation: React.FC<any> = () => {
       {/* {Section Company registration} */}
       <SectionWrapper
         cx={cx}
-        title={company_registration.title}
-        description={company_registration.description}
+        title={companyRegistration.title}
+        description={companyRegistration.description}
       >
         <CompanyRegistration
           cx={cx}
           errors={errors}
           register={register}
-          data={company_registration}
-          dataRedux={companyAndContactInformationStep}
+          data={companyRegistration}
+          dataRedux={dataCompanyAndContactInformationStep}
         />
       </SectionWrapper>
 
       {/* {Section Contact details} */}
       <SectionWrapper
         cx={cx}
-        className={cx("contact-details-")}
-        title={contact_details.title}
-        description={contact_details.description}
+        title={contactDetails.title}
+        description={contactDetails.description}
       >
         <ContactDetails
           cx={cx}
@@ -123,8 +124,8 @@ const CompanyAndContactInformation: React.FC<any> = () => {
           register={register}
           setValue={setValue}
           setError={setError}
-          data={contact_details}
-          dataRedux={companyAndContactInformationStep}
+          data={contactDetails}
+          dataRedux={dataCompanyAndContactInformationStep}
         />
       </SectionWrapper>
 

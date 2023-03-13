@@ -9,12 +9,20 @@ import _ from "lodash";
 
 // render UI
 const BusinessDetailsForm: React.FC<any> = (props) => {
-  const { cx, data, optionSelected, register, unregister, errors, setValue, dataRedux } =
-    props;
+  const {
+    cx,
+    data,
+    optionSelected,
+    register,
+    unregister,
+    errors,
+    setValue,
+    dataRedux,
+  } = props;
   const { businessInfomation, otherInfomation, websiteInfomation } = data;
 
   return (
-    <Box className={cx("ecommerce-option-wrapper")}>
+    <Box className={cx("business-details-form-wrapper")}>
       {/* {Section Business Information} */}
       <SectionWrapper cx={cx} title={businessInfomation.title}>
         {_.has(businessInfomation, "subTitle") &&
