@@ -1408,7 +1408,7 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "sensitive",
+    id: "sensitive-data",
     numerical: "5",
     text: "Sensitive data",
     check: false,

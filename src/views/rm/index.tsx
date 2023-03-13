@@ -19,6 +19,7 @@ import {
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
   FEE_RATES, 
   PRODUCTS_SERVICES, 
+  SENSITIVE_DATA, 
   SERVICES_APPLIED, 
   TITLE_PAGE 
 } from '@/utils/constants-rm';
@@ -32,6 +33,7 @@ import ServicesApplied from './services-applied';
 import BusinessOperation from './business-operation';
 import ProductionServices from './production-services';
 import FeesRates from './fees-rates';
+import Sensitive from './sensitive-data';
 
 // render UI
 const ContainerManual = () => {
@@ -87,6 +89,7 @@ const ContainerManual = () => {
       }
     }
   };
+  console.log(slug)
 
   return (
     <>
@@ -114,6 +117,7 @@ const ContainerManual = () => {
                 {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
                 {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}
                 {slug === FEE_RATES && <FeesRates ref={childRef} />}
+                {slug === SENSITIVE_DATA && <Sensitive ref={childRef} />}
               </>
             )}
           />
