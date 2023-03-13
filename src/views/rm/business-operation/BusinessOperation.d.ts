@@ -1,6 +1,7 @@
 declare namespace IBusinessOperations {
   export interface IUploadImage {
     onChange: (value: any) => void;
+    onRemove?: () => void;
     defaultImage?: string;
     value?: number | string;
     loading?: boolean;

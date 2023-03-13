@@ -9,7 +9,7 @@ export const BUSINESS_OPERATION = "business-operation";
 export const PRODUCTS_SERVICES = "products-services";
 export const FEE_RATES = "fee-rates";
 export const SENSITIVE_DATA = "sensitive-data";
-export const BENEFICIAL_OWNERSHIP = "benefical-ownership";
+export const BENEFICIAL_OWNERSHIP = "beneficial-ownership";
 export const SUPPLEMENTARY_DOCUMENT = "supplementary-document";
 export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 
@@ -1415,9 +1415,9 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "benefit-ownership",
+    id: "beneficial-ownership",
     numerical: "6",
-    text: "Benefit ownership of company",
+    text: "Beneficial ownership",
     check: false,
     status: true,
   },

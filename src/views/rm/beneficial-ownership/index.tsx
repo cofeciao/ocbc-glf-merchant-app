@@ -17,49 +17,51 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 // import style
-import styles from "./Sensitive.scss";
+import styles from "./BeneficialOwnership.scss";
 
 // import constants
 import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
-import { ISensitive } from "./Sensitive";
+import { IBeneficialOwnership } from "./BeneficialOwnership";
 
 //import components
 import SectionWrapper from "../SectionWrapper";
-import SensitiveData from "./SensitiveData";
 import UploadImage from "../UploadImage";
+import BeneficialOwnerCompany from "./BeneficialOwnerCompany";
 
-const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
+const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({  }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   const dispatch = useDispatch();
 
   const listRadio = [
     {
-      text: "Yes",
+      text: "Fill in here",
+      value: "fill_in_here",
       checked: false,
     },
     {
-      text: "No",
+      text: "Upload a list",
+      value: "upload_a_list",
       checked: false,
     },
   ];
 
   // States
   const [loading, setLoading] = useState(false);
-  const [valueRadio, setValueRadio] = useState<any>({
-    storeCreditCard: "",
-    dataProtectedByHierachical: "",
-    compliantWithThePaymentCardIndustry: ""
-  }); 
+  const [fileImage, setFileImage] = useState<any>({
+    beneficialOwnerImage: {},
+    certificateIncumbencyImage: {},
+  });
 
+  console.log(fileImage)
 
   /**
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.feeRates)
+    history.push(URL_MANUAL_FLOW.sensitiveData)
   }
 
    /**
@@ -95,24 +97,35 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
         </div>
       }
 
-      <Box className={cx('sensitive')}>
-        <div className="sensitive-category" >
-          <Category class="title">Products and services</Category>
+      <Box className={cx('benefitcial-ownership')}>
+        <div className="benefitcial-ownership-category" >
+          <Category class="title">Beneficial ownership</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Sensitive data">
-          <SensitiveData 
+        <SectionWrapper cx={cx} title="Beneficial owner of the company">
+          <BeneficialOwnerCompany 
             listRadio={listRadio} 
-            valueRadio={valueRadio} 
-            setValueRadio={setValueRadio} 
+            fileImage={fileImage} 
+            setFileImage={setFileImage}
           />
         </SectionWrapper>
-        
-        {valueRadio.compliantWithThePaymentCardIndustry === "Yes" && (
-          <SectionWrapper cx={cx} title="Upload PCI DSS certificate">
-            <UploadImage onChange={(file: any) => console.log(file)} />
-          </SectionWrapper>
-        )}
+
+        <SectionWrapper cx={cx} title="Upload certificate of incumbency">
+          <UploadImage 
+            name="certificateIncumbencyImage"
+            value={fileImage.certificateIncumbencyImage} 
+            onChange={(file: any) => setFileImage({
+              ...fileImage,
+              certificateIncumbencyImage: file
+            })} 
+            onRemove={() => {
+              setFileImage({
+                ...fileImage,
+                certificateIncumbencyImage: {}
+              })
+            }}
+          />
+        </SectionWrapper>
   
         {/* Section button  */}
         <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
@@ -133,4 +146,4 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
   )
 });
 
-export default Sensitive;
+export default BeneficialOwnership;
