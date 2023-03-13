@@ -22,13 +22,14 @@ import {
   PRODUCTS_SERVICES, 
   SENSITIVE_DATA, 
   SERVICES_APPLIED, 
+  SUPPLEMENTARY_DOCUMENT, 
   TITLE_PAGE 
 } from '@/utils/constants-rm';
 
 // styles
 import styles from "./rm.scss"
 
-// import pages
+// import steps
 import ContactInformation from './contact-information';
 import ServicesApplied from './services-applied';
 import BusinessOperation from './business-operation';
@@ -36,6 +37,7 @@ import ProductionServices from './production-services';
 import FeesRates from './fees-rates';
 import Sensitive from './sensitive-data';
 import BeneficialOwnership from './beneficial-ownership';
+import SupplementaryDocuments from './supplementary-documents';
 
 // render UI
 const ContainerManual = () => {
@@ -91,7 +93,6 @@ const ContainerManual = () => {
       }
     }
   };
-  console.log(slug)
 
   return (
     <>
@@ -121,6 +122,7 @@ const ContainerManual = () => {
                 {slug === FEE_RATES && <FeesRates ref={childRef} />}
                 {slug === SENSITIVE_DATA && <Sensitive ref={childRef} />}
                 {slug === BENEFICIAL_OWNERSHIP && <BeneficialOwnership ref={childRef} />}
+                {slug === SUPPLEMENTARY_DOCUMENT && <SupplementaryDocuments ref={childRef} />}
               </>
             )}
           />
