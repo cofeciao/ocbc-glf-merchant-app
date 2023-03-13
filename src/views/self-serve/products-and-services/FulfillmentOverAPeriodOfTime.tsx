@@ -1,5 +1,5 @@
 // import modules
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   FormControl,
@@ -20,78 +20,94 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
+  const { PLEASE_SELECT_LABEL, PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
   const {
-    LIST_PLEASE_INDICATE_DURATION,
-    PLEASE_SELECT_LABEL,
-    LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY,
-    PERCENT_CHARACTERS,
-  } = SELF_SERVE_PAGE;
-  const { cx, variant = "point-of-sales", register, dataRedux } = props;
+    cx,
+    data,
+    variant,
+    register,
+    unregister,
+    dataRedux,
+  } = props;
+  const { listDropdown, textField } = data;
+
+  /**
+   * Handle unregister if fields are hidden
+   */
+  useEffect(() => {
+    if (!_.isEqual(variant, "fulfillment-over-a-period-of-time")) {
+      unregister([
+        "POS.deliveryTimeToCustomers",
+        "POS.percentageOfProductsNotFulfilledImmediately",
+      ]);
+    }
+  }, [variant]);
+
   return (
     <Box className={cx("fulfillment-over-a-period-of-time-wrapper")}>
-      {variant === "point-of-sales" && (
+      {
         <Grid item xs={12}>
           <Grid container className={cx("n-wrap mt-dt-40")}>
-            {/* {Dropdown & Description} */}
+            {/* {Please indicate duration} */}
             <Grid item xs={6}>
               {/* {Description} */}
-              {_.has(LIST_PLEASE_INDICATE_DURATION, "description") && (
+              {_.has(listDropdown, "description") && (
                 <Typography
                   className={cx(
                     "fulfilment-information-description input-field-description"
                   )}
                 >
-                  {LIST_PLEASE_INDICATE_DURATION.description}
+                  {listDropdown.description}
                 </Typography>
               )}
 
               {/* {Dropdown} */}
-              <FormControl
-                variant="filled"
-                className={cx("duration-select")}
-                fullWidth
-              >
-                {PLEASE_SELECT_LABEL && (
-                  <InputLabel id="select-duration-label">
-                    {PLEASE_SELECT_LABEL}
-                  </InputLabel>
-                )}
-                <Select
+              {!_.isEmpty(listDropdown) && (
+                <FormControl
+                  variant="filled"
+                  className={cx("duration-select")}
                   fullWidth
-                  labelId="select-duration-label"
-                  id="select-duration"
-                  // defaultValue={
-                  //   _.has(dataRedux, "deliveryTimeToCustomersPOS") &&
-                  //   dataRedux.deliveryTimeToCustomers
-                  // }
-                  {...register("POS.deliveryTimeToCustomers", {
-                    required: false,
-                  })}
                 >
-                  {_.map(
-                    LIST_PLEASE_INDICATE_DURATION.listDropdown,
-                    (item, index) => {
+                  {PLEASE_SELECT_LABEL && (
+                    <InputLabel id="select-duration-label">
+                      {PLEASE_SELECT_LABEL}
+                    </InputLabel>
+                  )}
+                  <Select
+                    fullWidth
+                    labelId="select-duration-label"
+                    id="select-duration"
+                    defaultValue={
+                      _.has(dataRedux, "deliveryTimeToCustomers")
+                        ? dataRedux.deliveryTimeToCustomers
+                        : ""
+                    }
+                    {...register("POS.deliveryTimeToCustomers", {
+                      required: true,
+                    })}
+                  >
+                    {_.map(listDropdown.list, (item, index) => {
                       return (
                         <MenuItem key={index} value={item.value}>
                           {item.name}
                         </MenuItem>
                       );
-                    }
-                  )}
-                </Select>
-              </FormControl>
+                    })}
+                  </Select>
+                </FormControl>
+              )}
             </Grid>
 
-            {/* {TextField & Description} */}
+            {/* {Percentage of products/services not fulfilled immediately} */}
             <Grid item xs={12} md={6}>
               {/* {Description} */}
-              {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY && (
+              {_.has(textField, "description") && (
                 <Typography
                   className={cx(
                     "fulfilment-information-description input-field-description"
                   )}
                 >
-                  {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY}
+                  {textField.description}
                 </Typography>
               )}
 
@@ -108,23 +124,26 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                     ),
                   }}
                   className={cx("percentage-input-field")}
-                  // defaultValue={
-                  //   _.has(
-                  //     dataRedux,
-                  //     "percentageOfProductsNotFulfilledImmediatelyPOS"
-                  //   )
-                  //     ? dataRedux.percentageOfProductsNotFulfilledImmediately
-                  //     : ""
-                  // }
-                  {...register("POS.percentageOfProductsNotFulfilledImmediately", {
-                    required: false,
-                  })}
+                  defaultValue={
+                    _.has(
+                      dataRedux,
+                      "percentageOfProductsNotFulfilledImmediately"
+                    )
+                      ? dataRedux.percentageOfProductsNotFulfilledImmediately
+                      : ""
+                  }
+                  {...register(
+                    "POS.percentageOfProductsNotFulfilledImmediately",
+                    {
+                      required: true,
+                    }
+                  )}
                 />
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-      )}
+      }
     </Box>
   );
 };

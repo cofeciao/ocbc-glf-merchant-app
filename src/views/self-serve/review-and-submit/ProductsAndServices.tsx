@@ -15,6 +15,9 @@ const ProductsAndServices: React.FC<any> = (props) => {
   const { eCommerce, pointOfSales } = data;
   const cx = classnames.bind(styles);
 
+  console.log("optionSelected", optionSelected);
+  
+
   return (
     <Box>
       <Grid container>
@@ -120,7 +123,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
                 Product delivered from
               </Box>
               {_.map(eCommerce.productDeliveredFrom, (item) => {
-                <Box component="span" className={cx("text-item-value")}>
+                return <Box component="span" className={cx("text-item-value")}>
                   {item.name}
                 </Box>;
               })}

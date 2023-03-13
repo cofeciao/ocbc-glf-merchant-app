@@ -1,6 +1,6 @@
 // import modules
 import { Radio } from "@sectionsg/orc";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, TextField, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
@@ -13,7 +13,8 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const BusinessInfomation: React.FC<any> = (props) => {
-  const { listField, register, errors, setValue, dataRedux } = props;
+  const { listField, register, errors, unregister, setValue, dataRedux } =
+    props;
   const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const defaultValueListRadio = LIST_RADIO_YES_NO.filter(
@@ -22,6 +23,12 @@ const BusinessInfomation: React.FC<any> = (props) => {
   const [businessReadyToOperate, setBusinessReadyToOperate] = useState<string>(
     defaultValueListRadio[0].text
   );
+
+  useEffect(() => {
+    if (businessReadyToOperate === "No") {
+      unregister("numberOfOutlets");
+    }
+  }, [businessReadyToOperate]);
 
   return (
     <Box className={cx("business-infomation-wrapper")}>

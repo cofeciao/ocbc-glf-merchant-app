@@ -22,6 +22,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
     optionSelected,
     variant = "point-of-sales",
     register,
+    unregister,
     setValue,
     errors,
   } = props;
@@ -38,7 +39,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
         <Grid container>
           {/* {Business Offering} */}
           <Grid item xs={12}>
-            {!_.isNil(optionSelected) && LABEL_BUSINESS_OFFERING && (
+            {!_.isNil(optionSelected) && businessOffering.title && (
               <Typography className={cx("sub-section-title")}>
                 {LABEL_BUSINESS_OFFERING}
               </Typography>
@@ -63,7 +64,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
 
           {/* {Fulfilment Information} */}
           <Grid item xs={12}>
-            {!_.isNil(optionSelected) && LABEL_FULFILMENT_INFORMATION && (
+            {!_.isNil(optionSelected) && fulfilmentInformation.title && (
               <Typography className={cx("sub-section-title")}>
                 {LABEL_FULFILMENT_INFORMATION}
               </Typography>
@@ -74,13 +75,14 @@ const PointOfSalesForm: React.FC<any> = (props) => {
               dataRedux={dataRedux}
               variant={variant}
               register={register}
+              unregister={unregister}
               setValue={setValue}
             />
           </Grid>
 
           {/* {Sales Forecast} */}
           <Grid item xs={12}>
-            {!_.isNil(optionSelected) && LABEL_SALES_FORECAST && (
+            {!_.isNil(optionSelected) && salesForecast.title && (
               <Typography className={cx("sub-section-title")}>
                 {LABEL_SALES_FORECAST}
               </Typography>
@@ -90,6 +92,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
               data={salesForecast}
               dataRedux={dataRedux}
               register={register}
+              errors={errors}
             />
           </Grid>
         </Grid>
