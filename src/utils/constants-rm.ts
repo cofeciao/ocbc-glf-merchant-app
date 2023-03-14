@@ -9,8 +9,8 @@ export const BUSINESS_OPERATION = "business-operation";
 export const PRODUCTS_SERVICES = "products-services";
 export const FEE_RATES = "fee-rates";
 export const SENSITIVE_DATA = "sensitive-data";
-export const BENEFICIAL_OWNERSHIP = "benefical-ownership";
-export const SUPPLEMENTARY_DOCUMENT = "supplementary-document";
+export const BENEFICIAL_OWNERSHIP = "beneficial-ownership";
+export const SUPPLEMENTARY_DOCUMENT = "supplementary-documents";
 export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 
 export const URL_MANUAL_FLOW = {
@@ -21,7 +21,7 @@ export const URL_MANUAL_FLOW = {
   feeRates: "/rm/fee-rates",
   sensitiveData: "/rm/sensitive-data",
   beneficialOwnership: "/rm/beneficial-ownership",
-  supplementaryDocument: "/rm/supplement-document"
+  supplementaryDocument: "/rm/supplementary-documents"
 };
 
 export const PERSONAL_INFORMATION_SINGPASS = {
@@ -1394,7 +1394,7 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "product-services",
+    id: "products-services",
     numerical: "3",
     text: "Product and services",
     check: false,
@@ -1408,23 +1408,23 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "sensitive",
+    id: "sensitive-data",
     numerical: "5",
     text: "Sensitive data",
     check: false,
     status: true,
   },
   {
-    id: "benefit-ownership",
+    id: "beneficial-ownership",
     numerical: "6",
-    text: "Benefit ownership of company",
+    text: "Beneficial ownership",
     check: false,
     status: true,
   },
   {
-    id: "supplement-documents",
+    id: "supplementary-documents",
     numerical: "7",
-    text: "Supplement documents",
+    text: "Supplementary documents",
     check: false,
     status: true,
   },

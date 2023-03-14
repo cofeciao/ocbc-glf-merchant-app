@@ -1,4 +1,9 @@
-declare namespace IBusinessOperations {
+declare namespace ISupplementaryDocuments {
+
+  export interface IProps {
+    ref: any
+  }
+  
   export interface IUploadImage {
     onChange: (value: any) => void;
     onRemove?: () => void;
@@ -13,4 +18,4 @@ declare namespace IBusinessOperations {
 }
 
 
-export { IBusinessOperations };
+export { ISupplementaryDocuments };
