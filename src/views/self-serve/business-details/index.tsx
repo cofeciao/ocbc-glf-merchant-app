@@ -53,7 +53,6 @@ const BusinessDetails: React.FC<any> = () => {
   const {
     register,
     formState: { errors, isValid, isDirty },
-    watch,
     getValues,
     setValue,
     unregister,
@@ -69,11 +68,6 @@ const BusinessDetails: React.FC<any> = () => {
       placeOrderThroughWebsite: "Yes",
     },
   });
-
-  const watchAll = watch();
-  // Temporarily Hidden
-  console.log("watchAll", watchAll);
-  console.log("businessDetailsStep", businessDetailsStep);
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -116,8 +110,6 @@ const BusinessDetails: React.FC<any> = () => {
       </Button>
     );
   };
-
-  console.log("optionSelected", optionSelected);
 
   // render UI
   return (

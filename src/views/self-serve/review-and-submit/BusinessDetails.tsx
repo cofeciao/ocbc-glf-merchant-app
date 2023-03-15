@@ -43,8 +43,6 @@ const BusinessDetails: React.FC<any> = (props) => {
     (website: string) => website !== ""
   );
 
-  console.log("businessOfferings", businessOfferings);
-
   return (
     <Box>
       {/* {Section Title} */}

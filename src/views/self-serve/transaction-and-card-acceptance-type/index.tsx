@@ -4,14 +4,20 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListCheckBox from "@/components/ListCheckBox";
 import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 
 // import constants
-import { CONTINUE_LATER, LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
+import {
+  CONTINUE_LATER,
+  LIST_ROUTER,
+  NEXT,
+  SELF_SERVE_PAGE,
+} from "@/utils/constants";
 
 // import style
 import styles from "./TransactionAndCardAcceptanceType.scss";
@@ -21,7 +27,7 @@ import styles from "./TransactionAndCardAcceptanceType.scss";
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { Link } from "react-router-dom";
+import ContinueLaterDialog from "../continue-later-dialog";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
@@ -102,9 +108,9 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       )}
     >
       {/* {Category} */}
-      <section className={cx("category-wrapper")}>
+      <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
-      </section>
+      </Box>
 
       {/* {Section Contact details} */}
       <SectionWrapper
@@ -127,7 +133,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Next Button}  */}
-      <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
+      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
         <Button
           backgroundClass="square"
           onClick={() =>
@@ -142,7 +148,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
           </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
-      </section>
+      </Box>
     </Box>
   );
 };
