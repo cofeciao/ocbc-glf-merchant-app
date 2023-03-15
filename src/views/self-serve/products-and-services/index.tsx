@@ -38,7 +38,7 @@ const ProductsAndServices: React.FC<any> = () => {
     LABEL_E_COMMERCE,
     LABEL_POINT_OF_SALES_TERMINAL,
     LIST_STEP: {
-      products_and_service: { text, pointOfSalesForm, ecommerceForm },
+      productsAndService: { text, pointOfSalesForm, ecommerceForm },
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);

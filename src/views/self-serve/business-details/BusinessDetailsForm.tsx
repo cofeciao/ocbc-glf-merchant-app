@@ -25,12 +25,15 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
     <Box className={cx("business-details-form-wrapper")}>
       {/* {Section Business Information} */}
       <SectionWrapper cx={cx} title={businessInfomation.title}>
+        {/* {Sub-title} */}
         {_.has(businessInfomation, "subTitle") &&
           optionSelected === "point-of-sales-e-commerce" && (
             <Typography className={cx("sub-section-title")}>
               {businessInfomation.subTitle}
             </Typography>
           )}
+
+        {/* {Content} */}
         <BusinessInfomation
           listField={businessInfomation.listField}
           dataRedux={dataRedux}
@@ -45,16 +48,21 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
       {/* {Section Website Information} */}
       {websiteInfomation && (
         <SectionWrapper cx={cx} title={websiteInfomation.title}>
+          {/* {Sub-title} */}
           {_.has(websiteInfomation, "subTitle") &&
             optionSelected === "point-of-sales-e-commerce" && (
               <Typography className={cx("sub-section-title")}>
                 {websiteInfomation.subTitle}
               </Typography>
             )}
+
+          {/* {Content} */}
           <WebsiteInformation
             listField={websiteInfomation.listField}
+            optionSelected={optionSelected}
             setValue={setValue}
             register={register}
+            unregister={unregister}
             dataRedux={dataRedux}
           />
         </SectionWrapper>
@@ -63,6 +71,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
       {/* {Section Other information} */}
       {otherInfomation && (
         <SectionWrapper cx={cx} title={otherInfomation.title}>
+          {/* {Content} */}
           <OtherInformation
             dataRedux={dataRedux}
             sections={otherInfomation.sections}

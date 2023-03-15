@@ -11,11 +11,7 @@ import SectionWrapper from "../SectionWrapper";
 import _ from "lodash";
 
 // import constants
-import {
-  LIST_ROUTER,
-  NEXT,
-  SELF_SERVE_PAGE,
-} from "@/utils/constants";
+import { CONTINUE_LATER, LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./TransactionAndCardAcceptanceType.scss";
@@ -31,9 +27,9 @@ import { Link } from "react-router-dom";
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const {
     LIST_STEP: {
-      transaction_and_card_acceptance_type: {
+      transactionAndCardAcceptanceType: {
         text,
-        section: { which_service_are_you_applying_for },
+        section: { whichServiceAreYouApplyingFor },
       },
     },
   } = SELF_SERVE_PAGE;
@@ -42,7 +38,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
-    which_service_are_you_applying_for.data_list_checkbox
+    whichServiceAreYouApplyingFor.data_list_checkbox
   );
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
@@ -113,8 +109,8 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       {/* {Section Contact details} */}
       <SectionWrapper
         cx={cx}
-        title={which_service_are_you_applying_for.title}
-        description={which_service_are_you_applying_for.description}
+        title={whichServiceAreYouApplyingFor.title}
+        description={whichServiceAreYouApplyingFor.description}
       >
         {/* {List Checkbox} */}
         <ListCheckBox
@@ -141,6 +137,9 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
+          <Box className={cx("d-inline")}>
+            <Link to="/">{CONTINUE_LATER}</Link>
+          </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
       </section>

@@ -1,7 +1,17 @@
 // import modules
 import { Radio } from "@sectionsg/orc";
-import React, { useState } from "react";
-import { Box, Button, Grid, TextField, Typography } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import {
+  Box,
+  Button,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
 
@@ -17,13 +27,21 @@ import IconPlus from "@/assets/images/icon-plus.svg";
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
-  const { listField, register, setValue, dataRedux } = props;
-  const { LIST_RADIO_YES_NO, LABEL_ADD_MORE_WEBSITES } = SELF_SERVE_PAGE;
+  const { listField, register, unregister, setValue, dataRedux, optionSelected } = props;
+  const { LIST_RADIO_YES_NO, LABEL_ADD_MORE_WEBSITES, PLEASE_SELECT_LABEL } =
+    SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
+  const [existingWebsite, setExistingWebsite] = useState("Yes")
   const [listTextField, setListTextField] = useState([
     { ...listField.textField },
   ]);
-  const [existingWebsite, setExistingWebsite] = useState("Yes");
+  ;
+
+  useEffect(() => {
+    if (existingWebsite === "Yes" || optionSelected === "point-of-sales") {
+      unregister("websiteLiveDate");
+    }
+  }, [existingWebsite]);
 
   /**
    * After clicking "add more websites" button under the text field, the text field will have 1 more field per click
@@ -69,6 +87,59 @@ const WebsiteInformation: React.FC<any> = (props) => {
             />
           )}
         </Grid>
+
+        {/* {Please indicate the live date of your website} */}
+        {!_.isEqual(optionSelected, "point-of-sales") &&
+          _.isEqual(existingWebsite, "No") && (
+            <Grid item xs={12}>
+              {/* {Description} */}
+              {_.has(listField.dropdownField, "description") && (
+                <Typography className={cx("sub-section-description")}>
+                  {listField.dropdownField.description}
+                </Typography>
+              )}
+
+              {/* {List Select} */}
+              <Grid xs={12} md={4}>
+                <FormControl
+                  variant="filled"
+                  fullWidth
+                >
+                  {/* {Label} */}
+                  {!_.isNil(PLEASE_SELECT_LABEL) && (
+                    <InputLabel htmlFor="select-website-live-date-label">
+                      {PLEASE_SELECT_LABEL}
+                    </InputLabel>
+                  )}
+
+                  {/* {Select} */}
+                  {!_.isEmpty(listField.dropdownField.list) && (
+                    <Select
+                      fullWidth
+                      defaultValue={
+                        _.has(dataRedux, "websiteLiveDate")
+                          ? dataRedux.websiteLiveDate
+                          : ""
+                      }
+                      labelId="select-website-live-date-label"
+                      id="select-website-live-date"
+                      {...register("websiteLiveDate", {
+                        required: true,
+                      })}
+                    >
+                      {_.map(listField.dropdownField.list, (item, index) => {
+                        return (
+                          <MenuItem key={index} value={item.value}>
+                            {item.name}
+                          </MenuItem>
+                        );
+                      })}
+                    </Select>
+                  )}
+                </FormControl>
+              </Grid>
+            </Grid>
+          )}
 
         {/* {Your website’s URL?} */}
         {_.isEqual(existingWebsite, "Yes") && (
