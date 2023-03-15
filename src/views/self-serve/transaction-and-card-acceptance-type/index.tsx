@@ -27,7 +27,6 @@ import styles from "./TransactionAndCardAcceptanceType.scss";
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ContinueLaterDialog from "../continue-later-dialog";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
