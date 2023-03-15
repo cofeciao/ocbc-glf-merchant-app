@@ -39,7 +39,6 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
   const [fileImage, setFileImage] = useState<any>({
     authorisedSignatoryNRIC: [],
     tenacyDocumentOrSiteVisitPhotos: [],
-    license: [],
     copyOfBankStatement: [],
     anyOtherSupportingDocuments: []
   });
@@ -127,23 +126,6 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
               setFileImage({
                 ...fileImage,
                 tenacyDocumentOrSiteVisitPhotos: handleRemove(fileImage.tenacyDocumentOrSiteVisitPhotos, index)
-              })
-            }}
-          />
-        </SectionWrapper>
-
-        <SectionWrapper cx={cx} title="Licenses">
-          <MultipleUploadImages 
-            name="license"
-            values={fileImage.license} 
-            onChange={(file: any) => setFileImage({
-              ...fileImage,
-              license: [...fileImage.license, file]
-            })} 
-            onRemove={(index: number) => {
-              setFileImage({
-                ...fileImage,
-                license: handleRemove(fileImage.license, index)
               })
             }}
           />
