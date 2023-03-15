@@ -319,47 +319,47 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
         </SectionWrapper>
 
         {/* Section Transaction and card acceptance type */}
-        <SectionWrapper cx={cx} title="Transaction and card acceptance type" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Transaction and card acceptance type" isEdit path="/rm/services-applied">
           <TransactionAndCardAcceptanceType cx={cx} data={dataReview.transactionAndCardAcceptanceType}/>
         </SectionWrapper>
 
         {/* Section Fees and rates */}
-        <SectionWrapper cx={cx} title="Fees and rates" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Fees and rates" isEdit path="/rm/fee-rates">
           <FeesAndRates cx={cx} data={dataReview.feesAndRates}/>
         </SectionWrapper>
 
         {/* Section Fee authorisation */}
-        <SectionWrapper cx={cx} title="Fee authorisation" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Fee authorisation" isEdit path="/rm/fee-authorisation">
           <MaintenanceFeeAuthorisation cx={cx} data={dataReview.maintenanceFeeAuthorisation}/>
         </SectionWrapper>
 
         {/* Section Company registeration */}
-        <SectionWrapper cx={cx} title="Company registration" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Company registration" isEdit path="/rm/contact-information">
           <CompanyRegistration cx={cx} data={dataReview.servicesApplied}/>
         </SectionWrapper>
 
         {/* Section Business operation details */}
-        <SectionWrapper cx={cx} title="Business operation details" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Business operation details" isEdit path="/rm/business-operation">
           <BusinessOperationDetails cx={cx} data={dataReview.businessDetails}/>
         </SectionWrapper>
 
         {/* Section Products and services */}
-        <SectionWrapper cx={cx} title="Products and services" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Products and services" isEdit path="/rm/products-services">
           <ProductsAndServices cx={cx} data={dataReview.productsAndServices}/>
         </SectionWrapper>
 
         {/* Section Sensitive data */}
-        <SectionWrapper cx={cx} title="Sensitive data" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Sensitive data" isEdit path="/rm/sensitive-data">
           <SensitiveData cx={cx} data={dataReview.sensitiveData}/>
         </SectionWrapper>
 
         {/* Section Beneficial ownership */}
-        <SectionWrapper cx={cx} title="Beneficial ownership" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Beneficial ownership" isEdit path="/rm/beneficial-ownership">
           <BeneficialOwnership cx={cx} data={dataReview.beneficialOwner}/>
         </SectionWrapper>
 
         {/* Section Supplementary documents */}
-        <SectionWrapper cx={cx} title="Supplementary documents" isEdit handleEdit={() => {}}>
+        <SectionWrapper cx={cx} title="Supplementary documents" isEdit path="/rm/supplementary-documents">
           <SupplementaryDocuments cx={cx} data={dataReview.supplementaryDocuments}/>
         </SectionWrapper>
 
