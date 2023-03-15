@@ -9,6 +9,7 @@ import TransactionAndCardAcceptanceType from "@/views/self-serve/transaction-and
 import BusinessDetails from "@/views/self-serve/business-details";
 import ProductsAndServices from "@/views/self-serve/products-and-services";
 import ReviewAndSubmit from "@/views/self-serve/review-and-submit";
+import { adobeAbandon } from "@/utils/adobeTracking";
 
 // import constants
 import {
@@ -19,7 +20,6 @@ import {
 
 // import style
 import styles from "@/views/self-serve/SelfServe.scss";
-import { adobeAbandon } from "@/utils/adobeTracking";
 
 // import types
 import { ISelfServe } from "./SelfServe";
@@ -28,6 +28,7 @@ import { ISelfServe } from "./SelfServe";
 const SelfServe: React.FC = () => {
   const cx = classnames.bind(styles);
   const { slug } = useParams<{ slug: string }>();
+  const { LIST_STEP } = SELF_SERVE_PAGE;
   const history = useHistory();
 
   /**
@@ -55,7 +56,7 @@ const SelfServe: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (history.action === "POP") {
-      window.location.href = "/";
+      window.location.href = "/glf-merchant-app-staging/";
     }
     let trackingEvent = (window as any).attachEvent || window.addEventListener;
     let chkevent = (window as any).attachEvent
@@ -69,7 +70,7 @@ const SelfServe: React.FC = () => {
    */
   const handleDetectDynamicStepper = () => {
     const dataListStep: ISelfServe.IDataStepper[] = [];
-    Object.values(SELF_SERVE_PAGE.LIST_STEP).forEach((item) => {
+    Object.values(LIST_STEP).forEach((item) => {
       dataListStep.push(item.data);
     });
     return dataListStep;
@@ -91,22 +92,17 @@ const SelfServe: React.FC = () => {
             tabs={<Tabs tabId={slug} dataTabs={handleDetectDynamicStepper()} />}
             content={
               <>
-                {slug ===
-                  SELF_SERVE_PAGE.LIST_STEP.companyAndContactInformation.id && (
+                {slug === LIST_STEP.companyAndContactInformation.id && (
                   <CompanyAndContactInformation />
                 )}
-                {slug ===
-                  SELF_SERVE_PAGE.LIST_STEP.transaction_and_card_acceptance_type
-                    .id && <TransactionAndCardAcceptanceType />}
-                {slug === SELF_SERVE_PAGE.LIST_STEP.business_details.id && (
-                  <BusinessDetails />
+                {slug === LIST_STEP.transactionAndCardAcceptanceType.id && (
+                  <TransactionAndCardAcceptanceType />
                 )}
-                {slug === SELF_SERVE_PAGE.LIST_STEP.products_and_service.id && (
+                {slug === LIST_STEP.businessDetails.id && <BusinessDetails />}
+                {slug === LIST_STEP.productsAndService.id && (
                   <ProductsAndServices />
                 )}
-                {slug === SELF_SERVE_PAGE.LIST_STEP.review_and_submit.id && (
-                  <ReviewAndSubmit />
-                )}
+                {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit />}
               </>
             }
           />
