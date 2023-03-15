@@ -11,6 +11,8 @@ export const FEE_RATES = "fee-rates";
 export const SENSITIVE_DATA = "sensitive-data";
 export const BENEFICIAL_OWNERSHIP = "beneficial-ownership";
 export const SUPPLEMENTARY_DOCUMENT = "supplementary-documents";
+export const REVIEW_SUBMIT = "review-submit";
+
 export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 
 export const URL_MANUAL_FLOW = {
@@ -21,7 +23,9 @@ export const URL_MANUAL_FLOW = {
   feeRates: "/rm/fee-rates",
   sensitiveData: "/rm/sensitive-data",
   beneficialOwnership: "/rm/beneficial-ownership",
-  supplementaryDocument: "/rm/supplementary-documents"
+  supplementaryDocument: "/rm/supplementary-documents",
+  reviewSubmit: "/rm/review-submit",
+
 };
 
 export const PERSONAL_INFORMATION_SINGPASS = {
@@ -1429,7 +1433,7 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "review",
+    id: "review-submit",
     numerical: "8",
     text: "Review and submit",
     check: false,

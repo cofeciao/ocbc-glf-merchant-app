@@ -39,8 +39,6 @@ const WebsiteInformation: React.FC<any> = (props) => {
     name: "items", // unique name for your Field Array
   });
 
-  console.log(fields)
-
   return (
     <Box className={cx("website-information-wrapper")}>
       <Grid container>

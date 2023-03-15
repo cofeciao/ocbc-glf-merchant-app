@@ -1,0 +1,133 @@
+@import '../../../assets/style/variable.scss';
+
+.review-submit {
+
+  & .title {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #777E87;
+  }
+
+  & .content {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #575D65;
+  }
+
+  & .sub-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: #363B40;
+    margin-bottom: 40px;
+  }
+
+  & .MuiTable-root {
+    margin-bottom: 40px;
+    & .MuiTableHead-root {
+      & .MuiTableRow-root {
+        th {
+          font-weight: 700 !important;
+          font-size: 16px !important;
+          line-height: 24px !important;
+          color: #484848 !important;
+        }
+      }
+    }
+    & .MuiTableBody-root {
+      & .MuiTableRow-root {
+        th {
+          font-weight: 700 !important;
+          font-size: 16px !important;
+          line-height: 24px !important;
+          color: #484848 !important;
+        }
+        td {
+          padding: 10px !important;
+        }
+      }
+    }
+  }
+
+  & .review-submit-category {
+    margin-bottom: 56px;
+
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+
+  & .MuiGrid-container {
+    row-gap: 0px !important;
+    column-gap: 0px !important;
+  }
+
+  & .transaction-card-acceptance-type {
+    & .group-item {
+      margin-bottom: 20px;
+    }
+
+    & .group-item:last-child {
+      margin-bottom: 0px;
+    }
+
+    & .group-item-repayment {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 0px;
+      width: 50%;
+      margin-bottom: 20px;
+      padding: 10px;
+    }
+
+    & .group-item-payment-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 0px;
+      width: 80%;
+    }
+
+   
+  }
+
+  & .group-item-fees {
+    margin-bottom: 30px;
+  }
+
+  & .company-registration {
+    & .sub-title {
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+  }
+
+  & .company-registration {
+    & .sub-title {
+      margin-top: 40px;
+      margin-bottom: 0px;
+    }
+  }
+
+  & .products-and-services {
+    & .sub-title {
+      margin-top: 10px;
+      margin-bottom: 0px;
+    }
+  }
+
+  & .beneficial-ownership {
+    & .group-item {
+      & .sub-title {
+        margin-top: 20px;
+      }
+      & .sub-title:first-child {
+        margin-top: 0px;
+      }
+    }
+  }
+}

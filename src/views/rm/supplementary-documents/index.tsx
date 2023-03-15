@@ -27,7 +27,6 @@ import { ISupplementaryDocuments } from "./SupplementaryDocuments";
 
 //import components
 import SectionWrapper from "../SectionWrapper";
-import UploadImage from "../UploadImage";
 import MultipleUploadImages from "../MultipleUploadImages";
 
 const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forwardRef(({  }, ref) => {
@@ -45,9 +44,6 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
     anyOtherSupportingDocuments: []
   });
 
-  console.log(fileImage)
-
-
   /**
    * Handle button prev
    */
@@ -59,7 +55,7 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.supplementaryDocument);
+    history.push(URL_MANUAL_FLOW.reviewSubmit);
   }
 
   /**
