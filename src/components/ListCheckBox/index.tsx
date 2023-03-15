@@ -121,7 +121,7 @@ const ListCheckbox = (props: IListCheckBox) => {
     <FormGroup className={cx("list-checkbox-wrapper")}>
       {_.map(dataCardCheckbox, (item: any, index: number) => {
         return (
-          <Box>
+          <Box key={index}>
             <Grid key={index} item xs={xs} sm={sm} md={md} lg={lg}>
               {/* {Form Control & Checkbox inside} */}
               <FormControlLabel
