@@ -61,11 +61,23 @@
       .header-wrapper {
         margin-bottom: 40px;
         & .section-title {
-          margin-bottom: 16px;
-          font-weight: 700;
-          font-size: $fzH2;
-          line-height: 32px;
-          color: #363b40;
+          display: flex;
+
+          & .title {
+            margin-bottom: 16px;
+            font-weight: 700;
+            font-size: $fzH2;
+            line-height: 32px;
+            color: #363b40;
+          }
+          & .edit {
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #005EFD;
+            padding: 6px 0px 0px 16px;
+          }
         }
   
         & .section-description {
