@@ -33,14 +33,14 @@ const Successful: React.FC<any> = () => {
               <Category>{LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS}</Category>
             </Box>
           </Grid>
-          <Grid item xs={12} lg={9}>
+          <Grid item xs={12} lg={4}>
             <Box className={cx("acknowledgement-wrapper")}>
               <img
                 src={AcknowledgementSuccess}
                 alt="successful-image"
                 className={cx("acknowledgement-image")}
               />
-              <Box className={cx("acknowledgement-title")}>
+              <Box className={cx("acknowledgement-title mb-24")}>
                 {LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION}
               </Box>
               <Box className={cx("acknowledgement-description")}>
