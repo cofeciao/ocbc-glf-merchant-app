@@ -56,7 +56,7 @@ const SelfServe: React.FC = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (history.action === "POP") {
-      window.location.href = process.env.activeRule
+      window.location.href = (process.env.myinfo as any).redirectUri
     }
     let trackingEvent = (window as any).attachEvent || window.addEventListener;
     let chkevent = (window as any).attachEvent
