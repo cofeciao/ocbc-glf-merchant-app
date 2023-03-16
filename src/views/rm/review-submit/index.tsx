@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useState } from "react";
 import {
   Loading,
   Button,
@@ -7,10 +7,8 @@ import {
 } from '@sectionsg/orc';
 import { Link } from "react-router-dom";
 import { Box } from "@material-ui/core";
-import { useHistory } from "react-router";
-import { useForm } from "react-hook-form";
+import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 //import icon
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -37,14 +35,43 @@ import SensitiveData from "./SensitiveData";
 import ProductsAndServices from "./ProductsAndServices";
 import CompanyRegistration from "./CompanyRegistration";
 import BusinessOperationDetails from "./BusinessOperationDetails";
+import Declaration from "./Declaration";
 
 const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   const dispatch = useDispatch();
+  const { slug } = useParams<{ slug: string }>();
+
+  console.log(slug)
 
   // States
   const [loading, setLoading] = useState(false);
+  const [isDeclaration, setIsDeclaration] = useState<boolean>(false);
+  const [dataDeclaration, setDataDeclaration] = useState<any>({
+    valueRadio: "sign_on_device",
+    reviewTheFolowing: {
+      authoriseOCBC: false,
+      schedules: false,
+      settlement: false,
+      immediate: false,
+      merchant: false
+    },
+    provision: {
+      declareInformation: false,
+      authorise: false,
+      declareConfirm: false
+    },
+    signOnDevice: '',
+    uploadFile: ''
+  });
+  
+  const { authoriseOCBC, schedules, settlement, immediate, merchant } = dataDeclaration.reviewTheFolowing;
+  const { declareInformation, authorise, declareConfirm } = dataDeclaration.provision;
+  
+  // check validate for declare
+  const errorReviewTheFollowing = [authoriseOCBC, schedules, settlement, immediate, merchant].filter((v) => v).length !== 0;
+  const errorProvision = [declareInformation, authorise, declareConfirm].filter((v) => v).length !== 0; 
 
   const dataReview = {
     transactionAndCardAcceptanceType: {
@@ -272,32 +299,53 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.supplementaryDocument)
+    setIsDeclaration(false);
+    if (!isDeclaration) { 
+      history.push(URL_MANUAL_FLOW.supplementaryDocument)
+    }
   }
 
    /**
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.supplementaryDocument);
+    setIsDeclaration(true);
   }
 
     /**
    * render UI Button
    * @returns {HTML}
    */
-    const renderButton = () => {
+  const renderButton = () => {
+    if (isDeclaration) {
       return (
         <Button 
           backgroundClass="bgGunmetalBluegrey" 
-          onClick={handleNext}
-          // disabled={!isValid || !isDirty}
+          onClick={() => {
+            history.push("/rm/acknowledgement/successful")
+            // history.push("/rm/acknowledgement/failed")
+          }}
+          disabled={!errorReviewTheFollowing || 
+            !errorProvision || 
+            !dataDeclaration.signOnDevice || 
+            !dataDeclaration.uploadFile
+          }
         >
-          Next
+          Submit
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
         </Button>
       )
     }
+    return (
+      <Button 
+        backgroundClass="bgGunmetalBluegrey" 
+        onClick={handleNext}
+      >
+        Next
+        <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
+      </Button>
+    )
+  }
 
   return (
     <React.Fragment>
@@ -307,79 +355,90 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
           </div>
         </div>
       }
-
-      <Box className={cx('review-submit')}>
-        <div className="review-submit-category" >
-          <Category class="title">Review and submit</Category>
-        </div>
-
-        {/* Section Cashless payment method */}
-        <SectionWrapper cx={cx} title="Cashless payment method(s)">
-          <CashPaymentMethod cx={cx} data={dataReview.transactionAndCardAcceptanceType}/>
-        </SectionWrapper>
-
-        {/* Section Transaction and card acceptance type */}
-        <SectionWrapper cx={cx} title="Transaction and card acceptance type" isEdit path="/rm/services-applied">
-          <TransactionAndCardAcceptanceType cx={cx} data={dataReview.transactionAndCardAcceptanceType}/>
-        </SectionWrapper>
-
-        {/* Section Fees and rates */}
-        <SectionWrapper cx={cx} title="Fees and rates" isEdit path="/rm/fee-rates">
-          <FeesAndRates cx={cx} data={dataReview.feesAndRates}/>
-        </SectionWrapper>
-
-        {/* Section Fee authorisation */}
-        <SectionWrapper cx={cx} title="Fee authorisation" isEdit path="/rm/fee-authorisation">
-          <MaintenanceFeeAuthorisation cx={cx} data={dataReview.maintenanceFeeAuthorisation}/>
-        </SectionWrapper>
-
-        {/* Section Company registeration */}
-        <SectionWrapper cx={cx} title="Company registration" isEdit path="/rm/contact-information">
-          <CompanyRegistration cx={cx} data={dataReview.servicesApplied}/>
-        </SectionWrapper>
-
-        {/* Section Business operation details */}
-        <SectionWrapper cx={cx} title="Business operation details" isEdit path="/rm/business-operation">
-          <BusinessOperationDetails cx={cx} data={dataReview.businessDetails}/>
-        </SectionWrapper>
-
-        {/* Section Products and services */}
-        <SectionWrapper cx={cx} title="Products and services" isEdit path="/rm/products-services">
-          <ProductsAndServices cx={cx} data={dataReview.productsAndServices}/>
-        </SectionWrapper>
-
-        {/* Section Sensitive data */}
-        <SectionWrapper cx={cx} title="Sensitive data" isEdit path="/rm/sensitive-data">
-          <SensitiveData cx={cx} data={dataReview.sensitiveData}/>
-        </SectionWrapper>
-
-        {/* Section Beneficial ownership */}
-        <SectionWrapper cx={cx} title="Beneficial ownership" isEdit path="/rm/beneficial-ownership">
-          <BeneficialOwnership cx={cx} data={dataReview.beneficialOwner}/>
-        </SectionWrapper>
-
-        {/* Section Supplementary documents */}
-        <SectionWrapper cx={cx} title="Supplementary documents" isEdit path="/rm/supplementary-documents">
-          <SupplementaryDocuments cx={cx} data={dataReview.supplementaryDocuments}/>
-        </SectionWrapper>
-
-       
-        {/* Section button  */}
-        <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
-          <Button backgroundClass="square" onClick={handlePrev}>
-            <ArrowBackIcon className={cx('arrow')} />
-          </Button>
-          <div>
-            <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
-            </div>
-            <div className="ml-dt-30 d-inline">
-              {renderButton()}
-            </div>
+      {/* Review and Submit Page */}
+      {!isDeclaration && (
+        <Box className={cx('review-submit')}>
+          <div className="review-submit-category" >
+            <Category class="title">Review and submit</Category>
           </div>
-        </section>
-    </Box>
-  </React.Fragment>
+
+          {/* Section Cashless payment method */}
+          <SectionWrapper cx={cx} title="Cashless payment method(s)">
+            <CashPaymentMethod cx={cx} data={dataReview.transactionAndCardAcceptanceType}/>
+          </SectionWrapper>
+
+          {/* Section Transaction and card acceptance type */}
+          <SectionWrapper cx={cx} title="Transaction and card acceptance type" isEdit path="/rm/services-applied">
+            <TransactionAndCardAcceptanceType cx={cx} data={dataReview.transactionAndCardAcceptanceType}/>
+          </SectionWrapper>
+
+          {/* Section Fees and rates */}
+          <SectionWrapper cx={cx} title="Fees and rates" isEdit path="/rm/fee-rates">
+            <FeesAndRates cx={cx} data={dataReview.feesAndRates}/>
+          </SectionWrapper>
+
+          {/* Section Fee authorisation */}
+          <SectionWrapper cx={cx} title="Fee authorisation" isEdit path="/rm/fee-authorisation">
+            <MaintenanceFeeAuthorisation cx={cx} data={dataReview.maintenanceFeeAuthorisation}/>
+          </SectionWrapper>
+
+          {/* Section Company registeration */}
+          <SectionWrapper cx={cx} title="Company registration" isEdit path="/rm/contact-information">
+            <CompanyRegistration cx={cx} data={dataReview.servicesApplied}/>
+          </SectionWrapper>
+
+          {/* Section Business operation details */}
+          <SectionWrapper cx={cx} title="Business operation details" isEdit path="/rm/business-operation">
+            <BusinessOperationDetails cx={cx} data={dataReview.businessDetails}/>
+          </SectionWrapper>
+
+          {/* Section Products and services */}
+          <SectionWrapper cx={cx} title="Products and services" isEdit path="/rm/products-services">
+            <ProductsAndServices cx={cx} data={dataReview.productsAndServices}/>
+          </SectionWrapper>
+
+          {/* Section Sensitive data */}
+          <SectionWrapper cx={cx} title="Sensitive data" isEdit path="/rm/sensitive-data">
+            <SensitiveData cx={cx} data={dataReview.sensitiveData}/>
+          </SectionWrapper>
+
+          {/* Section Beneficial ownership */}
+          <SectionWrapper cx={cx} title="Beneficial ownership" isEdit path="/rm/beneficial-ownership">
+            <BeneficialOwnership cx={cx} data={dataReview.beneficialOwner}/>
+          </SectionWrapper>
+
+          {/* Section Supplementary documents */}
+          <SectionWrapper cx={cx} title="Supplementary documents" isEdit path="/rm/supplementary-documents">
+            <SupplementaryDocuments cx={cx} data={dataReview.supplementaryDocuments}/>
+          </SectionWrapper>
+        </Box>
+      )}
+
+      {/* Declaration Page */}
+      {isDeclaration && (
+        <Box className={cx('declaration')}>
+          <div className="declaration-category" >
+            <Category class="title">Declaration</Category>
+          </div>
+          <Declaration cx={cx} dataDeclaration={dataDeclaration} setDataDeclaration={setDataDeclaration} />
+        </Box>
+      )}
+
+      {/* Section button  */}
+      <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
+        <Button backgroundClass="square" onClick={handlePrev}>
+          <ArrowBackIcon className={cx('arrow')} />
+        </Button>
+        <div>
+          <div className={cx('d-inline')}>
+            <Link to="/">Continue later</Link>
+          </div>
+          <div className="ml-dt-30 d-inline">
+            {renderButton()}
+          </div>
+        </div>
+      </section>
+    </React.Fragment>
   )
 });
 

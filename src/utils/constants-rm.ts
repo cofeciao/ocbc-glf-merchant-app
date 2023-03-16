@@ -2,6 +2,7 @@ export const TITLE_PAGE = "Cashless Payments Application";
 export const ERROR = "error";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 export const WElCOME_LOGIN = "Welcome!"
+export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 
 export const CONTACT_INFORMATION = "contact-information";
 export const SERVICES_APPLIED = "services-applied";
@@ -12,8 +13,7 @@ export const SENSITIVE_DATA = "sensitive-data";
 export const BENEFICIAL_OWNERSHIP = "beneficial-ownership";
 export const SUPPLEMENTARY_DOCUMENT = "supplementary-documents";
 export const REVIEW_SUBMIT = "review-submit";
-
-export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
+export const DECLARATION = "declaration";
 
 export const URL_MANUAL_FLOW = {
   contactInformation: "/rm/contact-information",
@@ -25,7 +25,7 @@ export const URL_MANUAL_FLOW = {
   beneficialOwnership: "/rm/beneficial-ownership",
   supplementaryDocument: "/rm/supplementary-documents",
   reviewSubmit: "/rm/review-submit",
-
+  declaration: "/rm/declaration",
 };
 
 export const PERSONAL_INFORMATION_SINGPASS = {
@@ -1441,6 +1441,12 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
   },
 ];
 
+export const RM_ACKNOWLEDGEMENT_PAGE = {
+  TITLE_SUCCESSFUL: "Great, we have received your application!",
+  TITLE_FAIL: "We are unable to submit the application at the moment",
+  SUB_TITLE_FAIL: "Try again later"
+};
+
 
 // Step
 export const STEP_RM = {
@@ -1940,5 +1946,92 @@ export const STEP_RM = {
         }
       },
     },
+    reviewAndSubmit: {
+      id: "review_and_submit",
+      numerical: "0",
+      text: "Review and submit",
+      check: false,
+      status: true,
+      data: {
+        id: "review_and_submit",
+        numerical: "0",
+        text: "Review and submit",
+        check: false,
+        status: true,
+      },
+    },
+    declaration: {
+      id: "declaration",
+      numerical: "11",
+      text: "DECLARATION",
+      check: false,
+      status: true,
+      data: {
+        id: "declaration",
+        numerical: "11",
+        text: "DECLARATION",
+        check: false,
+        status: true,
+      },
+      section: {
+        reviewTheFollowing: {
+          title: "Please review the following:",
+          listCheckboxReviewTheFollowing:[
+            {
+              label: "I/We authorise OCBC to deduct the annual fees from my account",
+              value: "authoriseOCBC",
+            },
+            {
+              label: "I/We declare that I/we have read the schedules.pdf",
+              value: "schedules"
+            },
+            {
+              label: "I/We declare that I/we have read the settlement frequency.pdf ",
+              value: "settlement"
+            },
+            {
+              label: "I/We declare that I/we have read the immediate fulfilment.pdf",
+              value: "immediate"
+            },
+            {
+              label: "I/We declare that I/we have read the merchant agreement.pdf",
+              value: "merchant"
+            }
+          ]
+        },
+        provision: {
+          title: "Before submitting your application, please ensure that you read the following:",
+          listCheckboxProvision: [
+            {
+              label: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+              value: "declareInformation",
+            },
+            {
+              label: "I/We hereby authorise you and give you consent to conduct credit checks on me/the Company, including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore, and to obtain and verify and/or to disclose any information from or to any party or source as you may from time to time deem fit at your own discretion and without any liability or notice to me/us.",
+              value: "authorise"
+            },
+            {
+              label: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+              value: "declareConfirm"
+            },
+          ]
+        },
+        signature: {
+          title: "How would you like to capture your signature?",
+          listRadio: [
+            {
+              label: "Sign on device",
+              value: "sign_on_device",
+              checked: false,
+            },
+            {
+              label: "Upload",
+              value: "upload",
+              checked: false,
+            },
+          ],
+        }
+      }
+    }
   },
 };

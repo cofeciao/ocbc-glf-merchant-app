@@ -1,7 +1,6 @@
 @import '../../../assets/style/variable.scss';
 
 .review-submit {
-
   & .title {
     font-weight: 400;
     font-size: 14px;
@@ -130,4 +129,73 @@
       }
     }
   }
+}
+
+.declaration {
+  & .declaration-category {
+    margin-bottom: 56px;
+
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+
+  & .MuiFormControl-root {
+    margin-bottom: 20px;
+  }
+
+  & .ensure-that-you-read {
+    & .MuiFormControlLabel-root {
+      margin-bottom: 16px;
+    }
+  }
+
+  & .sign-on-device {
+    & .clear-signature {
+      text-align: right;
+      margin-bottom: 20px;
+      cursor: pointer;
+      color: #005EFD;
+    }
+    & .sigCanvas {
+      border: 1px dashed #97A1AE;
+      border-radius: 5px;
+    }
+
+  }
+
+  & .checkbox-wrapper {
+    & .group-checkbox {  
+      & .MuiFormLabel-root {
+        font-weight: 400;
+          font-size: 18px;
+          line-height: 28px;
+          color: #777E87;
+      }
+      
+      & .MuiFormGroup-root {
+        margin: 18px 0px 18px 0px;
+        justify-content: space-between;
+        
+        & .MuiFormControlLabel-root {
+          margin-right: 40px;
+        }
+
+        & .MuiCheckbox-colorPrimary.Mui-checked {
+          color: #3D525D;
+        }
+  
+        & .MuiFormControlLabel-label {
+          font-weight: 600;
+          font-size: 16px;
+          color: $tundora;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+
 }
