@@ -34,36 +34,36 @@ const SelfServe: React.FC = () => {
   /**
    * add event listener to handle page reload
    */
-  // useEffect(() => {
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, []);
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   /**
    * Detect reload and show alert
    * @param event
    */
-  // const handleBeforeUnload = (event: any) => {
-  //   event.preventDefault();
-  //   event.returnValue = "";
-  // };
+  const handleBeforeUnload = (event: any) => {
+    event.preventDefault();
+    event.returnValue = "";
+  };
 
   /**
    * Detect reload page and start again
    */
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   if (history.action === "POP") {
-  //     window.location.href = (process.env.myinfo as any).redirectUri
-  //   }
-  //   let trackingEvent = (window as any).attachEvent || window.addEventListener;
-  //   let chkevent = (window as any).attachEvent
-  //     ? "onbeforeunload"
-  //     : "beforeunload";
-  //   trackingEvent(chkevent, adobeAbandon);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (history.action === "POP") {
+      window.location.href = (process.env.myinfo as any).redirectUri
+    }
+    let trackingEvent = (window as any).attachEvent || window.addEventListener;
+    let chkevent = (window as any).attachEvent
+      ? "onbeforeunload"
+      : "beforeunload";
+    trackingEvent(chkevent, adobeAbandon);
+  }, []);
 
   /**
    * Dynamic stepper
