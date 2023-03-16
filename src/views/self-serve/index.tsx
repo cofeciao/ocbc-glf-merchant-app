@@ -51,12 +51,12 @@ const SelfServe: React.FC = () => {
   };
 
   /**
-   * Detect reload and redirect to "/"
+   * Detect reload page and start again
    */
   useEffect(() => {
     window.scrollTo(0, 0);
     if (history.action === "POP") {
-      window.location.href = "/glf-merchant-app-staging/";
+      window.location.href = process.env.activeRule
     }
     let trackingEvent = (window as any).attachEvent || window.addEventListener;
     let chkevent = (window as any).attachEvent
