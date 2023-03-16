@@ -51,6 +51,12 @@ declare namespace IReviewSubmit {
     cx: any;
     data: any;
   }
+
+  export interface IDeclaration {
+    cx: any;
+    dataDeclaration: any;
+    setDataDeclaration: (values: any) => void;
+  }
 }
 
 

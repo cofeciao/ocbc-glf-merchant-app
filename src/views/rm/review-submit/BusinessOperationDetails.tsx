@@ -7,8 +7,6 @@ import { IReviewSubmit } from "./ReviewSubmit";
 const BusinessOperationDetails: React.FC<IReviewSubmit.IBusinessOperationDetails> = (props) => {
   const { cx, data } = props;
 
-  console.log(data);
-
   /**
    * render UI
    * @returns {HTML}

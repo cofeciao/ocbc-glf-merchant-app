@@ -18,6 +18,7 @@ import {
   BUSINESS_OPERATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
+  DECLARATION, 
   FEE_RATES, 
   PRODUCTS_SERVICES, 
   REVIEW_SUBMIT, 
@@ -44,7 +45,7 @@ import ReviewSubmit from './review-submit';
 // render UI
 const ContainerManual = () => {
   // hooks
-  const { slug } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const history = useHistory();
   const childRef: any = useRef();
   const dispatch = useDispatch();
@@ -126,7 +127,6 @@ const ContainerManual = () => {
                 {slug === BENEFICIAL_OWNERSHIP && <BeneficialOwnership ref={childRef} />}
                 {slug === SUPPLEMENTARY_DOCUMENT && <SupplementaryDocuments ref={childRef} />}
                 {slug === REVIEW_SUBMIT && <ReviewSubmit ref={childRef} />}
-
               </>
             )}
           />
