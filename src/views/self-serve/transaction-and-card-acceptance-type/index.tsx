@@ -127,7 +127,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
           sm={6}
           xs={12}
           checkboxKey={key}
-          getValue={(value: any) => console.log(value)}
+          getValue={getDataFromListCheckbox}
         />
       </SectionWrapper>
 
