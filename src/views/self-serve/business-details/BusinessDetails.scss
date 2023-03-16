@@ -57,6 +57,24 @@
     }
   }
 
+  .website-information-wrapper {
+    & .website-url-group-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      & .website-url-wrapper {
+        background: #ffffff;
+        box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+        padding: 30px 24px 24px;
+        & .remove-label {
+          color: #005efd !important;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
   .other-information-wrapper {
     display: flex;
     flex-direction: column;

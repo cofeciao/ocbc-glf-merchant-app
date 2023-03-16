@@ -1,11 +1,7 @@
 // import modules
 import React from "react";
 import { Checkbox } from "@sectionsg/orc";
-import {
-  Box,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
 
@@ -31,8 +27,8 @@ const OtherInformation: React.FC<any> = (props) => {
       <Grid container>
         <Grid item xs={12}>
           {/* {Description} */}
-          {_.isEmpty(listCheckboxBusinessOfferings.description) && (
-            <Typography className={cx("sub-section-description")}>
+          {!_.isEmpty(listCheckboxBusinessOfferings.description) && (
+            <Typography className={cx("sub-section-description mb-16")}>
               {listCheckboxBusinessOfferings.description}
             </Typography>
           )}
@@ -41,11 +37,7 @@ const OtherInformation: React.FC<any> = (props) => {
           {!_.isEmpty(listCheckboxBusinessOfferings.list) && (
             <Checkbox
               isFullWidth
-              list={
-                !_.isEmpty(dataRedux.businessOfferings)
-                  ? dataRedux.businessOfferings
-                  : listCheckboxBusinessOfferings.list
-              }
+              list={listCheckboxBusinessOfferings.list}
               checkBoxClass={cx("business-offerings-checkbox")}
               getValue={(value: any) => {
                 setValue("businessOfferings", value);
@@ -59,7 +51,7 @@ const OtherInformation: React.FC<any> = (props) => {
         <Grid item xs={12}>
           {/* {Description} */}
           {listCheckboxAvailableSpaces.description && (
-            <Typography className={cx("sub-section-description")}>
+            <Typography className={cx("sub-section-description mb-16")}>
               {listCheckboxAvailableSpaces.description}
             </Typography>
           )}
@@ -68,11 +60,7 @@ const OtherInformation: React.FC<any> = (props) => {
           {!_.isEmpty(listCheckboxAvailableSpaces.list) && (
             <Checkbox
               isFullWidth
-              list={
-                !_.isEmpty(dataRedux.availableSpaces)
-                  ? dataRedux.availableSpaces
-                  : listCheckboxAvailableSpaces.list
-              }
+              list={listCheckboxAvailableSpaces.list}
               checkBoxClass={cx("available-spaces-checkbox")}
               getValue={(value: any) => {
                 setValue("availableSpaces", value);
