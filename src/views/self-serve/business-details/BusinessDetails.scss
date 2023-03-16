@@ -57,4 +57,18 @@
     }
   }
 
+  .other-information-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    & .business-offerings-checkbox,
+    .available-spaces-checkbox {
+      & .MuiGrid-container {
+        gap: unset;
+      }
+    }
+    .MuiFormGroup-root {
+      margin-top: 0px;
+    }
+  }
 }

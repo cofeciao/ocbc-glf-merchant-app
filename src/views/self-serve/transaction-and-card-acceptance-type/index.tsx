@@ -4,14 +4,16 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListCheckBox from "@/components/ListCheckBox";
 import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
+import { Link } from "react-router-dom";
 import _ from "lodash";
 
 // import constants
 import {
+  CONTINUE_LATER,
   LIST_ROUTER,
   NEXT,
   SELF_SERVE_PAGE,
@@ -25,15 +27,14 @@ import styles from "./TransactionAndCardAcceptanceType.scss";
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { Link } from "react-router-dom";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const {
     LIST_STEP: {
-      transaction_and_card_acceptance_type: {
+      transactionAndCardAcceptanceType: {
         text,
-        section: { which_service_are_you_applying_for },
+        section: { whichServiceAreYouApplyingFor },
       },
     },
   } = SELF_SERVE_PAGE;
@@ -42,7 +43,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
-    which_service_are_you_applying_for.data_list_checkbox
+    whichServiceAreYouApplyingFor.data_list_checkbox
   );
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
@@ -106,15 +107,15 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       )}
     >
       {/* {Category} */}
-      <section className={cx("category-wrapper")}>
+      <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
-      </section>
+      </Box>
 
       {/* {Section Contact details} */}
       <SectionWrapper
         cx={cx}
-        title={which_service_are_you_applying_for.title}
-        description={which_service_are_you_applying_for.description}
+        title={whichServiceAreYouApplyingFor.title}
+        description={whichServiceAreYouApplyingFor.description}
       >
         {/* {List Checkbox} */}
         <ListCheckBox
@@ -131,7 +132,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Next Button}  */}
-      <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
+      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
         <Button
           backgroundClass="square"
           onClick={() =>
@@ -141,9 +142,12 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
           <ArrowBackIcon className={cx("arrow")} />
         </Button>
         <Box>
+          <Box className={cx("d-inline")}>
+            <Link to="/">{CONTINUE_LATER}</Link>
+          </Box>
           <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
         </Box>
-      </section>
+      </Box>
     </Box>
   );
 };

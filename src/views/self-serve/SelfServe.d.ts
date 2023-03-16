@@ -1,27 +1,17 @@
 declare namespace ISelfServe {
-  export interface IDataCheckItem {
-    data: any,
-    checked: boolean,
-    name: string,
-    statusError: boolean,
+  export interface ISectionWrapper {
+    title?: JSX.Element | string;
+    description?: string;
+    cx?: any;
+    edit?: string;
+    children?: string | JSX.Element | JSX.Element[];
   }
-
-  export interface IListSelect {
-    label: JSX.Element | string,
-    description?: string,
-    checked: boolean
-  }
-
-  export interface IItemCheckbox {
-    label: string,
-    checked: boolean
-  }
-
-  export interface IHome {
-    cx: any,
-    checkboxKey: number,
-    dataCardCheckbox: IListSelect[],
-    handleGetValueCheckbox: (value: IDataCheckItem) => void
+  export interface IDataStepper {
+    id: string;
+    numerical: string;
+    text: string;
+    check: boolean;
+    status: boolean;
   }
 }
 

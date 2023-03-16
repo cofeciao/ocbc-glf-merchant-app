@@ -1,6 +1,6 @@
 // import modules
 import { Category, Button } from "@sectionsg/orc";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveDataBusinessDetailsStep,
@@ -33,9 +33,9 @@ import { Link } from "react-router-dom";
 const BusinessDetails: React.FC<any> = () => {
   const {
     LIST_STEP: {
-      business_details: {
+      businessDetails: {
         text,
-        forms: { pointOfSales, pointOfSalesAndEcommerce, ecommerce },
+        forms: { sections },
       },
     },
   } = SELF_SERVE_PAGE;
@@ -53,7 +53,6 @@ const BusinessDetails: React.FC<any> = () => {
   const {
     register,
     formState: { errors, isValid, isDirty },
-    watch,
     getValues,
     setValue,
     unregister,
@@ -70,11 +69,6 @@ const BusinessDetails: React.FC<any> = () => {
     },
   });
 
-  const watchAll = watch();
-  // Temporarily Hidden
-  // console.log("watchAll", watchAll);
-  // console.log("businessDetailsStep", businessDetailsStep);
-
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
    * return: "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
@@ -82,6 +76,7 @@ const BusinessDetails: React.FC<any> = () => {
   const optionSelected = useSelector((state: any) =>
     state.form.transactionAndCardAcceptanceTypeStep
       .map((item: any) => (item.checked === true ? item.value : ""))
+      .filter((item: string) => item !== "")
       .join("-")
   );
 
@@ -132,13 +127,7 @@ const BusinessDetails: React.FC<any> = () => {
       <BusinessDetailsForm
         cx={cx}
         optionSelected={optionSelected}
-        data={
-          optionSelected === "-e-commerce"
-            ? ecommerce.sections
-            : optionSelected === "point-of-sales-"
-            ? pointOfSales.sections
-            : pointOfSalesAndEcommerce.sections
-        }
+        data={sections}
         dataRedux={businessDetailsStep}
         register={register}
         unregister={unregister}

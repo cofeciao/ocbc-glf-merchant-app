@@ -1,81 +1,76 @@
 // import modules
-import {
-  Header,
-  Footer,
-  FormLayout,
-  Tabs,
-} from "@sectionsg/orc";
 import React, { useEffect } from "react";
 import { useHistory, useParams } from "react-router";
 import { Container } from "@material-ui/core";
 import classnames from "classnames/bind";
+import { Header, Footer, FormLayout, Tabs } from "@sectionsg/orc";
 import CompanyAndContactInformation from "@/views/self-serve/company-and-contact-information";
-import TransactionAndCardAcceptanceType from "./transaction-and-card-acceptance-type";
-import BusinessDetails from "./business-details";
-import ProductsAndServices from "./products-and-services";
-import ReviewAndSubmit from "./review-and-submit";
+import TransactionAndCardAcceptanceType from "@/views/self-serve/transaction-and-card-acceptance-type";
+import BusinessDetails from "@/views/self-serve/business-details";
+import ProductsAndServices from "@/views/self-serve/products-and-services";
+import ReviewAndSubmit from "@/views/self-serve/review-and-submit";
+import { adobeAbandon } from "@/utils/adobeTracking";
 
 // import constants
 import {
   TITLE_PAGE,
   LINK_EXTERNAL_PAGE,
-  NEXT,
   SELF_SERVE_PAGE,
 } from "../../utils/constants";
 
 // import style
-import styles from "./SelfServe.scss";
-import { adobeAbandon } from "@/utils/adobeTracking";
+import styles from "@/views/self-serve/SelfServe.scss";
 
 // import types
+import { ISelfServe } from "./SelfServe";
 
 // render UI
-const SelfServe = () => {
+const SelfServe: React.FC = () => {
   const cx = classnames.bind(styles);
   const { slug } = useParams<{ slug: string }>();
-  const [shouldRedirect, setShouldRedirect] = React.useState(false);
+  const { LIST_STEP } = SELF_SERVE_PAGE;
   const history = useHistory();
 
   /**
    * add event listener to handle page reload
    */
-  // useEffect(() => {
-  //   window.addEventListener("beforeunload", handleBeforeUnload);
-  //   return () => {
-  //     window.removeEventListener("beforeunload", handleBeforeUnload);
-  //   };
-  // }, []);
+  useEffect(() => {
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   /**
    * Detect reload and show alert
    * @param event
    */
-  // const handleBeforeUnload = (event: any) => {
-  //   event.preventDefault();
-  //   event.returnValue = "";
-  // };
+  const handleBeforeUnload = (event: any) => {
+    event.preventDefault();
+    event.returnValue = "";
+  };
 
   /**
-   * Detect reload and redirect to "/"
+   * Detect reload page and start again
    */
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  //   if (history.action === "POP") {
-  //     window.location.href = "/";
-  //   }
-  //   let trackingEvent = (window as any).attachEvent || window.addEventListener;
-  //   let chkevent = (window as any).attachEvent
-  //     ? "onbeforeunload"
-  //     : "beforeunload";
-  //   trackingEvent(chkevent, adobeAbandon);
-  // }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (history.action === "POP") {
+      window.location.href = process.env.activeRule
+    }
+    let trackingEvent = (window as any).attachEvent || window.addEventListener;
+    let chkevent = (window as any).attachEvent
+      ? "onbeforeunload"
+      : "beforeunload";
+    trackingEvent(chkevent, adobeAbandon);
+  }, []);
 
   /**
    * Dynamic stepper
    */
   const handleDetectDynamicStepper = () => {
-    const dataListStep: any = [];
-    Object.values(SELF_SERVE_PAGE.LIST_STEP).forEach((item) => {
+    const dataListStep: ISelfServe.IDataStepper[] = [];
+    Object.values(LIST_STEP).forEach((item) => {
       dataListStep.push(item.data);
     });
     return dataListStep;
@@ -97,21 +92,17 @@ const SelfServe = () => {
             tabs={<Tabs tabId={slug} dataTabs={handleDetectDynamicStepper()} />}
             content={
               <>
-                {slug ===
-                  SELF_SERVE_PAGE.LIST_STEP.company_and_contact_information
-                    .id && <CompanyAndContactInformation />}
-                {slug ===
-                  SELF_SERVE_PAGE.LIST_STEP.transaction_and_card_acceptance_type
-                    .id && <TransactionAndCardAcceptanceType />}
-                {slug === SELF_SERVE_PAGE.LIST_STEP.business_details.id && (
-                  <BusinessDetails />
+                {slug === LIST_STEP.companyAndContactInformation.id && (
+                  <CompanyAndContactInformation />
                 )}
-                {slug === SELF_SERVE_PAGE.LIST_STEP.products_and_service.id && (
+                {slug === LIST_STEP.transactionAndCardAcceptanceType.id && (
+                  <TransactionAndCardAcceptanceType />
+                )}
+                {slug === LIST_STEP.businessDetails.id && <BusinessDetails />}
+                {slug === LIST_STEP.productsAndService.id && (
                   <ProductsAndServices />
                 )}
-                {slug === SELF_SERVE_PAGE.LIST_STEP.review_and_submit.id && (
-                  <ReviewAndSubmit />
-                )}
+                {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit />}
               </>
             }
           />
