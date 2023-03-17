@@ -1,5 +1,5 @@
 // import modules
-import { Category, Button } from "@sectionsg/orc";
+import { Category } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListCheckBox from "@/components/ListCheckBox";
@@ -7,26 +7,17 @@ import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
-import { Link } from "react-router-dom";
+import SectionWrapper from "@/views/self-serve/SectionWrapper";
+import RedirectButton from "@/views/self-serve/RedirectButton";
 import _ from "lodash";
 
 // import constants
-import {
-  CONTINUE_LATER,
-  LIST_ROUTER,
-  NEXT,
-  SELF_SERVE_PAGE,
-} from "@/utils/constants";
+import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./TransactionAndCardAcceptanceType.scss";
 
 // import types
-
-//import icon
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
@@ -48,7 +39,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
   /**
-   * Get data from list check box
+   * Get data from list check box and save to store
    * @param data
    */
   const getDataFromListCheckbox = (data: any) => {
@@ -79,26 +70,6 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
         : setDisabledButton(false);
     }
   }, [dataListCheckbox]);
-
-  /**
-   * render UI button
-   * @returns {HTML}
-   */
-  const renderButton = () => {
-    return (
-      <Button
-        backgroundClass="bgGunmetalBluegrey"
-        disabled={disabledButton}
-        onClick={() => {
-          history.push(LIST_ROUTER.business_details);
-        }}
-      >
-        <>
-          {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
-        </>
-      </Button>
-    );
-  };
 
   return (
     <Box
@@ -132,22 +103,18 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Next Button}  */}
-      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button
-          backgroundClass="square"
-          onClick={() =>
-            history.push(LIST_ROUTER.company_and_contact_information)
-          }
-        >
-          <ArrowBackIcon className={cx("arrow")} />
-        </Button>
-        <Box>
-          <Box className={cx("d-inline")}>
-            <Link to="/">{CONTINUE_LATER}</Link>
-          </Box>
-          <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
-        </Box>
-      </Box>
+      <RedirectButton
+        disabledNextButton={disabledButton}
+        continueLater
+        backButton
+        variant="next"
+        onClickBack={() => {
+          history.push(LIST_ROUTER.company_and_contact_information);
+        }}
+        onClickNext={() => {
+          history.push(LIST_ROUTER.business_details);
+        }}
+      />
     </Box>
   );
 };

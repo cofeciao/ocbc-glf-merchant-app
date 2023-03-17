@@ -7,6 +7,7 @@ import {
   FormControl,
   Grid,
   InputLabel,
+  Link,
   MenuItem,
   Select,
   TextField,
@@ -22,20 +23,30 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 // import types
 
 // import icons
-import IconTrash from "@/assets/images/icon-trash.svg";
 import IconPlus from "@/assets/images/icon-plus.svg";
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
-  const { listField, register, unregister, setValue, dataRedux, optionSelected } = props;
-  const { LIST_RADIO_YES_NO, LABEL_ADD_MORE_WEBSITES, PLEASE_SELECT_LABEL } =
-    SELF_SERVE_PAGE;
+  const {
+    listField,
+    register,
+    unregister,
+    setValue,
+    dataRedux,
+    optionSelected,
+  } = props;
+  const {
+    LIST_RADIO_YES_NO,
+    LABEL_ADD_MORE_WEBSITES,
+    LABEL_REMOVE,
+    LABEL_WEBSITE,
+    PLEASE_SELECT_LABEL,
+  } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
-  const [existingWebsite, setExistingWebsite] = useState("Yes")
+  const [existingWebsite, setExistingWebsite] = useState("Yes");
   const [listTextField, setListTextField] = useState([
     { ...listField.textField },
   ]);
-  ;
 
   useEffect(() => {
     if (existingWebsite === "Yes" || optionSelected === "point-of-sales") {
@@ -69,9 +80,9 @@ const WebsiteInformation: React.FC<any> = (props) => {
       <Grid container>
         {/* {Do you have an existing website?} */}
         <Grid item xs={12}>
-          {_.has(listField.listRadio[0], "description") && (
+          {!_.isEmpty(listField.listRadioExistingWebsite.description) && (
             <Typography className={cx("sub-section-description")}>
-              {listField.listRadio[0].description}
+              {listField.listRadioExistingWebsite.description}
             </Typography>
           )}
 
@@ -94,17 +105,14 @@ const WebsiteInformation: React.FC<any> = (props) => {
             <Grid item xs={12}>
               {/* {Description} */}
               {_.has(listField.dropdownField, "description") && (
-                <Typography className={cx("sub-section-description")}>
+                <Typography className={cx("sub-section-description mb-16")}>
                   {listField.dropdownField.description}
                 </Typography>
               )}
 
               {/* {List Select} */}
               <Grid xs={12} md={4}>
-                <FormControl
-                  variant="filled"
-                  fullWidth
-                >
+                <FormControl variant="filled" fullWidth>
                   {/* {Label} */}
                   {!_.isNil(PLEASE_SELECT_LABEL) && (
                     <InputLabel htmlFor="select-website-live-date-label">
@@ -143,75 +151,88 @@ const WebsiteInformation: React.FC<any> = (props) => {
 
         {/* {Your website’s URL?} */}
         {_.isEqual(existingWebsite, "Yes") && (
-          <Grid item xs={12}>
-            {/* {Description} */}
-            {_.has(listField.textField, "description") && (
-              <Typography className={cx("sub-section-description")}>
-                {listField.textField.description}
-              </Typography>
-            )}
+          <Grid item xs={12} className={cx("website-url-group-wrapper")}>
+            {_.map(listTextField, (item, index) => {
+              return (
+                <Grid
+                  key={index}
+                  item
+                  xs={12}
+                  className={cx("website-url-wrapper")}
+                >
+                  {_.has(listField.textField, "description") && (
+                    <Box className={cx("d-flex space-between")}>
+                      {/* {Description} */}
+                      <Typography
+                        className={cx("sub-section-description mb-24")}
+                      >
+                        {`${LABEL_WEBSITE} ${index + 1}`}
+                      </Typography>
 
-            <Grid item xs={4}>
-              <Box className={cx("text-field-group-wrapper")}>
-                {/* {Text field group} */}
-                {_.map(listTextField, (item, index) => {
-                  return (
-                    <Box key={item.label} className={cx("text-field-item")}>
-                      <TextField
-                        fullWidth
-                        placeholder={listTextField[0].label}
-                        variant="filled"
-                        defaultValue={
-                          _.has(dataRedux, `yourWebsiteURL${index}`)
-                            ? `${dataRedux.numberOfOutlets}${index}`
-                            : ""
-                        }
-                        {...register(`yourWebsiteURL${index}`, {
-                          required: false,
-                        })}
-                      />
+                      {/* {Remove Button} */}
                       {index >= 1 && (
-                        <img
-                          src={IconTrash}
+                        <Link
                           onClick={() => handleClickTrash(index)}
-                          alt="icon"
-                          className={cx("text-field-trash-icon")}
-                        />
+                          className={cx("remove-label sub-section-description")}
+                        >
+                          {LABEL_REMOVE}
+                        </Link>
                       )}
                     </Box>
-                  );
-                })}
-              </Box>
+                  )}
 
-              {/* {Add more websites button} */}
-              <Box display="flex" flexDirection="row">
-                {listTextField.length < 3 && (
-                  <Button
-                    className={cx("add-website-button")}
-                    onClick={handleAddWebsite}
-                  >
-                    <Box component="span" className={cx("large-plus")}>
-                      <img
-                        src={IconPlus}
-                        alt="icon"
-                        className={cx("text-field-trash-icon")}
-                      />
+                  {/* {Text field} */}
+                  <Grid item xs={4}>
+                    <Box className={cx("text-field-group-wrapper")}>
+                      <Box key={item.label} className={cx("text-field-item")}>
+                        <TextField
+                          fullWidth
+                          placeholder={listTextField[0].label}
+                          variant="filled"
+                          defaultValue={
+                            _.has(dataRedux, `yourWebsiteURL${index}`)
+                              ? `${dataRedux.numberOfOutlets}${index}`
+                              : ""
+                          }
+                          {...register(`yourWebsiteURL${index}`, {
+                            required: false,
+                          })}
+                        />
+                      </Box>
                     </Box>
-                    <Box component="span" className={cx("add-website-label")}>
-                      {LABEL_ADD_MORE_WEBSITES}
-                    </Box>
-                  </Button>
-                )}
-              </Box>
-            </Grid>
+                  </Grid>
+                </Grid>
+              );
+            })}
+
+            {/* {Add more websites button} */}
+            <Box display="flex" flexDirection="row">
+              {listTextField.length < 3 && (
+                <Button
+                  className={cx("add-website-button")}
+                  onClick={handleAddWebsite}
+                >
+                  <Box component="span" className={cx("large-plus")}>
+                    <img
+                      src={IconPlus}
+                      alt="icon"
+                      className={cx("text-field-trash-icon")}
+                    />
+                  </Box>
+                  <Box component="span" className={cx("add-website-label")}>
+                    {LABEL_ADD_MORE_WEBSITES}
+                  </Box>
+                </Button>
+              )}
+            </Box>
           </Grid>
         )}
 
         {/* {Can customers place orders through your website?} */}
         <Grid item xs={12}>
-          {_.has(listField.listRadio[1], "description") && (
+          {!_.isEmpty(listField.listRadioPlaceOrderThroughWebsite.description) && (
             <Typography className={cx("sub-section-description")}>
-              {listField.listRadio[1].description}
+              {listField.listRadioPlaceOrderThroughWebsite.description}
             </Typography>
           )}
 

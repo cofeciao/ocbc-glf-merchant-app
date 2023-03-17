@@ -1,5 +1,9 @@
 @import "../../assets/style/variable.scss";
 
+#common-dialog {
+  background: #b1b8c5;
+}
+
 .form-submit {
   background-color: rgb(247, 248, 249);
   margin-top: 80px;
@@ -108,10 +112,9 @@
 
     & .sub-section-description {
       font-weight: 400;
-      font-size: 14px;
-      line-height: 20px;
+      font-size: 18px;
+      line-height: 28px;
       color: #777e87;
-      margin-bottom: 16px;
     }
 
     & .section-seperate {

@@ -1,5 +1,5 @@
 // import modules
-import { Category, Button } from "@sectionsg/orc";
+import { Category } from "@sectionsg/orc";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,26 +9,17 @@ import {
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
+import RedirectButton from "@/views/self-serve/RedirectButton";
 import BusinessDetailsForm from "./BusinessDetailsForm";
 import { useForm } from "react-hook-form";
 
 // import constants
-import {
-  CONTINUE_LATER,
-  LIST_ROUTER,
-  NEXT,
-  SELF_SERVE_PAGE,
-} from "@/utils/constants";
+import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./BusinessDetails.scss";
 
 // import types
-
-//import icon
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { Link } from "react-router-dom";
 
 const BusinessDetails: React.FC<any> = () => {
   const {
@@ -80,37 +71,6 @@ const BusinessDetails: React.FC<any> = () => {
       .join("-")
   );
 
-  /**
-   * render UI button
-   * @returns {HTML}
-   */
-  const renderButton = () => {
-    return (
-      <Button
-        backgroundClass="bgGunmetalBluegrey"
-        disabled={!isValid || !isDirty}
-        onClick={() => {
-          history.push(LIST_ROUTER.products_and_services);
-          dispatch(saveDataBusinessDetailsStep(getValues()));
-          dispatch(
-            saveDataListWebsiteUrl(
-              getValues([
-                "yourWebsiteURL0",
-                "yourWebsiteURL1",
-                "yourWebsiteURL2",
-              ])
-            )
-          );
-        }}
-        buttonType=""
-      >
-        <>
-          {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
-        </>
-      </Button>
-    );
-  };
-
   // render UI
   return (
     <Box
@@ -136,22 +96,28 @@ const BusinessDetails: React.FC<any> = () => {
       />
 
       {/* {Next Button}  */}
-      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button
-          backgroundClass="square"
-          onClick={() =>
-            history.push(LIST_ROUTER.transaction_and_card_acceptance_type)
-          }
-        >
-          <ArrowBackIcon className={cx("arrow")} />
-        </Button>
-        <Box>
-          <Box className={cx("d-inline")}>
-            <Link to="/">{CONTINUE_LATER}</Link>
-          </Box>
-          <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
-        </Box>
-      </Box>
+      <RedirectButton
+        disabledNextButton={!isValid || !isDirty}
+        continueLater
+        backButton
+        variant="next"
+        onClickBack={() => {
+          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+        }}
+        onClickNext={() => {
+          history.push(LIST_ROUTER.products_and_services);
+          dispatch(saveDataBusinessDetailsStep(getValues()));
+          dispatch(
+            saveDataListWebsiteUrl(
+              getValues([
+                "yourWebsiteURL0",
+                "yourWebsiteURL1",
+                "yourWebsiteURL2",
+              ])
+            )
+          );
+        }}
+      />
     </Box>
   );
 };

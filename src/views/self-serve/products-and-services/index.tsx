@@ -1,12 +1,12 @@
 // import modules
-import { Category, Button } from "@sectionsg/orc";
+import { Category } from "@sectionsg/orc";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
+import RedirectButton from "@/views/self-serve/RedirectButton";
 import PointOfSalesForm from "./PointOfSalesForm";
-import { Link } from "react-router-dom";
 import _ from "lodash";
 import EcommerceForm from "./EcommerceForm";
 import { useForm } from "react-hook-form";
@@ -17,9 +17,7 @@ import {
 
 // import constants
 import {
-  CONTINUE_LATER,
   LIST_ROUTER,
-  NEXT,
   SELF_SERVE_PAGE,
 } from "@/utils/constants";
 
@@ -27,10 +25,6 @@ import {
 import styles from "./ProductsAndServices.scss";
 
 // import types
-
-//import icon
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 // render UI
 const ProductsAndServices: React.FC<any> = () => {
@@ -58,11 +52,9 @@ const ProductsAndServices: React.FC<any> = () => {
     formState: { errors, isValid, isDirty },
     getValues,
     setValue,
-    watch,
   } = useForm({
     mode: "onBlur",
   });
-  const watchAll = watch();
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -74,28 +66,6 @@ const ProductsAndServices: React.FC<any> = () => {
       .filter((item: string) => item !== "")
       .join("-")
   );
-
-  /**
-   * render UI button
-   * @returns {HTML}
-   */
-  const renderButton = () => {
-    return (
-      <Button
-        backgroundClass="bgGunmetalBluegrey"
-        disabled={!isValid || !isDirty}
-        onClick={() => {
-          history.push(LIST_ROUTER.review_and_submit);
-          dispatch(saveDataProductsAndServicesEcom(getValues("Ecom")));
-          dispatch(saveDataProductsAndServicesPOS(getValues("POS")));
-        }}
-      >
-        <>
-          {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
-        </>
-      </Button>
-    );
-  };
 
   return (
     <Box className={cx("products-and-services-wrapper step-wrapper")}>
@@ -158,20 +128,20 @@ const ProductsAndServices: React.FC<any> = () => {
       )}
 
       {/* {Next Button}  */}
-      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button
-          backgroundClass="square"
-          onClick={() => history.push(LIST_ROUTER.business_details)}
-        >
-          <ArrowBackIcon className={cx("arrow")} />
-        </Button>
-        <Box>
-          <Box className={cx("d-inline")}>
-            <Link to="/">{CONTINUE_LATER}</Link>
-          </Box>
-          <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
-        </Box>
-      </Box>
+      <RedirectButton
+        disabledNextButton={!isValid || !isDirty}
+        continueLater
+        backButton
+        variant="next"
+        onClickBack={() => {
+          history.push(LIST_ROUTER.business_details);
+        }}
+        onClickNext={() => {
+          history.push(LIST_ROUTER.review_and_submit);
+          dispatch(saveDataProductsAndServicesEcom(getValues("Ecom")));
+          dispatch(saveDataProductsAndServicesPOS(getValues("POS")));
+        }}
+      />
     </Box>
   );
 };
