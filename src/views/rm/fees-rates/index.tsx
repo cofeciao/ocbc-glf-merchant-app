@@ -45,14 +45,14 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.productsServices)
+    history.push(URL_MANUAL_FLOW.beneficialOwnership)
   }
 
    /**
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.sensitiveData);
+    history.push(URL_MANUAL_FLOW.feeAuthorisation);
   }
 
     /**
@@ -86,7 +86,13 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
           <Category class="title">Fees and rates</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Merchant Discount Rate (MDR) ">
+        <SectionWrapper 
+          cx={cx} 
+          title="Merchant Discount Rate (MDR)" 
+          description="Please refer to following tables for Merchant Discount Rate (MDR) based on transcations and services selected previously."
+          isEdit 
+          path="/rm/contact-information" 
+        >
           <MerchantDiscountRate cx={cx} />
         </SectionWrapper>
 
@@ -101,7 +107,7 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
                 fullWidth
                 name="refundable_fees"
                 defaultValue={paramsFeeRates.refundable_fees}
-                placeholder="Security deposit (one-time)"
+                label="Security deposit (one-time)"
                 id={uuidv4()}
                 // label={name.label}
                 variant="filled"

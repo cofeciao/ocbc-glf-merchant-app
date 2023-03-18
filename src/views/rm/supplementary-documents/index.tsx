@@ -47,7 +47,7 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.beneficialOwnership)
+    history.push(URL_MANUAL_FLOW.feeAuthorisation)
   }
 
    /**

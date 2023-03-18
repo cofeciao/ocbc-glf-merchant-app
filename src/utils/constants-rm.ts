@@ -9,6 +9,7 @@ export const SERVICES_APPLIED = "services-applied";
 export const BUSINESS_OPERATION = "business-operation";
 export const PRODUCTS_SERVICES = "products-services";
 export const FEE_RATES = "fee-rates";
+export const FEE_AUTHORISATION = "fee-authorisation";
 export const SENSITIVE_DATA = "sensitive-data";
 export const BENEFICIAL_OWNERSHIP = "beneficial-ownership";
 export const SUPPLEMENTARY_DOCUMENT = "supplementary-documents";
@@ -23,6 +24,7 @@ export const URL_MANUAL_FLOW = {
   feeRates: "/rm/fee-rates",
   sensitiveData: "/rm/sensitive-data",
   beneficialOwnership: "/rm/beneficial-ownership",
+  feeAuthorisation: "/rm/fee-authorisation",
   supplementaryDocument: "/rm/supplementary-documents",
   reviewSubmit: "/rm/review-submit",
   declaration: "/rm/declaration",
@@ -1405,36 +1407,43 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
   {
-    id: "fee-rates",
-    numerical: "4",
-    text: "Fees and rates",
-    check: false,
-    status: true,
-  },
-  {
     id: "sensitive-data",
-    numerical: "5",
+    numerical: "4",
     text: "Sensitive data",
     check: false,
     status: true,
   },
   {
     id: "beneficial-ownership",
-    numerical: "6",
+    numerical: "5",
     text: "Beneficial ownership",
     check: false,
     status: true,
   },
   {
-    id: "supplementary-documents",
+    id: "fee-rates",
+    numerical: "6",
+    text: "Fees and rates",
+    check: false,
+    status: true,
+  },
+  {
+    id: "fee-authorisation",
     numerical: "7",
+    text: "Fee authorisation",
+    check: false,
+    status: true,
+  },
+  {
+    id: "supplementary-documents",
+    numerical: "8",
     text: "Supplementary documents",
     check: false,
     status: true,
   },
   {
     id: "review-submit",
-    numerical: "8",
+    numerical: "9",
     text: "Review and submit",
     check: false,
     status: true,
@@ -1945,6 +1954,117 @@ export const STEP_RM = {
           }
         }
       },
+    },
+    feeAuthorisation: {
+      id: "fee-authorisation",
+      numerical: "7",
+      title: "Fee authorization",
+      description: "Based on your selected payment method, we will deduct the annual fee one month after your application has been approved. We will not make any deduction if your application is unsuccessful.",
+      check: false,
+      status: true,
+      section: {
+        feeAuthorisationInformation: {
+          annual: {
+            title: "Annual",
+            value: "SGD 648",
+          },
+          oneTimeSetupFee: {
+            title: "One time setup fee",
+            value: "SGD 1,000",
+          },
+          perDomesticTransaction: {
+            title: "Per domestic transaction",
+            value: "SGD 10",
+          },
+          perInternationalTransaction: {
+            title: "Per internation transaction",
+            value: "SGD 10",
+          },
+          tokenisation: {
+            title: "Tokenisation",
+            value: "SGD 0",
+          },
+          otherFees: {
+            title: "Other fees",
+            value: "SGD 20",
+          },
+          decriptionForOtherFees: {
+            title: "Description for other fees",
+            value: "Misc fees"
+          }
+        },
+        paymentForTheFirstYear: {
+          label: "How will you make your payment for the first year?",
+          titleIndicateTheBankName: "Please indicate the bank name",
+          listRadio: [
+            {
+              label: "OCBC Account",
+              description: "123-1234567-8",
+              value: "ocbcAccount",
+            },
+            {
+              label: "Cheque",
+              description: "",
+              value: "cheque",
+            },
+            {
+              label: "GIRO from another bank",
+              description: "",
+              value: "giroFromAnotherBank",
+            }
+          ],
+          listBankName: [
+            {
+              label: "OCBC bank 1",
+              value: "ocbc_bank_1",
+            },
+            {
+              label: "OCBC bank 2",
+              value: "ocbc_bank_2",
+            },
+          ]
+        },
+        paymentForSubsequentYears: {
+          label: "How will you make your payment for subsequent years?",
+          titleIndicateTheBankName: "Please indicate the bank name",
+          listRadio: [
+            {
+              label: "OCBC Account",
+              description: "123-1234567-8",
+              value: "ocbcAccount",
+            },
+            {
+              label: "Cheque",
+              description: "",
+              value: "cheque",
+            },
+            {
+              label: "GIRO from another bank",
+              description: "",
+              value: "giroFromAnotherBank",
+            },
+            {
+              label: "Offset from daily sales",
+              description: "",
+              value: "offsetFromDailySales",
+            },
+          ],
+          listBankName: [
+            {
+              name: "OCBC bank 1",
+              value: "ocbc_bank_1",
+            },
+            {
+              name: "OCBC bank 2",
+              value: "ocbc_bank_2",
+            },
+          ]
+        },
+        applicationConfirmation: {
+          title: "Before submitting your application, please ensure that you read and understand the following:",
+          decription: `We agree to the terms and conditions of the above letter issued by OCBC Bank in relation to the OCBC Bank Visa and MasterCard Merchant Programme (the "Programme"). We acknowledge that delivery to OCBC Bank of the OCBC Bank Visa and MasterCard Merchant Agreement signed by us does not constitute an agreement by OCBC Bank to accept our application to participate in the Programme as their Merchant until (a) our application to participate in the Programme as their Merchant has been approved by OCBC Bank at its absolute discretion and informed to us in writing and (b) OCBC Bank has executed the OCBC Bank Visa and MasterCard Merchant Agreement and such other documents as OCBC Bank deems appropriate. We acknowledge that our application to participate in the Programme as a Merchant is subject to the conditions set out in (a) and (b) above.`,
+        }
+      }
     },
     reviewAndSubmit: {
       id: "review_and_submit",
