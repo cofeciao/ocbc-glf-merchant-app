@@ -19,6 +19,7 @@ import {
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
   DECLARATION, 
+  FEE_AUTHORISATION, 
   FEE_RATES, 
   PRODUCTS_SERVICES, 
   REVIEW_SUBMIT, 
@@ -41,6 +42,7 @@ import Sensitive from './sensitive-data';
 import BeneficialOwnership from './beneficial-ownership';
 import SupplementaryDocuments from './supplementary-documents';
 import ReviewSubmit from './review-submit';
+import FeeAuthorisation from './fee-authorisation';
 
 // render UI
 const ContainerManual = () => {
@@ -122,8 +124,9 @@ const ContainerManual = () => {
                 {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
                 {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
                 {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}
-                {slug === FEE_RATES && <FeesRates ref={childRef} />}
                 {slug === SENSITIVE_DATA && <Sensitive ref={childRef} />}
+                {slug === FEE_RATES && <FeesRates ref={childRef} />}
+                {slug === FEE_AUTHORISATION && <FeeAuthorisation ref={childRef} />}
                 {slug === BENEFICIAL_OWNERSHIP && <BeneficialOwnership ref={childRef} />}
                 {slug === SUPPLEMENTARY_DOCUMENT && <SupplementaryDocuments ref={childRef} />}
                 {slug === REVIEW_SUBMIT && <ReviewSubmit ref={childRef} />}

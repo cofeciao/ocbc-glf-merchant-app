@@ -62,7 +62,7 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(({  
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.feeRates);
+    history.push(URL_MANUAL_FLOW.sensitiveData);
   }
 
     /**

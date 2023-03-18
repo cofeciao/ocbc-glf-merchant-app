@@ -59,7 +59,7 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.feeRates)
+    history.push(URL_MANUAL_FLOW.productsServices)
   }
 
    /**

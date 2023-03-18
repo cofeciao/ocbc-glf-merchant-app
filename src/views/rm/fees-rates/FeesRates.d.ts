@@ -13,9 +13,7 @@ declare namespace IFeesRates {
 
   export interface ITableEdtiting {
     cx: any;
-    dataSource: any[];
-    handleEditRow: (indexCurrent: number, e: React.ChangeEvent<HTMLInputElement>, keyName: string) => void;
-    headers: any[]
+    handleEditRow?: (indexCurrent: number, e: React.ChangeEvent<HTMLInputElement>, keyName: string) => void;
   }
 
 }

@@ -193,7 +193,7 @@ const OutletDetails: React.FC<any> = (props) => {
         )}
         {checkedRadioPreferType === 'upload_a_list' && (
           <Grid item xs={12}>
-            <UploadImage onChange={(file) => console.log(file)} />
+            <UploadImage onChange={(file: any) => console.log(file)} />
           </Grid>
         )}
       </Grid>

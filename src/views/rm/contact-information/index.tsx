@@ -62,7 +62,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
     (state: any) => state.form.acraAndContactInformationStep
   );
 
-// form
+// form datas
   const {
     register,
     formState: { errors, isValid, isDirty },
