@@ -3,10 +3,24 @@ import { Box, Grid, Typography } from "@material-ui/core";
 
 // import types
 import { IReviewSubmit } from "./ReviewSubmit";
+import { useSelector } from "react-redux";
+import { STEP_RM } from "@/utils/constants-rm";
 
 const SupplementaryDocuments: React.FC<IReviewSubmit.ISupplementaryDocuments> = (props) => {
-  const { cx, data } = props;
+  const { cx, titles } = props;
+  const { 
+    titleAuthorisedSignatory,
+    titleTenancyDocument,
+    titleCopyOfBankStatement,
+    titleAnyOtherSupportingDocuments,
+   } = titles;
 
+  /**
+    * Retrieves data of Supplementary documents section from Store
+   */
+  const supplementaryDocumentData = useSelector(
+    (state: any) => state.form.supplementaryDocumentStep
+  );
 
   /**
    * render UI
@@ -17,8 +31,10 @@ const SupplementaryDocuments: React.FC<IReviewSubmit.ISupplementaryDocuments> = 
       <>
         <Typography className={cx("title")}>{title}</Typography> 
         {Array.isArray(content) ? (
-          content.map((item: string, index: number) => (
-            <Typography key={index} className={cx("content")}>{item}</Typography> 
+          content.map((item: any, index: number) => (
+            <Typography key={index} className={cx("content")}>
+              {`${item.name} (${Math.round(item.size / 1000)} KB)`}
+            </Typography> 
             ))
           ) : (
           <Typography className={cx("content")}>{content}</Typography> 
@@ -31,29 +47,24 @@ const SupplementaryDocuments: React.FC<IReviewSubmit.ISupplementaryDocuments> = 
     <Box className={cx("supplement-documents")}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
-          {data && 
-            data.authorisedSignatory && 
-            renderContent("Authorised signatory’s NRIC or passport", data.authorisedSignatory)}
+          {supplementaryDocumentData && 
+            supplementaryDocumentData.authorisedSignatoryNRIC && 
+            renderContent(titleAuthorisedSignatory, supplementaryDocumentData.authorisedSignatoryNRIC)}
         </Grid>
         <Grid item xs={12}>
-          {data && 
-            data.tenancyDocumentOrSiteVisitPhotos && 
-            renderContent("Tenancy document or site visit photos", data.tenancyDocumentOrSiteVisitPhotos)}
-        </Grid>
-        <Grid item xs={12}>          
-          {data && 
-            data.licenses && 
-            renderContent("Licenses", data.licenses)}
+          {supplementaryDocumentData && 
+            supplementaryDocumentData.tenacyDocumentOrSiteVisitPhotos && 
+            renderContent(titleTenancyDocument, supplementaryDocumentData.tenacyDocumentOrSiteVisitPhotos)}
         </Grid>
         <Grid item xs={12}>
-          {data && 
-            data.copyOfBankStatement && 
-            renderContent("Copy of bank statement", data.copyOfBankStatement)}
+          {supplementaryDocumentData && 
+            supplementaryDocumentData.copyOfBankStatement && 
+            renderContent(titleCopyOfBankStatement, supplementaryDocumentData.copyOfBankStatement)}
         </Grid>
         <Grid item xs={12}>
-          {data && 
-            data.anyOtherSupportingDocuments && 
-            renderContent("Any other supporting documents", data.anyOtherSupportingDocuments)}
+          {supplementaryDocumentData && 
+            supplementaryDocumentData.anyOtherSupportingDocuments && 
+            renderContent(titleAnyOtherSupportingDocuments, supplementaryDocumentData.anyOtherSupportingDocuments)}
         </Grid>
       </Grid>
     </Box>

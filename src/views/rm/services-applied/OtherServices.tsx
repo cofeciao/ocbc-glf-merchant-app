@@ -11,7 +11,7 @@ import { IServicesApplied } from "./ServicesApplied";
 
 const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
   const { cx, sectionRadios, setDataRadio, dataCheckboxRepayment, setDataCheckboxRepayment } = props;
-  const {instalment_payment_plan, direct_currency_conversion, mail_order } = sectionRadios;
+  const {instalmentPaymentPlan, directCurrencyConversion, mailOrder } = sectionRadios;
 
   // States
   const [showAll, setShowAll] = useState<boolean>(false);
@@ -20,7 +20,7 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
     return (
       <Box className={cx("checkbox-wrapper")}>
         <FormControl margin="normal" className={cx("group-checkbox")} component="fieldset">
-          <FormLabel component="legend">{instalment_payment_plan.repayment_periods_offered.title}</FormLabel>
+          <FormLabel component="legend">{instalmentPaymentPlan.repaymentPeriodsOffered.title}</FormLabel>
           <FormGroup row className={showAll ? cx("w-45") : cx("w-100")}>
             {dataCheckboxRepayment.slice(0, showAll ? dataCheckboxRepayment.length : 3)
               .map((value: any, key: number) => {
@@ -32,6 +32,9 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
                     <Checkbox 
                       name={value.label} 
                       checked={value.checked} 
+                      disableFocusRipple
+                      disableRipple
+                      disableTouchRipple
                       onChange={(e: any) => 
                         setDataCheckboxRepayment([
                           ...dataCheckboxRepayment.map((el: any) => {
@@ -52,8 +55,8 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
             })}
           </FormGroup>
           {!showAll ?
-            <Typography className={cx("see-more")} onClick={() => setShowAll(true)}>Show more repayment periods <ExpandMoreIcon /></Typography> :
-            <Typography className={cx("see-more")} onClick={() => setShowAll(false)}>Show less <ExpandLessIcon /></Typography>  
+            <Typography className={cx("see-more")} onClick={() => setShowAll(true)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelSeeMore}<ExpandMoreIcon /></Typography> :
+            <Typography className={cx("see-more")} onClick={() => setShowAll(false)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelLess}<ExpandLessIcon /></Typography>  
           }
         </FormControl>
       </Box>
@@ -64,37 +67,37 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <Typography className={cx("title-checkbox")}>{sectionRadios.instalment_payment_plan.title}</Typography>
+        <Typography className={cx("title-checkbox")}>{sectionRadios.instalmentPaymentPlan.title}</Typography>
         <Radio
-          name={sectionRadios.instalment_payment_plan.name}
-          listCheckBox={sectionRadios.instalment_payment_plan.listRadio}
+          name={sectionRadios.instalmentPaymentPlan.name}
+          listCheckBox={sectionRadios.instalmentPaymentPlan.listRadio}
           radioKey={0}
           // value={formDataLanding.lockIn}
           getValue={(value: any) => {
             setDataRadio((preState: any) => ({
               ...preState,
-              instalment_payment_plan: {
-                ...instalment_payment_plan,
+              instalmentPaymentPlan: {
+                ...instalmentPaymentPlan,
                 checked: value === 'Yes' ? true : false
               }
             }))
           }}
         />
 
-        {instalment_payment_plan.checked && renderListCheckbox()}
+        {instalmentPaymentPlan.checked && renderListCheckbox()}
       </Grid>
       <Grid item xs={12}>
-        <Typography className={cx("title-checkbox")}>{direct_currency_conversion.title}</Typography>
+        <Typography className={cx("title-checkbox")}>{directCurrencyConversion.title}</Typography>
         <Radio
-          name={direct_currency_conversion.name}
-          listCheckBox={direct_currency_conversion.listRadio}
+          name={directCurrencyConversion.name}
+          listCheckBox={directCurrencyConversion.listRadio}
           radioKey={0}
           // value={formDataLanding.lockIn}
           getValue={(value: any) => {
             setDataRadio((preState: any) => ({
               ...preState,
-              direct_currency_conversion: {
-                ...direct_currency_conversion,
+              directCurrencyConversion: {
+                ...directCurrencyConversion,
                 checked: value === 'Yes' ? true : false
               }
             }))
@@ -102,17 +105,17 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
         />
       </Grid>
       <Grid item xs={12}>
-        <Typography className={cx("title-checkbox")}>{mail_order.title}</Typography>
+        <Typography className={cx("title-checkbox")}>{mailOrder.title}</Typography>
         <Radio
-          name={mail_order.name}
-          listCheckBox={mail_order.listRadio}
+          name={mailOrder.name}
+          listCheckBox={mailOrder.listRadio}
           radioKey={0}
           // value={formDataLanding.lockIn}
           getValue={(value: any) => {
             setDataRadio((preState: any) => ({
               ...preState,
-              mail_order: {
-                ...mail_order,
+              mailOrder: {
+                ...mailOrder,
                 checked: value === 'Yes' ? true : false
               }
             }))

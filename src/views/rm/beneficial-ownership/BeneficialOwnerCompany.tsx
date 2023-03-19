@@ -15,6 +15,7 @@ import styles from "./BeneficialOwnership.scss";
 // import components
 import UploadImage from "../UploadImage";
 import BeneficialOwnershipForm from "./BeneficialOwnershipForm";
+import SectionWrapper from "../SectionWrapper";
 
 // render UI
 const BeneficialOwnerCompany: React.FC<any> = (props) => {
@@ -25,8 +26,15 @@ const BeneficialOwnerCompany: React.FC<any> = (props) => {
   
   const {
     LIST_STEP: {
-      business_operation: {
-        section: { outlet_details },
+      beneficialOwner: {
+       section: {
+        beneficialOwnerOfTheCompany: {
+          label,
+          labelForm,
+          inputFields,
+          labelUploadCertificateOfIncumbency
+        }
+       }
       },
     },
   } = STEP_RM;
@@ -36,65 +44,8 @@ const BeneficialOwnerCompany: React.FC<any> = (props) => {
   const [listRadioPreferType, setListRadioPreferType] = useState<any>([]);
   const [checkedRadioPreferType, setCheckedRadioPreferType] = useState<string>('');
   const [dataForm, setDataForm] = useState<any>({
-    inputFields: {
-      salutation: {
-        label: "Salutation",
-        helperText: "",
-        requiredText: "",
-      },
-      name: {
-        label: "Name",
-        helperText: "",
-        requiredText: "",
-      },
-      designation: {
-        label: "Designation",
-        helperText: "",
-        requiredText: "",
-      },
-      nric_passport: {
-        label: "NRIC / Passport number",
-        helperText: "Please enter a valid unit number",
-        requiredText: "",
-      },
-      date_of_birth: {
-        label: "Date of Birth",
-        helperText: "Please enter a valid building name",
-        requiredText: "",
-      },
-      nationality: {
-        label: "Nationality",
-        helperText: "Please enter a valid postal code",
-        requiredText: "",
-      },
-      block_house_number: {
-        label: "Block / House number",
-        helperText: "Please enter a valid postal code",
-        requiredText: "",
-      },
-      street_name: {
-        label: "Street name",
-        helperText: "Please enter a valid postal code",
-        requiredText: "",
-      },
-      unit_name: {
-        label: "Unit name (if applicable)",
-        helperText: "Please enter a valid postal code",
-        requiredText: "",
-      },
-      building_name: {
-        label: "Building name (if applicable)",
-        helperText: "Please enter a valid postal code",
-        requiredText: "",
-      },
-      postal_code: {
-        label: "Postal Code",
-        helperText: "Please enter a valid postal code",
-        requiredText: "",
-      },
-    },
-   });
-
+    inputFields: inputFields
+  });
 
   // form
   const {
@@ -126,19 +77,12 @@ const BeneficialOwnerCompany: React.FC<any> = (props) => {
    }
   }, [listRadio])
   
-  useEffect(() => {
-    if (outlet_details) {
-      setDataSectionOutletDetail(outlet_details) 
-    }
-  }, [outlet_details])
-  
   return (
     <Box className={cx("outlet-details-wrapper")}>
       <Grid container>
-        {/* {Is your business ready for operation?} */}
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
-            Do you have an existing website?
+            {label}
           </Typography>
 
             <RadioGroup 
@@ -177,6 +121,7 @@ const BeneficialOwnerCompany: React.FC<any> = (props) => {
           <BeneficialOwnershipForm 
             cx={cx}
             errors={errors}
+            labelForm={labelForm}
             register={register}
             setValue={setValue}
             setError={setError}
@@ -204,6 +149,21 @@ const BeneficialOwnerCompany: React.FC<any> = (props) => {
                 ...fileImage,
                 beneficialOwnerImage: file
               })} 
+            />
+            <Typography className={cx("title-upload")}>{labelUploadCertificateOfIncumbency}</Typography>
+            <UploadImage 
+              name="certificateIncumbencyImage"
+              value={fileImage.certificateIncumbencyImage} 
+              onChange={(file: any) => setFileImage({
+                ...fileImage,
+                certificateIncumbencyImage: file
+              })} 
+              onRemove={() => {
+                setFileImage({
+                  ...fileImage,
+                  certificateIncumbencyImage: {}
+                })
+              }}
             />
           </Grid>
         )}

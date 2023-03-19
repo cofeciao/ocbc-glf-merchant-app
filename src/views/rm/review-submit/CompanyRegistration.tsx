@@ -3,9 +3,21 @@ import { Box, Grid, Typography } from "@material-ui/core";
 
 // import types
 import { IReviewSubmit } from "./ReviewSubmit";
+import { useSelector } from "react-redux";
 
 const CompanyRegistration: React.FC<IReviewSubmit.ICompanyRegistration> = (props) => {
-  const { cx, data } = props;
+  const { cx, titles } = props;
+  const {
+    titleRegisteredEntityName,
+    titleUniqueEntityNumber,
+    titleEntityType,
+    titleNatureOfBusiness,
+    titleRegisteredAddress,
+    titleMailingAddress,
+    titleDirectors,
+    contactDetail,
+    authorisedPersonDetails,
+  } = titles;
 
   /**
    * render UI
@@ -26,30 +38,40 @@ const CompanyRegistration: React.FC<IReviewSubmit.ICompanyRegistration> = (props
     )
   }
 
+  /**
+    * Retrieves data of Company Registration section from Store
+   */
+  const acraDetailData = useSelector(
+    (state: any) => state.form.dataAcraDetail
+  );
+  const companyRegistrationData = useSelector(
+    (state: any) => state.form.acraAndContactInformationStep
+  );
+
   return (
     <Box className={cx("company-registration")}>
       <Grid container spacing={3}>
-        <Grid item xs={6}>{renderContent("Registered entity name", data && data.companyRegistration && data.companyRegistration.registeredEntityName)}</Grid>
-        <Grid item xs={6}>{renderContent("Unique Entity Number (UEN)", data && data.companyRegistration && data.companyRegistration.uniqueEntityNumber)}</Grid>
-        <Grid item xs={6}>{renderContent("Entity type", data && data.companyRegistration && data.companyRegistration.entityType)}</Grid>
-        <Grid item xs={6}>{renderContent("Nature of business", data && data.companyRegistration && data.companyRegistration.natureOfBusiness)}</Grid>
-        <Grid item xs={6}>{renderContent("Registered address", data && data.companyRegistration && data.companyRegistration.registeredAddress)}</Grid>
-        <Grid item xs={6}>{renderContent("Mailing address", data && data.companyRegistration && data.companyRegistration.mailingAddress)}</Grid>
-        <Grid item xs={12}>{renderContent("Directors", data && data.companyRegistration && data.companyRegistration.directors)}</Grid>
+        <Grid item xs={6}>{renderContent(titleRegisteredEntityName, acraDetailData && acraDetailData.dataDetail && acraDetailData.dataDetail.businessName)}</Grid>
+        <Grid item xs={6}>{renderContent(titleUniqueEntityNumber, acraDetailData && acraDetailData.dataDetail && acraDetailData.dataDetail.uniqueEntityNumber)}</Grid>
+        <Grid item xs={6}>{renderContent(titleEntityType, acraDetailData && acraDetailData.dataDetail && acraDetailData.dataDetail.entityType)}</Grid>
+        <Grid item xs={6}>{renderContent(titleNatureOfBusiness, acraDetailData && acraDetailData.dataDetail && acraDetailData.dataDetail.natureOfBusiness)}</Grid>
+        <Grid item xs={6}>{renderContent(titleRegisteredAddress, acraDetailData && acraDetailData.dataDetail && acraDetailData.dataDetail.registeredAddress)}</Grid>
+        <Grid item xs={6}>{renderContent(titleMailingAddress, acraDetailData && acraDetailData.dataDetail && acraDetailData.dataDetail.mailingAddress)}</Grid>
+        <Grid item xs={12}>{renderContent(titleDirectors, acraDetailData && acraDetailData.dataDetail && acraDetailData.dataDetail.directors)}</Grid>
 
-        <Grid item xs={12}><Typography className={cx("sub-title")}>Contact details</Typography></Grid>
-        <Grid item xs={4}>{renderContent("Salutation", data && data.contactDetail && data.contactDetail.salutation)}</Grid>
-        <Grid item xs={4}>{renderContent("Name", data && data.contactDetail && data.contactDetail.name)}</Grid>
-        <Grid item xs={4}>{renderContent("Designation", data && data.contactDetail && data.contactDetail.designation)}</Grid>
-        <Grid item xs={4}>{renderContent("Email", data && data.contactDetail && data.contactDetail.email)}</Grid>
-        <Grid item xs={4}>{renderContent("Contact number", data && data.contactDetail && data.contactDetail.contactNumber)}</Grid>
+        <Grid item xs={12}><Typography className={cx("sub-title")}>{contactDetail.titleContactDetails}</Typography></Grid>
+        <Grid item xs={4}>{renderContent(contactDetail.titleSalutation, companyRegistrationData && companyRegistrationData.contactDetail && companyRegistrationData.contactDetail.salutation)}</Grid>
+        <Grid item xs={4}>{renderContent(contactDetail.titleName, companyRegistrationData && companyRegistrationData.contactDetail && companyRegistrationData.contactDetail.name)}</Grid>
+        <Grid item xs={4}>{renderContent(contactDetail.titleDesignation, companyRegistrationData && companyRegistrationData.contactDetail && companyRegistrationData.contactDetail.designation)}</Grid>
+        <Grid item xs={4}>{renderContent(contactDetail.titleEmail, companyRegistrationData && companyRegistrationData.contactDetail && companyRegistrationData.contactDetail.email)}</Grid>
+        <Grid item xs={4}>{renderContent(contactDetail.titleContactNumber, companyRegistrationData && companyRegistrationData.contactDetail && companyRegistrationData.contactDetail.contactNumber)}</Grid>
 
-        <Grid item xs={12}><Typography className={cx("sub-title")}>Authorised person details</Typography></Grid>
-        <Grid item xs={4}>{renderContent("Salutation", data && data.authorisedPersonDetails && data.authorisedPersonDetails.salutation)}</Grid>
-        <Grid item xs={4}>{renderContent("Name", data && data.authorisedPersonDetails && data.authorisedPersonDetails.name)}</Grid>
-        <Grid item xs={4}>{renderContent("Designation", data && data.authorisedPersonDetails && data.authorisedPersonDetails.designation)}</Grid>
-        <Grid item xs={4}>{renderContent("Email", data && data.authorisedPersonDetails && data.authorisedPersonDetails.email)}</Grid>
-        <Grid item xs={4}>{renderContent("Contact number", data && data.authorisedPersonDetails && data.authorisedPersonDetails.contactNumber)}</Grid>
+        <Grid item xs={12}><Typography className={cx("sub-title")}>{authorisedPersonDetails.titleAuthorisedPersonDetails}</Typography></Grid>
+        <Grid item xs={4}>{renderContent(authorisedPersonDetails.titleSalutation, companyRegistrationData && companyRegistrationData.authorisedPersonDetails && companyRegistrationData.authorisedPersonDetails.salutation)}</Grid>
+        <Grid item xs={4}>{renderContent(authorisedPersonDetails.titleName, companyRegistrationData && companyRegistrationData.authorisedPersonDetails && companyRegistrationData.authorisedPersonDetails.name)}</Grid>
+        <Grid item xs={4}>{renderContent(authorisedPersonDetails.titleDesignation, companyRegistrationData && companyRegistrationData.authorisedPersonDetails && companyRegistrationData.authorisedPersonDetails.designation)}</Grid>
+        <Grid item xs={4}>{renderContent(authorisedPersonDetails.titleEmail, companyRegistrationData && companyRegistrationData.authorisedPersonDetails && companyRegistrationData.authorisedPersonDetails.email)}</Grid>
+        <Grid item xs={4}>{renderContent(authorisedPersonDetails.titleContactNumber, companyRegistrationData && companyRegistrationData.authorisedPersonDetails && companyRegistrationData.authorisedPersonDetails.contactNumber)}</Grid>
       </Grid>
     </Box>
   )

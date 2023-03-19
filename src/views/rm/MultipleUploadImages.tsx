@@ -15,10 +15,10 @@ import IconUploadImage from "@/assets/images/icon-upload-image.svg";
 import styles from "./rm.scss";
 
 // import types
-import { IRMFlow } from "./rm";
+import { IRmFlow } from "./rm";
 
 // render UI
-const MultipleUploadImages: React.FC<IRMFlow.IMultipleUploadImage> = (props) => {
+const MultipleUploadImages: React.FC<IRmFlow.IMultipleUploadImages> = (props) => {
   const { 
     onChange,
     onRemove,

@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./FeesRates.scss";
 
 // import constants
-import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { IFeesRates } from "./FeesRates";
@@ -34,6 +34,26 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   const dispatch = useDispatch();
+
+  const {
+    LIST_STEP: {
+      feesAndRates: {
+      title,
+       section: {
+        merchantDiscountRate: {
+          titleMerchantDiscountRate,
+          description
+        },
+        fees: {
+          titleFees
+        },
+        refundabltFees: {
+          titleRefundableFees
+        }
+       }
+      },
+    },
+  } = STEP_RM;
 
   // States
   const [loading, setLoading] = useState(false);
@@ -83,24 +103,24 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
 
       <Box className={cx('fees-rates')}>
         <div className="fees-rates-category" >
-          <Category class="title">Fees and rates</Category>
+          <Category class="title">{title}</Category>
         </div>
 
         <SectionWrapper 
           cx={cx} 
-          title="Merchant Discount Rate (MDR)" 
-          description="Please refer to following tables for Merchant Discount Rate (MDR) based on transcations and services selected previously."
+          title={titleMerchantDiscountRate} 
+          description={description}
           isEdit 
           path="/rm/contact-information" 
         >
           <MerchantDiscountRate cx={cx} />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Fees">
+        <SectionWrapper cx={cx} title={titleFees}>
           <Fees cx={cx} />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Refundable fees (if applicable)">
+        <SectionWrapper cx={cx} title={titleRefundableFees}>
           <Grid container>
             <Grid item xs={6}>
               <TextField
