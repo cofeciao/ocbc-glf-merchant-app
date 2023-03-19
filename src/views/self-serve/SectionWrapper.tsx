@@ -2,9 +2,10 @@
 import { Box, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import _ from "lodash";
+import { ISelfServe } from "@/views/self-serve/SelfServe";
 
-const SectionWrapper = (props: any) => {
-  const { title, description, cx, edit } = props;
+const SectionWrapper = (props: ISelfServe.ISectionWrapper) => {
+  const { title, description, cx, edit, children } = props;
   return (
     <Grid container className={cx("section-wrapper")}>
       <Grid item xs={12}>
@@ -30,7 +31,7 @@ const SectionWrapper = (props: any) => {
 
       {/* {Children} */}
       <Grid item xs={12}>
-        {props.children}
+        {children}
       </Grid>
 
       <Box className="section-seperate" />

@@ -44,11 +44,6 @@ const App = (props: MFEPropsType) => {
               <Switch>{routerRules}</Switch>
             </HashRouter>
           </Router>
-          {process.env.env !== "prod" && process.env.env !== "staging" && (
-            <div className="check-build">
-              {process.env.__HASH__} - {process.env.__COMMIT_DATE_TIME__}
-            </div>
-          )}
         </GlobalContext.Provider>
       </ThemeProvider>
     </StylesProvider>

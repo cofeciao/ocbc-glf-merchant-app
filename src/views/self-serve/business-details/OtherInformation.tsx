@@ -1,12 +1,7 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
-import {
-  Box,
-  Checkbox,
-  FormControlLabel,
-  Grid,
-  Typography,
-} from "@material-ui/core";
+import React from "react";
+import { Checkbox } from "@sectionsg/orc";
+import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
 
@@ -18,47 +13,9 @@ import styles from "./BusinessDetails.scss";
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
   const { sections, setValue, dataRedux } = props;
+  const { listCheckboxBusinessOfferings, listCheckboxAvailableSpaces } =
+    sections;
   const cx = classnames.bind(styles);
-  const [dataBusinessOperationCheckbox, setDataBusinessOperationCheckbox] =
-    useState<any>(sections[0].listCheckbox || []);
-  const [dataCurrentlyFollowingCheckbox, setDataCurrentlyFollowingCheckbox] =
-    useState<any>(sections[1].listCheckbox || []);
-
-  /**
-   * Clone data to avoid changing the original array, return new array after user clicked
-   * @param event
-   * @param data
-   */
-  const handleCloneData = (event: ChangeEvent<HTMLInputElement>, data: any) => {
-    const newData: any = data.reduce((pre: any, item: any) => {
-      const newItem: any = { ...item }; // Create a new object to avoid changing the original object
-      if (newItem.label === event.target.name) {
-        newItem.checked = event.target.checked;
-      }
-      pre.push(newItem);
-      return pre;
-    }, []);
-    return newData;
-  };
-
-  /**
-   *  handle on change after clicking checkbox
-   * @param event
-   */
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const dataBusinessOperation = handleCloneData(
-      event,
-      dataBusinessOperationCheckbox
-    );
-    const dataCurrentlyFollowing = handleCloneData(
-      event,
-      dataCurrentlyFollowingCheckbox
-    );
-    setDataBusinessOperationCheckbox(dataBusinessOperation);
-    setDataCurrentlyFollowingCheckbox(dataCurrentlyFollowing);
-    setValue("businessOfferings", dataBusinessOperation);
-    setValue("availableSpaces", dataCurrentlyFollowing);
-  };
 
   return (
     <Box
@@ -70,35 +27,22 @@ const OtherInformation: React.FC<any> = (props) => {
       <Grid container>
         <Grid item xs={12}>
           {/* {Description} */}
-          {sections[0].listCheckboxDescription && (
-            <Typography className={cx("sub-section-description")}>
-              {sections[0].listCheckboxDescription}
+          {!_.isEmpty(listCheckboxBusinessOfferings.description) && (
+            <Typography className={cx("sub-section-description mb-16")}>
+              {listCheckboxBusinessOfferings.description}
             </Typography>
           )}
 
           {/* {List Checkbox} */}
-          {dataBusinessOperationCheckbox && (
-            <Box display="flex" flexDirection="column">
-              {_.map(
-                dataBusinessOperationCheckbox,
-                (checkbox: any, idx: number) => {
-                  return (
-                    <FormControlLabel
-                      key={idx}
-                      control={
-                        <Checkbox
-                          name={checkbox.label}
-                          // checked={checkbox.checked}
-                          color="primary"
-                          onChange={handleChange}
-                        />
-                      }
-                      label={checkbox.label}
-                    />
-                  );
-                }
-              )}
-            </Box>
+          {!_.isEmpty(listCheckboxBusinessOfferings.list) && (
+            <Checkbox
+              isFullWidth
+              list={listCheckboxBusinessOfferings.list}
+              checkBoxClass={cx("business-offerings-checkbox")}
+              getValue={(value: any) => {
+                setValue("businessOfferings", value);
+              }}
+            />
           )}
         </Grid>
       </Grid>
@@ -106,35 +50,23 @@ const OtherInformation: React.FC<any> = (props) => {
       <Grid container>
         <Grid item xs={12}>
           {/* {Description} */}
-          {sections[1].listCheckboxDescription && (
-            <Typography className={cx("sub-section-description")}>
-              {sections[1].listCheckboxDescription}
+          {listCheckboxAvailableSpaces.description && (
+            <Typography className={cx("sub-section-description mb-16")}>
+              {listCheckboxAvailableSpaces.description}
             </Typography>
           )}
 
           {/* {List Checkbox} */}
-          {
-            <Box display="flex" flexDirection="column">
-              {_.map(
-                dataRedux.availableSpaces || sections[1].listCheckbox,
-                (checkbox: any, idx: number) => {
-                  return (
-                    <FormControlLabel
-                      key={idx}
-                      control={
-                        <Checkbox
-                          name={checkbox.label}
-                          color="primary"
-                          onChange={handleChange}
-                        />
-                      }
-                      label={checkbox.label}
-                    />
-                  );
-                }
-              )}
-            </Box>
-          }
+          {!_.isEmpty(listCheckboxAvailableSpaces.list) && (
+            <Checkbox
+              isFullWidth
+              list={listCheckboxAvailableSpaces.list}
+              checkBoxClass={cx("available-spaces-checkbox")}
+              getValue={(value: any) => {
+                setValue("availableSpaces", value);
+              }}
+            />
+          )}
         </Grid>
       </Grid>
     </Box>

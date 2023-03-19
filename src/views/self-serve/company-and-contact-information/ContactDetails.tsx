@@ -18,10 +18,11 @@ import {
   LIST_COUNTRIES_CODE,
   SELF_SERVE_PAGE,
 } from "@/utils/constants";
+import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
 // render UI
-const ContactDetails: React.FC<any> = (props) => {
-  const { cx, key, data, dataRedux, register, errors, setValue, setError } =
+const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = (props) => {
+  const { cx, data, dataRedux, register, errors, setValue, setError } =
     props;
   const { LIST_SALUTATION } = SELF_SERVE_PAGE;
   const { salutation, name, designation, email, contactNumber } =
@@ -148,7 +149,6 @@ const ContactDetails: React.FC<any> = (props) => {
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
                   _.has(contactNumber, "label") && (
                     <TextField
-                      key={key}
                       fullWidth
                       defaultValue={
                         _.has(dataRedux, "contactNumber")

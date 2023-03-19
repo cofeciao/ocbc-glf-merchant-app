@@ -1,12 +1,21 @@
 // import modules
 import { Box, Container, Grid } from "@material-ui/core";
-import { Footer, Header, Loading, Button, Category } from "@sectionsg/orc";
+import {
+  Footer,
+  Header,
+  Loading,
+  Button,
+  Category,
+  Dialog,
+} from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import moment from "moment";
 import { useSelector } from "react-redux";
+import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
+import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
+import EntryDialog from "@/views/home/entry-dialog";
 
 //import icon
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
@@ -21,28 +30,43 @@ import {
 } from "../../utils/constants";
 
 // import types
-import { IHome } from "./Home";
 import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // import style
 import styles from "./Home.scss";
 
-// import child component
-import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
-import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
-
 // render UI
-const Home: React.FC = ({}) => {
-  const { cashless_payments_methods, things_to_take_note_of } = HOME_PAGE;
+const Home: React.FC = () => {
+  const {
+    TITLE_CASHLESS_PAYMENTS_HOME,
+    CASHLESS_PAYMENTS_METHODS,
+    THINGS_TO_TAKE_NOTE_OF,
+  } = HOME_PAGE;
   const cx = classnames.bind(styles);
   const history = useHistory();
   const [key, setKey] = useState<number>(0);
   const [dataCardCheckbox, setDataCardCheckbox] = useState<ICheckBox[]>(
-    cashless_payments_methods.data_list_checkbox
+    CASHLESS_PAYMENTS_METHODS.data_list_checkbox
   );
   const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
   const [loading] = useState(false);
   const [interest, setInterest] = useState(false);
+  const [openDialog, setOpenDialog] = useState<boolean>(true);
+
+  /**
+   * Back to Card Acceptance page
+   */
+  const handleRollBackPage = () => {
+    // Temporarily reloading
+    window.location.reload();
+  };
+
+  /**
+   * Handle close Dialog
+   */
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
 
   /**
    * Retrieves data from Store
@@ -94,6 +118,11 @@ const Home: React.FC = ({}) => {
   // Render UI
   return (
     <>
+      {/* {Continue later Dialog} */}
+      <Dialog isOpen={openDialog} onRequestClose={handleRollBackPage}>
+        <EntryDialog onCloseDialog={handleCloseDialog} />
+      </Dialog>
+
       {/* {Loading} */}
       {loading && (
         <Box className={cx("container-loading")}>
@@ -111,15 +140,13 @@ const Home: React.FC = ({}) => {
 
       {/* {Container} */}
       <Container className={cx("container")}>
-        <section className={cx("home-page-wrapper")}>
+        <Box className={cx("home-page-wrapper")}>
           <Grid container>
             {/* {Column left} */}
             <Grid item xs={12} md={3}>
               {/* Category */}
               <Box className="home-category">
-                <Category class="alo">
-                  {HOME_PAGE.title_cashless_payments_home}
-                </Category>
+                <Category class="">{TITLE_CASHLESS_PAYMENTS_HOME}</Category>
               </Box>
             </Grid>
 
@@ -128,17 +155,16 @@ const Home: React.FC = ({}) => {
               {/* {Section Home Things To Take Note Of} */}
               <HomeThingsToTakeNoteOf
                 cx={cx}
-                listItem={HOME_PAGE.things_to_take_note_of.list_item}
-                title={HOME_PAGE.things_to_take_note_of.title}
+                listItem={THINGS_TO_TAKE_NOTE_OF.listItem}
+                title={THINGS_TO_TAKE_NOTE_OF.title}
               />
 
               {/* {Section Home Cashless Payment Methods} */}
               <HomeCashlessPaymentMethods
-                title={HOME_PAGE.cashless_payments_methods.title}
-                description={HOME_PAGE.cashless_payments_methods.description}
+                title={CASHLESS_PAYMENTS_METHODS.title}
+                description={CASHLESS_PAYMENTS_METHODS.description}
                 errorMessage={
-                  HOME_PAGE.cashless_payments_methods
-                    .messgase_error_list_checkbox
+                  CASHLESS_PAYMENTS_METHODS.messgase_error_list_checkbox
                 }
                 dataCardCheckbox={dataCardCheckbox}
                 checkboxKey={key}
@@ -147,7 +173,7 @@ const Home: React.FC = ({}) => {
               />
 
               {/* Next button */}
-              <section
+              <Box
                 className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
               >
                 <Button
@@ -159,10 +185,10 @@ const Home: React.FC = ({}) => {
                   {START}
                   <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
                 </Button>
-              </section>
+              </Box>
             </Grid>
           </Grid>
-        </section>
+        </Box>
       </Container>
 
       {/* {Footer} */}

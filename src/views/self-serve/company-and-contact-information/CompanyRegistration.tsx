@@ -14,9 +14,10 @@ import _ from "lodash";
 
 // import constant
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
+import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
 // render UI
-const CompanyRegistration: React.FC<any> = (props) => {
+const CompanyRegistration: React.FC<ICompanyAndContactInformation.ICompanyRegistration> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const { LIST_COMPANY_TYPE } = SELF_SERVE_PAGE;
   const { registeredEntityName, uniqueEntityNumber, companyType } =

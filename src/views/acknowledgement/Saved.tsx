@@ -13,14 +13,20 @@ import { ACKNOWLEDGEMENT_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./Acknowledgement.scss";
+import { useSelector } from "react-redux";
 
-const Successful: React.FC<any> = () => {
+const Saved: React.FC<any> = () => {
   const {
-    LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS,
-    LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION,
-    LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS,
+    SAVED: { title, description },
   } = ACKNOWLEDGEMENT_PAGE;
   const cx = classnames.bind(styles);
+
+  /**
+   * Retrieves data of Company And Contact Information step from Store
+   */
+  const dataCompanyAndContactInformationStep = useSelector(
+    (state: any) => state.form.companyAndContactInformationStep
+  );
 
   return (
     <>
@@ -30,23 +36,29 @@ const Successful: React.FC<any> = () => {
           <Grid item xs={12} lg={3}>
             {/* {Category} */}
             <Box className={cx("category-wrapper")}>
-              <Category>{LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS}</Category>
+              <Category>{title}</Category>
             </Box>
           </Grid>
           <Grid item xs={12} lg={4}>
             <Box className={cx("acknowledgement-wrapper")}>
+              {/* {Image} */}
               <img
                 src={AcknowledgementSuccess}
                 alt="successful-image"
                 className={cx("acknowledgement-image")}
               />
-              <Box className={cx("acknowledgement-title mb-24")}>
-                {LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION}
-              </Box>
+              {/* {Title} */}
+              <Box className={cx("acknowledgement-title mb-24")}>{title}</Box>
+
+              {/* {Description} */}
               <Box className={cx("acknowledgement-description")}>
-                {
-                  LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS
-                }
+                {`${description.before}`}
+                &nbsp;
+                <Box component="span" id={cx("email")}>
+                  {dataCompanyAndContactInformationStep.email}
+                </Box>
+                &nbsp;
+                {`${description.after}`}
               </Box>
             </Box>
           </Grid>
@@ -55,4 +67,4 @@ const Successful: React.FC<any> = () => {
     </>
   );
 };
-export default Successful;
+export default Saved;

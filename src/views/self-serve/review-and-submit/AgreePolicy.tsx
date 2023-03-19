@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import { Checkbox } from "@sectionsg/orc";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
+import { SELF_SERVE_PAGE } from "@/utils/constants";
 import _ from "lodash";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
-import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const AgreePolicy: React.FC<any> = (props) => {
@@ -16,8 +16,14 @@ const AgreePolicy: React.FC<any> = (props) => {
   const cx = classnames.bind(styles);
   const [valueCheckbox, setValueCheckbox] = useState();
 
+  /**
+   * Check policy checkbox to handling submit button
+   */
   useEffect(() => {
-    if (!_.isNil(valueCheckbox) && _.size(valueCheckbox) >= 3) {
+    if (
+      !_.isNil(valueCheckbox) &&
+      _.size(valueCheckbox) >= LIST_CHECKBOX_AGREE_POLICY.listCheckbox.length
+    ) {
       getValue(true);
     } else {
       getValue(false);

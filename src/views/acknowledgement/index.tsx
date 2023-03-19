@@ -1,25 +1,23 @@
 // import modules
 import React from "react";
 import classnames from "classnames/bind";
-import { Footer, Header, Category } from "@sectionsg/orc";
-import { Box, Container, Grid } from "@material-ui/core";
+import { Footer, Header } from "@sectionsg/orc";
 import _ from "lodash";
 import { useParams } from "react-router";
+import Successful from "./Successful";
+import Interest from "./Interest";
+import Saved from "./Saved";
 
 // import constants
 import { TITLE_PAGE } from "@/utils/constants-rm";
 
 // import style
 import styles from "./Acknowledgement.scss";
-import { LIST_ROUTER } from "@/utils/constants";
-import Successful from "./Successful";
-import Interest from "./Interest";
 
+// render UI
 const Acknowledgement: React.FC<any> = () => {
   const cx = classnames.bind(styles);
   const { slug } = useParams<{ slug: string }>();
-
-  console.log("sllug", slug);
 
   return (
     <>
@@ -28,6 +26,7 @@ const Acknowledgement: React.FC<any> = () => {
 
       {slug === "successful" && <Successful />}
       {slug === "interest" && <Interest />}
+      {slug === "saved" && <Saved />}
 
       {/* {Footer} */}
       <Footer />
