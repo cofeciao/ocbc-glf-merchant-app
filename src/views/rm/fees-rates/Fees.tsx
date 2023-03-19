@@ -90,9 +90,9 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
         <Grid item xs={6}>
           <TextField
             fullWidth
-            name="other"
+            name="otherFees"
             // defaultValue={paramsFeeRates.refundable_fees}
-            label="Other"
+            label="Other fees"
             id={uuidv4()}
             // label={name.label}
             variant="filled"

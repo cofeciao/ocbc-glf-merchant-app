@@ -5,8 +5,16 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import { IReviewSubmit } from "./ReviewSubmit";
 
 const ProductsAndServices: React.FC<IReviewSubmit.IProductsAndServices> = (props) => {
-  const { cx, data } = props;
-
+  const { cx, data, titles } = props;
+  const {
+    titleTypeOfProduct,
+    titleOrderFulfilment,
+    titleAverageAmountPerCreditCardTransaction,
+    titleAnnualCreditCardSalesForecast,
+    refundPolicy: {
+      titleRefundPolicy, titleCopyOfRefundPolicy
+    }
+  } = titles; 
 
   /**
    * render UI
@@ -24,15 +32,15 @@ const ProductsAndServices: React.FC<IReviewSubmit.IProductsAndServices> = (props
   return (
     <Box className={cx("products-and-services")}>
      <Grid container spacing={3}>
-        <Grid item xs={12}>{renderContent("Type of product and/or service", data && data.typeOfProduct)}</Grid>
-        <Grid item xs={12}>{renderContent("Order fulfilment", data && data.orderFulfiment)}</Grid>
-        <Grid item xs={6}>{renderContent("Average amount per credit card transaction", data && data.averageAmountPerCreditCardTransaction)}</Grid>
-        <Grid item xs={6}>{renderContent("Annual credit card sales forecast", data && data.annualCreditCardSalesForecast)}</Grid>
+        <Grid item xs={12}>{renderContent(titleTypeOfProduct, data && data.typeOfProduct)}</Grid>
+        <Grid item xs={12}>{renderContent(titleOrderFulfilment, data && data.orderFulfiment)}</Grid>
+        <Grid item xs={6}>{renderContent(titleAverageAmountPerCreditCardTransaction, data && data.averageAmountPerCreditCardTransaction)}</Grid>
+        <Grid item xs={6}>{renderContent(titleAnnualCreditCardSalesForecast, data && data.annualCreditCardSalesForecast)}</Grid>
         <Grid item xs={12}>
-          <Typography className={cx("sub-title")}>Refund policy</Typography>
+          <Typography className={cx("sub-title")}>{titleRefundPolicy}</Typography>
         </Grid>
-        <Grid item xs={6}>{renderContent("Refund policy", data && data.refundPolicy ? "Yes" : "No")}</Grid>
-        <Grid item xs={6}>{renderContent("Copy of refund policy", data && data.copyOfRefundPolicy)}</Grid>
+        <Grid item xs={6}>{renderContent(titleRefundPolicy, data && data.refundPolicy ? "Yes" : "No")}</Grid>
+        <Grid item xs={6}>{renderContent(titleCopyOfRefundPolicy, data && data.copyOfRefundPolicy)}</Grid>
 
      </Grid>
     </Box>

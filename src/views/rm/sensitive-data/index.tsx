@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./Sensitive.scss";
 
 // import constants
-import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { ISensitive } from "./Sensitive";
@@ -35,16 +35,19 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
   const history = useHistory()
   const dispatch = useDispatch();
 
-  const listRadio = [
-    {
-      text: "Yes",
-      checked: false,
+
+  const {
+    LIST_STEP: {
+      sensitiveData: {
+        title,
+        section: {
+          labelUploadPCIDSSCerificate,
+          listRadio,
+        }
+      }
     },
-    {
-      text: "No",
-      checked: false,
-    },
-  ];
+  } = STEP_RM;
+
 
   // States
   const [loading, setLoading] = useState(false);
@@ -97,10 +100,10 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
 
       <Box className={cx('sensitive')}>
         <div className="sensitive-category" >
-          <Category class="title">Products and services</Category>
+          <Category class="title">{title}</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Sensitive data">
+        <SectionWrapper cx={cx} title={title}>
           <SensitiveData 
             listRadio={listRadio} 
             valueRadio={valueRadio} 
@@ -109,7 +112,7 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
         </SectionWrapper>
         
         {valueRadio.compliantWithThePaymentCardIndustry === "Yes" && (
-          <SectionWrapper cx={cx} title="Upload PCI DSS certificate">
+          <SectionWrapper cx={cx} title={labelUploadPCIDSSCerificate}>
             <UploadImage onChange={(file: any) => console.log(file)} />
           </SectionWrapper>
         )}

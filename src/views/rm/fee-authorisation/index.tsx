@@ -227,7 +227,7 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
           title={title}
           description={description}
         >
-          <Grid container>
+          <Grid container spacing={3}>
             <Grid item xs={6}>
               {renderItemInformation(annual.title, annual.value)}
             </Grid>

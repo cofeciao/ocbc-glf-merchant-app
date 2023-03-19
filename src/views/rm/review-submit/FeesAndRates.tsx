@@ -5,7 +5,23 @@ import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHea
 import { IReviewSubmit } from "./ReviewSubmit";
 
 const FeesAndRates: React.FC<IReviewSubmit.IFeesAndRates> = (props) => {
-  const { cx, data } = props;
+  const { cx, data, titles } = props;
+  const {
+    titleMerchantDiscountRate,
+    fees: {
+      titleFees,
+      titleAnnual,
+      titleOneTimeSetupFee,
+      titlePerDomesticTransaction,
+      titlePerInternationalTransaction,
+      titleTokenisation,
+      titleOtherFees,
+      titleDescriptionForOtherFees,
+    },
+    refundableFees: {
+      titleRefundableFees,
+    }
+  } = titles
 
   const headersAcceptanceType:any [] = [
     {
@@ -99,29 +115,30 @@ const FeesAndRates: React.FC<IReviewSubmit.IFeesAndRates> = (props) => {
     <Box className={cx("fees-and-rates")}>
 
       {/* Merchant Discount Rate (MDR) Section */}
-      <Typography className={cx("sub-title")}>Merchant Discount Rate (MDR)</Typography>
+      <Typography className={cx("sub-title")}>{titleMerchantDiscountRate}</Typography>
       {renderTable(data && data.merchantDiscountRate && data.merchantDiscountRate.acceptanceType, headersAcceptanceType)}
       {renderTable(data && data.merchantDiscountRate && data.merchantDiscountRate.services, headersServices)}
       
       {/* Fees Section */}
-      <Typography className={cx("sub-title")}>Fees (GST inclusive)</Typography>
+      <Typography className={cx("sub-title")}>{titleFees}</Typography>
       <Grid className={cx("group-item-fees")} container spacing={4}>
-        <Grid item xs={3}>{renderContent("Annual", data && data.fees && data.fees.annual)}</Grid>
+        <Grid item xs={3}>{renderContent(titleAnnual, data && data.fees && data.fees.annual)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>{renderContent("One time setup (to vendor)", data && data.fees && data.fees.oneTimeSetup)}</Grid>
+        <Grid item xs={3}>{renderContent(titleOneTimeSetupFee, data && data.fees && data.fees.oneTimeSetup)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>{renderContent("Per domestic transaction", data && data.fees && data.fees.perDomesticTransaction)}</Grid>
+        <Grid item xs={3}>{renderContent(titlePerDomesticTransaction, data && data.fees && data.fees.perDomesticTransaction)}</Grid>
         <Grid item xs={3}></Grid>        
-        <Grid item xs={3}>{renderContent("Per international transaction", data && data.fees && data.fees.perInternationalTransaction)}</Grid>
+        <Grid item xs={3}>{renderContent(titlePerInternationalTransaction, data && data.fees && data.fees.perInternationalTransaction)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>{renderContent("Others", data && data.fees && data.fees.others)}</Grid>
+        <Grid item xs={12}>{renderContent(titleTokenisation, data && data.fees && data.fees.others)}</Grid>
+        <Grid item xs={3}>{renderContent(titleOtherFees, data && data.fees && data.fees.others)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>{renderContent("Description for other fees", data && data.fees && data.fees.descriptionForOtherFees)}</Grid>
+        <Grid item xs={3}>{renderContent(titleDescriptionForOtherFees, data && data.fees && data.fees.descriptionForOtherFees)}</Grid>
       </Grid>
 
       {/* Refundable Fees Section */}
-      <Typography className={cx("sub-title")}>Refundable Fees</Typography>
-      {renderContent("Security deposit (one-time)", data && data.refundableFees && data.refundableFees.securityDeposit)}
+      <Typography className={cx("sub-title")}>{titleRefundableFees}</Typography>
+      {renderContent(titleRefundableFees, data && data.refundableFees && data.refundableFees.securityDeposit)}
     </Box>
   )
 }

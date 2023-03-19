@@ -5,8 +5,8 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import { IReviewSubmit } from "./ReviewSubmit";
 
 const MaintenanceFeeAuthorisation: React.FC<IReviewSubmit.IMaintenanceFeeAuthorisation> = (props) => {
-  const { cx, data } = props;
-
+  const { cx, data, titles } = props;
+  const { titleFirstYearPayment, titleSubsequentYearsPayment } = titles
   /**
    * render UI
    * @returns {HTML}
@@ -26,12 +26,12 @@ const MaintenanceFeeAuthorisation: React.FC<IReviewSubmit.IMaintenanceFeeAuthori
         <Grid item xs={12}>
           {data && 
             data.firstYearPayment && 
-            renderContent("First year payment", data.firstYearPayment)}
+            renderContent(titleFirstYearPayment, data.firstYearPayment)}
         </Grid>
         <Grid item xs={12}>
           {data &&
             data.subsequentYearsPayment && 
-            renderContent("Subsequent years payment", data.subsequentYearsPayment)}
+            renderContent(titleSubsequentYearsPayment, data.subsequentYearsPayment)}
         </Grid>
       </Grid>
 

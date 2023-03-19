@@ -5,8 +5,8 @@ import { Box, Typography } from "@material-ui/core";
 import { IReviewSubmit } from "./ReviewSubmit";
 
 const CashPaymentMethod: React.FC<IReviewSubmit.ICashPaymentMethod> = (props) => {
-  const { cx, data } = props;
-
+  const { cx, data, titles } = props;
+  const { titleMode } = titles;
 
   /**
    * render UI
@@ -20,7 +20,7 @@ const CashPaymentMethod: React.FC<IReviewSubmit.ICashPaymentMethod> = (props) =>
 
   return (
     <Box className={cx("cash-payment-method")}>
-      <Typography className={cx("title")}>Mode</Typography>
+      <Typography className={cx("title")}>{titleMode}</Typography>
       {data && 
         data.cashPaymentMethod && 
         data.cashPaymentMethod.typeCard && 

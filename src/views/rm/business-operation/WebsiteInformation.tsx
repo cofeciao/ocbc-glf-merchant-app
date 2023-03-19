@@ -12,6 +12,7 @@ import IconPlus from "@/assets/images/icon-plus.svg";
 // import style
 import styles from "./BusinessOperation.scss";
 import { useFieldArray, useForm } from "react-hook-form";
+import { STEP_RM } from "@/utils/constants-rm";
 
 // import types
 
@@ -19,6 +20,20 @@ import { useFieldArray, useForm } from "react-hook-form";
 const WebsiteInformation: React.FC<any> = (props) => {
   const { listRadio } = props;
   const cx = classnames.bind(styles);
+
+  const {
+    LIST_STEP: {
+      businessOperation: {
+        section: { websiteInfomation },
+      },
+    },
+  } = STEP_RM;
+
+  // States
+  const [dataWebsiteInformation, setDataWebsiteInformation] = useState<any>({
+    checkedYouHaveExistingWebsite: websiteInfomation.checkedYouHaveExistingWebsite,
+    checkedCanCustomersPlaceOrderThroughYourWebsite: websiteInfomation.checkedCanCustomersPlaceOrderThroughYourWebsite
+  })
 
   // form
   const {
@@ -42,92 +57,102 @@ const WebsiteInformation: React.FC<any> = (props) => {
   return (
     <Box className={cx("website-information-wrapper")}>
       <Grid container>
-        {/* {Is your business ready for operation?} */}
+
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
-            Do you have an existing website?
+            {websiteInfomation.labelDoYouHaveAnExistingWebsite}
           </Typography>
 
           <Radio
             name="lockIn"
             listCheckBox={listRadio}
-            // label="Is your business ready for operation?"
             radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
+            value={dataWebsiteInformation.checkedYouHaveExistingWebsite ? "Yes" : "No"}
+            getValue={(value: any) => {
+              setDataWebsiteInformation({
+                ...dataWebsiteInformation,
+                checkedYouHaveExistingWebsite: value === "Yes" ? true : false
+              })
+            }}
           />
         </Grid>
 
-        {/* {Is your business ready for operation?} */}
-        <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            Your website’s URL
-          </Typography>
-          <Grid 
-            container
-            direction="column"
-            style={{ rowGap: "12px" }}
-          >
-            {fields.map((item: any, index: number) => (
-              <Grid item xs={4} key={index}>
-                <div className={cx('group-fields')}>
-                  <TextField
-                    fullWidth
-                    id={`uuidv4()`}
-                    label="e.g. www.xxx.com"
-                    variant="filled"
-                    // onBlur={(event) => {
-                    //   getPersonalInformation(
-                    //     "RegisteredEntityName",
-                    //     event.target.value,
-                    //     ""
-                    //   );
-                    // }}
+        {!dataWebsiteInformation.checkedYouHaveExistingWebsite && (
+          <Grid item xs={12}>
+            <Grid 
+              container
+              direction="column"
+              style={{ rowGap: "12px" }}
+            >
+              {fields.map((item: any, index: number) => (
+                <Grid item xs={12} key={index}>
+                  <div className={cx('group-fields')}>
+                    <Typography className={cx("title")}>
+                      {`${websiteInfomation.labelYourWebsiteURL} ${index + 1}`}
+                    </Typography>
+                    <Grid container>
+                      <Grid item xs={4}>
+                        <TextField
+                          fullWidth
+                          id={`uuidv4()`}
+                          label="e.g. www.xxx.com"
+                          variant="filled"
+                          // onBlur={(event) => {
+                          //   getPersonalInformation(
+                          //     "RegisteredEntityName",
+                          //     event.target.value,
+                          //     ""
+                          //   );
+                          // }}
+                        />
+
+                      </Grid>
+                    </Grid>
+                    {index >= 1 && (
+                      <Typography
+                        className={cx('label-remove')}
+                        onClick={() => remove(index)}
+                      >
+                        Remove
+                      </Typography>
+                    )}
+                  </div>
+                </Grid>
+              ))}
+              {fields.length < 3 && (
+                <div 
+                  className={cx("add-field")}
+                  onClick={() => append({value: "url"})}
+                >
+                  <img
+                    src={IconPlus}
+                    alt="icon"
+                    className={cx("text-field-add-icon")}
                   />
-                  {index >= 1 && (
-                    <img
-                      src={IconTrash}
-                      alt="icon"
-                      className={cx("text-field-trash-icon")}
-                      onClick={() => remove(index)}
-                    />
-                  )}
-
+                  {websiteInfomation.labelAddMoreWebsite}
                 </div>
-              </Grid>
-            ))}
-            {fields.length < 3 && (
-              <div 
-                className={cx("add-field")}
-                onClick={() => append({value: "url"})}
-              >
-                <img
-                  src={IconPlus}
-                  alt="icon"
-                  className={cx("text-field-add-icon")}
-                />
-                Add more website
-              </div>
-            )}
+              )}
+            </Grid>
           </Grid>
-        </Grid>
+        )}
 
-        {/* {Is your business ready for operation?} */}
+
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
-            Can customers place orders through your website?
+            {websiteInfomation.labelCanCustomersPlaceOrderThroughYourWebsite}
           </Typography>
 
           <Radio
             name="lockIn"
             listCheckBox={listRadio}
             radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
+            value={dataWebsiteInformation.checkedCanCustomersPlaceOrderThroughYourWebsite ? "Yes" : "No"}
+            getValue={(value: any) => {
+              setDataWebsiteInformation({
+                ...dataWebsiteInformation,
+                checkedCanCustomersPlaceOrderThroughYourWebsite: value === "Yes" ? true : false
+              })
+            }}
           />
         </Grid>
       </Grid>

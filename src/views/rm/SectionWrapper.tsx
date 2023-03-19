@@ -32,8 +32,6 @@ const SectionWrapper = (props: any) => {
       <Grid item xs={12}>
         {props.children}
       </Grid>
-
-      <Box className="section-seperate" />
     </Grid>
   );
 };

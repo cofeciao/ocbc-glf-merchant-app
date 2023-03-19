@@ -45,10 +45,10 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                 fullWidth
                 labelId="salutation-select-filled-label"
                 defaultValue={
-                  _.has(dataRedux, "authorised_person_details.salutation") ? dataRedux.authorised_person_details.salutation : ""
+                  _.has(dataRedux, "authorisedPersonDetails.salutation") ? dataRedux.authorisedPersonDetails.salutation : ""
                 }
                 id="salutation-select-filled"
-                {...register("authorised_person_details.salutation", {
+                {...register("authorisedPersonDetails.salutation", {
                   required: true,
                 })}
               >
@@ -74,12 +74,12 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                   <TextField
                     fullWidth
                     defaultValue={
-                      _.has(dataRedux, "authorised_person_details.name") ? dataRedux.authorised_person_details.name : ""
+                      _.has(dataRedux, "authorisedPersonDetails.name") ? dataRedux.authorisedPersonDetails.name : ""
                     }
                     id={uuidv4()}
                     label={name.label}
                     variant="filled"
-                    {...register("authorised_person_details.name", {
+                    {...register("authorisedPersonDetails.name", {
                       required: true,
                     })}
                   />
@@ -91,18 +91,18 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                   {/* {Email input field} */}
                   <TextField
                     fullWidth
-                    error={errors.authorised_person_details && errors.authorised_person_details.email && true}
+                    error={errors.authorisedPersonDetails && errors.authorisedPersonDetails.email && true}
                     defaultValue={
-                      _.has(dataRedux, "authorised_person_details.email") ? dataRedux.authorised_person_details.email : ""
+                      _.has(dataRedux, "authorisedPersonDetails.email") ? dataRedux.authorisedPersonDetails.email : ""
                     }
                     id={uuidv4()}
                     label={email.label}
                     key={null}
                     variant="filled"
                     helperText={
-                      errors.authorised_person_details && errors.authorised_person_details.email && `${ERROR_ICON} ${errors.authorised_person_details &&  errors.authorised_person_details.email.message}`
+                      errors.authorisedPersonDetails && errors.authorisedPersonDetails.email && `${ERROR_ICON} ${errors.authorisedPersonDetails &&  errors.authorisedPersonDetails.email.message}`
                     }
-                    {...register("authorised_person_details.email", {
+                    {...register("authorisedPersonDetails.email", {
                       required: email.requiredText,
                       pattern: {
                         // eslint-disable-next-line no-useless-escape
@@ -127,21 +127,21 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                     fullWidth
                     id={uuidv4()}
                     defaultValue={
-                      _.has(dataRedux, "authorised_person_details.designation")
-                        ? dataRedux.authorised_person_details.designation
+                      _.has(dataRedux, "authorisedPersonDetails.designation")
+                        ? dataRedux.authorisedPersonDetails.designation
                         : ""
                     }
                     label={designation.label}
                     variant="filled"
-                    {...register("authorised_person_details.designation", {
+                    {...register("authorisedPersonDetails.designation", {
                       required: true,
                     })}
                   />
                 </Grid>
               )}
 
-              {_.has(errors.authorised_person_details, "type") && 
-              _.has(errors.authorised_person_details.contactNumber, "type") &&
+              {_.has(errors.authorisedPersonDetails, "type") && 
+              _.has(errors.authorisedPersonDetails.contactNumber, "type") &&
                 _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
@@ -151,17 +151,17 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                       key={key}
                       fullWidth
                       defaultValue={
-                        _.has(dataRedux, "authorised_person_details.contactNumber")
-                          ? dataRedux.authorised_person_details.contactNumber
+                        _.has(dataRedux, "authorisedPersonDetails.contactNumber")
+                          ? dataRedux.authorisedPersonDetails.contactNumber
                           : ""
                       }
                       type="number"
                       error={
-                        _.has(errors, "authorised_person_details.contactNumber") &&
-                        !_.isEqual(errors.authorised_person_details.contactNumber.type, "required")
+                        _.has(errors, "authorisedPersonDetails.contactNumber") &&
+                        !_.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required")
                           ? false
-                          : _.has(errors, "authorised_person_details.contactNumber") &&
-                            !_.isEqual(errors.authorised_person_details.contactNumber.type, "required") &&
+                          : _.has(errors, "authorisedPersonDetails.contactNumber") &&
+                            !_.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required") &&
                             true
                       }
                       name="numberformat"
@@ -169,14 +169,14 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactNumber, "type") &&
-                        _.isEqual(errors.authorised_person_details.contactNumber.type, "required")
+                        _.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required")
                           ? ""
-                          : _.has(errors.authorised_person_details, "type") &&
-                            _.has(errors.authorised_person_details.contactNumber, "type") &&
-                            !_.isEqual(errors.authorised_person_details.contactNumber.type, "required") &&
-                            `${ERROR_ICON} ${errors.authorised_person_details.contactNumber.message}`
+                          : _.has(errors.authorisedPersonDetails, "type") &&
+                            _.has(errors.authorisedPersonDetails.contactNumber, "type") &&
+                            !_.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required") &&
+                            `${ERROR_ICON} ${errors.authorisedPersonDetails.contactNumber.message}`
                       }
-                      {...register("authorised_person_details.contactNumber", {
+                      {...register("authorisedPersonDetails.contactNumber", {
                         required: true,
                         pattern: {
                           value: /^[0-9]{8}$/,
@@ -184,13 +184,13 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                         },
                         onBlur: (event: ChangeEvent<HTMLInputElement>) => {
                           if (event.target.value === "") {
-                            setValue("authorised_person_details.contactNumber", "");
-                            setError("authorised_person_details.contactNumber", {
+                            setValue("authorisedPersonDetails.contactNumber", "");
+                            setError("authorisedPersonDetails.contactNumber", {
                               type: "required",
                               message: "",
                             });
                           } else {
-                            setValue("authorised_person_details.contactNumber", event.target.value);
+                            setValue("authorisedPersonDetails.contactNumber", event.target.value);
                           }
                         },
                       })}
@@ -200,12 +200,12 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                             {/* {Phone Number select field} */}
                             <Select
                               defaultValue={
-                                _.has(dataRedux, "authorised_person_details.areaCode")
-                                  ? dataRedux.authorised_person_details.areaCode
+                                _.has(dataRedux, "authorisedPersonDetails.areaCode")
+                                  ? dataRedux.authorisedPersonDetails.areaCode
                                   : LIST_COUNTRIES_CODE[0].value
                               }
                               error={errors.AreaCode && true}
-                              {...register("authorised_person_details.areaCode", {
+                              {...register("authorisedPersonDetails.areaCode", {
                                 required: false,
                               })}
                             >

@@ -1469,16 +1469,7 @@ export const STEP_RM = {
       value: "ms",
     },
   ],
-  list_bank_name: [
-    {
-      name: "Standard Chartered",
-      value: "standardChartered",
-    },
-    {
-      name: "OCBC",
-      value: "ocbc",
-    },
-  ],
+
   LABEL_ADD_MORE_WEBSITES: "Add website more",
 
 
@@ -1493,29 +1484,37 @@ export const STEP_RM = {
         value: "ms",
       },
     ],
-    acra_and_contact_information: {
+    acraAndContactInformation: {
       id: "acra-and-contact-information",
       numerical: "0",
-      text: "Acra and contact information",
+      title: "Acra and contact information",
       check: false,
       status: true,
       section: {
-        arca_detail: {
-          title: "Arca details",
+        arcaDetail: {
+          title: "ACRA details",
           description:
             "Please ensure that these details from ACRA are updated.",
+          titles: {
+            titleBusinessName: "Business name",
+            titleEntityType: "Entity type",
+            titleRegisteredAddress: "Registered address",
+            titleDirectors: "Directors",
+          },
           dataDetail: {
-            business_name: "AMZO Pte Ltd",
-            entity_type: "Private Limited Company",
-            registered_address: "35 Bedok North Road #09-39 Singapore 674902",
-            directors: "Lau Aik Miang S9300409F",
-            unique_entity_number: "2016347449N",
-            nature_of_business: "Café / Restaurant",
-            mailing_address: "35 Bedok North Road #09-39 Singapore 674902",
-            user: "Zunaidi Zainal Azmian S9000555C",
+            businessName: "AMZO Pte Ltd",
+            entityType: "Private Limited Company",
+            registeredAddress: "35 Bedok North Road #09-39 Singapore 674902",
+            directors: [
+              "Lau Aik Miang S9300409F",
+              "Zunaidi Zainal Azmian S9000555C"
+            ],
+            uniqueEntityNumber: "2016347449N",
+            natureOfBusiness: "Café / Restaurant",
+            mailingAddress: "35 Bedok North Road #09-39 Singapore 674902",
           }
         },
-        contact_detail: {
+        contactDetail: {
           title: "Contact details",
           description: "Please ensure that these details are accurate.",
           inputFields: {
@@ -1546,7 +1545,7 @@ export const STEP_RM = {
             },
           },
         },
-        authorised_person_details: {
+        authorisedPersonDetails: {
           title:"Authorised person details",
           description: "Please ensure that these details are accurate.",
           inputFields: {
@@ -1579,7 +1578,7 @@ export const STEP_RM = {
         }
       },
     },
-    services_applied: {
+    servicesApplied: {
       id: "services_applied",
       numerical: "1",
       text: "Services Applied",
@@ -1593,10 +1592,10 @@ export const STEP_RM = {
         status: true,
       },
       section: {
-        transaction_and_card_acceptance_type: {
+        transactionAndCardAcceptanceType: {
           title: "Transaction and card acceptance type",
           description: "Both services automatically come with Mastercard and Visa.",
-          data_list_checkbox: [
+          dataListCheckbox: [
             {
               label: "Point-of-Sales terminal",
               value: "point-of-sales-terminal",
@@ -1696,11 +1695,11 @@ export const STEP_RM = {
             },
           ],
         },
-        other_services: {
+        otherServices: {
           title: "Other services",
           description: "",
           sectionRadios: {
-            instalment_payment_plan: {
+            instalmentPaymentPlan: {
               title: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
@@ -1714,8 +1713,10 @@ export const STEP_RM = {
                   checked: false,
                 },
               ],
-              repayment_periods_offered: {
+              repaymentPeriodsOffered: {
                 title: "Please select repayment periods offered",
+                labelSeeMore: "Show more repayment periods",
+                labelLess: "Show less",
                 listCheckBox: [
                   {
                     label: "3 months",
@@ -1765,7 +1766,7 @@ export const STEP_RM = {
                 ]
               }
             },
-            direct_currency_conversion: {
+            directCurrencyConversion: {
               title: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
               name: "directCurrencyConversion",
               checked: false,
@@ -1780,7 +1781,7 @@ export const STEP_RM = {
                 },
               ],
             },
-            mail_order: {
+            mailOrder: {
               title: "Will you be offering Mail Order/Telephone Order?",
               name: "mailOrder",
               checked: false,
@@ -1799,7 +1800,7 @@ export const STEP_RM = {
         }
       },
     },
-    business_operation: {
+    businessOperation: {
       id: "business-operation",
       numerical: "2",
       text: "Business operation details",
@@ -1813,9 +1814,24 @@ export const STEP_RM = {
         status: true,
       },
       section: {
-        business_details: {
-          listRadioDescription: "Is your business ready for operation?",
-          listRadio: [
+        businessInformation: {
+          titleBusinessInformation: "Business information",
+          labelIsYouBusinessReadyForOperation: "Is your business ready for operation?",
+          labelAtHowManyOutletWillYouDeplay: "At how many outlets will you deploy Point-of-Sales terminals?",
+          labelDoYouCurrentHaveAnOCBCBusinessAccount: "Do you currently have an OCBC business account?",
+          checkedIsYourBusinessReadyForOperation: false,
+          checkedDoYouCurrentHaveAnOCBCBusinessAccount: false,
+          listRadioIsYourBusinessReadyForOperation: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+          listRadioYouCurrentlyHaveAnOCBC: [
             {
               text: "Yes",
               checked: false,
@@ -1827,10 +1843,16 @@ export const STEP_RM = {
           ],
           textFieldDescription:
             "At how many outlets will you deploy Point-of-Sales terminals?",
-          textField: "",
         },
-        website_infomation: {
+        websiteInfomation: {
+          titleWebsiteInfomation: "Website information",
           listRadioDescription: "Is your business ready for operation?",
+          labelDoYouHaveAnExistingWebsite: "Do you have an existing website?",
+          labelYourWebsiteURL: "Website",
+          labelAddMoreWebsite: "Add more website",
+          labelCanCustomersPlaceOrderThroughYourWebsite: "Can customers place orders through your website?",
+          checkedYouHaveExistingWebsite: false,
+          checkedCanCustomersPlaceOrderThroughYourWebsite: false,
           listRadio: [
             {
               text: "Yes",
@@ -1846,7 +1868,10 @@ export const STEP_RM = {
             label: "e.g. www.xxx.com",
           },
         },
-        other_infomation: {
+        otherInfomation: {
+          titleOtherInformation: "Other information",
+          labelIsYourBusinessReadyForOperation: "Is your business ready for operation?",
+          labelDoesYourRetailStoreAccpetCardPayment: "Does your retail store accept card payments?",
           sections: [
             {
               listCheckboxDescription: "Is your business ready for operation?",
@@ -1880,12 +1905,28 @@ export const STEP_RM = {
               ],
             },
           ],
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
         },
-        outlet_details: {
-          title: "Outlet details",
+        outletDetails: {
+          titleOutletDetail: "Outlet details",
           description: "We require the address of each outlet. You can choose to fill in the information here or upload a list.",
           checkedOutlet: true,
           checkedExistingWebsite: false,
+          labelAddAnOutlet: "Add an outlet",
+          labelRemove: "Remove",
+          labelListRadioMethodDoYouPrefer: "Which method do you prefer?",
+          labelListOutletBeUsingTheBank: "Will this outlet be using the bank account indicated above?",
+          labelPleaseIndicateTheBankLinkedToYourBusiness: "Please indicate the bank linked to your business",
+          labelBankName: "Bank Name",
           listRadio: [
             {
               text: "Fill in here",
@@ -1898,33 +1939,43 @@ export const STEP_RM = {
               checked: false,
             },
           ],
+          listBankName: [
+            {
+              name: "Standard Chartered",
+              value: "standardChartered",
+            },
+            {
+              name: "OCBC",
+              value: "ocbc",
+            },
+          ],
           inputFields: {
-            business_name: {
+            businessName: {
               label: "Doing business name",
               helperText: "",
               requiredText: "",
             },
-            block_number: {
+            blockNumber: {
               label: "Block/House number",
               helperText: "",
               requiredText: "",
             },
-            street_name: {
+            streetName: {
               label: "Street name",
               helperText: "",
               requiredText: "",
             },
-            unit_number: {
+            unitNumber: {
               label: "Unit name",
               helperText: "Please enter a valid unit number",
               requiredText: "",
             },
-            building_name: {
+            buildingName: {
               label: "Building name",
               helperText: "Please enter a valid building name",
               requiredText: "",
             },
-            postal_code: {
+            postalCode: {
               label: "Postal code",
               helperText: "Please enter a valid postal code",
               requiredText: "",
@@ -1941,12 +1992,17 @@ export const STEP_RM = {
             },
           ],
           inputFieldsIndicateBank: {
-            branch_code: {
+            selects: {
+              label: "Select",
+              helperText: "",
+              requiredText: "",
+            },
+            branchCode: {
               label: "Branch code",
               helperText: "",
               requiredText: "",
             },
-            account_number: {
+            accountNumber: {
               label: "Account number",
               helperText: "",
               requiredText: "",
@@ -1954,6 +2010,202 @@ export const STEP_RM = {
           }
         }
       },
+    },
+    productAndService: {
+      id: "product-and-service",
+      numerical: "3",
+      title: "Product and service",
+      check: false,
+      status: true,
+      data: {
+        id: "product-and-service",
+        numerical: "3",
+        text: "Product and service",
+        check: false,
+        status: true,
+      },
+      section: {
+        businessOffering: {
+          title: "Business offering",
+          label: "What products and/or services is your business offering?",
+          note: "E.g. Bistro, café, workshops, salon, clinic, etc."
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          label: "How quickly does your business fulfil these products and/or services?",
+          labelSelect: "Please indicate duration",
+          labelTextField: "Percentage of products/services not fulfilled immediately",
+        },
+        salesForecast: {
+          title: "Sales forecast",
+          labelBasedOnYourProducts: "Based on your products and/or services, what is your sales forecast?",
+          labelAverageAmountPerCreditCardTransaction: "Average amount per credit card transaction",
+          labelAnnualCreditCardSalesForecast: "Annual credit card sales",
+        },
+        refundPolicy: {
+          title: "Refund policy",
+          labelDoYouHaveRefundPolicy: "Do you have a refund policy?",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+        }
+      }
+    },
+    sensitiveData: {
+      id: "sensitive-data",
+      numerical: "4",
+      title: "Sensitive data",
+      check: false,
+      status: true,
+      data: {
+        id: "sensitive-data",
+        numerical: "4",
+        title: "Sensitive data",
+        check: false,
+        status: true,
+      },
+      section: {
+        labelDoYouStoreCreditCardDetails: "Do you store credit card details in your database?",
+        labelIsTheDataProtected: "Is the data protected by Hierachical Storage Management?",
+        labelPlaseIndicateYourEncryptionMethod: "Please indicate your encryption method",
+        labelAreYouCompliantWithPaymentCard: "Are you compliant with the Payment Card Industry Data Security Standard (PCI DSS)? ",
+        labelUploadPCIDSSCerificate: "Upload PCI DSS certificate",
+        listRadio: [
+          {
+            text: "Yes",
+            checked: false,
+          },
+          {
+            text: "No",
+            checked: false,
+          },
+        ],
+      }
+    },
+    beneficialOwner: {
+      id: "beneficial-owner",
+      numerical: "5",
+      title: "Beneficial Owner",
+      check: false,
+      status: true,
+      data: {
+        id: "sensitive-data",
+        numerical: "5",
+        title: "Sensitive data",
+        check: false,
+        status: true,
+      },
+      section: {
+        beneficialOwnerOfTheCompany: {
+          titleBeneficialOwnerOfTheCompany: "Beneficial owner of the company",
+          label: "Do you have an existing website?",
+          labelUploadCertificateOfIncumbency: "Upload certificate of incumbency",
+          labelForm: "Beneficial owner",
+          labelAddAnotherBeneficialOwner: "Add another beneficial owner",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            nricPassport: {
+              label: "NRIC / Passport number",
+              helperText: "Please enter a valid unit number",
+              requiredText: "",
+            },
+            dateOfBirth: {
+              label: "Date of Birth",
+              helperText: "Please enter a valid building name",
+              requiredText: "",
+            },
+            nationality: {
+              label: "Nationality",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+            blockHouseNumber: {
+              label: "Block / House number",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+            streetName: {
+              label: "Street name",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+            unitName: {
+              label: "Unit name (if applicable)",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+            buildingName: {
+              label: "Building name (if applicable)",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+            postalCode: {
+              label: "Postal Code",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+          },
+          listRadio: [
+            {
+              text: "Fill in here",
+              value: "fill_in_here",
+              checked: false,
+            },
+            {
+              text: "Upload a list",
+              value: "upload_a_list",
+              checked: false,
+            },
+          ],
+        }
+      }
+    },
+    feesAndRates: {
+      id: "sensitive-data",
+      numerical: "6",
+      title: "Fees and rates",
+      check: false,
+      status: true,
+      data: {
+        id: "sensitive-data",
+        numerical: "6",
+        title: "Fees and rates",
+        check: false,
+        status: true,
+      },
+      section: {
+        merchantDiscountRate: {
+          titleMerchantDiscountRate: "Merchant Discount Rate (MRD)",
+          description: "Please refer to following tables for Merchant Discount Rate (MDR) based on transcations and services selected previously.",
+        },
+        fees: {
+          titleFees: "Fees (GST inclusive)",
+        },
+        refundabltFees: {
+          titleRefundableFees: "Refundable fees (if applicable)"
+        }
+      }
     },
     feeAuthorisation: {
       id: "fee-authorisation",
@@ -2066,10 +2318,29 @@ export const STEP_RM = {
         }
       }
     },
+    supplementaryDocuments: {
+      titleSupplementaryDocuments: "Supplementary documents",
+      authorisedSignatory: {
+        titleAuthorisedSignatory: "Authorised signatory’s NRIC or passport",
+        name: "authorisedSignatoryNRIC",
+      },
+      tenacyDocumentOrSiteVisitPhotos: {
+        titleTenancyDocument: "Tenancy document or site visit photos",
+        name: "tenacyDocumentOrSiteVisitPhotos",
+      },
+      copyOfBankStatement: {
+        titleCopyOfBankStatement: "Copy of bank statement (if applicable for non-OCBC corporate account)",
+        name: "copyOfBankStatement",
+      },
+      anyOtherSupportingDocuments: {
+        titleAnyOtherSupportingDocuments: "Any other supporting documents (if applicable)",
+        name: "anyOtherSupportingDocuments",
+      },
+    },
     reviewAndSubmit: {
       id: "review_and_submit",
       numerical: "0",
-      text: "Review and submit",
+      title: "Review and submit",
       check: false,
       status: true,
       data: {
@@ -2079,17 +2350,139 @@ export const STEP_RM = {
         check: false,
         status: true,
       },
+      section: {
+        cashlessPaymentMethod: {
+          titleCashlesPaymentMethod: "Cashless payment method(s)",
+          titleMode: "Mode"
+        },
+        transactionAndCardAcceptanceType: {
+          titleTransactionAndCardAcceptanceType: "Transaction and card acceptance type",
+          titleService: "Service",
+          titlePaymentOptions: "Payment options",
+          otherServices: {
+            titleOtherServices: "Other services",
+            titleInstalmentPaymentPlan: "Instalment Payment Plan (IPP) for OCBC credit cards",
+            titleRepaymentPeriodsOffered: "Repayment periods offered",
+            titleDirectCurrencyConversion: "Direct Currency Conversion (DCC) for Visa/Mastercard",
+            titleMailOrder: "Mail Order/Telephone Order"
+          }
+        },
+        feeAndRates: {
+          titleFeeAndRates: "Fee and rates",
+          titleMerchantDiscountRate: "Merchant Discount Rate (MDR)",
+          fees: {
+            titleFees: "Fees (GST inclusive)",
+            titleAnnual: "Annual",
+            titleOneTimeSetupFee: "One time setup fee",
+            titlePerDomesticTransaction: "Per domestic transaction",
+            titlePerInternationalTransaction: "Per international transaction",
+            titleTokenisation: "Tokenisation",
+            titleOtherFees: "Other fees",
+            titleDescriptionForOtherFees: "Description for other fees"
+          },
+          refundableFees: {
+            titleRefundableFees: "Refundable Fees",
+          }
+        },
+        feeAuthorisation: {
+          titleFeeAuthorisation: "Fee authorisation",
+          titleFirstYearPayment: "First year payment",
+          titleSubsequentYearsPayment: "Subsequent years payment"
+        },
+        companyRegistration: {
+          titleCompanyRegistration: "Company registration",
+          titleRegisteredEntityName: "Registered entity name",
+          titleUniqueEntityNumber: "Unique Entity Number (UEN)",
+          titleEntityType: "Entity type",
+          titleNatureOfBusiness: "Nature of business",
+          titleRegisteredAddress: "Registered address",
+          titleMailingAddress: "Mailing address",
+          titleDirectors: "Directors",
+          contactDetail: {
+            titleContactDetails: "Contact details",
+            titleSalutation: "Salutation",
+            titleName: "Name",
+            titleDesignation: "Designation",
+            titleEmail: "Email",
+            titleContactNumber: "Contact number"
+          },
+          authorisedPersonDetails: {
+            titleAuthorisedPersonDetails: "Authorised person details",
+            titleSalutation: "Salutation",
+            titleName: "Name",
+            titleDesignation: "Designation",
+            titleEmail: "Email",
+            titleContactNumber: "Contact number"
+          }
+        },
+        businessOperationDetails: {
+          titleBusinessOperationDetails: "Business operation details",
+          titleNumberOfOutlets: "Number of outlets with Point-of-Sales termimals",
+          titleBusinessReadyToOperate: "Business ready to operate",
+          titleOCBCBusinessAccount: "OCBC business account",
+          titleOCBCCusinessAccountNumber: "OCBC business account number",
+          titleExistingWebsite: "Existing website",
+          titleWebsiteURL: "Website’s URL",
+          titlePlaceOrderThroughWebsite: "Place order through website",
+          titleBusinessOfferings: "Business offerings",
+          titleAvailableSpaces: "Available spaces",
+          titleCardPaymentAvailable: "Card payment available at retail store",
+          outlet: {
+            titleTradeName: "Trade Name",
+            titlePostalCode: "Postal Code",
+            titleBlockNumber: "Block / House number",
+            titleStreetName: "Street name",
+            titleUnitNumber: "Unit number (if applicable)"
+          }
+        },
+        productsAndServices: {
+          titleProductAndServices: "Product and services",
+          titleTypeOfProduct: "Type of product and/or service",
+          titleOrderFulfilment:"Order fulfilment",
+          titleAverageAmountPerCreditCardTransaction:"Average amount per credit card transaction",
+          titleAnnualCreditCardSalesForecast: "Annual credit card sales forecast",
+          refundPolicy: {
+            titleRefundPolicy: "Refund Policy",
+            titleCopyOfRefundPolicy:"Copy of refund policy"
+          }
+        },
+        sensitiveData: {
+          titleSensitiveData: "Sensitive data",
+          titleStoreCreditCard: "Store credit card in database",
+          titleDataProtectedByHierachical: "Data protected by Hierachical Storage Management",
+          titleEncryptionMothod: "Encryption method",
+          titleCompliantWithThePaymentCard: "Compliant with the Payment Card Industry Data Security Standard (PCI DSS)",
+          titlePCIDSSCertificate: "PCI DSS certificate"
+        },
+        beneficailOwnership: {
+          titleBeneficialOwnership: "Beneficial ownership",
+          titleSalutation: "Salutation",
+          titleName: "Name",
+          titleDesignation: "Designation",
+          titleNRIC: "NRIC",
+          titleDateOfBirth: "Date of Birth",
+          titleNationality: "Nationality",
+          titleAddress: "Address",
+        },
+        supplementaryDocuments: {
+          titleSupplementaryDocuments: "Supplementary documents",
+          titleAuthorisedSignatory: "Authorised signatory’s NRIC or passport",
+          titleTenancyDocument: "Tenancy document or site visit photos",
+          titleCopyOfBankStatement: "Copy of bank statement",
+          titleAnyOtherSupportingDocuments: "Any other supporting documents"
+        }
+      }
     },
     declaration: {
       id: "declaration",
       numerical: "11",
-      text: "DECLARATION",
+      text: "Declaration",
       check: false,
       status: true,
       data: {
         id: "declaration",
         numerical: "11",
-        text: "DECLARATION",
+        text: "Declaration",
         check: false,
         status: true,
       },

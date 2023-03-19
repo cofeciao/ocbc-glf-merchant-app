@@ -5,7 +5,17 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import { IReviewSubmit } from "./ReviewSubmit";
 
 const TransactionAndCardAcceptanceType: React.FC<IReviewSubmit.ITransactionAndCardAcceptanceType> = (props) => {
-  const { cx, data } = props;
+  const { cx, data, titles } = props;
+  const { titleService,
+    titlePaymentOptions,
+    otherServices: {
+      titleOtherServices,
+      titleInstalmentPaymentPlan,
+      titleRepaymentPeriodsOffered,
+      titleDirectCurrencyConversion,
+      titleMailOrder,
+    }
+   } = titles;
 
   /**
    * render UI
@@ -59,25 +69,25 @@ const TransactionAndCardAcceptanceType: React.FC<IReviewSubmit.ITransactionAndCa
     <Box className={cx("transaction-card-acceptance-type")}>
       <Grid container>
         <Grid item xs={6}>
-          <Typography className={cx("title")}>Service</Typography> 
+          <Typography className={cx("title")}>{titleService}</Typography> 
           <Typography className={cx("content")}>{data && data.service}</Typography> 
         </Grid>
         <Grid item xs={6}>
-          <Typography className={cx("title")}>Payment options</Typography>
+          <Typography className={cx("title")}>{titlePaymentOptions}</Typography>
           {renderPaymentOptions(data.paymentOptions)}
         </Grid>
       </Grid>
 
       {/* Other services Section */}
-      <Typography className={cx("sub-title")}>Other services</Typography>
+      <Typography className={cx("sub-title")}>{titleOtherServices}</Typography>
       
-      {renderContent("Instalment Payment Plan (IPP) for OCBC credit cards", data && data.otherServices && data.otherServices.instalmentPaymentPlan ? "Yes" : "No")}
+      {renderContent(titleInstalmentPaymentPlan, data && data.otherServices && data.otherServices.instalmentPaymentPlan ? "Yes" : "No")}
       
-      {renderRepaymentPeriodsOffered("Repayment periods offered", data && data.otherServices && data.otherServices.repaymentPeriodOffered)}
+      {renderRepaymentPeriodsOffered(titleRepaymentPeriodsOffered, data && data.otherServices && data.otherServices.repaymentPeriodOffered)}
       
-      {renderContent("Direct Currency Conversion (DCC) for Visa/Mastercard", data && data.otherServices && data.otherServices.directCurrencyConversionForVisa ? "Yes" : "No")}
+      {renderContent(titleDirectCurrencyConversion, data && data.otherServices && data.otherServices.directCurrencyConversionForVisa ? "Yes" : "No")}
       
-      {renderContent("Mail Order/Telephone Order", data && data.otherServices && data.otherServices.mailOrder ? "Yes" : "No")}
+      {renderContent(titleMailOrder, data && data.otherServices && data.otherServices.mailOrder ? "Yes" : "No")}
     </Box>
   )
 }

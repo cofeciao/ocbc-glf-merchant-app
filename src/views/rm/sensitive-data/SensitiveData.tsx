@@ -14,6 +14,7 @@ import styles from "./Sensitive.scss";
 
 // import conponents
 import ConfirmModal from "./ConfirmModal";
+import { STEP_RM } from "@/utils/constants-rm";
 
 // render UI
 const SensitiveData: React.FC<any> = (props) => {
@@ -21,6 +22,21 @@ const SensitiveData: React.FC<any> = (props) => {
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const {
+    LIST_STEP: {
+      sensitiveData: {
+        title,
+        section: {
+          labelDoYouStoreCreditCardDetails,
+          labelIsTheDataProtected,
+          labelPlaseIndicateYourEncryptionMethod,
+          labelAreYouCompliantWithPaymentCard,
+        }
+      }
+    },
+  } = STEP_RM;
+
 
   //States
   const [radiosCreditCard, setRadiosCreditCard] = useState<any[]>(listRadio);
@@ -51,7 +67,7 @@ const SensitiveData: React.FC<any> = (props) => {
         <Grid container>
           <Grid item xs={12}>
             <Typography className={cx("sub-section-description")}>
-              Do you store credit card details in your database?
+              {labelDoYouStoreCreditCardDetails}
             </Typography>
 
             <Radio
@@ -72,7 +88,7 @@ const SensitiveData: React.FC<any> = (props) => {
             <>
               <Grid item xs={12}>
                 <Typography className={cx("sub-section-description")}>
-                  Is the data protected by Hierachical Storage Management?
+                  {labelIsTheDataProtected}
                 </Typography>
 
                 <Radio
@@ -90,12 +106,10 @@ const SensitiveData: React.FC<any> = (props) => {
               </Grid> 
               {valueRadio.dataProtectedByHierachical === "No" && (
                 <Grid item xs={6}>
-                  <Typography className={cx("sub-section-description")}>
-                    Please indicate your encryption method
-                  </Typography>
                   <TextField
                     fullWidth
                     name="one_time_setup"
+                    label={labelPlaseIndicateYourEncryptionMethod}
                     // defaultValue={paramsFeeRates.refundable_fees}
                     placeholder=""
                     id={uuidv4()}
@@ -116,7 +130,7 @@ const SensitiveData: React.FC<any> = (props) => {
           {valueRadio.storeCreditCard === "Yes" && (
             <Grid item xs={12}>
               <Typography className={cx("sub-section-description")}>
-              Are you compliant with the Payment Card Industry Data Security Standard (PCI DSS)? 
+                {labelAreYouCompliantWithPaymentCard}
               </Typography>
 
               <Radio

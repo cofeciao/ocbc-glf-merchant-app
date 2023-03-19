@@ -18,7 +18,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./ReviewSubmit.scss";
 
 // import constants
-import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { IReviewSubmit } from "./ReviewSubmit";
@@ -44,6 +44,25 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
   const { slug } = useParams<{ slug: string }>();
 
   console.log(slug)
+
+  const { LIST_STEP: {
+    reviewAndSubmit: {
+      title,
+      section: {
+        cashlessPaymentMethod,
+        transactionAndCardAcceptanceType,
+        feeAndRates,
+        feeAuthorisation,
+        companyRegistration,
+        businessOperationDetails,
+        productsAndServices,
+        sensitiveData,
+        beneficailOwnership,
+        supplementaryDocuments
+      }
+    },
+    declaration
+  }} = STEP_RM;
 
   // States
   const [loading, setLoading] = useState(false);
@@ -326,9 +345,7 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
             // history.push("/rm/acknowledgement/failed")
           }}
           disabled={!errorReviewTheFollowing || 
-            !errorProvision || 
-            !dataDeclaration.signOnDevice || 
-            !dataDeclaration.uploadFile
+            !errorProvision
           }
         >
           Submit
@@ -359,57 +376,57 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
       {!isDeclaration && (
         <Box className={cx('review-submit')}>
           <div className="review-submit-category" >
-            <Category class="title">Review and submit</Category>
+            <Category class="title">{title}</Category>
           </div>
 
           {/* Section Cashless payment method */}
-          <SectionWrapper cx={cx} title="Cashless payment method(s)">
-            <CashPaymentMethod cx={cx} data={dataReview.transactionAndCardAcceptanceType}/>
+          <SectionWrapper cx={cx} title={cashlessPaymentMethod.titleCashlesPaymentMethod}>
+            <CashPaymentMethod cx={cx} titles={cashlessPaymentMethod} data={dataReview.transactionAndCardAcceptanceType}/>
           </SectionWrapper>
 
           {/* Section Transaction and card acceptance type */}
-          <SectionWrapper cx={cx} title="Transaction and card acceptance type" isEdit path="/rm/services-applied">
-            <TransactionAndCardAcceptanceType cx={cx} data={dataReview.transactionAndCardAcceptanceType}/>
+          <SectionWrapper cx={cx} title={transactionAndCardAcceptanceType.titleTransactionAndCardAcceptanceType} isEdit path="/rm/services-applied">
+            <TransactionAndCardAcceptanceType cx={cx} titles={transactionAndCardAcceptanceType} data={dataReview.transactionAndCardAcceptanceType}/>
           </SectionWrapper>
 
           {/* Section Fees and rates */}
-          <SectionWrapper cx={cx} title="Fees and rates" isEdit path="/rm/fee-rates">
-            <FeesAndRates cx={cx} data={dataReview.feesAndRates}/>
+          <SectionWrapper cx={cx} title={feeAndRates.titleFeeAndRates} isEdit path="/rm/fee-rates">
+            <FeesAndRates cx={cx} titles={feeAndRates} data={dataReview.feesAndRates}/>
           </SectionWrapper>
 
           {/* Section Fee authorisation */}
-          <SectionWrapper cx={cx} title="Fee authorisation" isEdit path="/rm/fee-authorisation">
-            <MaintenanceFeeAuthorisation cx={cx} data={dataReview.maintenanceFeeAuthorisation}/>
+          <SectionWrapper cx={cx} title={feeAuthorisation.titleFeeAuthorisation} isEdit path="/rm/fee-authorisation">
+            <MaintenanceFeeAuthorisation cx={cx} titles={feeAuthorisation} data={dataReview.maintenanceFeeAuthorisation}/>
           </SectionWrapper>
 
           {/* Section Company registeration */}
-          <SectionWrapper cx={cx} title="Company registration" isEdit path="/rm/contact-information">
-            <CompanyRegistration cx={cx} data={dataReview.servicesApplied}/>
+          <SectionWrapper cx={cx} title={companyRegistration.titleCompanyRegistration} isEdit path="/rm/contact-information">
+            <CompanyRegistration cx={cx} titles={companyRegistration}/>
           </SectionWrapper>
 
           {/* Section Business operation details */}
-          <SectionWrapper cx={cx} title="Business operation details" isEdit path="/rm/business-operation">
-            <BusinessOperationDetails cx={cx} data={dataReview.businessDetails}/>
+          <SectionWrapper cx={cx} title={businessOperationDetails.titleBusinessOperationDetails} isEdit path="/rm/business-operation">
+            <BusinessOperationDetails cx={cx} titles={businessOperationDetails} data={dataReview.businessDetails}/>
           </SectionWrapper>
 
           {/* Section Products and services */}
-          <SectionWrapper cx={cx} title="Products and services" isEdit path="/rm/products-services">
-            <ProductsAndServices cx={cx} data={dataReview.productsAndServices}/>
+          <SectionWrapper cx={cx} title={productsAndServices.titleProductAndServices} isEdit path="/rm/products-services">
+            <ProductsAndServices cx={cx} titles={productsAndServices} data={dataReview.productsAndServices}/>
           </SectionWrapper>
 
           {/* Section Sensitive data */}
-          <SectionWrapper cx={cx} title="Sensitive data" isEdit path="/rm/sensitive-data">
-            <SensitiveData cx={cx} data={dataReview.sensitiveData}/>
+          <SectionWrapper cx={cx} title={sensitiveData.titleSensitiveData} isEdit path="/rm/sensitive-data">
+            <SensitiveData cx={cx} titles={sensitiveData} data={dataReview.sensitiveData}/>
           </SectionWrapper>
 
           {/* Section Beneficial ownership */}
-          <SectionWrapper cx={cx} title="Beneficial ownership" isEdit path="/rm/beneficial-ownership">
-            <BeneficialOwnership cx={cx} data={dataReview.beneficialOwner}/>
+          <SectionWrapper cx={cx} title={beneficailOwnership.titleBeneficialOwnership} isEdit path="/rm/beneficial-ownership">
+            <BeneficialOwnership cx={cx} titles={beneficailOwnership} data={dataReview.beneficialOwner} />
           </SectionWrapper>
 
           {/* Section Supplementary documents */}
-          <SectionWrapper cx={cx} title="Supplementary documents" isEdit path="/rm/supplementary-documents">
-            <SupplementaryDocuments cx={cx} data={dataReview.supplementaryDocuments}/>
+          <SectionWrapper cx={cx} title={supplementaryDocuments.titleSupplementaryDocuments} isEdit path="/rm/supplementary-documents">
+            <SupplementaryDocuments cx={cx} titles={supplementaryDocuments} />
           </SectionWrapper>
         </Box>
       )}
@@ -418,7 +435,7 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
       {isDeclaration && (
         <Box className={cx('declaration')}>
           <div className="declaration-category" >
-            <Category class="title">Declaration</Category>
+            <Category class="title">{declaration.text}</Category>
           </div>
           <Declaration cx={cx} dataDeclaration={dataDeclaration} setDataDeclaration={setDataDeclaration} />
         </Box>

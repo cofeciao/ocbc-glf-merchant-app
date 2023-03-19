@@ -5,7 +5,16 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import { IReviewSubmit } from "./ReviewSubmit";
 
 const BeneficialOwnership: React.FC<IReviewSubmit.IBeneficialOwnership> = (props) => {
-  const { cx, data } = props;
+  const { cx, titles, data } = props;
+  const { 
+    titleSalutation,
+    titleName,
+    titleDesignation,
+    titleNRIC,
+    titleDateOfBirth,
+    titleNationality,
+    titleAddress,
+   } = titles;
 
   /**
    * render UI
@@ -26,13 +35,13 @@ const BeneficialOwnership: React.FC<IReviewSubmit.IBeneficialOwnership> = (props
         <div className={cx("group-item")} key={index}>
           <Typography className={cx("sub-title")}>{`Beneficial owner ${index + 1}`}</Typography> 
           <Grid container spacing={1}>
-            <Grid item xs={12}>{renderContent("Salutation", item.salutation)}</Grid>
-            <Grid item xs={6}>{renderContent("Name", item.name)}</Grid>
-            <Grid item xs={6}>{renderContent("Designation", item.designation)}</Grid>
-            <Grid item xs={6}>{renderContent("NRIC", item.NRIC)}</Grid>
-            <Grid item xs={6}>{renderContent("Date of birth", item.dateOfBirth)}</Grid>
-            <Grid item xs={12}>{renderContent("Nationality", item.nationality)}</Grid>
-            <Grid item xs={12}>{renderContent("Address", item.address)}</Grid>
+            <Grid item xs={12}>{renderContent(titleSalutation, item.salutation)}</Grid>
+            <Grid item xs={6}>{renderContent(titleName, item.name)}</Grid>
+            <Grid item xs={6}>{renderContent(titleDesignation, item.designation)}</Grid>
+            <Grid item xs={6}>{renderContent(titleNRIC, item.NRIC)}</Grid>
+            <Grid item xs={6}>{renderContent(titleDateOfBirth, item.dateOfBirth)}</Grid>
+            <Grid item xs={12}>{renderContent(titleNationality, item.nationality)}</Grid>
+            <Grid item xs={12}>{renderContent(titleAddress, item.address)}</Grid>
           </Grid>
         </div>
       ))}

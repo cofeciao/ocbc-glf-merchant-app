@@ -10,16 +10,34 @@ import { useHistory } from "react-router-dom";
 
 // import style
 import styles from "./BusinessOperation.scss";
+import { STEP_RM } from "@/utils/constants-rm";
 
 // import types
 
 // render UI
 const BusinessInfomation: React.FC<any> = (props) => {
-  const { listRadio } = props;
+  const { listRadioIsYourBusinessReadyForOperation, listRadioYouCurrentlyHaveAnOCBC } = props;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
+
+  const {
+    LIST_STEP: {
+      businessOperation: {
+        section: { businessInformation },
+      },
+    },
+  } = STEP_RM;
+
+  // States
+  const [dataBusinessInformation, setDataBusinessinformation] = useState<any>({
+    checkedIsYourBusinessReadyForOperation: businessInformation.checkedIsYourBusinessReadyForOperation,
+    checkedDoYouCurrentHaveAnOCBCBusinessAccount: businessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount,
+    valueAtHowManyOutlet: 0,
+    valueOCBCBusinessAccountNumber: ""
+  });
+
 
   return (
     <Box
@@ -31,60 +49,85 @@ const BusinessInfomation: React.FC<any> = (props) => {
         {/* {Is your business ready for operation?} */}
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
-            Is your business ready for operation?
+            {businessInformation.labelIsYouBusinessReadyForOperation}
           </Typography>
 
           <Radio
             name="lockIn"
-            listCheckBox={listRadio}
-            // label="Is your business ready for operation?"
+            listCheckBox={listRadioIsYourBusinessReadyForOperation}
             radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
+            value={dataBusinessInformation.checkedIsYourBusinessReadyForOperation ? "Yes" : "No"}
+            getValue={(value: any) => {
+              setDataBusinessinformation({
+                ...dataBusinessInformation,
+                checkedIsYourBusinessReadyForOperation: value === "Yes" ? true : false
+              })
+            }}
           />
         </Grid>
+        {dataBusinessInformation.checkedIsYourBusinessReadyForOperation && (
+          <Grid item xs={12}>
+            <Typography className={cx("sub-section-description")}>
+              {businessInformation.labelAtHowManyOutletWillYouDeplay}
+            </Typography>
 
-        {/* {Is your business ready for operation?} */}
-        <Grid item xs={12}>
-          <Typography className={cx("sub-section-description")}>
-            At how many outlets will you deploy Point-of-Sales terminals?
-          </Typography>
-
-          <Grid item xs={4}>
-            <TextField
-              fullWidth
-              id={`uuidv4()`}
-              label="Registered entity name"
-              variant="filled"
-              // onBlur={(event) => {
-              //   getPersonalInformation(
-              //     "RegisteredEntityName",
-              //     event.target.value,
-              //     ""
-              //   );
-              // }}
-            />
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id={`uuidv4()`}
+                label="Number of outlets"
+                variant="filled"
+                // onBlur={(event) => {
+                //   getPersonalInformation(
+                //     "RegisteredEntityName",
+                //     event.target.value,
+                //     ""
+                //   );
+                // }}
+              />
+            </Grid>
           </Grid>
-        </Grid>
+        )}
 
-        {/* {Is your business ready for operation?} */}
+
+        {/* {Do you currently have an OCBC business account?} */}
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
-            Do you currently have an OCBC business account?
+            {businessInformation.labelDoYouCurrentHaveAnOCBCBusinessAccount}
           </Typography>
 
           <Radio
             name="lockIn"
-            listCheckBox={listRadio}
+            listCheckBox={listRadioYouCurrentlyHaveAnOCBC}
             radioKey={0}
-            // value={formDataLanding.lockIn}
-            // getValue={(value: any) => {
-            //   setValueFormLandingPage("lockIn", value);
-            // }}
+            value={dataBusinessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount ? "Yes" : "No"}
+            getValue={(value: any) => {
+              setDataBusinessinformation({
+                ...dataBusinessInformation,
+                checkedDoYouCurrentHaveAnOCBCBusinessAccount: value === "Yes" ? true : false
+              })
+            }}
           />
         </Grid>
+        {dataBusinessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount && (
+          <Grid item xs={12}>
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                id={`uuidv4()`}
+                label="OCBC business account number"
+                variant="filled"
+                // onBlur={(event) => {
+                //   getPersonalInformation(
+                //     "RegisteredEntityName",
+                //     event.target.value,
+                //     ""
+                //   );
+                // }}
+              />
+            </Grid>
+          </Grid>
+        )}
       </Grid>
     </Box>
   );

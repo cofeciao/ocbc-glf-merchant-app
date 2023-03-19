@@ -5,8 +5,14 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import { IReviewSubmit } from "./ReviewSubmit";
 
 const SensitiveData: React.FC<IReviewSubmit.ISensitiveData> = (props) => {
-  const { cx, data } = props;
-
+  const { cx, titles, data } = props;
+  const {
+    titleStoreCreditCard,
+    titleDataProtectedByHierachical,
+    titleEncryptionMothod,
+    titleCompliantWithThePaymentCard,
+    titlePCIDSSCertificate,
+  } = titles
 
   /**
    * render UI
@@ -23,12 +29,12 @@ const SensitiveData: React.FC<IReviewSubmit.ISensitiveData> = (props) => {
 
   return (
     <Box className={cx("sensitive-data")}>
-      <Grid container spacing={3}>
-        <Grid item xs={12}>{renderContent("Store credit card in database", data && data.storeCreditCardInDatabase ? "Yes" : "No")}</Grid>
-        <Grid item xs={6}>{renderContent("Data protected by Hierachical Storage Management", data && data.dataProtectedByHierachicalStorageManagment ? "Yes" : "No")}</Grid>
-        <Grid item xs={6}>{renderContent("Encryption method", data && data.encryptionMethod)}</Grid>
-        <Grid item xs={12}>{renderContent("Compliant with the Payment Card Industry Data Security Standard (PCI DSS)", data && data.compliantWithThePayment ? "Yes" : "No")}</Grid>
-        <Grid item xs={6}>{renderContent("PCI DSS certificate", data && data.pciDSSCertificate)}</Grid>
+      <Grid container spacing={5}>
+        <Grid item xs={12}>{renderContent(titleStoreCreditCard, data && data.storeCreditCardInDatabase ? "Yes" : "No")}</Grid>
+        <Grid item xs={6}>{renderContent(titleDataProtectedByHierachical, data && data.dataProtectedByHierachicalStorageManagment ? "Yes" : "No")}</Grid>
+        <Grid item xs={6}>{renderContent(titleEncryptionMothod, data && data.encryptionMethod)}</Grid>
+        <Grid item xs={12}>{renderContent(titleCompliantWithThePaymentCard, data && data.compliantWithThePayment ? "Yes" : "No")}</Grid>
+        <Grid item xs={6}>{renderContent(titlePCIDSSCertificate, data && data.pciDSSCertificate)}</Grid>
       </Grid>
     </Box>
   )
