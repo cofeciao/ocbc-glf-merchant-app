@@ -178,7 +178,7 @@ export const SELF_SERVE_PAGE = {
 
   LABEL_COMPANY_REGISTRATION: "Company registration",
   LABEL_CONTACT_DETAILS: "Contact details",
-  LABEL_ADD_MORE_WEBSITES: "Add website more",
+  LABEL_ADD_MORE_WEBSITES: "Add more websites",
   LABEL_REMOVE: "Remove",
   LABEL_WEBSITE: "Website",
   LABEL_BUSINESS_OFFERING: "Business offering",
@@ -201,7 +201,7 @@ export const SELF_SERVE_PAGE = {
         "This will save and close your application. We will send the savedapplication to the details below.",
     },
   },
-  
+
   LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES:
     {
       description:
@@ -270,8 +270,15 @@ export const SELF_SERVE_PAGE = {
       checked: false,
     },
   ],
-
   LIST_SALUTATION: [
+    {
+      name: "MDM",
+      value: "mdm",
+    },
+    {
+      name: "Mr",
+      value: "mr",
+    },
     {
       name: "Mrs",
       value: "mrs",
@@ -413,50 +420,44 @@ export const SELF_SERVE_PAGE = {
                     label: "Visa",
                     checked: true,
                     value: "pos-visa",
+                    disabled: true,
                   },
                   {
                     label: "Mastercard",
-                    checked: false,
+                    checked: true,
                     value: "pos-mastercard",
+                    disabled: true,
                   },
                   {
                     label: "UnionPay",
-                    checked: false,
                     value: "pos-unionPay",
                   },
                   {
                     label: "JCB",
-                    checked: false,
                     value: "pos-jcb",
                   },
                   {
                     label: "WeChat Pay",
-                    checked: false,
                     value: "pos-wechat-pay",
                   },
                   {
                     label: "AliPay",
-                    checked: false,
                     value: "pos-alipay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
-                    checked: false,
                     value: "pos-ocbc-ipp",
                   },
                   {
                     label: "Diners Club",
-                    checked: false,
                     value: "pos-dinners-club",
                   },
                   {
                     label: "AMEX",
-                    checked: false,
                     value: "pos-amex",
                   },
                   {
                     label: "Paynow",
-                    checked: false,
                     value: "pos-paynow",
                   },
                 ],
@@ -474,25 +475,24 @@ export const SELF_SERVE_PAGE = {
                     label: "Visa",
                     checked: true,
                     value: "ecom-visa",
+                    disabled: true,
                   },
                   {
                     label: "Mastercard",
-                    checked: false,
+                    checked: true,
                     value: "ecom-mastercard",
+                    disabled: true,
                   },
                   {
                     label: "JCB",
-                    checked: false,
                     value: "ecom-jcb",
                   },
                   {
                     label: "UnionPay",
-                    checked: false,
                     value: "ecom-union-pay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
-                    checked: false,
                     value: "ecom-ocbc-ipp",
                   },
                 ],
@@ -523,7 +523,7 @@ export const SELF_SERVE_PAGE = {
             listField: {
               listRadio: [
                 {
-                  description: "Is your business ready for operation?",
+                  description: "Is your business ready for operations?",
                   list: [
                     {
                       text: "Yes",
@@ -553,39 +553,36 @@ export const SELF_SERVE_PAGE = {
               textField: {
                 description:
                   "At how many outlets will you deploy Point-of-Sales terminals?",
-                label: "eg. 10",
+                label: "Number of outlets",
                 helperText: "Enter numbers only",
                 requiredText: "Enter numbers only",
               },
               dropdownField: {
                 description:
                   "Please indicate when your business will start operations",
-                placeholder: "Please select",
+                placeholder: "Operations start date",
                 helperText: "",
                 requiredText: "",
                 list: [
                   {
-                    name: "Within a week",
-                    value: "within-a-week",
-                  },
-                  {
-                    name: "Within a month",
-                    value: "within-a-month",
+                    name: "Within 2 weeks",
+                    value: "within-2-week",
                   },
                   {
                     name: "Within 3 months",
                     value: "within-3-months",
                   },
                   {
-                    name: "More than 3 months",
-                    value: "more-than-3-months",
+                    name: "After 3 months",
+                    value: "after-3-months",
                   },
                 ],
               },
             },
           },
           websiteInfomation: {
-            title: "Website information",
+            title: "e-Commerce",
+            subTitle: "Website information",
             listField: {
               listRadioExistingWebsite: {
                 description: "Do you have an existing website?",
@@ -615,31 +612,28 @@ export const SELF_SERVE_PAGE = {
               },
               dropdownField: {
                 description: "Please indicate the live date of your website",
-                placeholder: "Please select",
+                placeholder: "Website live date",
                 helperText: "",
                 requiredText: "",
                 list: [
                   {
-                    name: "Within a week",
-                    value: "within-a-week",
-                  },
-                  {
-                    name: "Within a month",
-                    value: "within-a-month",
+                    name: "Within 2 weeks",
+                    value: "within-2-week",
                   },
                   {
                     name: "Within 3 months",
                     value: "within-3-months",
                   },
                   {
-                    name: "More than 3 months",
-                    value: "more-than-3-months",
+                    name: "After 3 months",
+                    value: "after-3-months",
                   },
                 ],
               },
               textField: {
                 description: "Your website’s URL",
                 label: "e.g. www.xxx.com",
+                helperText: "Please enter a valid URL",
               },
             },
           },

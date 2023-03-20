@@ -24,7 +24,14 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
   return (
     <Box className={cx("business-details-form-wrapper")}>
       {/* {Section Business Information} */}
-      <SectionWrapper cx={cx} title={businessInfomation.title}>
+      <SectionWrapper
+        cx={cx}
+        title={
+          optionSelected === "point-of-sales-e-commerce"
+            ? businessInfomation.title
+            : businessInfomation.subTitle
+        }
+      >
         {/* {Sub-title} */}
         {_.has(businessInfomation, "subTitle") &&
           optionSelected === "point-of-sales-e-commerce" && (
@@ -47,11 +54,18 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
 
       {/* {Section Website Information} */}
       {websiteInfomation && (
-        <SectionWrapper cx={cx} title={websiteInfomation.title}>
+        <SectionWrapper
+          cx={cx}
+          title={
+            optionSelected === "point-of-sales-e-commerce"
+              ? websiteInfomation.title
+              : websiteInfomation.subTitle
+          }
+        >
           {/* {Sub-title} */}
           {_.has(websiteInfomation, "subTitle") &&
             optionSelected === "point-of-sales-e-commerce" && (
-              <Typography className={cx("sub-section-title")}>
+              <Typography className={cx("sub-section-title mb-dt-36")}>
                 {websiteInfomation.subTitle}
               </Typography>
             )}
@@ -62,6 +76,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
             optionSelected={optionSelected}
             setValue={setValue}
             register={register}
+            errors={errors}
             unregister={unregister}
             dataRedux={dataRedux}
           />

@@ -1,5 +1,5 @@
 // import modules
-import { Category, Button } from "@sectionsg/orc";
+import { Category } from "@sectionsg/orc";
 import React from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
@@ -13,7 +13,11 @@ import { saveDataCompanyAndContactInformationStep } from "@/store/form";
 import { useSelector } from "react-redux";
 
 // import constants
-import { LIST_ROUTER, NEXT, SELF_SERVE_PAGE } from "@/utils/constants";
+import {
+  LIST_COUNTRIES_CODE,
+  LIST_ROUTER,
+  SELF_SERVE_PAGE,
+} from "@/utils/constants";
 
 // import style
 import styles from "./CompanyAndContactInformation.scss";
@@ -22,10 +26,11 @@ import styles from "./CompanyAndContactInformation.scss";
 // import {ICompanyAndContactInformation} from "./CompanyAndContactInformation"
 
 //import icon
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import RedirectButton from "../RedirectButton";
+import _ from "lodash";
 
 // render UI
-const CompanyAndContactInformation: React.FC<unknown> = () => {
+const CompanyAndContactInformation: React.FC = () => {
   const {
     LIST_STEP: {
       companyAndContactInformation: {
@@ -47,48 +52,27 @@ const CompanyAndContactInformation: React.FC<unknown> = () => {
 
   const {
     register,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     setValue,
     getValues,
     setError,
+    watch,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      contactNumber: dataCompanyAndContactInformationStep.contactNumber || "",
+      contactNumber: dataCompanyAndContactInformationStep.contactNumber,
       registeredEntityName:
-        dataCompanyAndContactInformationStep.registeredEntityName || "",
+        dataCompanyAndContactInformationStep.registeredEntityName,
       uniqueEntityNumber:
-        dataCompanyAndContactInformationStep.uniqueEntityNumber || "",
-      companyType: dataCompanyAndContactInformationStep.companyType || "",
-      salutation: dataCompanyAndContactInformationStep.salutation || "",
-      name: dataCompanyAndContactInformationStep.name || "",
-      email: dataCompanyAndContactInformationStep.email || "",
-      designation: dataCompanyAndContactInformationStep.designation || "",
-      areaCode: dataCompanyAndContactInformationStep.areaCode || "",
+        dataCompanyAndContactInformationStep.uniqueEntityNumber,
+      companyType: dataCompanyAndContactInformationStep.companyType,
+      salutation: dataCompanyAndContactInformationStep.salutation,
+      name: dataCompanyAndContactInformationStep.name,
+      email: dataCompanyAndContactInformationStep.email,
+      designation: dataCompanyAndContactInformationStep.designation,
+      areaCode: LIST_COUNTRIES_CODE[0].value,
     },
   });
-
-  /**
-   * render UI button
-   * @returns {HTML}
-   */
-  const renderButton = () => {
-    return (
-      <Button
-        backgroundClass="bgGunmetalBluegrey"
-        disabled={!isValid || !isDirty}
-        onClick={() => {
-          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
-          dispatch(saveDataCompanyAndContactInformationStep(getValues()));
-        }}
-        buttonType=""
-      >
-        <>
-          {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
-        </>
-      </Button>
-    );
-  };
 
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>
@@ -129,12 +113,15 @@ const CompanyAndContactInformation: React.FC<unknown> = () => {
         />
       </SectionWrapper>
 
-      {/* {Next Button}  */}
-      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Box>
-          <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
-        </Box>
-      </Box>
+      {/* {Next Button} */}
+      <RedirectButton
+        disabledNextButton={!isValid}
+        variant="next"
+        onClickNext={() => {
+          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+          dispatch(saveDataCompanyAndContactInformationStep(getValues()));
+        }}
+      />
     </Box>
   );
 };

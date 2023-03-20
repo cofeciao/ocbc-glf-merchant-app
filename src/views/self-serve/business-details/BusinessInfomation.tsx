@@ -84,7 +84,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
             <Grid item xs={12}>
               {/* {Description} */}
               {_.has(listField.dropdownField, "description") && (
-                <Typography className={cx("sub-section-description")}>
+                <Typography className={cx("sub-section-description mb-16")}>
                   {listField.dropdownField.description}
                 </Typography>
               )}
@@ -97,9 +97,9 @@ const BusinessInfomation: React.FC<any> = (props) => {
                   fullWidth
                 >
                   {/* {Label} */}
-                  {!_.isNil(PLEASE_SELECT_LABEL) && (
+                  {!_.isEmpty(listField.dropdownField.placeholder) && (
                     <InputLabel htmlFor="select-operation-starting-period-label">
-                      {PLEASE_SELECT_LABEL}
+                      {listField.dropdownField.placeholder}
                     </InputLabel>
                   )}
 
@@ -139,7 +139,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
             <Grid item xs={12}>
               {/* {Description} */}
               {_.has(listField.textField, "description") && (
-                <Typography className={cx("sub-section-description")}>
+                <Typography className={cx("sub-section-description mb-16")}>
                   {listField.textField.description}
                 </Typography>
               )}

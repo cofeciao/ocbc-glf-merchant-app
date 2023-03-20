@@ -18,7 +18,7 @@ import _ from "lodash";
 
 // import style
 import styles from "./BusinessDetails.scss";
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 
@@ -32,6 +32,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
     register,
     unregister,
     setValue,
+    errors,
     dataRedux,
     optionSelected,
   } = props;
@@ -52,6 +53,9 @@ const WebsiteInformation: React.FC<any> = (props) => {
     if (existingWebsite === "Yes" || optionSelected === "point-of-sales") {
       unregister("websiteLiveDate");
     }
+    if (existingWebsite === "No") {
+      unregister("placeOrderThroughWebsite");
+    }
   }, [existingWebsite]);
 
   /**
@@ -59,7 +63,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
    */
   const handleAddWebsite = () => {
     if (listTextField.length < 3) {
-      setListTextField([...listTextField, listTextField]);
+      setListTextField([...listTextField, { ...listField.textField }]);
     }
   };
 
@@ -73,6 +77,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
       (_textField, idx) => idx !== index
     );
     setListTextField(filterListTextField);
+    unregister(`yourWebsiteURL${index}`);
   };
 
   return (
@@ -114,9 +119,9 @@ const WebsiteInformation: React.FC<any> = (props) => {
               <Grid xs={12} md={4}>
                 <FormControl variant="filled" fullWidth>
                   {/* {Label} */}
-                  {!_.isNil(PLEASE_SELECT_LABEL) && (
+                  {!_.isNil(listField.dropdownField.placeholder) && (
                     <InputLabel htmlFor="select-website-live-date-label">
-                      {PLEASE_SELECT_LABEL}
+                      {listField.dropdownField.placeholder}
                     </InputLabel>
                   )}
 
@@ -194,8 +199,27 @@ const WebsiteInformation: React.FC<any> = (props) => {
                               ? `${dataRedux.numberOfOutlets}${index}`
                               : ""
                           }
+                          error={
+                            _.has(errors[`yourWebsiteURL${index}`], "type") &&
+                            !_.isEqual(
+                              errors[`yourWebsiteURL${index}`].type,
+                              "required"
+                            ) &&
+                            true
+                          }
+                          helperText={
+                            _.has(
+                              errors[`yourWebsiteURL${index}`],
+                              "message"
+                            ) && errors[`yourWebsiteURL${index}`].message
+                          }
                           {...register(`yourWebsiteURL${index}`, {
-                            required: false,
+                            required: true,
+                            pattern: {
+                              value:
+                                /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i,
+                              message: `${ERROR_ICON} ${item.helperText}`,
+                            },
                           })}
                         />
                       </Box>
@@ -229,24 +253,28 @@ const WebsiteInformation: React.FC<any> = (props) => {
         )}
 
         {/* {Can customers place orders through your website?} */}
-        <Grid item xs={12}>
-          {!_.isEmpty(listField.listRadioPlaceOrderThroughWebsite.description) && (
-            <Typography className={cx("sub-section-description")}>
-              {listField.listRadioPlaceOrderThroughWebsite.description}
-            </Typography>
-          )}
+        {!_.isEqual(existingWebsite, "No") && (
+          <Grid item xs={12}>
+            {!_.isEmpty(
+              listField.listRadioPlaceOrderThroughWebsite.description
+            ) && (
+              <Typography className={cx("sub-section-description")}>
+                {listField.listRadioPlaceOrderThroughWebsite.description}
+              </Typography>
+            )}
 
-          {!_.isEmpty(LIST_RADIO_YES_NO) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={LIST_RADIO_YES_NO}
-              radioKey={0}
-              getValue={(value: any) =>
-                setValue("placeOrderThroughWebsite", value)
-              }
-            />
-          )}
-        </Grid>
+            {!_.isEmpty(LIST_RADIO_YES_NO) && (
+              <Radio
+                name="lockIn"
+                listCheckBox={LIST_RADIO_YES_NO}
+                radioKey={0}
+                getValue={(value: any) =>
+                  setValue("placeOrderThroughWebsite", value)
+                }
+              />
+            )}
+          </Grid>
+        )}
       </Grid>
     </Box>
   );
