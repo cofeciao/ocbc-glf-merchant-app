@@ -44,7 +44,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
         {_.isEqual(variant, "fulfillment-over-a-period-of-time") && (
           <Grid item xs={12}>
             {/* {Description} */}
-            {_.has(textField, "description") && (
+            {!_.isEmpty(textField.description) && (
               <Typography
                 className={cx(
                   "fulfilment-information-description input-field-description"
@@ -103,8 +103,8 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
         {/* {Approximate delivery time to customers} */}
         <Grid item xs={12}>
           {/* {Description} */}
-          <Grid item xs={6}>
-            {_.has(listDropdown, "description") && (
+          <Grid item xs={5}>
+            {!_.isEmpty(listDropdown.description) && (
               <Typography
                 className={cx(
                   "fulfilment-information-description input-field-description"
@@ -120,9 +120,10 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
               className={cx("duration-select")}
               fullWidth
             >
-              {!_.isNil(PLEASE_SELECT_LABEL) && (
+              {console.log(listDropdown.placeholder)}
+              {!_.isEmpty(listDropdown.placeholder) && (
                 <InputLabel id="select-duration-label">
-                  {PLEASE_SELECT_LABEL}
+                  {listDropdown.placeholder}
                 </InputLabel>
               )}
               {!_.isEmpty(listDropdown.list) && (

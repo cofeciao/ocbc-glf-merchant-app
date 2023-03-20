@@ -30,15 +30,15 @@ const EcommerceForm: React.FC<any> = (props) => {
         <Grid container>
           {/* {Business Offering} */}
           <Grid item xs={12}>
-            {_.has(businessOffering, "title") && (
+            {!_.isEmpty(businessOffering.title) && (
               <Typography className={cx("sub-section-title")}>
                 {businessOffering.title}
               </Typography>
             )}
-            {_.has(businessOffering, "description") && (
+            {!_.isEmpty(businessOffering.description) && (
               <Typography
                 className={cx(
-                  "business-offering-description sub-section-description"
+                  "business-offering-description sub-section-description mb-16"
                 )}
               >
                 {businessOffering.description}

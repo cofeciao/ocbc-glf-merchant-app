@@ -44,10 +44,10 @@ const PointOfSalesForm: React.FC<any> = (props) => {
                 {LABEL_BUSINESS_OFFERING}
               </Typography>
             )}
-            {_.has(businessOffering, "description") && (
+            {!_.isEmpty(businessOffering.description) && (
               <Typography
                 className={cx(
-                  "business-offering-description sub-section-description"
+                  "business-offering-description sub-section-description mb-16"
                 )}
               >
                 {businessOffering.description}

@@ -12,6 +12,9 @@
   }
 
   & .sales-forecast-wrapper {
+    & .section-description {
+      margin-bottom: 24px;
+    }
     & .text-field-group {
       display: flex;
       flex-direction: column;
