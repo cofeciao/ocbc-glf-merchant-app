@@ -38,6 +38,7 @@ import { saveDataCompanyDetail } from "@/store/form";
 
 // import hooks
 import { useDebounce } from "@/hooks/useDebounce";
+import { STEP_RM } from "@/utils/constants-rm";
 
 // data rows
 const datas: any = [];
@@ -57,9 +58,16 @@ const ListCompany: React.FC = ({}) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const debouncedValue = useDebounce<string>('keyword', 600);
-  
-  // console.log(debouncedValue);
 
+  const {
+    LIST_STEP: {
+      welcome: {
+        labelCreateNewCase,
+        labelNotResultFound
+      }
+    }
+  } = STEP_RM
+  
   // States
   const [isOpenModalLaunch, setIsOpenModalLaunch] = useState<boolean>(false);
   const [dataDetail, setDataDetail] = useState<any>({});
@@ -68,7 +76,6 @@ const ListCompany: React.FC = ({}) => {
     pageSize: 10,
     keyword: ''
   });
-
   const [data, setData] = useState<any[]>(datas);
 
   // headers table
@@ -155,7 +162,7 @@ const ListCompany: React.FC = ({}) => {
     return (
       <Box className={cx("not-result-found-wrapper")}>
         <img src={Acknowledgementfailed} alt="icon not result search" />
-        <Typography className={cx("title")}>Not result found</Typography>
+        <Typography className={cx("title")}>{labelNotResultFound}</Typography>
       </Box>
     );
   };
@@ -199,8 +206,12 @@ const ListCompany: React.FC = ({}) => {
           />
         </Grid>
         <Grid item xs={4} className={cx('section-left')}>
-          <Typography>
-            Create new case
+          <Typography 
+            onClick={() => {
+              history.push("/rm/company-contact-information");
+            }}
+          >
+            {labelCreateNewCase}
           </Typography>
         </Grid>
         {currentTableData(arraySearch(data, params.keyword)).length > 0 ? (

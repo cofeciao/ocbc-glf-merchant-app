@@ -229,7 +229,6 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
               })}
             />
           </Grid>
-
         </Grid>
       </form>
     )

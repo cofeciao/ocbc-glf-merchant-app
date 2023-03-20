@@ -7,6 +7,7 @@ import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
+import { Link } from "react-router-dom";
 
 // import constants
 import { LIST_ROUTER, NEXT } from "@/utils/constants";
@@ -25,7 +26,6 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import TransactionCard from "./TransactionCard";
 import OtherServices from "./OtherServices";
 import { IServicesApplied } from "./ServicesApplied";
-import { Link } from "react-router-dom";
 
 // render UI
 const ServicesApplied: React.FC<any> = () => {
@@ -39,10 +39,10 @@ const ServicesApplied: React.FC<any> = () => {
   } = STEP_RM;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
+  const history = useHistory();
   
   // States
   const [key, setKey] = useState<number>(0);
-  const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
     transactionAndCardAcceptanceType.dataListCheckbox
   );
@@ -112,7 +112,7 @@ const ServicesApplied: React.FC<any> = () => {
   };
 
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.contactInformation);
+    history.goBack(-1);
   }
 
   return (

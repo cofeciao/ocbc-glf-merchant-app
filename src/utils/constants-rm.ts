@@ -5,6 +5,7 @@ export const WElCOME_LOGIN = "Welcome!"
 export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
 
 export const CONTACT_INFORMATION = "contact-information";
+export const COMPANY_CONTACT_INFORMATION = "company-contact-information";
 export const SERVICES_APPLIED = "services-applied";
 export const BUSINESS_OPERATION = "business-operation";
 export const PRODUCTS_SERVICES = "products-services";
@@ -18,6 +19,7 @@ export const DECLARATION = "declaration";
 
 export const URL_MANUAL_FLOW = {
   contactInformation: "/rm/contact-information",
+  companyContactInformation: "/rm/company-contact-information",
   servicesApplied: "/rm/services-applied",
   businessOperation: "/rm/business-operation",
   productsServices: "/rm/products-services",
@@ -1471,7 +1473,7 @@ export const STEP_RM = {
   ],
 
   LABEL_ADD_MORE_WEBSITES: "Add website more",
-
+ 
 
   LIST_STEP: {
     LIST_SALUTATION: [
@@ -1484,6 +1486,16 @@ export const STEP_RM = {
         value: "ms",
       },
     ],
+    LIST_ENTITY_TYPE: [
+      {
+        name: "Private Limited",
+        value: "private_limited",
+      },
+    ],
+    welcome: {
+      labelCreateNewCase: "Create new case",
+      labelNotResultFound: "Not result found",
+    },
     acraAndContactInformation: {
       id: "acra-and-contact-information",
       numerical: "0",
@@ -1577,6 +1589,95 @@ export const STEP_RM = {
           },
         }
       },
+    },
+    companyAndContactInformation: {
+      id: "company-and-contact-information",
+      numerical: "0",
+      title: "Company and contact information",
+      check: false,
+      status: true,
+      section: {
+        companyDetails: {
+          title: "Company details",
+          description: "Please ensure that these details from ACRA are updated.",
+          titleRegisteredAddress: "Registered address",
+          titleDirectors: "Directors",
+          labelAddMoreDirectors: "Add more directors",
+          inputFields: {
+            registeredEntityName: {
+              label: "Registered entity name",
+              helperText: "Please enter a valid registered entity name",
+              requiredText: "",
+            },
+            entityType: {
+              label: "Entity type",
+              helperText: "Please enter a valid entity type",
+              requiredText: "",
+            },
+            uniqueEnityNumber: {
+              label: "Unique Entity Number (UEN)",
+              helperText: "Please enter a valid unique entity number",
+              requiredText: "",
+            },
+            natureOfBusiness: {
+              label: "Nature of business",
+              helperText: "Please enter a valid nature of business",
+              requiredText: "",
+            },
+            blockNumber: {
+              label: "Block / House number",
+              helperText: "Please enter a valid block number",
+              requiredText: "",
+            },
+            streetName: {
+              label: "Street name",
+              helperText: "Please enter a valid street name",
+              requiredText: "",
+            },
+            unitNumber: {
+              label: "Unit number (if applicable)",
+              helperText: "Please enter a valid unit number",
+              requiredText: "",
+            },
+            buildingName: {
+              label: "Building name (if applicable)",
+              helperText: "Please enter a valid building name",
+              requiredText: "",
+            },
+            postalCode: {
+              label: "Postal code",
+              helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+          },
+          mailingAndRegisteredAddressAreTheSame: {
+            label: "Mailing and Registered address are the same",
+            name: "mailingAndRegisteredAddressAreTheSame"
+          },
+          inputFieldsDirectors: {
+            name: {
+              label: "Name",
+              value: "",
+              helperText: "",
+              requiredText: "",
+            },
+            nricNumber: {
+              label: "NRIC number",
+              value: "",
+              helperText: "",
+              requiredText: "",
+            },
+          }
+        },
+        contactDetails: {
+          title: "Contact details",
+          description: "Please ensure that these details are accurate."
+        },
+        authorisedPersonDetails: {
+          title: "Authorised person details",
+          description: "Please ensure that these details are accurate."
+        },
+      }
     },
     servicesApplied: {
       id: "services_applied",
