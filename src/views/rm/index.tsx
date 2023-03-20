@@ -16,6 +16,7 @@ import classNames from 'classnames/bind';
 import { 
   BENEFICIAL_OWNERSHIP,
   BUSINESS_OPERATION,
+  COMPANY_CONTACT_INFORMATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
   DECLARATION, 
@@ -43,6 +44,7 @@ import BeneficialOwnership from './beneficial-ownership';
 import SupplementaryDocuments from './supplementary-documents';
 import ReviewSubmit from './review-submit';
 import FeeAuthorisation from './fee-authorisation';
+import CompanyContactInformation from './company-contact-information';
 
 // render UI
 const ContainerManual = () => {
@@ -121,6 +123,7 @@ const ContainerManual = () => {
             content={(
               <>
                 {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
+                {slug === COMPANY_CONTACT_INFORMATION && <CompanyContactInformation ref={childRef} handleCallAPI={() => {}} />}
                 {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
                 {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
                 {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}

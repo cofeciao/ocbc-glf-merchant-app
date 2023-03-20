@@ -16,15 +16,13 @@ import _ from "lodash";
 import {
   ERROR_ICON,
   LIST_COUNTRIES_CODE,
-  SELF_SERVE_PAGE,
 } from "@/utils/constants";
-import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
+
+import { STEP_RM } from "@/utils/constants-rm";
 
 // render UI
-const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = (props) => {
-  const { cx, data, dataRedux, register, errors, setValue, setError } =
-    props;
-  const { LIST_SALUTATION } = SELF_SERVE_PAGE;
+const AuthorisedPersonDetails: React.FC<any> = (props) => {
+  const { cx, key, data, register, errors, setValue, setError, dataRedux } = props;
   const { salutation, name, designation, email, contactNumber } =
     data.inputFields;
 
@@ -45,16 +43,16 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
               </InputLabel>
               <Select
                 fullWidth
-                defaultValue={
-                  _.has(dataRedux, "salutation") ? dataRedux.salutation : ""
-                }
                 labelId="salutation-select-filled-label"
+                defaultValue={
+                  _.has(dataRedux, "authorisedPersonDetails.salutation") ? dataRedux.authorisedPersonDetails.salutation : ""
+                }
                 id="salutation-select-filled"
-                {...register("salutation", {
+                {...register("authorisedPersonDetails.salutation", {
                   required: true,
                 })}
               >
-                {_.map(LIST_SALUTATION, (item, index) => {
+                {_.map(STEP_RM.LIST_STEP.LIST_SALUTATION, (item, index) => {
                   return (
                     <MenuItem key={index} value={item.value}>
                       {item.name}
@@ -76,12 +74,12 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                   <TextField
                     fullWidth
                     defaultValue={
-                      _.has(dataRedux, "name") ? dataRedux.name : ""
+                      _.has(dataRedux, "authorisedPersonDetails.name") ? dataRedux.authorisedPersonDetails.name : ""
                     }
                     id={uuidv4()}
                     label={name.label}
                     variant="filled"
-                    {...register("name", {
+                    {...register("authorisedPersonDetails.name", {
                       required: true,
                     })}
                   />
@@ -93,18 +91,18 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                   {/* {Email input field} */}
                   <TextField
                     fullWidth
-                    error={errors.email && true}
+                    error={errors.authorisedPersonDetails && errors.authorisedPersonDetails.email && true}
                     defaultValue={
-                      _.has(dataRedux, "email") ? dataRedux.email : ""
+                      _.has(dataRedux, "authorisedPersonDetails.email") ? dataRedux.authorisedPersonDetails.email : ""
                     }
                     id={uuidv4()}
                     label={email.label}
                     key={null}
                     variant="filled"
                     helperText={
-                      errors.email && `${ERROR_ICON} ${errors.email.message}`
+                      errors.authorisedPersonDetails && errors.authorisedPersonDetails.email && `${ERROR_ICON} ${errors.authorisedPersonDetails &&  errors.authorisedPersonDetails.email.message}`
                     }
-                    {...register("email", {
+                    {...register("authorisedPersonDetails.email", {
                       required: email.requiredText,
                       pattern: {
                         // eslint-disable-next-line no-useless-escape
@@ -129,39 +127,41 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                     fullWidth
                     id={uuidv4()}
                     defaultValue={
-                      _.has(dataRedux, "designation")
-                        ? dataRedux.designation
+                      _.has(dataRedux, "authorisedPersonDetails.designation")
+                        ? dataRedux.authorisedPersonDetails.designation
                         : ""
                     }
                     label={designation.label}
                     variant="filled"
-                    {...register("designation", {
+                    {...register("authorisedPersonDetails.designation", {
                       required: true,
                     })}
                   />
                 </Grid>
               )}
 
-              {_.has(errors.contactNumber, "type") &&
+              {_.has(errors.authorisedPersonDetails, "type") && 
+              _.has(errors.authorisedPersonDetails.contactNumber, "type") &&
                 _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
                   _.has(contactNumber, "label") && (
                     <TextField
+                      key={key}
                       fullWidth
                       defaultValue={
-                        _.has(dataRedux, "contactNumber")
-                          ? dataRedux.contactNumber
+                        _.has(dataRedux, "authorisedPersonDetails.contactNumber")
+                          ? dataRedux.authorisedPersonDetails.contactNumber
                           : ""
                       }
                       type="number"
                       error={
-                        _.has(errors, "contactNumber") &&
-                        !_.isEqual(errors.contactNumber.type, "required")
+                        _.has(errors, "authorisedPersonDetails.contactNumber") &&
+                        !_.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required")
                           ? false
-                          : _.has(errors, "contactNumber") &&
-                            !_.isEqual(errors.contactNumber.type, "required") &&
+                          : _.has(errors, "authorisedPersonDetails.contactNumber") &&
+                            !_.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required") &&
                             true
                       }
                       name="numberformat"
@@ -169,13 +169,14 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactNumber, "type") &&
-                        _.isEqual(errors.contactNumber.type, "required")
+                        _.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required")
                           ? ""
-                          : _.has(errors.contactNumber, "type") &&
-                            !_.isEqual(errors.contactNumber.type, "required") &&
-                            `${ERROR_ICON} ${errors.contactNumber.message}`
+                          : _.has(errors.authorisedPersonDetails, "type") &&
+                            _.has(errors.authorisedPersonDetails.contactNumber, "type") &&
+                            !_.isEqual(errors.authorisedPersonDetails.contactNumber.type, "required") &&
+                            `${ERROR_ICON} ${errors.authorisedPersonDetails.contactNumber.message}`
                       }
-                      {...register("contactNumber", {
+                      {...register("authorisedPersonDetails.contactNumber", {
                         required: true,
                         pattern: {
                           value: /^[0-9]{8}$/,
@@ -183,13 +184,13 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                         },
                         onBlur: (event: ChangeEvent<HTMLInputElement>) => {
                           if (event.target.value === "") {
-                            setValue("contactNumber", "");
-                            setError("contactNumber", {
+                            setValue("authorisedPersonDetails.contactNumber", "");
+                            setError("authorisedPersonDetails.contactNumber", {
                               type: "required",
                               message: "",
                             });
                           } else {
-                            setValue("contactNumber", event.target.value);
+                            setValue("authorisedPersonDetails.contactNumber", event.target.value);
                           }
                         },
                       })}
@@ -199,12 +200,12 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                             {/* {Phone Number select field} */}
                             <Select
                               defaultValue={
-                                _.has(dataRedux, "areaCode")
-                                  ? dataRedux.areaCode
+                                _.has(dataRedux, "authorisedPersonDetails.areaCode")
+                                  ? dataRedux.authorisedPersonDetails.areaCode
                                   : LIST_COUNTRIES_CODE[0].value
                               }
                               error={errors.AreaCode && true}
-                              {...register("areaCode", {
+                              {...register("authorisedPersonDetails.areaCode", {
                                 required: false,
                               })}
                             >
@@ -229,4 +230,4 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
     </Box>
   );
 };
-export default ContactDetails;
+export default AuthorisedPersonDetails;

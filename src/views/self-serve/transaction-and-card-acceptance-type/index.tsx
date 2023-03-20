@@ -1,39 +1,31 @@
 // import modules
-import { Category, Button } from "@sectionsg/orc";
+import { Category } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListCheckBox from "@/components/ListCheckBox";
 import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
-import { Box, Grid } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
+import SectionWrapper from "@/views/self-serve/SectionWrapper";
+import RedirectButton from "@/views/self-serve/RedirectButton";
 import _ from "lodash";
 
 // import constants
-import {
-  LIST_ROUTER,
-  NEXT,
-  SELF_SERVE_PAGE,
-} from "@/utils/constants";
+import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./TransactionAndCardAcceptanceType.scss";
 
 // import types
 
-//import icon
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import { Link } from "react-router-dom";
-
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const {
     LIST_STEP: {
-      transaction_and_card_acceptance_type: {
+      transactionAndCardAcceptanceType: {
         text,
-        section: { which_service_are_you_applying_for },
+        section: { whichServiceAreYouApplyingFor },
       },
     },
   } = SELF_SERVE_PAGE;
@@ -42,12 +34,12 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
-    which_service_are_you_applying_for.data_list_checkbox
+    whichServiceAreYouApplyingFor.data_list_checkbox
   );
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
   /**
-   * Get data from list check box
+   * Get data from list check box and save to store
    * @param data
    */
   const getDataFromListCheckbox = (data: any) => {
@@ -79,26 +71,6 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
     }
   }, [dataListCheckbox]);
 
-  /**
-   * render UI button
-   * @returns {HTML}
-   */
-  const renderButton = () => {
-    return (
-      <Button
-        backgroundClass="bgGunmetalBluegrey"
-        disabled={disabledButton}
-        onClick={() => {
-          history.push(LIST_ROUTER.business_details);
-        }}
-      >
-        <>
-          {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
-        </>
-      </Button>
-    );
-  };
-
   return (
     <Box
       className={cx(
@@ -106,15 +78,15 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       )}
     >
       {/* {Category} */}
-      <section className={cx("category-wrapper")}>
+      <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
-      </section>
+      </Box>
 
       {/* {Section Contact details} */}
       <SectionWrapper
         cx={cx}
-        title={which_service_are_you_applying_for.title}
-        description={which_service_are_you_applying_for.description}
+        title={whichServiceAreYouApplyingFor.title}
+        description={whichServiceAreYouApplyingFor.description}
       >
         {/* {List Checkbox} */}
         <ListCheckBox
@@ -126,24 +98,23 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
           sm={6}
           xs={12}
           checkboxKey={key}
-          getValue={(value: any) => console.log(value)}
+          getValue={getDataFromListCheckbox}
         />
       </SectionWrapper>
 
       {/* {Next Button}  */}
-      <section className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button
-          backgroundClass="square"
-          onClick={() =>
-            history.push(LIST_ROUTER.company_and_contact_information)
-          }
-        >
-          <ArrowBackIcon className={cx("arrow")} />
-        </Button>
-        <Box>
-          <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
-        </Box>
-      </section>
+      <RedirectButton
+        disabledNextButton={disabledButton}
+        continueLater
+        backButton
+        variant="next"
+        onClickBack={() => {
+          history.push(LIST_ROUTER.company_and_contact_information);
+        }}
+        onClickNext={() => {
+          history.push(LIST_ROUTER.business_details);
+        }}
+      />
     </Box>
   );
 };

@@ -5,7 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
-import SectionWrapper from "../SectionWrapper";
+import SectionWrapper from "@/views/self-serve/SectionWrapper";
+import CashlessPaymentMethod from "./CashlessPaymentMethod";
+import CompanyAndContactInfomation from "./CompanyAndContactInfomation";
+import TransactionAndCardAcceptanceType from "./TransactionAndCardAcceptanceType";
+import AgreePolicy from "./AgreePolicy";
+import ProductsAndServices from "./ProductsAndServices";
+import BusinessDetails from "./BusinessDetails";
 import _ from "lodash";
 
 // import constants
@@ -23,14 +29,8 @@ import styles from "./ReviewAndSubmit.scss";
 
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import { Link } from "react-router-dom";
-import CashlessPaymentMethod from "./CashlessPaymentMethod";
-import CompanyAndContactInfomation from "./CompanyAndContactInfomation";
-import TransactionAndCardAcceptanceType from "./TransactionAndCardAcceptanceType";
-import AgreePolicy from "./AgreePolicy";
-import ProductsAndServices from "./ProductsAndServices";
-import BusinessDetails from "./BusinessDetails";
+import RedirectButton from "../RedirectButton";
 
 // render UI
 const ReviewAndSubmit: React.FC<any> = () => {
@@ -41,11 +41,10 @@ const ReviewAndSubmit: React.FC<any> = () => {
     LABEL_BUSINESS_DETAILS,
     LABEL_PRODUCTS_AND_SERVICES,
     LIST_STEP: {
-      review_and_submit: { text },
+      reviewAndSubmit: { text },
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
   const [disabledButton, setDisableButton] = useState<boolean>(true);
   const history = useHistory();
 
@@ -105,24 +104,6 @@ const ReviewAndSubmit: React.FC<any> = () => {
     (state: any) => state.form.productsAndServicesStep
   );
 
-  /**
-   * render UI button
-   * @returns {HTML}
-   */
-  const renderButton = () => {
-    return (
-      <Button
-        backgroundClass="bgGunmetalBluegrey"
-        disabled={disabledButton}
-        onClick={() => {
-          history.push(LIST_ROUTER.acknowledgement_successful);
-        }}
-      >
-        <>{SUBMIT}</>
-      </Button>
-    );
-  };
-
   return (
     <Box className={cx("review-and-submit-wrapper step-wrapper")}>
       {/* {Category} */}
@@ -161,26 +142,27 @@ const ReviewAndSubmit: React.FC<any> = () => {
 
       {/* {Section Products And Services} */}
       <SectionWrapper cx={cx} title={LABEL_PRODUCTS_AND_SERVICES}>
-        <ProductsAndServices data={productsAndServicesStep} optionSelected={optionSelected} />
+        <ProductsAndServices
+          data={productsAndServicesStep}
+          optionSelected={optionSelected}
+        />
       </SectionWrapper>
 
       <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />
 
       {/* {Next Button}  */}
-      <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
-        <Button
-          backgroundClass="square"
-          onClick={() => history.push(LIST_ROUTER.products_and_services)}
-        >
-          <ArrowBackIcon className={cx("arrow")} />
-        </Button>
-        <Box>
-          <Box className={cx("d-inline")}>
-            <Link to="/">{CONTINUE_LATER}</Link>
-          </Box>
-          <Box className="ml-dt-30 d-inline">{renderButton()}</Box>
-        </Box>
-      </Box>
+      <RedirectButton
+        disabledNextButton={disabledButton}
+        continueLater
+        backButton
+        variant="submit"
+        onClickBack={() => {
+          history.push(LIST_ROUTER.products_and_services);
+        }}
+        onClickNext={() => {
+          history.push(LIST_ROUTER.acknowledgement_successful);
+        }}
+      />
     </Box>
   );
 };

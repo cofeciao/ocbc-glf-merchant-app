@@ -45,7 +45,6 @@ const BusinessOperation: React.FC<any> = () => {
       .transactionAndCardAcceptanceType.dataListCheckbox
   );
 
-
   /**
    * 
    * Retrieves data from Store

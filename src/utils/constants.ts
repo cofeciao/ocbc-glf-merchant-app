@@ -19,6 +19,7 @@ export const LIST_ROUTER = {
   review_and_submit: "/self/review-and-submit",
   acknowledgement_successful: "/acknowledgement/successful",
   acknowledgement_interest: "/acknowledgement/interest",
+  acknowledgement_saved: "/acknowledgement/saved",
 };
 
 export const ERROR_ICON = "\u26A0";
@@ -29,15 +30,46 @@ export const ACKNOWLEDGEMENT_PAGE = {
   LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS:
     "Our Relationship Manager will contact you within 3 working days.",
   LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS: "Apply for OCBC Cashless Payments",
-
   LABEL_THANK_YOU_FOR_YOUR_INTEREST: "Thank you for your interest!",
   LABEL_TO_APPLY_FOR_PAYNOW_PLEASE_VISIT: "To apply for PayNow, please visit",
   LABEL_BUSINESS_INTERNET_BANKING: "Business Internet Banking",
+  SAVED: {
+    title: "Your application is saved",
+    description: {
+      before: "We will send instructions to",
+      after: "for you to access your saved application.",
+    },
+  },
 };
 
 export const HOME_PAGE = {
-  title_cashless_payments_home: "Apply for OCBC Cashless Payments",
-  cashless_payments_methods: {
+  ENTRY_POINT: {
+    PLEASE_FILL_IN_THE_DETAILS: "Please fill in the details",
+    LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED:
+      "Your saved application has expired",
+    LABEL_PLEASE_RESTART_YOUR_APPLICATION: "Please restart your application.",
+    LABEL_WHAT_ARE_YOU_HERE_FOR: "What are you here for?",
+    LABEL_START_OVER: "Start over",
+    TEXT_FIELD_REFERENCE_NUMBER: {
+      label: "Reference number",
+      description: "Check your email for the reference number",
+      helperText: "Enter a valid reference number",
+      requiredText: "",
+    },
+    LIST_RADIO_ENTRY_POINT: [
+      {
+        text: "Start a new Cashless payment application",
+        checked: false,
+      },
+      {
+        text: "Continue from saved application",
+        checked: false,
+      },
+    ],
+  },
+
+  TITLE_CASHLESS_PAYMENTS_HOME: "Apply for OCBC Cashless Payments",
+  CASHLESS_PAYMENTS_METHODS: {
     title: "Cashless payments methods",
     description: "Which cashless payment methods are you applying for?",
     messgase_error_list_checkbox: "Please select at least one service",
@@ -55,9 +87,9 @@ export const HOME_PAGE = {
       },
     ],
   },
-  things_to_take_note_of: {
+  THINGS_TO_TAKE_NOTE_OF: {
     title: "Things to take note of",
-    list_item: [
+    listItem: [
       "You will need to provide information on your business such as name, Unique Entity Number (UEN), fulfilment type, and sales forecast",
       "Your business details will be pulled from ACRA to access your application",
     ],
@@ -123,6 +155,8 @@ export const SELF_SERVE_PAGE = {
   LABEL_SALUTATION: "Salutation",
   LABEL_NAME: "Name",
   LABEL_EMAIL: "Email",
+  LABEL_OKAY: "Okay",
+  LABEL_CANCEL: "Cancel",
   LABEL_DESIGNATION: "Designation",
   LABEL_CONTACT_NUMBER: "Contact number",
 
@@ -135,6 +169,7 @@ export const SELF_SERVE_PAGE = {
 
   LABEL_EXISTING_WEBSITE: "Existing website",
   LABEL_WEBSITE_URL: "Website’s URL",
+  LABEL_WEBSITE_LIVE_DATE: "Website live date",
   LABEL_PLACE_ORDER_THROUGH_WEBSITE: "Place order through website",
   LABEL_BUSINESS_OFFERINGS: "Business offerings",
   LABEL_AVAILABLE_SPACES: "Available spaces",
@@ -144,6 +179,8 @@ export const SELF_SERVE_PAGE = {
   LABEL_COMPANY_REGISTRATION: "Company registration",
   LABEL_CONTACT_DETAILS: "Contact details",
   LABEL_ADD_MORE_WEBSITES: "Add website more",
+  LABEL_REMOVE: "Remove",
+  LABEL_WEBSITE: "Website",
   LABEL_BUSINESS_OFFERING: "Business offering",
   LABEL_FULFILMENT_INFORMATION: "Fulfilment information",
   LABEL_SALES_FORECAST: "Sales forecast",
@@ -151,6 +188,20 @@ export const SELF_SERVE_PAGE = {
   LABEL_E_COMMERCE: "e-Commerce",
   LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY:
     "Percentage of products/services not fulfilled immediately",
+
+  CONTINUE_LATER_DIALOG: {
+    LABEL_YOU_ARE_LEAVING_THIS_APPLICATION: "You are leaving this application",
+    LABEL_SAVE_YOUR_PROGRESS_AND_CONTINUE_LATER:
+      "Save your progress and continue later?",
+    LABEL_YES_SAVE_APPLICATION: "Yes, save application",
+    LABEL_LEAVE_ANYWAY: "Leave anyway",
+    REVIEW_AND_SAVE: {
+      title: "Continue with your application later",
+      description:
+        "This will save and close your application. We will send the savedapplication to the details below.",
+    },
+  },
+  
   LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES:
     {
       description:
@@ -166,27 +217,24 @@ export const SELF_SERVE_PAGE = {
         },
       ],
     },
-  LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS: {
-    description: "Approximate delivery time to customers",
-    listDropdown: [
-      {
-        name: "Within a week",
-        value: "within-a-week",
-      },
-      {
-        name: "Within a month",
-        value: "within-a-month",
-      },
-      {
-        name: "Within 3 months",
-        value: "within-3-months",
-      },
-      {
-        name: "More than 3 months",
-        value: "more-than-3-months",
-      },
-    ],
-  },
+  LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS: [
+    {
+      name: "Within a week",
+      value: "within-a-week",
+    },
+    {
+      name: "Within a month",
+      value: "within-a-month",
+    },
+    {
+      name: "Within 3 months",
+      value: "within-3-months",
+    },
+    {
+      name: "More than 3 months",
+      value: "more-than-3-months",
+    },
+  ],
   LIST_PLEASE_INDICATE_DURATION: {
     description: "Please indicate duration",
     listDropdown: [
@@ -264,7 +312,7 @@ export const SELF_SERVE_PAGE = {
     },
   ],
   LIST_STEP: {
-    company_and_contact_information: {
+    companyAndContactInformation: {
       id: "company-and-contact-information",
       numerical: "0",
       text: "Company and contact information",
@@ -278,7 +326,7 @@ export const SELF_SERVE_PAGE = {
         status: true,
       },
       section: {
-        company_registration: {
+        companyRegistration: {
           title: "Company registration",
           description:
             "Please enter your registered entity name and Unique Entity Number (UEN).",
@@ -300,7 +348,7 @@ export const SELF_SERVE_PAGE = {
             },
           },
         },
-        contact_details: {
+        contactDetails: {
           title: "Contact details",
           description:
             "Our Relationship Manager will reach out to you with these details.",
@@ -334,7 +382,7 @@ export const SELF_SERVE_PAGE = {
         },
       },
     },
-    transaction_and_card_acceptance_type: {
+    transactionAndCardAcceptanceType: {
       id: "transaction-and-card-acceptance-type",
       numerical: "1",
       text: "Transaction and card acceptance type",
@@ -348,7 +396,7 @@ export const SELF_SERVE_PAGE = {
         status: true,
       },
       section: {
-        which_service_are_you_applying_for: {
+        whichServiceAreYouApplyingFor: {
           title: "Which service are you applying for?",
           description:
             "Both services automatically come with Mastercard and Visa. You may choose other card acceptance options.",
@@ -454,7 +502,7 @@ export const SELF_SERVE_PAGE = {
         },
       },
     },
-    business_details: {
+    businessDetails: {
       id: "business-details",
       numerical: "2",
       text: "Business details",
@@ -468,367 +516,172 @@ export const SELF_SERVE_PAGE = {
         status: true,
       },
       forms: {
-        pointOfSales: {
-          sections: {
-            businessInfomation: {
-              title: "Point-of-Sales terminal",
-              subTitle: "Business information",
-              listField: {
-                listRadio: [
-                  {
-                    description: "Is your business ready for operation?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
-                  },
-                  {
-                    description:
-                      "Do you currently have an OCBC business account?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
-                  },
-                ],
-                textField: {
-                  description:
-                    "At how many outlets will you deploy Point-of-Sales terminals?",
-                  label: "eg. 10",
-                },
-              },
-            },
-            websiteInfomation: {
-              title: "Website information",
-              listField: {
-                listRadio: [
-                  {
-                    description: "Do you have an existing website?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
-                  },
-                  {
-                    description:
-                      "Can customers place orders through your website?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
-                  },
-                ],
-                textField: {
-                  description: "Your website’s URL",
-                  label: "e.g. www.xxx.com",
-                },
-              },
-            },
-            otherInfomation: {
-              title: "Other information",
-              sections: [
+        sections: {
+          businessInfomation: {
+            title: "Point-of-Sales terminal",
+            subTitle: "Business information",
+            listField: {
+              listRadio: [
                 {
-                  listCheckboxDescription:
-                    "Is your business ready for operation?",
-                  listCheckbox: [
+                  description: "Is your business ready for operation?",
+                  list: [
                     {
-                      label: "Selling products",
-                      checked: false,
+                      text: "Yes",
+                      checked: true,
                     },
                     {
-                      label: "Providing services",
+                      text: "No",
                       checked: false,
                     },
                   ],
                 },
                 {
-                  listCheckboxDescription:
-                    "Do you currently have any of the following?",
-                  listCheckbox: [
+                  description:
+                    "Do you currently have an OCBC business account?",
+                  list: [
                     {
-                      label: "Office",
-                      checked: false,
+                      text: "Yes",
+                      checked: true,
                     },
                     {
-                      label: "Retail store",
-                      checked: false,
-                    },
-                    {
-                      label: "Warehouse",
+                      text: "No",
                       checked: false,
                     },
                   ],
                 },
               ],
+              textField: {
+                description:
+                  "At how many outlets will you deploy Point-of-Sales terminals?",
+                label: "eg. 10",
+                helperText: "Enter numbers only",
+                requiredText: "Enter numbers only",
+              },
+              dropdownField: {
+                description:
+                  "Please indicate when your business will start operations",
+                placeholder: "Please select",
+                helperText: "",
+                requiredText: "",
+                list: [
+                  {
+                    name: "Within a week",
+                    value: "within-a-week",
+                  },
+                  {
+                    name: "Within a month",
+                    value: "within-a-month",
+                  },
+                  {
+                    name: "Within 3 months",
+                    value: "within-3-months",
+                  },
+                  {
+                    name: "More than 3 months",
+                    value: "more-than-3-months",
+                  },
+                ],
+              },
             },
           },
-        },
-        pointOfSalesAndEcommerce: {
-          sections: {
-            businessInfomation: {
-              title: "Point-of-Sales terminal",
-              subTitle: "Business information",
-              listField: {
-                listRadio: [
+          websiteInfomation: {
+            title: "Website information",
+            listField: {
+              listRadioExistingWebsite: {
+                description: "Do you have an existing website?",
+                list: [
                   {
-                    description: "Is your business ready for operation?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "Yes",
+                    checked: true,
                   },
                   {
-                    description:
-                      "Do you currently have an OCBC business account?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "No",
+                    checked: false,
                   },
                 ],
-                textField: {
-                  description:
-                    "At how many outlets will you deploy Point-of-Sales terminals?",
-                  label: "eg. 10",
-                  helperText: "Enter numbers only",
-                  requiredText: "Enter numbers only",
-                },
               },
-            },
-            websiteInfomation: {
-              title: "Website information",
-              listField: {
-                listRadio: [
+              listRadioPlaceOrderThroughWebsite: {
+                description: "Can customers place orders through your website?",
+                list: [
                   {
-                    description: "Do you have an existing website?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "Yes",
+                    checked: true,
                   },
                   {
-                    description:
-                      "Can customers place orders through your website?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "No",
+                    checked: false,
                   },
                 ],
-                textField: {
-                  description: "Your website’s URL",
-                  label: "e.g. www.xxx.com",
-                },
               },
-            },
-            otherInfomation: {
-              title: "Other information",
-              sections: [
-                {
-                  listCheckboxDescription:
-                    "Is your business ready for operation?",
-                  listCheckbox: [
-                    {
-                      label: "Selling products",
-                      checked: false,
-                    },
-                    {
-                      label: "Providing services",
-                      checked: false,
-                    },
-                  ],
-                },
-                {
-                  listCheckboxDescription:
-                    "Do you currently have any of the following?",
-                  listCheckbox: [
-                    {
-                      label: "Office",
-                      checked: false,
-                    },
-                    {
-                      label: "Retail store",
-                      checked: false,
-                    },
-                    {
-                      label: "Warehouse",
-                      checked: false,
-                    },
-                  ],
-                },
-              ],
+              dropdownField: {
+                description: "Please indicate the live date of your website",
+                placeholder: "Please select",
+                helperText: "",
+                requiredText: "",
+                list: [
+                  {
+                    name: "Within a week",
+                    value: "within-a-week",
+                  },
+                  {
+                    name: "Within a month",
+                    value: "within-a-month",
+                  },
+                  {
+                    name: "Within 3 months",
+                    value: "within-3-months",
+                  },
+                  {
+                    name: "More than 3 months",
+                    value: "more-than-3-months",
+                  },
+                ],
+              },
+              textField: {
+                description: "Your website’s URL",
+                label: "e.g. www.xxx.com",
+              },
             },
           },
-        },
-        ecommerce: {
-          sections: {
-            businessInfomation: {
-              title: "Business information",
-              listField: {
-                listRadio: [
+          otherInfomation: {
+            title: "Other information",
+            sections: {
+              listCheckboxBusinessOfferings: {
+                description: "What is your business offering?",
+                list: [
                   {
-                    description: "Is your business ready for operation?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "Selling products",
+                    check: false,
                   },
                   {
-                    description:
-                      "Do you currently have an OCBC business account?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "Providing services",
+                    check: false,
                   },
                 ],
-                textField: {
-                  description:
-                    "At how many outlets will you deploy Point-of-Sales terminals?",
-                  label: "eg. 10",
-                },
               },
-            },
-            websiteInfomation: {
-              title: "Website information",
-              listField: {
-                listRadio: [
+              listCheckboxAvailableSpaces: {
+                description: "Do you currently have any of the following?",
+                list: [
                   {
-                    description: "Do you have an existing website?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "Office",
+                    check: false,
                   },
                   {
-                    description:
-                      "Can customers place orders through your website?",
-                    list: [
-                      {
-                        text: "Yes",
-                        checked: true,
-                      },
-                      {
-                        text: "No",
-                        checked: false,
-                      },
-                    ],
+                    text: "Retail store",
+                    check: false,
+                  },
+                  {
+                    text: "Warehouse",
+                    check: false,
                   },
                 ],
-                textField: {
-                  description: "Your website’s URL",
-                  label: "e.g. www.xxx.com",
-                },
               },
-            },
-            otherInfomation: {
-              title: "Other information",
-              sections: [
-                {
-                  listCheckboxDescription:
-                    "Is your business ready for operation?",
-                  listCheckbox: [
-                    {
-                      label: "Selling products",
-                      checked: false,
-                    },
-                    {
-                      label: "Providing services",
-                      checked: false,
-                    },
-                  ],
-                },
-                {
-                  listCheckboxDescription:
-                    "Do you currently have any of the following?",
-                  listCheckbox: [
-                    {
-                      label: "Office",
-                      checked: false,
-                    },
-                    {
-                      label: "Retail store",
-                      checked: false,
-                    },
-                    {
-                      label: "Warehouse",
-                      checked: false,
-                    },
-                  ],
-                },
-              ],
             },
           },
         },
       },
     },
-    products_and_service: {
+    productsAndService: {
       id: "products-and-services",
       numerical: "3",
       text: "Products and services",
@@ -1031,7 +884,7 @@ export const SELF_SERVE_PAGE = {
         },
       },
     },
-    review_and_submit: {
+    reviewAndSubmit: {
       id: "review-and-submit",
       numerical: "4",
       text: "Review and submit",

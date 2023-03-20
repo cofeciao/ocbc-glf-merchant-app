@@ -8,7 +8,7 @@ import {
 import { Link } from "react-router-dom";
 import { Grid, Box, Typography } from "@material-ui/core";
 import { useHistory } from "react-router";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { saveDataAcraAndContactInformationStep, saveDataAcraDetailStep } from "@/store/form";
 
@@ -17,7 +17,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 // import style
-import styles from "./ContactInformation.scss";
+import styles from "./CompanyInformation.scss";
 
 // import constants
 import { 
@@ -32,13 +32,14 @@ import { IContactInformation } from "./ContactInformation";
 import ContactDetails from "./ContactDetails";
 import SectionWrapper from "../SectionWrapper";
 import AuthorisedPersonDetails from "./AuthorisedPersonDetails";
+import CompanyDetails from "./CompanyDetails";
 
-const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ handleCallAPI }, ref) => {
+const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ handleCallAPI }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   const dispatch = useDispatch();
 
-  // get data from redux store
+  // get data from redux storen 
   const dataAcraDetail = useSelector((state: any) => state.form.dataAcraDetail);
   const { dataDetail } = dataAcraDetail;
 
@@ -52,6 +53,9 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
         title,
         section: { arcaDetail, contactDetail, authorisedPersonDetails },
       },
+      companyAndContactInformation: {
+        section: { companyDetails }
+      }
     },
   } = STEP_RM;
 
@@ -69,9 +73,26 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
     setValue,
     setError,
     getValues,
+    control,
+    handleSubmit,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
+      registeredEntityName: "",
+      entityType: "",
+      uniqueEnityNumber: "",
+      natureOfBusiness: "",
+      blockNumber: 0,
+      streetName: "",
+      unitNumber: "",
+      buildingName: "",
+      postalCode: 0,
+      directors: [
+        {
+          name: "",
+          nricNumber: "",
+        }
+      ],
       contactDetail: {
         contactNumber: acraAndContactInformationStep.contactNumber || "",
         salutation: acraAndContactInformationStep.salutation || "",
@@ -89,6 +110,15 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
     },
   });
 
+  const { fields, append, remove } = useFieldArray({
+    control, // control props comes from useForm (optional: if you are using FormContext)
+    name: "directors", // unique name for your Field Array
+  });
+
+  const handleAddDirectors = () => {
+    append({name: "", nricNumber: ""})
+  };
+
   /**
    * Handle button prev
    */
@@ -102,12 +132,13 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
    const handleNext = async () => {
     history.push(URL_MANUAL_FLOW.servicesApplied);
     dispatch(saveDataAcraAndContactInformationStep({
+      ...getValues(),
       contactDetail: getValues().contactDetail,
       authorisedPersonDetails: getValues().authorisedPersonDetails,
     }))
   }
 
-    /**
+  /**
    * render UI Button
    * @returns {HTML}
    */
@@ -121,25 +152,6 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
           Next
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
         </Button>
-      )
-    }
-
-  /**
-   * render UI
-   * @returns {HTML}
-   */
-    const renderItemInformation = (title: string, content: string | []) => {
-      return (
-        <div className={cx('group-item')}>
-          <Typography className={cx("title")}>{title}</Typography> 
-          {Array.isArray(content) ? (
-            content.map((item: string, index: number) => (
-              <Typography key={index} className={cx("content")}>&#8226; {item}</Typography> 
-              ))
-            ) : (
-            <Typography className={cx("content")}>{content}</Typography> 
-          )}    
-        </div>
       )
     }
 
@@ -159,12 +171,6 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
       setDataArca(dataDetail);
     }
   }, [dataDetail]);
-
-  useEffect(() => {
-    if (arcaDetail) {
-      getDataAcraDetail(arcaDetail)
-    }
-  }, [arcaDetail])
     
   return (
     <React.Fragment>
@@ -175,37 +181,38 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
         </div>
       }
 
-      <Box className={cx('contact-information')}>
-        <div className="contact-information-category" >
+      <Box className={cx('company-information')}>
+        <div className="company-information-category" >
           <Category class="title">{title}</Category>
         </div>
 
-      <Box id="contact-information" className={cx('mt-dt-40')}>
+      <Box className={cx('mt-dt-40')}>
         <SectionWrapper
           cx={cx}
-          className={cx("contact-details-acra-details")}
-          title={arcaDetail.title}
-          description={arcaDetail.description}
+          className={cx("company-details-container")}
+          title={companyDetails.title}
+          description={companyDetails.description}
         >
-          <Grid container spacing={1}>
-            <Grid item xs={4}>{renderItemInformation('Business name', dataArca.businessName)}</Grid>
-            <Grid item xs={4}>{renderItemInformation('Unique Entity Number (UEN)', dataArca.uniqueEntityNumber)}</Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={4}>{renderItemInformation('Entity type', dataArca.entityType)}</Grid>
-            <Grid item xs={4}>{renderItemInformation('Nature of business', dataArca.natureOfBusiness)}</Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={4}>{renderItemInformation('Registered address', dataArca.registeredAddress)}</Grid>
-            <Grid item xs={4}>{renderItemInformation('Mailing address', dataArca.mailingAddress)}</Grid>
-            <Grid item xs={2}></Grid>
-            <Grid item xs={4}>{renderItemInformation('Directors', dataArca.directors)}</Grid>
-          </Grid>
+          <CompanyDetails 
+            cx={cx}
+            errors={errors}
+            register={register}
+            setValue={setValue}
+            setError={setError}
+            data={companyDetails}
+            dataRedux={acraAndContactInformationStep}
+            remove={remove}
+            fields={fields}
+            handleAddDirectors={handleAddDirectors}
+            handleSubmit={handleSubmit}
+          />
         </SectionWrapper>
       </Box>
       
       <Box className={cx('mt-dt-40', 'mb-dt-56')}>
         <SectionWrapper
           cx={cx}
-          className={cx("contact-details-")}
+          className={cx("company-details-")}
           title={contactDetail.title}
           description={contactDetail.description}
         >
@@ -224,7 +231,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
       <Box className={cx('mt-dt-56')}>
         <SectionWrapper
           cx={cx}
-          className={cx("contact-details-")}
+          className={cx("company-details-")}
           title={authorisedPersonDetails.title}
           description={authorisedPersonDetails.description}
         >
@@ -259,4 +266,4 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
   )
 });
 
-export default ContactInformation;
+export default CompanyContactInformation;
