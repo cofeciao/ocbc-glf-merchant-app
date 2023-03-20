@@ -31,11 +31,9 @@ const ListCheckbox = (props: IListCheckBox) => {
   const handleCheckBox = (event: any, checked: boolean) => {
     const newData: any = dataCardCheckbox.reduce((acc, item) => {
       const newItem: any = { ...item }; // Create a new object to avoid changing the original object
-
       if (newItem.value === event.target.value) {
         newItem.checked = checked;
       }
-
       acc.push(newItem);
       return acc;
     }, []);
@@ -96,20 +94,26 @@ const ListCheckbox = (props: IListCheckBox) => {
           {/* {Expanded list checkbox} */}
           {item.expandedListCheckbox.listCheckbox && (
             <Box className={cx("expanded-list-checkbox")}>
-              {item.expandedListCheckbox.listCheckbox.map((checkbox, index) => {
-                return (
-                  <Box key={index}>
-                    <Checkbox
-                      disabled={checkbox.disabled}
-                      {...checkbox}
-                      onChange={(event: any, checked: boolean) =>
-                        handleExpandedCheckBox(event, checked)
+              {_.map(
+                item.expandedListCheckbox.listCheckbox,
+                (checkbox, index) => {
+                  return (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          {...checkbox}
+                          onChange={(event: any, checked: boolean) =>
+                            handleExpandedCheckBox(event, checked)
+                          }
+                        />
                       }
+                      disabled={checkbox.disabled}
+                      key={index}
+                      label={checkbox.label}
                     />
-                    {checkbox.label}
-                  </Box>
-                );
-              })}
+                  );
+                }
+              )}
             </Box>
           )}
         </Box>
