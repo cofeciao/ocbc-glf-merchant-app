@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
@@ -21,9 +21,10 @@ import {
 import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
 // render UI
-const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = (props) => {
-  const { cx, data, dataRedux, register, errors, setValue, setError } =
-    props;
+const ContactDetails: React.FC<
+  ICompanyAndContactInformation.IContactDetails
+> = (props) => {
+  const { cx, data, dataRedux, register, errors, setValue, setError } = props;
   const { LIST_SALUTATION } = SELF_SERVE_PAGE;
   const { salutation, name, designation, email, contactNumber } =
     data.inputFields;
@@ -198,6 +199,7 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                           <Box className={cx("formatted-numberphone-select")}>
                             {/* {Phone Number select field} */}
                             <Select
+                              renderValue={(value) => value}
                               defaultValue={
                                 _.has(dataRedux, "areaCode")
                                   ? dataRedux.areaCode
@@ -211,7 +213,7 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
                                   <MenuItem key={index} value={item.value}>
-                                    {item.value}
+                                    {`${item.value} ${item.name}`}
                                   </MenuItem>
                                 );
                               })}
