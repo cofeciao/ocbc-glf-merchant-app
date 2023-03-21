@@ -155,7 +155,6 @@ const OutletForm: React.FC<any> = (props) => {
             <Radio
               name={`radios[${index}].radios`}
               listCheckBox={val.listRadioOutlet}
-              // label="Is your business ready for operation?"
               radioKey={0}
               value={dataSectionOutletDetail.checkedOutlet}
               getValue={(value: any) => {             
