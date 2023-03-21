@@ -1811,14 +1811,15 @@ export const STEP_RM = {
               title: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
+              value: "",
               listRadio: [
                 {
-                  text: "Yes",
-                  checked: false,
+                  label: "Yes",
+                  value: "yes",
                 },
                 {
-                  text: "No",
-                  checked: false,
+                  label: "No",
+                  value: "no",
                 },
               ],
               repaymentPeriodsOffered: {
@@ -1878,14 +1879,15 @@ export const STEP_RM = {
               title: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
               name: "directCurrencyConversion",
               checked: false,
+              value: "",
               listRadio: [
                 {
-                  text: "Yes",
-                  checked: false,
+                  label: "Yes",
+                  value: "yes",
                 },
                 {
-                  text: "No",
-                  checked: false,
+                  label: "No",
+                  value: "no",
                 },
               ],
             },
@@ -1893,14 +1895,15 @@ export const STEP_RM = {
               title: "Will you be offering Mail Order/Telephone Order?",
               name: "mailOrder",
               checked: false,
+              value: "",
               listRadio: [
                 {
-                  text: "Yes",
-                  checked: false,
+                  label: "Yes",
+                  value: "yes",
                 },
                 {
-                  text: "No",
-                  checked: false,
+                  label: "No",
+                  value: "no",
                 },
               ],
             },

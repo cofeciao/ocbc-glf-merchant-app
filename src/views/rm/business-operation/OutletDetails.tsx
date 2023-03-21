@@ -7,7 +7,8 @@ import { useHistory } from "react-router-dom";
 import { STEP_RM } from "@/utils/constants-rm";
 import { useFieldArray, useForm } from "react-hook-form";
 
-// import constants
+// import icons
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 // import style
 import styles from "./BusinessOperation.scss";
@@ -113,7 +114,16 @@ const OutletDetails: React.FC<any> = (props) => {
               <FormControlLabel 
                 key={index} 
                 value={item.value} 
-                control={<Radio disableFocusRipple disableRipple disableTouchRipple />} 
+                control={
+                  <Radio 
+                    disableFocusRipple 
+                    disableRipple 
+                    disableTouchRipple 
+                    checkedIcon={
+                      <CheckCircleIcon />
+                    }
+                  />
+                } 
                 label={item.text} 
               />
             ))}
