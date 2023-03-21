@@ -62,7 +62,6 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
       </Box>
     )
   }
-  
 
   return (
     <Grid container>

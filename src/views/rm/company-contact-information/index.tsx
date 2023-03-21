@@ -23,7 +23,8 @@ import styles from "./CompanyInformation.scss";
 import { 
   URL_MANUAL_FLOW, 
   STEP_RM,
-  WELCOME_PATH
+  WELCOME_PATH,
+  CONTINUE_LATER
 } from "@/utils/constants-rm";
 
 //import types
@@ -255,7 +256,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
         </Button>
         <div>
           <div className={cx('d-inline')}>
-            <Link to="/">Continue later</Link>
+            <Link to="/">{CONTINUE_LATER}</Link>
           </div>
           <div className="ml-dt-30 d-inline">
             {renderButton()}

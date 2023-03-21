@@ -23,7 +23,9 @@ import styles from "./ContactInformation.scss";
 import { 
   URL_MANUAL_FLOW, 
   STEP_RM,
-  WELCOME_PATH
+  WELCOME_PATH,
+  NEXT,
+  CONTINUE_LATER
 } from "@/utils/constants-rm";
 
 //import types
@@ -119,7 +121,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
           onClick={handleNext}
           // disabled={!isValid || !isDirty}
         >
-          Next
+          {NEXT}
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
         </Button>
       )
@@ -250,7 +252,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
         </Button>
         <div>
           <div className={cx('d-inline')}>
-            <Link to="/">Continue later</Link>
+            <Link to="/">{CONTINUE_LATER}</Link>
           </div>
           <div className="ml-dt-30 d-inline">
             {renderButton()}

@@ -33,6 +33,11 @@
     column-gap: 0px !important;
     row-gap: 0px !important;
 
+    box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 10px;
+
     & .title {
       font-weight: 700;
       font-size: 20px;
@@ -40,8 +45,13 @@
       color: $tundora;
       display: flex;
       align-items: center;
+      position: relative;
       
       label {
+        top: 0px;
+        right: 0px;
+        position: absolute;
+        
         cursor: pointer;
         margin-left: 16px;
         font-weight: 400;

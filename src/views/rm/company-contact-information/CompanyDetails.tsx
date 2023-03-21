@@ -275,6 +275,7 @@ const CompanyDetails: React.FC<any> = (props) => {
                 control={
                   <Checkbox 
                     name={data.mailingAndRegisteredAddressAreTheSame.name} 
+                    disableTouchRipple
                     disableRipple
                     disableFocusRipple
                   />

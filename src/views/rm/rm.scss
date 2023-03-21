@@ -14,15 +14,6 @@
       & .error-text {
         color: red;
       }
-
-      & .MuiButtonBase-root {
-        .MuiIconButton-label {
-          color: #575d65;
-        }
-      }
-      .MuiIconButton-root:hover {
-        color: transparent !important;
-      }
   
       & .MuiFormControl-root {
         & .MuiInputBase-root,

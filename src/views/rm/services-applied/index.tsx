@@ -2,30 +2,32 @@
 import { Category, Button } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
 import { Link } from "react-router-dom";
+import _ from "lodash";
 
 // import constants
-import { LIST_ROUTER, NEXT } from "@/utils/constants";
-import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW, NEXT, CONTINUE_LATER } from "@/utils/constants-rm";
 
 // import style
 import styles from "./ServicesApplied.scss";
 
 // import types
+import { IServicesApplied } from "./ServicesApplied";
 
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
+// import stores
+import { saveDataServicesApplied } from "@/store/form";
+
 // import components
 import TransactionCard from "./TransactionCard";
 import OtherServices from "./OtherServices";
-import { IServicesApplied } from "./ServicesApplied";
 
 // render UI
 const ServicesApplied: React.FC<any> = (props) => {
@@ -37,7 +39,11 @@ const ServicesApplied: React.FC<any> = (props) => {
       },
     },
   } = STEP_RM;
+
+  // classnames
   const cx = classnames.bind(styles);
+  
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -46,7 +52,6 @@ const ServicesApplied: React.FC<any> = (props) => {
   const [dataCheckbox, setDataCheckbox] = useState(
     transactionAndCardAcceptanceType.dataListCheckbox
   );
-  
   const [dataRadio, setDataRadio] = useState<IServicesApplied.ISectionRadios>({
     instalmentPaymentPlan: otherServices.sectionRadios.instalmentPaymentPlan,
     directCurrencyConversion: otherServices.sectionRadios.directCurrencyConversion,
@@ -55,42 +60,22 @@ const ServicesApplied: React.FC<any> = (props) => {
   const [dataCheckboxRepayment, setDataCheckboxRepayment] = useState(
     otherServices.sectionRadios.instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox
   )
-  
-  /**
-   * Get data from list check box
-   * @param data
-   */
-  const getDataFromListCheckbox = (data: any) => {
-    dispatch(saveDataTransactionAndCardAcceptanceTypeStep(data));
-  };
 
   /**
    * Retrieves data of dataListCheckbox from Store
    */
   const dataListCheckbox = useSelector(
     (state: any) =>
-      state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox
+      state.form.servicesAppliedStep.transactionAndCardAcceptanceTypeStep
   );
 
   /**
-   * Handle update state when dataListCheckbox updated from store
+   * Get data from list check box
+   * @param data
    */
-  useEffect(() => {
-    if (dataListCheckbox && !!dataListCheckbox.length) {
-      setDataCheckbox(dataListCheckbox);
-    }
-  }, [dataListCheckbox]);
-
-  /**
-   * Handle update state when dataRadio updated from store
-   */
-  useEffect(() => {
-    if (dataRadio && !!dataRadio.instalmentPaymentPlan.listRadio.length 
-      && !!dataRadio.directCurrencyConversion.listRadio.length 
-      && !!dataRadio.mailOrder.listRadio.length) {
-      setDataRadio(dataRadio);
-    }
-  }, [dataRadio]);
+  const getDataFromListCheckbox = (data: any) => {
+    dispatch(saveDataServicesApplied(data));
+  };
 
   /**
    * render UI button
@@ -120,6 +105,26 @@ const ServicesApplied: React.FC<any> = (props) => {
     }
   }
 
+  /**
+   * Handle update state when dataListCheckbox updated from store
+   */
+    useEffect(() => {
+      if (dataListCheckbox && !!dataListCheckbox.length) {
+        setDataCheckbox(dataListCheckbox);
+      }
+    }, [dataListCheckbox]);
+  
+  /**
+   * Handle update state when dataRadio updated from store
+   */
+  useEffect(() => {
+    if (dataRadio && !!dataRadio.instalmentPaymentPlan.listRadio.length 
+      && !!dataRadio.directCurrencyConversion.listRadio.length 
+      && !!dataRadio.mailOrder.listRadio.length) {
+      setDataRadio(dataRadio);
+    }
+  }, [dataRadio]);
+
   return (
     <Box
       className={cx(
@@ -138,9 +143,9 @@ const ServicesApplied: React.FC<any> = (props) => {
         description={transactionAndCardAcceptanceType.description}
       >
         <TransactionCard 
+          keyCheckbox={key} 
           dataCheckbox={dataCheckbox}
-          key={key} 
-          getDataFromListCheckbox={getDataFromListCheckbox} 
+          getDataFromListCheckbox={getDataFromListCheckbox}
         />
       </SectionWrapper>
 
@@ -162,7 +167,7 @@ const ServicesApplied: React.FC<any> = (props) => {
         </Button>
         <div>
           <div className={cx('d-inline')}>
-            <Link to="/">Continue later</Link>
+            <Link to="/">{CONTINUE_LATER}</Link>
           </div>
           <div className="ml-dt-30 d-inline">
             {renderButton()}

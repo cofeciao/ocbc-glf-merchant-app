@@ -1,8 +1,8 @@
 declare namespace IServicesApplied {
   export interface ITransactionCard {
     dataCheckbox: any[];
-    key: number;
-    getDataFromListCheckbox: (data: any) => void;
+    keyCheckbox: number;
+    getDataFromListCheckbox: (values: any) => void;
   }
 
   interface IRadio {

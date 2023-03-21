@@ -101,6 +101,9 @@ const ListCheckbox = (props: IListCheckBox) => {
                     <FormControlLabel
                       control={
                         <Checkbox
+                          disableRipple
+                          disableTouchRipple
+                          disableFocusRipple
                           {...checkbox}
                           onChange={(event: any, checked: boolean) =>
                             handleExpandedCheckBox(event, checked)
@@ -148,7 +151,7 @@ const ListCheckbox = (props: IListCheckBox) => {
                 }
                 checked={item.checked}
                 value={item.value}
-                control={<Checkbox />} // Checkbox from Material
+                control={<Checkbox disableFocusRipple disableRipple disableTouchRipple />} // Checkbox from Material
               />
             </Grid>
             {/* {Expanded content} */}
