@@ -23,6 +23,21 @@ declare namespace IRmFlow {
     name?: string;
   }
 
+  export interface IGroupRadio {
+    cx?: any;
+    listRadio: any[];
+    name: string;
+    label?: string;
+    value: string;
+    disabled?: boolean;
+    onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
+  }
+
+  export interface IRadio {
+    value: string;
+    label: string;
+  }
+
 }
 
 export { IRmFlow };

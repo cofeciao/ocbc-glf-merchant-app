@@ -23,7 +23,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 // import stores
-import { saveDataServicesApplied } from "@/store/form";
+import { saveDataTransactionServicesApplied, saveDataOtherServicesApplied } from "@/store/form";
 
 // import components
 import TransactionCard from "./TransactionCard";
@@ -52,30 +52,52 @@ const ServicesApplied: React.FC<any> = (props) => {
   const [dataCheckbox, setDataCheckbox] = useState(
     transactionAndCardAcceptanceType.dataListCheckbox
   );
-  const [dataRadio, setDataRadio] = useState<IServicesApplied.ISectionRadios>({
+  const [dataOtherService, setDataOtherService] = useState<IServicesApplied.ISectionRadios>({
     instalmentPaymentPlan: otherServices.sectionRadios.instalmentPaymentPlan,
     directCurrencyConversion: otherServices.sectionRadios.directCurrencyConversion,
     mailOrder: otherServices.sectionRadios.mailOrder,
   });
-  const [dataCheckboxRepayment, setDataCheckboxRepayment] = useState(
-    otherServices.sectionRadios.instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox
-  )
 
   /**
-   * Retrieves data of dataListCheckbox from Store
+   * Retrieves data of Transaction and card acceptance type from Store
    */
-  const dataListCheckbox = useSelector(
+  const dataTransactionAndCardAcceptanceTypeStore = useSelector(
     (state: any) =>
       state.form.servicesAppliedStep.transactionAndCardAcceptanceTypeStep
   );
 
   /**
-   * Get data from list check box
+   * Retrieves data of other service from Store
+   */
+  const dataOtherServicesStore = useSelector(
+    (state: any) =>
+      state.form.servicesAppliedStep.otherServices
+  );
+
+  /**
+   * Set data from Transaction and card acceptance type section
    * @param data
    */
-  const getDataFromListCheckbox = (data: any) => {
-    dispatch(saveDataServicesApplied(data));
+  const getDataFromListCheckbox = (datas: any) => {
+    dispatch(saveDataTransactionServicesApplied(datas));
   };
+
+  /**
+   * get data from Other services section
+   * @param data
+   */
+  const getDataOtherServices = (datas: IServicesApplied.ISectionRadios) => {
+    dispatch(saveDataOtherServicesApplied(datas));
+  };
+
+  /**
+   * render UI button
+   * @returns {HTML}
+   */
+  const handleNext = () => {
+    history.push(URL_MANUAL_FLOW.businessOperation);
+    getDataOtherServices(dataOtherService)
+  }
 
   /**
    * render UI button
@@ -85,9 +107,7 @@ const ServicesApplied: React.FC<any> = (props) => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
-        onClick={() => {
-          history.push(URL_MANUAL_FLOW.businessOperation);
-        }}
+        onClick={handleNext}
       >
         <>
           {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
@@ -109,21 +129,33 @@ const ServicesApplied: React.FC<any> = (props) => {
    * Handle update state when dataListCheckbox updated from store
    */
     useEffect(() => {
-      if (dataListCheckbox && !!dataListCheckbox.length) {
-        setDataCheckbox(dataListCheckbox);
+      if (dataTransactionAndCardAcceptanceTypeStore && !!dataTransactionAndCardAcceptanceTypeStore.length) {
+        setDataCheckbox(dataTransactionAndCardAcceptanceTypeStore);
       }
-    }, [dataListCheckbox]);
+    }, [dataTransactionAndCardAcceptanceTypeStore]);
   
   /**
    * Handle update state when dataRadio updated from store
    */
   useEffect(() => {
-    if (dataRadio && !!dataRadio.instalmentPaymentPlan.listRadio.length 
-      && !!dataRadio.directCurrencyConversion.listRadio.length 
-      && !!dataRadio.mailOrder.listRadio.length) {
-      setDataRadio(dataRadio);
+    if (dataOtherServicesStore 
+      && Object.keys(dataOtherServicesStore.instalmentPaymentPlan).length > 0 
+      && Object.keys(dataOtherServicesStore.directCurrencyConversion).length > 0
+      && Object.keys(dataOtherServicesStore.mailOrder).length > 0
+    ) {
+      setDataOtherService({
+        instalmentPaymentPlan: dataOtherServicesStore.instalmentPaymentPlan,
+        directCurrencyConversion: dataOtherServicesStore.directCurrencyConversion,
+        mailOrder: dataOtherServicesStore.mailOrder
+      });
+    } else {
+      setDataOtherService({
+        instalmentPaymentPlan: otherServices.sectionRadios.instalmentPaymentPlan,
+        directCurrencyConversion: otherServices.sectionRadios.directCurrencyConversion,
+        mailOrder: otherServices.sectionRadios.mailOrder,
+      })
     }
-  }, [dataRadio]);
+  }, [dataOtherServicesStore, otherServices]);
 
   return (
     <Box
@@ -153,10 +185,8 @@ const ServicesApplied: React.FC<any> = (props) => {
       <SectionWrapper cx={cx} title={otherServices.title} >
         <OtherServices 
           cx={cx} 
-          sectionRadios={dataRadio} 
-          setDataRadio={setDataRadio} 
-          dataCheckboxRepayment={dataCheckboxRepayment}
-          setDataCheckboxRepayment={setDataCheckboxRepayment}
+          dataOtherServices={dataOtherService} 
+          setDataOtherService={setDataOtherService} 
         />
       </SectionWrapper>
 

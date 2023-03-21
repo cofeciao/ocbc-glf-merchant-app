@@ -49,6 +49,9 @@ const OtherInformation: React.FC<any> = (props) => {
                         key={index}
                         control={
                           <Checkbox
+                            disableTouchRipple
+                            disableRipple
+                            disableFocusRipple
                             checked={checkbox.checked}
                             // onChange={handleChange}
                             name="checkedB"
