@@ -28,7 +28,7 @@ import OtherServices from "./OtherServices";
 import { IServicesApplied } from "./ServicesApplied";
 
 // render UI
-const ServicesApplied: React.FC<any> = () => {
+const ServicesApplied: React.FC<any> = (props) => {
   const {
     LIST_STEP: {
       servicesApplied: {
@@ -40,7 +40,7 @@ const ServicesApplied: React.FC<any> = () => {
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
-  
+
   // States
   const [key, setKey] = useState<number>(0);
   const [dataCheckbox, setDataCheckbox] = useState(
@@ -110,9 +110,14 @@ const ServicesApplied: React.FC<any> = () => {
       </Button>
     );
   };
-
+  /**
+   * handle back button
+   */
   const handlePrev = () => {
-    history.goBack(-1);
+    if (typeof window !== 'undefined') {
+      const prePathName = localStorage.getItem("firstStepPath");
+      history.push(prePathName);
+    }
   }
 
   return (

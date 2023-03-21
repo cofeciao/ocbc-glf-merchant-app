@@ -22,7 +22,8 @@ import styles from "./ContactInformation.scss";
 // import constants
 import { 
   URL_MANUAL_FLOW, 
-  STEP_RM
+  STEP_RM,
+  WELCOME_PATH
 } from "@/utils/constants-rm";
 
 //import types
@@ -93,7 +94,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push('/rm/welcome')
+    history.push(WELCOME_PATH)
   }
 
    /**
@@ -133,8 +134,10 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
         <div className={cx('group-item')}>
           <Typography className={cx("title")}>{title}</Typography> 
           {Array.isArray(content) ? (
-            content.map((item: string, index: number) => (
-              <Typography key={index} className={cx("content")}>&#8226; {item}</Typography> 
+            content.map((item: IContactInformation.IDirectors, index: number) => (
+              <Typography key={index} className={cx("content")}>
+                &#8226; {`${item.name} ${item.nricNumber}`}
+              </Typography> 
               ))
             ) : (
             <Typography className={cx("content")}>{content}</Typography> 

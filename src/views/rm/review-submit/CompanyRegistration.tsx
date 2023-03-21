@@ -28,8 +28,10 @@ const CompanyRegistration: React.FC<IReviewSubmit.ICompanyRegistration> = (props
       <>
         <Typography className={cx("title")}>{title}</Typography> 
         {Array.isArray(content) ? (
-          content.map((item: string, index: number) => (
-            <Typography key={index} className={cx("content")}>&#8226; {item}</Typography> 
+          content.map((item: IReviewSubmit.IDirectors, index: number) => (
+            <Typography key={index} className={cx("content")}>
+              &#8226; {`${item.name} ${item.nricNumber}`}
+            </Typography> 
             ))
           ) : (
           <Typography className={cx("content")}>{content}</Typography> 

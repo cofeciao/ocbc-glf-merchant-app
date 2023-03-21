@@ -22,7 +22,8 @@ import styles from "./CompanyInformation.scss";
 // import constants
 import { 
   URL_MANUAL_FLOW, 
-  STEP_RM
+  STEP_RM,
+  WELCOME_PATH
 } from "@/utils/constants-rm";
 
 //import types
@@ -123,7 +124,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push('/rm/welcome')
+    history.push(WELCOME_PATH)
   }
 
    /**

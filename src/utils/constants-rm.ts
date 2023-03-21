@@ -17,6 +17,8 @@ export const SUPPLEMENTARY_DOCUMENT = "supplementary-documents";
 export const REVIEW_SUBMIT = "review-submit";
 export const DECLARATION = "declaration";
 
+export const WELCOME_PATH = "/rm/welcome";
+
 export const URL_MANUAL_FLOW = {
   contactInformation: "/rm/contact-information",
   companyContactInformation: "/rm/company-contact-information",
@@ -1518,8 +1520,14 @@ export const STEP_RM = {
             entityType: "Private Limited Company",
             registeredAddress: "35 Bedok North Road #09-39 Singapore 674902",
             directors: [
-              "Lau Aik Miang S9300409F",
-              "Zunaidi Zainal Azmian S9000555C"
+              {
+                name: "Lau Aik Miang",
+                nricNumber: "S9300409F"
+              },
+              {
+                name: "Zunaidi Zainal Azmian",
+                nricNumber: "S9000555C"
+              },
             ],
             uniqueEntityNumber: "2016347449N",
             natureOfBusiness: "Café / Restaurant",

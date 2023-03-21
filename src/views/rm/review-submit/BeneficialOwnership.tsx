@@ -32,7 +32,7 @@ const BeneficialOwnership: React.FC<IReviewSubmit.IBeneficialOwnership> = (props
   return (
     <Box className={cx("beneficial-ownership")}>
       {data && data.map((item: any, index: number) => (
-        <div className={cx("group-item")} key={index}>
+        <div className={cx("beneficial-ownership__group-item")} key={index}>
           <Typography className={cx("sub-title")}>{`Beneficial owner ${index + 1}`}</Typography> 
           <Grid container spacing={1}>
             <Grid item xs={12}>{renderContent(titleSalutation, item.salutation)}</Grid>
