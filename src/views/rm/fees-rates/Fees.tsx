@@ -16,7 +16,7 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
             fullWidth
             name="annual"
             // defaultValue={paramsFeeRates.refundable_fees}
-            placeholder="Annual"
+            label="Annual"
             id={uuidv4()}
             // label={name.label}
             variant="filled"
@@ -31,7 +31,7 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
             fullWidth
             name="one_time_setup"
             // defaultValue={paramsFeeRates.refundable_fees}
-            placeholder="One time setup (to vendor)"
+            label="One time setup (to vendor)"
             id={uuidv4()}
             // label={name.label}
             variant="filled"
@@ -46,7 +46,7 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
             fullWidth
             name="per_domestic_transaction"
             // defaulValue={paramsFeeRates.refundable_fees}
-            placeholder="Per domestic transaction"
+            label="Per domestic transaction"
             id={uuidv4()}
             // label={name.label}
             variant="filled"
@@ -61,7 +61,7 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
             fullWidth
             name="per_international_transaction"
             // defaultValue={paramsFeeRates.refundable_fees}
-            placeholder="Per international transaction"
+            label="Per international transaction"
             id={uuidv4()}
             // label={name.label}
             variant="filled"
@@ -76,7 +76,7 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
             fullWidth
             name="tokenisation"
             // defaultValue={paramsFeeRates.refundable_fees}
-            placeholder="Tokenisation"
+            label="Tokenisation"
             id={uuidv4()}
             // label={name.label}
             variant="filled"
@@ -90,9 +90,9 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
         <Grid item xs={6}>
           <TextField
             fullWidth
-            name="other"
+            name="otherFees"
             // defaultValue={paramsFeeRates.refundable_fees}
-            placeholder="Other"
+            label="Other fees"
             id={uuidv4()}
             // label={name.label}
             variant="filled"
@@ -107,7 +107,7 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
             fullWidth
             name="description"
             // defaultValue={paramsFeeRates.refundable_fees}
-            placeholder="Description for other fees (optional)"
+            label="Description for other fees (optional)"
             id={uuidv4()}
             // label={name.label}
             variant="filled"

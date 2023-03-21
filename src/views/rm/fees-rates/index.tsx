@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./FeesRates.scss";
 
 // import constants
-import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { IFeesRates } from "./FeesRates";
@@ -35,6 +35,26 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
   const history = useHistory()
   const dispatch = useDispatch();
 
+  const {
+    LIST_STEP: {
+      feesAndRates: {
+      title,
+       section: {
+        merchantDiscountRate: {
+          titleMerchantDiscountRate,
+          description
+        },
+        fees: {
+          titleFees
+        },
+        refundabltFees: {
+          titleRefundableFees
+        }
+       }
+      },
+    },
+  } = STEP_RM;
+
   // States
   const [loading, setLoading] = useState(false);
   const [paramsFeeRates, setParamsFeeRates] = useState<any>({
@@ -45,14 +65,14 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.productsServices)
+    history.push(URL_MANUAL_FLOW.beneficialOwnership)
   }
 
    /**
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.sensitiveData);
+    history.push(URL_MANUAL_FLOW.feeAuthorisation);
   }
 
     /**
@@ -83,25 +103,31 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
 
       <Box className={cx('fees-rates')}>
         <div className="fees-rates-category" >
-          <Category class="title">Fees and rates</Category>
+          <Category class="title">{title}</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Merchant Discount Rate (MDR) ">
+        <SectionWrapper 
+          cx={cx} 
+          title={titleMerchantDiscountRate} 
+          description={description}
+          isEdit 
+          path="/rm/contact-information" 
+        >
           <MerchantDiscountRate cx={cx} />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Fees">
+        <SectionWrapper cx={cx} title={titleFees}>
           <Fees cx={cx} />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Refundable fees (if applicable)">
+        <SectionWrapper cx={cx} title={titleRefundableFees}>
           <Grid container>
             <Grid item xs={6}>
               <TextField
                 fullWidth
                 name="refundable_fees"
                 defaultValue={paramsFeeRates.refundable_fees}
-                placeholder="Security deposit (one-time)"
+                label="Security deposit (one-time)"
                 id={uuidv4()}
                 // label={name.label}
                 variant="filled"

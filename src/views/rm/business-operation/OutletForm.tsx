@@ -36,20 +36,29 @@ const OutletForm: React.FC<any> = (props) => {
     setDataSectionOutletDetail,
     handleSubmit
   } = props;
+
+
+  const { LIST_STEP: {
+    businessOperation: {
+      section: {
+        outletDetails
+      }
+    }
+  }} = STEP_RM
   
   const renderForm = (val: any, index: number, idForm: string) => {
     const { 
-      business_name, 
-      block_number, 
-      street_name, 
-      unit_number, 
-      building_name, 
-      postal_code,
+      businessName, 
+      blockNumber, 
+      streetName, 
+      unitNumber, 
+      buildingName, 
+      postalCode,
     } = val.inputFields;
 
     const {
-      branch_code,
-      account_number
+      branchCode,
+      accountNumber
     } = val.inputFieldsIndicateBank;
 
     const onSubmit = (values: any) => {
@@ -63,17 +72,17 @@ const OutletForm: React.FC<any> = (props) => {
             <Typography 
               className={cx("title")}
             >
-              Outlet {index + 1} {index !== 0 && <label onClick={() => remove(index)}>Remove</label>}
+              Outlet {index + 1} {index !== 0 && <label onClick={() => remove(index)}>{outletDetails.labelRemove}</label>}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
-              name={`business_name[${index}].business_name`}
+              name={`businessName[${index}].businessName`}
               id={uuidv4()}
-              label={business_name.label}
+              label={businessName.label}
               variant="filled"
-              {...register("business_name", {
+              {...register("businessName", {
                 required: true,
               })}
             />
@@ -83,10 +92,10 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              name={`block_number[${index}].block_number`}
-              label={block_number.label}
+              name={`blockNumber[${index}].blockNumber`}
+              label={blockNumber.label}
               variant="filled"
-              {...register("block_number", {
+              {...register("blockNumber", {
                 required: true,
               })}
             />
@@ -95,10 +104,10 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={street_name.label}
-              name={`street_name[${index}].street_name`}
+              label={streetName.label}
+              name={`streetName[${index}].streetName`}
               variant="filled"
-              {...register("street_name", {
+              {...register("streetName", {
                 required: true,
               })}
             />
@@ -107,10 +116,10 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={unit_number.label}
-              name={`unit_number[${index}].unit_number`}
+              label={unitNumber.label}
+              name={`unitNumber[${index}].unitNumber`}
               variant="filled"
-              {...register("unit_number", {
+              {...register("unitNumber", {
                 required: true,
               })}
             />
@@ -119,10 +128,10 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={building_name.label}
-              name={`building_name[${index}].building_name`}
+              label={buildingName.label}
+              name={`buildingName[${index}].buildingName`}
               variant="filled"
-              {...register("building_name", {
+              {...register("buildingName", {
                 required: true,
               })}
             />
@@ -131,17 +140,17 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={postal_code.label}
-              name={`postal_code[${index}].postal_code`}
+              label={postalCode.label}
+              name={`postalCode[${index}].postalCode`}
               variant="filled"
-              {...register("postal_code", {
+              {...register("postalCode", {
                 required: true,
               })}
             />
           </Grid>
           <Grid item xs={12}>
             <Typography className={cx("sub-section-description")}>
-              Will this outlet be using the bank account indicated above?
+              {outletDetails.labelListOutletBeUsingTheBank}
             </Typography>
             <Radio
               name={`radios[${index}].radios`}
@@ -150,10 +159,10 @@ const OutletForm: React.FC<any> = (props) => {
               radioKey={0}
               value={dataSectionOutletDetail.checkedOutlet}
               getValue={(value: any) => {             
-                // setDataSectionOutletDetail({
-                //   ...dataSectionOutletDetail, 
-                //   checkedOutlet: value === "Yes" ? true : false
-                // })
+                setDataSectionOutletDetail({
+                  ...dataSectionOutletDetail, 
+                  checkedOutlet: value === "Yes" ? true : false
+                })
               }}
             />
           </Grid>
@@ -161,7 +170,7 @@ const OutletForm: React.FC<any> = (props) => {
             <>
               <Grid item xs={12}>
                 <Typography className={cx("sub-section-description")}>
-                  Please indicate the bank linked to your business
+                  {outletDetails.labelPleaseIndicateTheBankLinkedToYourBusiness}
                 </Typography>
               </Grid>
               <Grid item xs={6}>
@@ -171,17 +180,17 @@ const OutletForm: React.FC<any> = (props) => {
                     fullWidth
                   >
                     <InputLabel id="bank-name-select-filled-label">
-                      Please select
+                      {outletDetails.labelBankName}
                     </InputLabel>
                     <Select
                       fullWidth
                       labelId="bank-name-select-filled-label"
                       id="bank-name-select-filled"
-                      {...register("bank_name", {
+                      {...register("bankName", {
                         required: true,
                       })}
                     >
-                      {_.map(STEP_RM.list_bank_name, (item, index) => {
+                      {_.map(outletDetails.listBankName, (item, index) => {
                         return (
                           <MenuItem key={index} value={item.value}>
                             {item.name}
@@ -196,9 +205,9 @@ const OutletForm: React.FC<any> = (props) => {
                   fullWidth
                   id={uuidv4()}
                   type="password"
-                  label={branch_code.label}
+                  label={branchCode.label}
                   variant="filled"
-                  {...register("branch_code", {
+                  {...register("branchCode", {
                     required: true,
                   })}
                 />
@@ -207,9 +216,9 @@ const OutletForm: React.FC<any> = (props) => {
                 <TextField
                   fullWidth
                   id={uuidv4()}
-                  label={account_number.label}
+                  label={accountNumber.label}
                   variant="filled"
-                  {...register("account_number", {
+                  {...register("accountNumber", {
                     required: true,
                   })}
                 />
@@ -230,7 +239,7 @@ const OutletForm: React.FC<any> = (props) => {
         className={cx("add-outlet")} 
         onClick={handleAddOutlet}
       >
-        <AddIcon fontSize="small"/> Add an outlet
+        <AddIcon fontSize="small"/> {outletDetails.labelAddAnOutlet}
       </Typography>
     </>
   );

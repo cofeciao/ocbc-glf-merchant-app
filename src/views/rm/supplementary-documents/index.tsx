@@ -20,46 +20,53 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./SupplementaryDocuments.scss";
 
 // import constants
-import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { URL_MANUAL_FLOW, STEP_RM } from "@/utils/constants-rm";
 
 //import types
 import { ISupplementaryDocuments } from "./SupplementaryDocuments";
 
 //import components
 import SectionWrapper from "../SectionWrapper";
-import UploadImage from "../UploadImage";
 import MultipleUploadImages from "../MultipleUploadImages";
+import { saveDataSupplementaryDocument } from "@/store/form";
 
 const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forwardRef(({  }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   const dispatch = useDispatch();
+  
+
+  const { LIST_STEP: {
+    supplementaryDocuments: {
+      titleSupplementaryDocuments,
+      authorisedSignatory,
+      tenacyDocumentOrSiteVisitPhotos,
+      copyOfBankStatement,
+      anyOtherSupportingDocuments
+  }}} = STEP_RM;
 
   // States
   const [loading, setLoading] = useState(false);
   const [fileImage, setFileImage] = useState<any>({
     authorisedSignatoryNRIC: [],
     tenacyDocumentOrSiteVisitPhotos: [],
-    license: [],
     copyOfBankStatement: [],
     anyOtherSupportingDocuments: []
   });
-
-  console.log(fileImage)
-
 
   /**
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.beneficialOwnership)
+    history.push(URL_MANUAL_FLOW.feeAuthorisation)
   }
 
    /**
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.supplementaryDocument);
+    history.push(URL_MANUAL_FLOW.reviewSubmit);
+    dispatch(saveDataSupplementaryDocument({...fileImage}))
   }
 
   /**
@@ -69,7 +76,15 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
     return listFile.filter((el: any, index: number) => index !== indexCurrent);
   }
 
-    /**
+  /**
+   * Handle disable button next
+   */
+  const isDisabled = fileImage.authorisedSignatoryNRIC.length === 0 
+  || fileImage.tenacyDocumentOrSiteVisitPhotos.length === 0 
+  || fileImage.copyOfBankStatement.length === 0 
+  || fileImage.anyOtherSupportingDocuments.length === 0
+
+  /**
    * render UI Button
    * @returns {HTML}
    */
@@ -78,13 +93,36 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
         <Button 
           backgroundClass="bgGunmetalBluegrey" 
           onClick={handleNext}
-          // disabled={!isValid || !isDirty}
+          disabled={isDisabled}
         >
           Next
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
         </Button>
       )
     }
+
+  /**
+   * Retrieves data of Company And Contact Information step from Store
+   */
+  const supplementaryDocumentData = useSelector(
+    (state: any) => state.form.supplementaryDocumentStep
+  );
+
+  useEffect(() => {
+    if (Array.isArray(supplementaryDocumentData.authorisedSignatoryNRIC) ||
+    Array.isArray(supplementaryDocumentData.tenacyDocumentOrSiteVisitPhotos) ||
+    Array.isArray(supplementaryDocumentData.copyOfBankStatement) ||
+    Array.isArray(supplementaryDocumentData.anyOtherSupportingDocuments)) {
+      setFileImage({
+        ...fileImage,
+        authorisedSignatoryNRIC: supplementaryDocumentData.authorisedSignatoryNRIC,
+        tenacyDocumentOrSiteVisitPhotos: supplementaryDocumentData.tenacyDocumentOrSiteVisitPhotos,
+        copyOfBankStatement: supplementaryDocumentData.copyOfBankStatement,
+        anyOtherSupportingDocuments: supplementaryDocumentData.anyOtherSupportingDocuments
+      })
+    }
+  }, [supplementaryDocumentData])
+  
 
   return (
     <React.Fragment>
@@ -97,12 +135,12 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
 
       <Box className={cx('supplementary-documents')}>
         <div className="supplementary-documents-category" >
-          <Category class="title">Supplementary documents</Category>
+          <Category class="title">{titleSupplementaryDocuments}</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Authorised signatory’s NRIC or passport">
+        <SectionWrapper cx={cx} title={authorisedSignatory.titleAuthorisedSignatory}>
           <MultipleUploadImages 
-            name="authorisedSignatoryNRIC"
+            name={authorisedSignatory.name}
             values={fileImage.authorisedSignatoryNRIC} 
             onChange={(file: any) => {
               setFileImage({
@@ -119,9 +157,9 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
           />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Tenancy document or site visit photos">
+        <SectionWrapper cx={cx} title={tenacyDocumentOrSiteVisitPhotos.titleTenancyDocument}>
           <MultipleUploadImages 
-            name="tenacyDocumentOrSiteVisitPhotos"
+            name={tenacyDocumentOrSiteVisitPhotos.name}
             values={fileImage.tenacyDocumentOrSiteVisitPhotos} 
             onChange={(file: any) => setFileImage({
               ...fileImage,
@@ -136,26 +174,9 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
           />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Licenses">
+        <SectionWrapper cx={cx} title={copyOfBankStatement.titleCopyOfBankStatement}>
           <MultipleUploadImages 
-            name="license"
-            values={fileImage.license} 
-            onChange={(file: any) => setFileImage({
-              ...fileImage,
-              license: [...fileImage.license, file]
-            })} 
-            onRemove={(index: number) => {
-              setFileImage({
-                ...fileImage,
-                license: handleRemove(fileImage.license, index)
-              })
-            }}
-          />
-        </SectionWrapper>
-
-        <SectionWrapper cx={cx} title="Copy of bank statement (if applicable for non-OCBC corporate account)">
-          <MultipleUploadImages 
-            name="copyOfBankStatement"
+            name={copyOfBankStatement.name}
             values={fileImage.copyOfBankStatement} 
             onChange={(file: any) => setFileImage({
               ...fileImage,
@@ -170,9 +191,9 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
           />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Any other supporting documents (if applicable)">
+        <SectionWrapper cx={cx} title={anyOtherSupportingDocuments.titleAnyOtherSupportingDocuments}>
           <MultipleUploadImages 
-            name="anyOtherSupportingDocuments"
+            name={anyOtherSupportingDocuments.name}
             values={fileImage.anyOtherSupportingDocuments} 
             onChange={(file: any) => setFileImage({
               ...fileImage,

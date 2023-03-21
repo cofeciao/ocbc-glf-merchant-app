@@ -29,28 +29,35 @@
       line-height: 28px;
       color: #777E87;
     }
+
     & .MuiTextField-root {
-      margin-bottom: 42px;
+      // margin-bottom: 42px;
       width: 100%;
     }
+
     & .MuiFormGroup-root {
       margin-bottom: 30px;
     }
+
     & .MuiGrid-container {
       row-gap: 0px !important;
+      // column-gap: 0px !important;
     }
-    & .fulfillment-group {
-      display: grid;
-      grid-template-columns: 400px 430px;
-      row-gap: 15px;
 
-      & .fulfillment-item {
-        margin-right: 30px;
-        & .textfield-percentage {
-          width: 60%;
-        }
+    & .fulfillment-group {
+      & .MuiGrid-container {
+        column-gap: 0px !important;
       }
     }
+
+    & .title-fulfilment-information {
+      display: flex;
+
+      img {
+        margin-left: 8px;
+      }
+    }
+
   }
 }
 

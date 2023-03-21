@@ -27,7 +27,14 @@
       }
     }
   }
+  & .contact-details-acra-details {
+    & .MuiGrid-container {
+      row-gap: 0px !important;
+      column-gap: 0px !important;
+    }
+  }
 }
+
 
 .group-item {
   display: flex;
@@ -39,7 +46,6 @@
     font-size: 18px;
     line-height: 24px;
     color: $tundora;
-    margin-bottom: 30px;
   }
 }
 

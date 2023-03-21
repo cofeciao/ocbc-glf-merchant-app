@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./BeneficialOwnership.scss";
 
 // import constants
-import { URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { IBeneficialOwnership } from "./BeneficialOwnership";
@@ -35,18 +35,20 @@ const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({
   const history = useHistory()
   const dispatch = useDispatch();
 
-  const listRadio = [
-    {
-      text: "Fill in here",
-      value: "fill_in_here",
-      checked: false,
+  const {
+    LIST_STEP: {
+      beneficialOwner: {
+      title,
+       section: {
+        beneficialOwnerOfTheCompany: {
+          titleBeneficialOwnerOfTheCompany,
+          labelUploadCertificateOfIncumbency,
+          listRadio
+        }
+       }
+      },
     },
-    {
-      text: "Upload a list",
-      value: "upload_a_list",
-      checked: false,
-    },
-  ];
+  } = STEP_RM;
 
   // States
   const [loading, setLoading] = useState(false);
@@ -66,7 +68,7 @@ const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.supplementaryDocument);
+    history.push(URL_MANUAL_FLOW.feeRates);
   }
 
     /**
@@ -97,31 +99,14 @@ const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({
 
       <Box className={cx('benefitcial-ownership')}>
         <div className="benefitcial-ownership-category" >
-          <Category class="title">Beneficial ownership</Category>
+          <Category class="title">{title}</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Beneficial owner of the company">
+        <SectionWrapper cx={cx} title={titleBeneficialOwnerOfTheCompany}>
           <BeneficialOwnerCompany 
             listRadio={listRadio} 
             fileImage={fileImage} 
             setFileImage={setFileImage}
-          />
-        </SectionWrapper>
-
-        <SectionWrapper cx={cx} title="Upload certificate of incumbency">
-          <UploadImage 
-            name="certificateIncumbencyImage"
-            value={fileImage.certificateIncumbencyImage} 
-            onChange={(file: any) => setFileImage({
-              ...fileImage,
-              certificateIncumbencyImage: file
-            })} 
-            onRemove={() => {
-              setFileImage({
-                ...fileImage,
-                certificateIncumbencyImage: {}
-              })
-            }}
           />
         </SectionWrapper>
   

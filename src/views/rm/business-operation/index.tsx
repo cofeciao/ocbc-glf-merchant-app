@@ -30,9 +30,9 @@ import OutletDetails from "./OutletDetails";
 const BusinessOperation: React.FC<any> = () => {
   const {
     LIST_STEP: {
-      business_operation: {
+      businessOperation: {
         text,
-        section: { business_details, other_infomation, website_infomation, outlet_details },
+        section: { businessInformation, otherInfomation, websiteInfomation, outletDetails },
       },
     },
   } = STEP_RM;
@@ -41,10 +41,9 @@ const BusinessOperation: React.FC<any> = () => {
   const [key, setKey] = useState<number>(0);
   const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
-    STEP_RM.LIST_STEP.services_applied.section
-      .transaction_and_card_acceptance_type.data_list_checkbox
+    STEP_RM.LIST_STEP.servicesApplied.section
+      .transactionAndCardAcceptanceType.dataListCheckbox
   );
-
 
   /**
    * 
@@ -100,24 +99,29 @@ const BusinessOperation: React.FC<any> = () => {
       </Box>
 
       {/* {Section Business Information} */}
-      <SectionWrapper cx={cx} title="Business Details">
-        <BusinessInfomation listRadio={business_details.listRadio} />
-      </SectionWrapper>
-
-      {/* {Section Website Information} */}
-      <SectionWrapper cx={cx} title="Website Information">
-        <WebsiteInformation 
-          listRadio={website_infomation.listRadio} 
+      <SectionWrapper cx={cx} title={businessInformation.titleBusinessInformation}>
+        <BusinessInfomation 
+          listRadioIsYourBusinessReadyForOperation={businessInformation.listRadioIsYourBusinessReadyForOperation} 
+          listRadioYouCurrentlyHaveAnOCBC={businessInformation.listRadioYouCurrentlyHaveAnOCBC}
         />
       </SectionWrapper>
 
-      {/* {Section Other information} */}
-      <SectionWrapper cx={cx} title="Other Information">
-        <OtherInformation sections={other_infomation.sections} />
+      {/* {Section Website Information} */}
+      <SectionWrapper cx={cx} title={websiteInfomation.titleWebsiteInfomation}>
+        <WebsiteInformation listRadio={websiteInfomation.listRadio} />
       </SectionWrapper>
 
-      <SectionWrapper cx={cx} title="Outlet Details">
-        <OutletDetails listRadio={outlet_details.listRadio} />
+      {/* {Section Other information} */}
+      <SectionWrapper cx={cx} title={otherInfomation.titleOtherInformation}>
+        <OtherInformation 
+          sections={otherInfomation.sections} 
+          listRadio={otherInfomation.listRadio} 
+          labelDoesYourRetailStoreAccpetCardPayment={otherInfomation.labelDoesYourRetailStoreAccpetCardPayment}
+        />
+      </SectionWrapper>
+
+      <SectionWrapper cx={cx} title={outletDetails.titleOutletDetail} description={outletDetails.description}>
+        <OutletDetails listRadio={outletDetails.listRadio} />
       </SectionWrapper>
 
       {/* Section button  */}

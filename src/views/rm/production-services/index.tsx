@@ -31,23 +31,39 @@ import { IProductionServices } from "./ProductionServices";
 import SectionWrapper from "../SectionWrapper";
 import BusinessInformation from "./BusinessInformation";
 import RefundPolicy from "./RefundPolicy";
+import SalesForecast from "./SalesForecast";
+import FulfilmentInformation from "./FulfilmentInformation";
 
 const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(({  }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
   const dispatch = useDispatch();
 
+  const {
+    LIST_STEP: {
+      productAndService: {
+        title,
+        section: {
+          businessOffering,
+          fulfilmentInformation,
+          salesForecast,
+          refundPolicy
+        }
+      }
+    },
+  } = STEP_RM;
+
   // States
   const [loading, setLoading] = useState(false);
   const [paramsBusinessService, setParamsBusinessService] = useState<any>({
-    bussiness_offering: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque aliquet dolor, sit amet euismod purus scelerisque id. Donec quam metus, pulvinar nec nibh at, interdum fermentum nisl.",
-    quickly_bussiness: "immediate_fulfillment",
-    average_amount: "",
-    annual_credit: "",
-    refund_policy: "",
-    indicate_duration: "",
+    bussinessOffering: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque aliquet dolor, sit amet euismod purus scelerisque id. Donec quam metus, pulvinar nec nibh at, interdum fermentum nisl.",
+    quicklyBussiness: "immediate_fulfillment",
+    averageAmount: "",
+    annualCredit: "",
+    refundpolicy: "",
+    indicateDuration: "",
     percentage: "",
-    upload_policy: "",
+    uploadPolicy: "",
     image: ""
   });
 
@@ -62,7 +78,7 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(({  
    * Handle button next
    */
    const handleNext = async () => {
-    history.push(URL_MANUAL_FLOW.feeRates);
+    history.push(URL_MANUAL_FLOW.sensitiveData);
   }
 
     /**
@@ -93,10 +109,10 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(({  
 
       <Box className={cx('business-services')}>
         <div className="business-services-category" >
-          <Category class="title">Products and services</Category>
+          <Category class="title">{title}</Category>
         </div>
 
-        <SectionWrapper cx={cx} title="Business information">
+        <SectionWrapper cx={cx} title={businessOffering.title}>
           <BusinessInformation 
             cx={cx}
             paramsBusinessService={paramsBusinessService} 
@@ -104,7 +120,19 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(({  
           />
         </SectionWrapper>
 
-        <SectionWrapper cx={cx} title="Refund policy">
+        <SectionWrapper cx={cx} title={fulfilmentInformation.title}>
+          <FulfilmentInformation 
+            cx={cx}
+            paramsBusinessService={paramsBusinessService} 
+            setParamsBusinessService={setParamsBusinessService}
+          />
+        </SectionWrapper>
+
+        <SectionWrapper cx={cx} title={salesForecast.title}>
+          <SalesForecast cx={cx} />
+        </SectionWrapper>
+
+        <SectionWrapper cx={cx} title={refundPolicy.title}>
           <RefundPolicy 
             cx={cx} 
             paramsBusinessService={paramsBusinessService}

@@ -23,6 +23,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
     key, 
     data, 
     register, 
+    labelForm,
     errors, 
     setValue, 
     setError, 
@@ -39,14 +40,14 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
       salutation,
       name,
       designation,
-      nric_passport,
-      date_of_birth,
+      nricPassport,
+      dateOfBirth,
       nationality,
-      block_house_number,
-      street_name,
-      unit_name,
-      building_name,
-      postal_code
+      blockHouseNumber,
+      streetName,
+      unitName,
+      buildingName,
+      postalCode
     } = val.inputFields;
 
     const onSubmit = (values: any) => {
@@ -60,7 +61,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
             <Typography 
               className={cx("title")}
             >
-              Beneficial owner {index + 1} {index !== 0 && <label onClick={() => remove(index)}>Remove</label>}
+              {labelForm} {index + 1} {index !== 0 && <label onClick={() => remove(index)}>Remove</label>}
             </Typography>
           </Grid>
           <Grid item xs={4}>
@@ -122,7 +123,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={nric_passport.label}
+              label={nricPassport.label}
               name={`nric_passport[${index}].nric_passport`}
               variant="filled"
               {...register("nric_passport", {
@@ -142,7 +143,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
               })}
             /> */}
             <TextField
-              label={date_of_birth.label}
+              label={dateOfBirth.label}
               name={`date_of_birth[${index}].date_of_birth`}
               type="date"
               fullWidth
@@ -172,7 +173,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={block_house_number.label}
+              label={blockHouseNumber.label}
               name={`block_house_number[${index}].block_house_number`}
               variant="filled"
               {...register("block_house_number", {
@@ -184,7 +185,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={street_name.label}
+              label={streetName.label}
               name={`street_name[${index}].street_name`}
               variant="filled"
               {...register("street_name", {
@@ -196,7 +197,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={unit_name.label}
+              label={unitName.label}
               name={`unit_name[${index}].unit_name`}
               variant="filled"
               {...register("unit_name", {
@@ -208,7 +209,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={building_name.label}
+              label={buildingName.label}
               name={`building_name[${index}].building_name`}
               variant="filled"
               {...register("building_name", {
@@ -220,7 +221,7 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               id={uuidv4()}
-              label={postal_code.label}
+              label={postalCode.label}
               name={`postal_code[${index}].postal_code`}
               variant="filled"
               {...register("postal_code", {
@@ -228,7 +229,6 @@ const BeneficialOwnershipForm: React.FC<any> = (props) => {
               })}
             />
           </Grid>
-
         </Grid>
       </form>
     )

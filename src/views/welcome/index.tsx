@@ -30,21 +30,6 @@ const WelcomePage = () => {
   // States
   const [loading, setLoading] = useState<false>(false);
 
-  const data = [];
-  for (let i = 0; i < 5; i++) {
-    data.push({
-      company: "AMZO Pte Ltd 1",
-      uen: "2016347449N",
-      status: "Not started",
-      action1: (
-        <img src={IconEdit} alt="icon edit" />
-      ),
-      action2: (
-        <div className={cx("action-launch")}>Launch</div>
-      ),
-    },);
-  }
-
   return (
     <>
      {/* {Loading} */}

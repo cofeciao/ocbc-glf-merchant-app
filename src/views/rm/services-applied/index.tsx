@@ -7,6 +7,7 @@ import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
+import { Link } from "react-router-dom";
 
 // import constants
 import { LIST_ROUTER, NEXT } from "@/utils/constants";
@@ -25,35 +26,34 @@ import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 import TransactionCard from "./TransactionCard";
 import OtherServices from "./OtherServices";
 import { IServicesApplied } from "./ServicesApplied";
-import { Link } from "react-router-dom";
 
 // render UI
 const ServicesApplied: React.FC<any> = () => {
   const {
     LIST_STEP: {
-      services_applied: {
+      servicesApplied: {
         text,
-        section: { transaction_and_card_acceptance_type, other_services },
+        section: { transactionAndCardAcceptanceType, otherServices },
       },
     },
   } = STEP_RM;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
+  const history = useHistory();
   
   // States
   const [key, setKey] = useState<number>(0);
-  const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
-    transaction_and_card_acceptance_type.data_list_checkbox
+    transactionAndCardAcceptanceType.dataListCheckbox
   );
   
   const [dataRadio, setDataRadio] = useState<IServicesApplied.ISectionRadios>({
-    instalment_payment_plan: other_services.sectionRadios.instalment_payment_plan,
-    direct_currency_conversion: other_services.sectionRadios.direct_currency_conversion,
-    mail_order: other_services.sectionRadios.mail_order,
+    instalmentPaymentPlan: otherServices.sectionRadios.instalmentPaymentPlan,
+    directCurrencyConversion: otherServices.sectionRadios.directCurrencyConversion,
+    mailOrder: otherServices.sectionRadios.mailOrder,
   });
   const [dataCheckboxRepayment, setDataCheckboxRepayment] = useState(
-    other_services.sectionRadios.instalment_payment_plan.repayment_periods_offered.listCheckBox
+    otherServices.sectionRadios.instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox
   )
   
   /**
@@ -85,9 +85,9 @@ const ServicesApplied: React.FC<any> = () => {
    * Handle update state when dataRadio updated from store
    */
   useEffect(() => {
-    if (dataRadio && !!dataRadio.instalment_payment_plan.listRadio.length 
-      && !!dataRadio.direct_currency_conversion.listRadio.length 
-      && !!dataRadio.mail_order.listRadio.length) {
+    if (dataRadio && !!dataRadio.instalmentPaymentPlan.listRadio.length 
+      && !!dataRadio.directCurrencyConversion.listRadio.length 
+      && !!dataRadio.mailOrder.listRadio.length) {
       setDataRadio(dataRadio);
     }
   }, [dataRadio]);
@@ -112,7 +112,7 @@ const ServicesApplied: React.FC<any> = () => {
   };
 
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.contactInformation);
+    history.goBack(-1);
   }
 
   return (
@@ -129,8 +129,8 @@ const ServicesApplied: React.FC<any> = () => {
       {/* {Section Transaction and card acceptaner type} */}
       <SectionWrapper
         cx={cx}
-        title={transaction_and_card_acceptance_type.title}
-        description={transaction_and_card_acceptance_type.description}
+        title={transactionAndCardAcceptanceType.title}
+        description={transactionAndCardAcceptanceType.description}
       >
         <TransactionCard 
           dataCheckbox={dataCheckbox}
@@ -140,7 +140,7 @@ const ServicesApplied: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Other Services} */}
-      <SectionWrapper cx={cx} title={other_services.title} >
+      <SectionWrapper cx={cx} title={otherServices.title} >
         <OtherServices 
           cx={cx} 
           sectionRadios={dataRadio} 

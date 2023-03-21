@@ -18,23 +18,25 @@ declare namespace IServicesApplied {
 
   export interface IRepaymentPeriodsOffered {
     title?: string;
+    labelSeeMore: string;
+    labelLess: string;
     listCheckBox: IListCheckBox[]
   }
   interface ISectionRadios {
-    instalment_payment_plan: {
+    instalmentPaymentPlan: {
       title: string;
       name: string;
       checked: boolean;
       listRadio: IRadio[];
-      repayment_periods_offered: IRepaymentPeriodsOffered;
+      repaymentPeriodsOffered: IRepaymentPeriodsOffered;
     };
-    direct_currency_conversion: {
+    directCurrencyConversion: {
       title: string;
       name: string;
       checked: boolean;
       listRadio: IRadio[];
     };
-    mail_order: {
+    mailOrder: {
       title: string;
       name: string;
       checked: boolean;
