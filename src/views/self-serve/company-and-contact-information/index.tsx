@@ -73,6 +73,10 @@ const CompanyAndContactInformation: React.FC = () => {
       areaCode: LIST_COUNTRIES_CODE[0].value,
     },
   });
+  // Temporarily put here to debug on staging
+  const watchAll = watch();
+  console.log("watchAll", watchAll);
+  console.log("errors", errors);
 
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>

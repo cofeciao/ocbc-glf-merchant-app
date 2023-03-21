@@ -21,7 +21,15 @@ const BusinessOfferingEcommerce: React.FC<any> = (props) => {
             fullWidth
             placeholder={textField.label}
             variant="filled"
-            error={errors.numberOutlets && true}
+            error={
+              _.has(errors, "Ecom") &&
+              _.has(errors.Ecom, "typeOfProductAndService") &&
+              !_.isEqual(
+                errors.Ecom.typeOfProductAndService.type,
+                "required"
+              ) &&
+              true
+            }
             defaultValue={
               _.has(dataRedux, "typeOfProductAndService")
                 ? dataRedux.typeOfProductAndService
@@ -30,7 +38,9 @@ const BusinessOfferingEcommerce: React.FC<any> = (props) => {
             helperText={
               _.has(errors, "Ecom") &&
               _.has(errors.Ecom, "typeOfProductAndService") &&
-              errors.Ecom.typeOfProductAndService.message
+              !_.isEqual(errors.Ecom.typeOfProductAndService.type, "required")
+                ? errors.Ecom.typeOfProductAndService.message
+                : textField.helperTextGuide
             }
             {...register(`Ecom.${textField.keyName}`, {
               required: true,

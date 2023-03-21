@@ -128,7 +128,6 @@ const ContactDetails: React.FC<
                   {/* {Designation input field} */}
                   <TextField
                     fullWidth
-                    id={uuidv4()}
                     defaultValue={
                       _.has(dataRedux, "designation")
                         ? dataRedux.designation
@@ -160,27 +159,23 @@ const ContactDetails: React.FC<
                       error={
                         _.has(errors, "contactNumber") &&
                         !_.isEqual(errors.contactNumber.type, "required")
-                          ? false
-                          : _.has(errors, "contactNumber") &&
-                            !_.isEqual(errors.contactNumber.type, "required") &&
-                            true
+                          ? true
+                          : false
                       }
                       name="numberformat"
                       className={cx("formatted-numberphone-input")}
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactNumber, "type") &&
-                        _.isEqual(errors.contactNumber.type, "required")
-                          ? ""
-                          : _.has(errors.contactNumber, "type") &&
-                            !_.isEqual(errors.contactNumber.type, "required") &&
-                            `${ERROR_ICON} ${errors.contactNumber.message}`
+                        !_.isEqual(errors.contactNumber.type, "required")
+                          ? errors.contactNumber.message
+                          : ""
                       }
                       {...register("contactNumber", {
                         required: true,
                         pattern: {
                           value: /^[0-9]{8}$/,
-                          message: contactNumber.helperText,
+                          message: `${ERROR_ICON} ${contactNumber.helperText}`,
                         },
                         onBlur: (event: ChangeEvent<HTMLInputElement>) => {
                           if (event.target.value === "") {
@@ -207,7 +202,7 @@ const ContactDetails: React.FC<
                               }
                               error={errors.AreaCode && true}
                               {...register("areaCode", {
-                                required: false,
+                                required: true,
                               })}
                             >
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {

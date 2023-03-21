@@ -12,6 +12,7 @@ import { ERROR_ICON } from "@/utils/constants";
 const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const { textField } = data;
+  console.log(errors);
 
   return (
     <Box className={cx("business-offering-wrapper")}>
@@ -21,7 +22,12 @@ const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
             fullWidth
             placeholder={textField.label}
             variant="filled"
-            error={errors.typeOfProductAndService && true}
+            error={
+              _.has(errors, "POS") &&
+              _.has(errors.POS, "typeOfProductAndService") &&
+              !_.isEqual(errors.POS.typeOfProductAndService.type, "required") &&
+              true
+            }
             defaultValue={
               _.has(dataRedux, "typeOfProductAndService")
                 ? dataRedux.typeOfProductAndService
@@ -30,7 +36,9 @@ const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
             helperText={
               _.has(errors, "POS") &&
               _.has(errors.POS, "typeOfProductAndService") &&
-              errors.POS.typeOfProductAndService.message
+              !_.isEqual(errors.POS.typeOfProductAndService.type, "required")
+                ? errors.POS.typeOfProductAndService.message
+                : textField.helperTextGuide
             }
             {...register(`POS.${textField.keyName}`, {
               required: true,

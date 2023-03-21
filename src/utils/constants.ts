@@ -76,7 +76,7 @@ export const HOME_PAGE = {
     data_list_checkbox: [
       {
         label: "Credit/Debit cards",
-        description: "This Application will take about you 10 minutes",
+        description: "This application will take about 10 minutes.",
         value: "creditcards",
         checked: false,
       },
@@ -524,30 +524,10 @@ export const SELF_SERVE_PAGE = {
               listRadio: [
                 {
                   description: "Is your business ready for operations?",
-                  list: [
-                    {
-                      text: "Yes",
-                      checked: true,
-                    },
-                    {
-                      text: "No",
-                      checked: false,
-                    },
-                  ],
                 },
                 {
                   description:
                     "Do you currently have an OCBC business account?",
-                  list: [
-                    {
-                      text: "Yes",
-                      checked: true,
-                    },
-                    {
-                      text: "No",
-                      checked: false,
-                    },
-                  ],
                 },
               ],
               textField: {
@@ -586,29 +566,9 @@ export const SELF_SERVE_PAGE = {
             listField: {
               listRadioExistingWebsite: {
                 description: "Do you have an existing website?",
-                list: [
-                  {
-                    text: "Yes",
-                    checked: true,
-                  },
-                  {
-                    text: "No",
-                    checked: false,
-                  },
-                ],
               },
               listRadioPlaceOrderThroughWebsite: {
                 description: "Can customers place orders through your website?",
-                list: [
-                  {
-                    text: "Yes",
-                    checked: true,
-                  },
-                  {
-                    text: "No",
-                    checked: false,
-                  },
-                ],
               },
               dropdownField: {
                 description: "Please indicate the live date of your website",
@@ -670,6 +630,9 @@ export const SELF_SERVE_PAGE = {
                   },
                 ],
               },
+              listRadio: {
+                description: "Does your retail store accept card payments?",
+              },
             },
           },
         },
@@ -696,9 +659,10 @@ export const SELF_SERVE_PAGE = {
             "What products and/or services is your business offering?",
           textField: {
             keyName: "typeOfProductAndService",
-            label:
-              "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+            label: "Business offering",
             helperText: "Cannot exceed 180 characters",
+            helperTextGuide:
+              "E.g. Bistro, café, workshops, salon, clinic, etc.",
           },
         },
         fulfilmentInformation: {
@@ -771,9 +735,10 @@ export const SELF_SERVE_PAGE = {
             "What products and/or services is your business offering?",
           textField: {
             keyName: "typeOfProductAndService",
-            label:
-              "E.g. Bistro, café, workshops, salon, clinic, etc. (180 character limit)",
+            label: "Business offering",
             helperText: "Cannot exceed 180 characters",
+            helperTextGuide:
+              "E.g. Bistro, café, workshops, salon, clinic, etc.",
           },
         },
         fulfilmentInformation: {
@@ -811,6 +776,7 @@ export const SELF_SERVE_PAGE = {
           },
           listDropdown: {
             description: "Approximate delivery time to customers",
+            placeholder: "Delivery time",
             list: [
               {
                 name: "Within a week",
