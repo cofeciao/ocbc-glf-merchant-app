@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
@@ -158,17 +158,14 @@ const ContactDetails: React.FC<
                       type="number"
                       error={
                         _.has(errors, "contactNumber") &&
-                        !_.isEqual(errors.contactNumber.type, "required")
-                          ? true
-                          : false
+                        !_.isEqual(errors.contactNumber.type, "required") &&
+                        true
                       }
                       className={cx("formatted-numberphone-input")}
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactNumber, "type") &&
-                        !_.isEqual(errors.contactNumber.type, "required")
-                          ? errors.contactNumber.message
-                          : ""
+                        errors.contactNumber.message
                       }
                       {...register("contactNumber", {
                         required: true,

@@ -1,5 +1,12 @@
 @import "../../assets/style/variable.scss";
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 #common-dialog {
   background: #b1b8c5;
 }
