@@ -15,14 +15,23 @@ import {
 import _ from "lodash";
 
 // import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 
 // render UI
 const ImmediateFulfillment: React.FC<any> = (props) => {
-  const { PLEASE_SELECT_LABEL, PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
-  const { cx, data, variant, setValue, register, unregister } = props;
+  const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
+  const {
+    cx,
+    data,
+    variant,
+    setValue,
+    register,
+    unregister,
+    errors,
+    dataRedux,
+  } = props;
   const { textField, listCheckboxSecondary, listDropdown, listRadioSecondary } =
     data;
 
@@ -53,10 +62,12 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                 {textField.description}
               </Typography>
             )}
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={5}>
               <TextField
-                name="numberformat"
-                id="formatted-numberformat-input"
+                fullWidth
+                label={textField.label}
+                variant="filled"
+                type="number"
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -64,11 +75,48 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                     </InputAdornment>
                   ),
                 }}
+                error={
+                  _.has(errors, "Ecom") &&
+                  _.has(
+                    errors.Ecom,
+                    "percentageOfProductsNotFulfilledImmediately"
+                  ) &&
+                  !_.isEqual(
+                    errors.Ecom.percentageOfProductsNotFulfilledImmediately
+                      .type,
+                    "required"
+                  ) &&
+                  errors.Ecom.percentageOfProductsNotFulfilledImmediately &&
+                  true
+                }
+                helperText={
+                  _.has(errors, "Ecom") &&
+                  _.has(
+                    errors.Ecom,
+                    "percentageOfProductsNotFulfilledImmediately"
+                  )
+                    ? errors.Ecom.percentageOfProductsNotFulfilledImmediately
+                        .message
+                    : ""
+                }
+                defaultValue={
+                  _.has(
+                    dataRedux,
+                    "percentageOfProductsNotFulfilledImmediately"
+                  )
+                    ? dataRedux.percentageOfProductsNotFulfilledImmediately
+                    : ""
+                }
                 className={cx("percentage-input-field")}
                 {...register(
                   "Ecom.percentageOfProductsNotFulfilledImmediately",
                   {
                     required: true,
+                    pattern: {
+                      // eslint-disable-next-line no-useless-escape
+                      value: /^\b(0|[1-9][0-9]?|100)\b$/,
+                      message: `${ERROR_ICON} ${textField.helperText}`,
+                    },
                   }
                 )}
               />
@@ -120,7 +168,6 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
               className={cx("duration-select")}
               fullWidth
             >
-              {console.log(listDropdown.placeholder)}
               {!_.isEmpty(listDropdown.placeholder) && (
                 <InputLabel id="select-duration-label">
                   {listDropdown.placeholder}
@@ -168,7 +215,12 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
               listCheckBox={listRadioSecondary.list}
               vertical
               getValue={(value: any) => {
-                setValue("Ecom.productDelivery", value);
+                setValue(
+                  "Ecom.productDelivery",
+                  value === listRadioSecondary.list[0].text
+                    ? listRadioSecondary.list[0].option
+                    : listRadioSecondary.list[1].option
+                );
               }}
             />
           )}

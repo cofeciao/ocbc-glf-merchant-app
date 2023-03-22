@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import ImmediateFulfillment from "./ImmediateFulfillment";
 import _ from "lodash";
+import TooltipDialog from "./Tooltip-dialog";
 
 // import types
 
@@ -15,15 +16,17 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
+      {/* {How quickly does your business fulfil these products and/or services?} */}
       <Grid item xs={12}>
         {/* {Description} */}
-        {_.has(listRadio, "description") && (
+        {!_.isEmpty(listRadio.description) && (
           <Typography
             className={cx(
-              "fulfilment-information-description input-field-description"
+              "fulfilment-information-description input-field-description d-flex"
             )}
           >
             {listRadio.description}
+            <TooltipDialog />
           </Typography>
         )}
 

@@ -14,21 +14,14 @@ import {
 import _ from "lodash";
 
 // import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 
 // render UI
 const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
-  const { PLEASE_SELECT_LABEL, PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
-  const {
-    cx,
-    data,
-    variant,
-    register,
-    unregister,
-    dataRedux,
-  } = props;
+  const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
+  const { cx, data, variant, register, errors, unregister, dataRedux } = props;
   const { listDropdown, textField } = data;
 
   /**
@@ -47,7 +40,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
     <Box className={cx("fulfillment-over-a-period-of-time-wrapper")}>
       {
         <Grid item xs={12}>
-          <Grid container className={cx("n-wrap mt-dt-40")}>
+          <Grid container className={cx("mt-dt-40")}>
             {/* {Please indicate duration} */}
             <Grid item xs={6}>
               {/* {Description} */}
@@ -68,9 +61,9 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                   className={cx("duration-select")}
                   fullWidth
                 >
-                  {PLEASE_SELECT_LABEL && (
+                  {listDropdown.label && (
                     <InputLabel id="select-duration-label">
-                      {PLEASE_SELECT_LABEL}
+                      {listDropdown.label}
                     </InputLabel>
                   )}
                   <Select
@@ -99,7 +92,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
             </Grid>
 
             {/* {Percentage of products/services not fulfilled immediately} */}
-            <Grid item xs={12} md={6}>
+            <Grid item xs={12}>
               {/* {Description} */}
               {_.has(textField, "description") && (
                 <Typography
@@ -111,11 +104,11 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                 </Typography>
               )}
 
-              {/* {TextField} */}
-              <Grid item xs={12} md={6}>
+              {/* {Text field} */}
+              <Grid item xs={12} md={5}>
                 <TextField
-                  name="numberformat"
-                  id="formatted-numberformat-input"
+                  fullWidth
+                  type="number"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -124,6 +117,32 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                     ),
                   }}
                   className={cx("percentage-input-field")}
+                  variant="filled"
+                  label={textField.label}
+                  error={
+                    _.has(errors, "POS") &&
+                    _.has(
+                      errors.POS,
+                      "percentageOfProductsNotFulfilledImmediately"
+                    ) &&
+                    !_.isEqual(
+                      errors.POS.percentageOfProductsNotFulfilledImmediately
+                        .type,
+                      "required"
+                    ) &&
+                    errors.POS.percentageOfProductsNotFulfilledImmediately &&
+                    true
+                  }
+                  helperText={
+                    _.has(errors, "POS") &&
+                    _.has(
+                      errors.POS,
+                      "percentageOfProductsNotFulfilledImmediately"
+                    )
+                      ? errors.POS.percentageOfProductsNotFulfilledImmediately
+                          .message
+                      : ""
+                  }
                   defaultValue={
                     _.has(
                       dataRedux,
@@ -136,6 +155,11 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                     "POS.percentageOfProductsNotFulfilledImmediately",
                     {
                       required: true,
+                      pattern: {
+                        // eslint-disable-next-line no-useless-escape
+                        value: /^\b(0|[1-9][0-9]?|100)\b$/,
+                        message: `${ERROR_ICON} ${textField.helperText}`,
+                      },
                     }
                   )}
                 />
