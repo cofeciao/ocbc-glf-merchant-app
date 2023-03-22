@@ -27,12 +27,14 @@ const Successful: React.FC<any> = () => {
       {/* {Content} */}
       <Container className={cx("container pb-270")}>
         <Grid container spacing={2}>
+          {/* {Category} */}
           <Grid item xs={12} lg={3}>
-            {/* {Category} */}
             <Box className={cx("category-wrapper")}>
               <Category>{LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS}</Category>
             </Box>
           </Grid>
+
+          {/* {Acknowledgement} */}
           <Grid item xs={12} lg={4}>
             <Box className={cx("acknowledgement-wrapper")}>
               <img
