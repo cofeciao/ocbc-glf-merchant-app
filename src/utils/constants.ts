@@ -97,6 +97,7 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
+  LABEL_SGD: "SGD",
   LIST_TOOLTIP_CONTENT: [
     {
       title: "Fulfilment period",
@@ -617,7 +618,7 @@ export const SELF_SERVE_PAGE = {
               },
               textField: {
                 description: "Your website’s URL",
-                label: "e.g. www.xxx.com",
+                label: "Website URL",
                 helperText: "Please enter a valid URL",
               },
             },
@@ -732,7 +733,7 @@ export const SELF_SERVE_PAGE = {
             description:
               "Percentage of products/services not fulfilled immediately",
             label: "Percentage",
-            helperText: "lease enter an amount between 0 – 100",
+            helperText: "Please enter an amount between 0 – 100",
           },
         },
         salesForecast: {
@@ -775,7 +776,7 @@ export const SELF_SERVE_PAGE = {
             description:
               "Percentage of products/services not fulfilled immediately",
             label: "Percentage",
-            helperText: "lease enter an amount between 0 – 100",
+            helperText: "Please enter an amount between 0 – 100",
           },
           listRadio: {
             description:
