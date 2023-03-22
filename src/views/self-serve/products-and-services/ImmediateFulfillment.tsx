@@ -1,5 +1,5 @@
 // import modules
-import React, { useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Radio, Checkbox } from "@sectionsg/orc";
 import {
   Box,
@@ -34,6 +34,14 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
   } = props;
   const { textField, listCheckboxSecondary, listDropdown, listRadioSecondary } =
     data;
+  const [inputValue, setInputValue] = useState("");
+
+  /**
+   * Prevent user input non-number
+   */
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value.replace(/\D/g, ""));
+  }
 
   /**
    * Handle unregister if fields are hidden
@@ -67,7 +75,8 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                 fullWidth
                 label={textField.label}
                 variant="filled"
-                type="number"
+                type="text"
+                value={inputValue}  
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -117,6 +126,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                       value: /^\b(0|[1-9][0-9]?|100)\b$/,
                       message: `${ERROR_ICON} ${textField.helperText}`,
                     },
+                    onChange: handleChange,
                   }
                 )}
               />

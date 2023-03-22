@@ -1,5 +1,5 @@
 // import modules
-import React, { useEffect } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -23,6 +23,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
   const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
   const { cx, data, variant, register, errors, unregister, dataRedux } = props;
   const { listDropdown, textField } = data;
+  const [inputValue, setInputValue] = useState("");
 
   /**
    * Handle unregister if fields are hidden
@@ -36,6 +37,13 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
     }
   }, [variant]);
 
+  /**
+   * Prevent user input non-number
+   */
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value.replace(/\D/g, ""));
+  }
+
   return (
     <Box className={cx("fulfillment-over-a-period-of-time-wrapper")}>
       {
@@ -44,7 +52,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
             {/* {Please indicate duration} */}
             <Grid item xs={6}>
               {/* {Description} */}
-              {_.has(listDropdown, "description") && (
+              {!_.isEmpty(listDropdown.description) && (
                 <Typography
                   className={cx(
                     "fulfilment-information-description input-field-description"
@@ -94,7 +102,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
             {/* {Percentage of products/services not fulfilled immediately} */}
             <Grid item xs={12}>
               {/* {Description} */}
-              {_.has(textField, "description") && (
+              {!_.isEmpty(textField.description) && (
                 <Typography
                   className={cx(
                     "fulfilment-information-description input-field-description"
@@ -108,7 +116,11 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
               <Grid item xs={12} md={5}>
                 <TextField
                   fullWidth
-                  type="number"
+                  type="text"
+                  className={cx("percentage-input-field")}
+                  variant="filled"
+                  label={textField.label}
+                  value={inputValue}
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
@@ -116,9 +128,6 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                       </InputAdornment>
                     ),
                   }}
-                  className={cx("percentage-input-field")}
-                  variant="filled"
-                  label={textField.label}
                   error={
                     _.has(errors, "POS") &&
                     _.has(
@@ -160,6 +169,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                         value: /^\b(0|[1-9][0-9]?|100)\b$/,
                         message: `${ERROR_ICON} ${textField.helperText}`,
                       },
+                      onChange: handleChange,
                     }
                   )}
                 />
