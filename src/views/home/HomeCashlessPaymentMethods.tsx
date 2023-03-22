@@ -1,13 +1,13 @@
 // import modules
 import ListCheckBox from "@/components/ListCheckBox";
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { saveDataCashlessPaymentMethod } from "@/store/form";
+import { Typography } from "@material-ui/core";
+import _ from "lodash";
 
 // import types
 import { IHome } from "./Home";
-import { Typography } from "@material-ui/core";
-import _ from "lodash";
 
 // render UI
 const HomeCashlessPaymentMethods: React.FC<
