@@ -5,9 +5,9 @@ import _ from "lodash";
 import { ISelfServe } from "@/views/self-serve/SelfServe";
 
 const SectionWrapper = (props: ISelfServe.ISectionWrapper) => {
-  const { title, description, cx, edit, children } = props;
+  const { title, description, cx, edit, children, className } = props;
   return (
-    <Grid container className={cx("section-wrapper")}>
+    <Grid container className={cx(`section-wrapper ${className}`)}>
       <Grid item xs={12}>
         {!_.isEmpty(title || description) && (
           <Box className="header-wrapper">
