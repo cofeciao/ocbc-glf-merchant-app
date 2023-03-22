@@ -145,7 +145,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
               {/* {Text field} */}
               {
-                <Grid item xs={4}>
+                <Grid item xs={12} lg={4}>
                   {_.has(listField.textField, "label") && (
                     <TextField
                       fullWidth

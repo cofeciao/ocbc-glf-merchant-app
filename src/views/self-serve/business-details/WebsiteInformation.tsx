@@ -187,7 +187,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
                   )}
 
                   {/* {Text field} */}
-                  <Grid item xs={4}>
+                  <Grid item xs={12} lg={4}>
                     <Box className={cx("text-field-group-wrapper")}>
                       <Box key={item.label} className={cx("text-field-item")}>
                         <TextField
@@ -230,7 +230,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
             })}
 
             {/* {Add more websites button} */}
-            <Box display="flex" flexDirection="row">
+            <Box className={cx("add-more-websites-wrapper d-flex")}>
               {listTextField.length < 3 && (
                 <Button
                   className={cx("add-website-button")}
