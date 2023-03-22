@@ -142,8 +142,6 @@ const ContactDetails: React.FC<
                 </Grid>
               )}
 
-              {_.has(errors.contactNumber, "type") &&
-                _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
@@ -175,6 +173,8 @@ const ContactDetails: React.FC<
                         },
                         onBlur: (event: ChangeEvent<HTMLInputElement>) => {
                           if (event.target.value === "") {
+                            // Temporarily put here to debug on staging
+                            console.log("event.target.value === empty", event.target.value)
                             setValue("contactNumber", "");
                             setError("contactNumber", {
                               type: "required",
