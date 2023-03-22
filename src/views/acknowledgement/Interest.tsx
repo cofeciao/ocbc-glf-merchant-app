@@ -2,7 +2,7 @@
 import React from "react";
 import classnames from "classnames/bind";
 import { Category } from "@sectionsg/orc";
-import { Box, Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
 
 // import images
@@ -38,19 +38,26 @@ const Interest: React.FC<any> = () => {
           {/* {Acknowledgement} */}
           <Grid item xs={12} lg={4}>
             <Box className={cx("acknowledgement-wrapper")}>
-              <img
-                src={AcknowledgementSuccess}
-                alt="successful-image"
-                className={cx("acknowledgement-image")}
-              />
-              <Box className={cx("acknowledgement-title")}>
-                {LABEL_THANK_YOU_FOR_YOUR_INTEREST}
+              {/* {Image} */}
+              <Box className={cx("image-wrapper")}>
+                <img src={AcknowledgementSuccess} alt="successful-image" />
               </Box>
-              <Box className={cx("acknowledgement-description")}>
-                {LABEL_TO_APPLY_FOR_PAYNOW_PLEASE_VISIT}&nbsp;
-                <a href="#" className={cx("acknowledgement-link")}>
-                  {LABEL_BUSINESS_INTERNET_BANKING}
-                </a>
+
+              {/* {Content} */}
+              <Box className={cx("content-wrapper")}>
+                {/* {Title} */}
+                <Typography className={cx("title")}>
+                  {LABEL_THANK_YOU_FOR_YOUR_INTEREST}
+                </Typography>
+
+                {/* {Description} */}
+                <Typography className={cx("description")}>
+                  {LABEL_TO_APPLY_FOR_PAYNOW_PLEASE_VISIT}&nbsp;
+                  {/* {Text Link} */}
+                  <a href="#" className={cx("acknowledgement-link")}>
+                    {LABEL_BUSINESS_INTERNET_BANKING}
+                  </a>
+                </Typography>
               </Box>
             </Box>
           </Grid>
