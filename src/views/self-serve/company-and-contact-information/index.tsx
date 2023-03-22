@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -77,6 +77,17 @@ const CompanyAndContactInformation: React.FC = () => {
   const watchAll = watch();
   console.log("watchAll", watchAll);
   console.log("errors", errors);
+  // Temporarily put here to debug on staging
+  console.log("isValid", isValid);
+
+  /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>
