@@ -120,7 +120,8 @@
   }
 
   & .beneficial-ownership {
-    & .group-item {
+    &__group-item:last-child {
+      margin-top: 40px;
       & .sub-title {
         margin-top: 20px;
       }

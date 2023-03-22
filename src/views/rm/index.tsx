@@ -58,7 +58,6 @@ const ContainerManual = () => {
   const cx = classNames.bind(styles);
 
   // States
-  const [addressDetail, setAddressDetail] = useState<any>();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -124,7 +123,7 @@ const ContainerManual = () => {
               <>
                 {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
                 {slug === COMPANY_CONTACT_INFORMATION && <CompanyContactInformation ref={childRef} handleCallAPI={() => {}} />}
-                {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
+                {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} slug={slug} />}
                 {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
                 {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}
                 {slug === SENSITIVE_DATA && <Sensitive ref={childRef} />}

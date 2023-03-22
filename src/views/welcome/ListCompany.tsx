@@ -38,7 +38,7 @@ import { saveDataCompanyDetail } from "@/store/form";
 
 // import hooks
 import { useDebounce } from "@/hooks/useDebounce";
-import { STEP_RM } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 // data rows
 const datas: any = [];
@@ -149,10 +149,10 @@ const ListCompany: React.FC = ({}) => {
 
   // handle event onclick for button submit
   const handleSubmit = () => {
-    history.push('/rm/contact-information');
+    history.push(URL_MANUAL_FLOW.contactInformation);
+    localStorage.setItem("firstStepPath", URL_MANUAL_FLOW.contactInformation);
     dispatchDataCompanyDetails();
   };
-
 
   /**
    * render UI not result search
@@ -208,7 +208,8 @@ const ListCompany: React.FC = ({}) => {
         <Grid item xs={4} className={cx('section-left')}>
           <Typography 
             onClick={() => {
-              history.push("/rm/company-contact-information");
+              history.push(URL_MANUAL_FLOW.companyContactInformation);
+              localStorage.setItem('firstStepPath', URL_MANUAL_FLOW.companyContactInformation)
             }}
           >
             {labelCreateNewCase}

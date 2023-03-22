@@ -7,7 +7,8 @@ import { IServicesApplied } from './ServicesApplied';
 import ListCheckbox from '@/components/ListCheckBox';
 
 const TransactionCard:React.FC<IServicesApplied.ITransactionCard> = ( props ) => {
-  const { dataCheckbox, key, getDataFromListCheckbox } = props;
+  const { keyCheckbox, dataCheckbox, getDataFromListCheckbox  } = props;
+
   return (
     <ListCheckbox
       label=""
@@ -17,7 +18,7 @@ const TransactionCard:React.FC<IServicesApplied.ITransactionCard> = ( props ) =>
       md={4}
       sm={6}
       xs={12}
-      checkboxKey={key}
+      checkboxKey={keyCheckbox}
       getValue={getDataFromListCheckbox}
     />
   )

@@ -113,6 +113,11 @@ declare namespace IReviewSubmit {
     }
   }
 
+  export interface IDirectors {
+    name: string;
+    nricNumber: string;
+  }
+
   export interface ICompanyRegistration {
     cx: any;
     titles: {

@@ -17,6 +17,14 @@ export const SUPPLEMENTARY_DOCUMENT = "supplementary-documents";
 export const REVIEW_SUBMIT = "review-submit";
 export const DECLARATION = "declaration";
 
+export const WELCOME_PATH = "/rm/welcome";
+
+export const NEXT = "Next";
+export const REVIEW = "Review";
+export const SUBMIT = "Submit";
+export const START = "START";
+export const CONTINUE_LATER = "Continue later";
+
 export const URL_MANUAL_FLOW = {
   contactInformation: "/rm/contact-information",
   companyContactInformation: "/rm/company-contact-information",
@@ -1518,8 +1526,14 @@ export const STEP_RM = {
             entityType: "Private Limited Company",
             registeredAddress: "35 Bedok North Road #09-39 Singapore 674902",
             directors: [
-              "Lau Aik Miang S9300409F",
-              "Zunaidi Zainal Azmian S9000555C"
+              {
+                name: "Lau Aik Miang",
+                nricNumber: "S9300409F"
+              },
+              {
+                name: "Zunaidi Zainal Azmian",
+                nricNumber: "S9000555C"
+              },
             ],
             uniqueEntityNumber: "2016347449N",
             natureOfBusiness: "Café / Restaurant",
@@ -1699,7 +1713,7 @@ export const STEP_RM = {
           dataListCheckbox: [
             {
               label: "Point-of-Sales terminal",
-              value: "point-of-sales-terminal",
+              value: "point-of-sales",
               checked: false,
               expandedListCheckbox: {
                 description:
@@ -1707,53 +1721,47 @@ export const STEP_RM = {
                 listCheckbox: [
                   {
                     label: "Visa",
-                    checked: false,
-                    value: "visa",
+                    checked: true,
+                    value: "pos-visa",
+                    disabled: true,
                   },
                   {
                     label: "Mastercard",
-                    checked: false,
-                    value: "mastercard",
+                    checked: true,
+                    value: "pos-mastercard",
+                    disabled: true,
                   },
                   {
                     label: "UnionPay",
-                    checked: false,
-                    value: "unionPay",
+                    value: "pos-unionPay",
                   },
                   {
                     label: "JCB",
-                    checked: false,
-                    value: "jcb",
+                    value: "pos-jcb",
                   },
                   {
                     label: "WeChat Pay",
-                    checked: false,
-                    value: "wechat-pay",
+                    value: "pos-wechat-pay",
                   },
                   {
                     label: "AliPay",
-                    checked: false,
-                    value: "alipay",
+                    value: "pos-alipay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
-                    checked: false,
-                    value: "ocbc-ipp",
+                    value: "pos-ocbc-ipp",
                   },
                   {
                     label: "Diners Club",
-                    checked: false,
-                    value: "dinners-club",
+                    value: "pos-dinners-club",
                   },
                   {
                     label: "AMEX",
-                    checked: false,
-                    value: "amex",
+                    value: "pos-amex",
                   },
                   {
                     label: "Paynow",
-                    checked: false,
-                    value: "paynow",
+                    value: "pos-paynow",
                   },
                 ],
               },
@@ -1768,28 +1776,27 @@ export const STEP_RM = {
                 listCheckbox: [
                   {
                     label: "Visa",
-                    checked: false,
-                    value: "visa",
+                    checked: true,
+                    value: "ecom-visa",
+                    disabled: true,
                   },
                   {
                     label: "Mastercard",
-                    checked: false,
-                    value: "mastercard",
+                    checked: true,
+                    value: "ecom-mastercard",
+                    disabled: true,
                   },
                   {
                     label: "JCB",
-                    checked: false,
-                    value: "jcb",
+                    value: "ecom-jcb",
                   },
                   {
                     label: "UnionPay",
-                    checked: false,
-                    value: "union-pay",
+                    value: "ecom-union-pay",
                   },
                   {
                     label: "OCBC Instalment Payment Plan (IPP)",
-                    checked: false,
-                    value: "ocbc-ipp",
+                    value: "ecom-ocbc-ipp",
                   },
                 ],
               },
@@ -1804,14 +1811,15 @@ export const STEP_RM = {
               title: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
+              value: "",
               listRadio: [
                 {
-                  text: "Yes",
-                  checked: false,
+                  label: "Yes",
+                  value: "yes",
                 },
                 {
-                  text: "No",
-                  checked: false,
+                  label: "No",
+                  value: "no",
                 },
               ],
               repaymentPeriodsOffered: {
@@ -1871,14 +1879,15 @@ export const STEP_RM = {
               title: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
               name: "directCurrencyConversion",
               checked: false,
+              value: "",
               listRadio: [
                 {
-                  text: "Yes",
-                  checked: false,
+                  label: "Yes",
+                  value: "yes",
                 },
                 {
-                  text: "No",
-                  checked: false,
+                  label: "No",
+                  value: "no",
                 },
               ],
             },
@@ -1886,14 +1895,15 @@ export const STEP_RM = {
               title: "Will you be offering Mail Order/Telephone Order?",
               name: "mailOrder",
               checked: false,
+              value: "",
               listRadio: [
                 {
-                  text: "Yes",
-                  checked: false,
+                  label: "Yes",
+                  value: "yes",
                 },
                 {
-                  text: "No",
-                  checked: false,
+                  label: "No",
+                  value: "no",
                 },
               ],
             },

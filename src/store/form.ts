@@ -6,6 +6,14 @@ const Formslice = createSlice({
     // RM flows
     dataCompanyDetail: {},
     dataAcraDetail: {},
+    servicesAppliedStep: {
+      transactionAndCardAcceptanceTypeStep: [],
+      otherServices: {
+        instalmentPaymentPlan: {},
+        directCurrencyConversion: {},
+        mailOrder: {},
+      }
+    },
     acraAndContactInformationStep: {
       contactDetail: {},
       authorisedPersonDetails: {},
@@ -51,9 +59,21 @@ const Formslice = createSlice({
     saveDataCompanyDetail: (state, action) => {
       state.dataCompanyDetail = action.payload;
     },
+    
+    /**
+     * function save data of ACRA and contact information step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataTransactionServicesApplied: (state, action) => {
+      state.servicesAppliedStep.transactionAndCardAcceptanceTypeStep = action.payload;
+    },
+    saveDataOtherServicesApplied: (state, action) => {
+      state.servicesAppliedStep.otherServices = action.payload;
+    },
 
      /**
-     * function save data of ACRA and contact information step
+     * function save data of Supplementary documents step
      * @param state - State for form
      * @param action  - Payload
      */
@@ -126,6 +146,8 @@ const Formslice = createSlice({
 export const {
   saveDataCashlessPaymentMethod,
   saveDataCompanyDetail,
+  saveDataTransactionServicesApplied,
+  saveDataOtherServicesApplied,
   saveDataSupplementaryDocument,
   saveDataCompanyAndContactInformationStep,
   saveDataAcraAndContactInformationStep,

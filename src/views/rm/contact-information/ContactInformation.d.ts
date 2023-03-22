@@ -8,6 +8,11 @@ declare namespace IContactInformation {
     error: string;
   }
 
+  export interface IDirectors {
+    name: string;
+    nricNumber: string;
+  }
+
 }
 
 export { IContactInformation };
