@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
@@ -142,8 +142,6 @@ const ContactDetails: React.FC<
                 </Grid>
               )}
 
-              {_.has(errors.contactNumber, "type") &&
-                _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
@@ -158,17 +156,14 @@ const ContactDetails: React.FC<
                       type="number"
                       error={
                         _.has(errors, "contactNumber") &&
-                        !_.isEqual(errors.contactNumber.type, "required")
-                          ? true
-                          : false
+                        !_.isEqual(errors.contactNumber.type, "required") &&
+                        true
                       }
                       className={cx("formatted-numberphone-input")}
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactNumber, "type") &&
-                        !_.isEqual(errors.contactNumber.type, "required")
-                          ? errors.contactNumber.message
-                          : ""
+                        errors.contactNumber.message
                       }
                       {...register("contactNumber", {
                         required: true,
@@ -178,6 +173,8 @@ const ContactDetails: React.FC<
                         },
                         onBlur: (event: ChangeEvent<HTMLInputElement>) => {
                           if (event.target.value === "") {
+                            // Temporarily put here to debug on staging
+                            console.log("event.target.value === empty", event.target.value)
                             setValue("contactNumber", "");
                             setError("contactNumber", {
                               type: "required",
