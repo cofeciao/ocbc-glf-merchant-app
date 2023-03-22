@@ -15,12 +15,7 @@ import BusinessDetails from "./BusinessDetails";
 import _ from "lodash";
 
 // import constants
-import {
-  CONTINUE_LATER,
-  LIST_ROUTER,
-  SELF_SERVE_PAGE,
-  SUBMIT,
-} from "@/utils/constants";
+import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
@@ -52,7 +47,7 @@ const ReviewAndSubmit: React.FC<any> = () => {
    * Retrieves data of Transaction And Card Acceptance Type step from Store
    */
   const cashlessPaymentsMethods = useSelector((state: any) =>
-    state.form.transactionAndCardAcceptanceTypeStep.filter(
+    state.form.cashlessPaymentMethod.filter(
       (item: any) => item.checked === true
     )
   );
@@ -148,6 +143,7 @@ const ReviewAndSubmit: React.FC<any> = () => {
         />
       </SectionWrapper>
 
+      {/* {Agree Policy} */}
       <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />
 
       {/* {Next Button}  */}
