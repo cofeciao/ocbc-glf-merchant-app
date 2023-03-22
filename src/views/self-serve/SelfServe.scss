@@ -7,6 +7,15 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+input:-webkit-autofill {
+  -webkit-text-fill-color: #575d65 !important;
+  box-shadow: 0 0 0px 1000px #fafcfc inset;
+}
+
+.MuiSelect-icon {
+  font-size: 27px !important;
+}
+
 #common-dialog {
   background: #b1b8c5;
 }
