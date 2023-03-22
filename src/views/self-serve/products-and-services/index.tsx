@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -16,10 +16,7 @@ import {
 } from "@/store/form";
 
 // import constants
-import {
-  LIST_ROUTER,
-  SELF_SERVE_PAGE,
-} from "@/utils/constants";
+import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ProductsAndServices.scss";
@@ -40,6 +37,15 @@ const ProductsAndServices: React.FC<any> = () => {
   const history = useHistory();
 
   /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
+
+  /**
    * Retrieves data of Products And Services step from Store
    */
   const productsAndServicesStep = useSelector(
@@ -54,6 +60,16 @@ const ProductsAndServices: React.FC<any> = () => {
     setValue,
   } = useForm({
     mode: "onBlur",
+    defaultValues: {
+      POS: {
+        orderFulfilment:
+          pointOfSalesForm.fulfilmentInformation.listRadio.list[0].text || "",
+      },
+      Ecom: {
+        orderFulfilment: ecommerceForm.fulfilmentInformation.listRadio.list[0].text || "",
+        productDelivery: ecommerceForm.fulfilmentInformation.listRadioSecondary.list[0].option || "",
+      },
+    },
   });
 
   /**

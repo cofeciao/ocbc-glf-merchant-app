@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveDataBusinessDetailsStep,
@@ -33,6 +33,15 @@ const BusinessDetails: React.FC<any> = () => {
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
 
   /**
    * Retrieves data of Business Details step from Store

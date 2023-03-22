@@ -2,6 +2,7 @@
 import React from "react";
 import classnames from "classnames/bind";
 import { Footer, Header } from "@sectionsg/orc";
+import { Box } from "@material-ui/core";
 import _ from "lodash";
 import { useParams } from "react-router";
 import Successful from "./Successful";
@@ -24,9 +25,12 @@ const Acknowledgement: React.FC<any> = () => {
       {/* {Header} */}
       <Header namePage={TITLE_PAGE} />
 
-      {slug === "successful" && <Successful />}
-      {slug === "interest" && <Interest />}
-      {slug === "saved" && <Saved />}
+      {/* {Content} */}
+      <Box className={cx("mt-dt-56")}>
+        {slug === "successful" && <Successful />}
+        {slug === "interest" && <Interest />}
+        {slug === "saved" && <Saved />}
+      </Box>
 
       {/* {Footer} */}
       <Footer />

@@ -4,34 +4,29 @@ import React, { useState } from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 import _ from "lodash";
+import TooltipDialog from "./Tooltip-dialog";
 
 // import types
 
 // render UI
 const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
-  const {
-    cx,
-    data,
-    register,
-    unregister,
-    errors,
-    setValue,
-    dataRedux,
-  } = props;
+  const { cx, data, register, unregister, errors, setValue, dataRedux } = props;
   const { listRadio } = data;
   const [valueSelected, setValueSelected] = useState();
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
+      {/* {How quickly does your business fulfil these products and/or services?} */}
       <Grid item xs={12}>
         {/* {Description} */}
         {_.has(listRadio, "description") && (
           <Typography
             className={cx(
-              "fulfilment-information-description input-field-description"
+              "fulfilment-information-description input-field-description d-flex"
             )}
           >
             {listRadio.description}
+            <TooltipDialog />
           </Typography>
         )}
 

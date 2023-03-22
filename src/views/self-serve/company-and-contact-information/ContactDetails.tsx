@@ -162,7 +162,6 @@ const ContactDetails: React.FC<
                           ? true
                           : false
                       }
-                      name="numberformat"
                       className={cx("formatted-numberphone-input")}
                       label={contactNumber.label}
                       helperText={

@@ -4,6 +4,16 @@
   background: #b1b8c5;
 }
 
+.MuiFormHelperText-root {
+  margin-left: 0px !important;
+  padding-top: 8px !important;
+  background-color: #ffffff;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 0 !important;
+}
+
 .form-submit {
   background-color: rgb(247, 248, 249);
   margin-top: 80px;
@@ -80,12 +90,6 @@
       & .MuiInput-underline::before {
         border-color: #e2e7ec;
       }
-
-      .MuiFormHelperText-root {
-        font-weight: 400;
-        font-size: 12px;
-        line-height: 16px;
-      }
     }
 
     .header-wrapper {
@@ -98,6 +102,14 @@
       font-weight: 700;
       font-size: $fzH2;
       line-height: 32px;
+      color: #363b40;
+    }
+
+    & .sub-section-title {
+      margin-bottom: 40px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
       color: #363b40;
     }
 
