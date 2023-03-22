@@ -56,7 +56,6 @@ const CompanyAndContactInformation: React.FC = () => {
     setValue,
     getValues,
     setError,
-    watch,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -73,12 +72,6 @@ const CompanyAndContactInformation: React.FC = () => {
       areaCode: LIST_COUNTRIES_CODE[0].value,
     },
   });
-  // Temporarily put here to debug on staging
-  const watchAll = watch();
-  console.log("watchAll", watchAll);
-  console.log("errors", errors);
-  // Temporarily put here to debug on staging
-  console.log("isValid", isValid);
 
   /**
    * Handle scrolling to top on page load
@@ -101,6 +94,7 @@ const CompanyAndContactInformation: React.FC = () => {
         cx={cx}
         title={companyRegistration.title}
         description={companyRegistration.description}
+        className="company-registration-section"
       >
         <CompanyRegistration
           cx={cx}
