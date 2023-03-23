@@ -1,12 +1,12 @@
 // import modules
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
+import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
-import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // render UI
 const CompanyAndContactInfomation: React.FC<any> = (props) => {
@@ -122,6 +122,7 @@ const CompanyAndContactInfomation: React.FC<any> = (props) => {
                   {LABEL_CONTACT_NUMBER}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
+                  {data.areaCode}
                   {data.contactNumber}
                 </Box>
               </Box>

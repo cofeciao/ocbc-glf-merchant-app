@@ -33,7 +33,6 @@ const BusinessInfomation: React.FC<any> = (props) => {
   } = props;
   const {
     LIST_RADIO_YES_NO,
-    PLEASE_SELECT_LABEL,
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const defaultValueListRadio = LIST_RADIO_YES_NO.filter(
@@ -146,7 +145,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
               {/* {Text field} */}
               {
-                <Grid item xs={4}>
+                <Grid item xs={12} lg={4}>
                   {_.has(listField.textField, "label") && (
                     <TextField
                       fullWidth
@@ -157,7 +156,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                           ? dataRedux.numberOfOutlets
                           : ""
                       }
-                      error={errors.numberOutlets && true}
+                      error={errors.numberOfOutlets && true}
                       helperText={
                         errors.numberOfOutlets && errors.numberOfOutlets.message
                       }

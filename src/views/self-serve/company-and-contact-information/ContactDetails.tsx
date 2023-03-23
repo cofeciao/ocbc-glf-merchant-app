@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
@@ -19,6 +19,9 @@ import {
   SELF_SERVE_PAGE,
 } from "@/utils/constants";
 import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
 const ContactDetails: React.FC<
@@ -51,6 +54,7 @@ const ContactDetails: React.FC<
                 }
                 labelId="salutation-select-filled-label"
                 id="salutation-select-filled"
+                IconComponent={ExpandMore}
                 {...register("salutation", {
                   required: true,
                 })}
@@ -98,12 +102,11 @@ const ContactDetails: React.FC<
                     defaultValue={
                       _.has(dataRedux, "email") ? dataRedux.email : ""
                     }
-                    id={uuidv4()}
                     label={email.label}
                     key={null}
                     variant="filled"
                     helperText={
-                      errors.email && `${ERROR_ICON} ${errors.email.message}`
+                      errors.email && errors.email.message
                     }
                     {...register("email", {
                       required: email.requiredText,
@@ -111,7 +114,7 @@ const ContactDetails: React.FC<
                         // eslint-disable-next-line no-useless-escape
                         value:
                           /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        message: email.helperText,
+                        message: `${ERROR_ICON} ${email.helperText}`,
                       },
                     })}
                   />
@@ -142,8 +145,6 @@ const ContactDetails: React.FC<
                 </Grid>
               )}
 
-              {_.has(errors.contactNumber, "type") &&
-                _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
@@ -158,18 +159,14 @@ const ContactDetails: React.FC<
                       type="number"
                       error={
                         _.has(errors, "contactNumber") &&
-                        !_.isEqual(errors.contactNumber.type, "required")
-                          ? true
-                          : false
+                        !_.isEqual(errors.contactNumber.type, "required") &&
+                        true
                       }
-                      name="numberformat"
                       className={cx("formatted-numberphone-input")}
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactNumber, "type") &&
-                        !_.isEqual(errors.contactNumber.type, "required")
-                          ? errors.contactNumber.message
-                          : ""
+                        errors.contactNumber.message
                       }
                       {...register("contactNumber", {
                         required: true,
@@ -195,12 +192,13 @@ const ContactDetails: React.FC<
                             {/* {Phone Number select field} */}
                             <Select
                               renderValue={(value) => value}
+                              error={errors.AreaCode && true}
+                              IconComponent={ExpandMore}
                               defaultValue={
                                 _.has(dataRedux, "areaCode")
                                   ? dataRedux.areaCode
                                   : LIST_COUNTRIES_CODE[0].value
                               }
-                              error={errors.AreaCode && true}
                               {...register("areaCode", {
                                 required: true,
                               })}

@@ -1,6 +1,6 @@
 // import modules
 import { Category, Button } from "@sectionsg/orc";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -12,25 +12,16 @@ import TransactionAndCardAcceptanceType from "./TransactionAndCardAcceptanceType
 import AgreePolicy from "./AgreePolicy";
 import ProductsAndServices from "./ProductsAndServices";
 import BusinessDetails from "./BusinessDetails";
+import RedirectButton from "../RedirectButton";
 import _ from "lodash";
 
 // import constants
-import {
-  CONTINUE_LATER,
-  LIST_ROUTER,
-  SELF_SERVE_PAGE,
-  SUBMIT,
-} from "@/utils/constants";
+import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
 
 // import types
-
-//import icon
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Link } from "react-router-dom";
-import RedirectButton from "../RedirectButton";
 
 // render UI
 const ReviewAndSubmit: React.FC<any> = () => {
@@ -49,10 +40,19 @@ const ReviewAndSubmit: React.FC<any> = () => {
   const history = useHistory();
 
   /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
+
+  /**
    * Retrieves data of Transaction And Card Acceptance Type step from Store
    */
   const cashlessPaymentsMethods = useSelector((state: any) =>
-    state.form.transactionAndCardAcceptanceTypeStep.filter(
+    state.form.cashlessPaymentMethod.filter(
       (item: any) => item.checked === true
     )
   );
@@ -148,6 +148,7 @@ const ReviewAndSubmit: React.FC<any> = () => {
         />
       </SectionWrapper>
 
+      {/* {Agree Policy} */}
       <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />
 
       {/* {Next Button}  */}

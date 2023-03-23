@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -56,7 +56,6 @@ const CompanyAndContactInformation: React.FC = () => {
     setValue,
     getValues,
     setError,
-    watch,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -73,10 +72,15 @@ const CompanyAndContactInformation: React.FC = () => {
       areaCode: LIST_COUNTRIES_CODE[0].value,
     },
   });
-  // Temporarily put here to debug on staging
-  const watchAll = watch();
-  console.log("watchAll", watchAll);
-  console.log("errors", errors);
+
+  /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>
@@ -90,6 +94,7 @@ const CompanyAndContactInformation: React.FC = () => {
         cx={cx}
         title={companyRegistration.title}
         description={companyRegistration.description}
+        className="company-registration-section"
       >
         <CompanyRegistration
           cx={cx}

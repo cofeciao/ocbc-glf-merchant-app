@@ -97,6 +97,24 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
+  LABEL_SGD: "SGD",
+  LIST_TOOLTIP_CONTENT: [
+    {
+      title: "Fulfilment period",
+      description:
+        "Fulfilment period refers to the length of time between customers making a payment and receiving a product or service.",
+    },
+    {
+      title: "Immediate fulfilment",
+      description:
+        "Customers receive the product or service upon payment e.g., food establishments, retail, etc.",
+    },
+    {
+      title: "Fulfilment over a period of time",
+      description:
+        "Customers receive a product or service spread out over a period of time after payment e.g., subscriptions, spa packages, etc.",
+    },
+  ],
   LIST_CHECKBOX_AGREE_POLICY: {
     description:
       "Before submitting your application, please ensure that you read and understand the following:",
@@ -188,6 +206,14 @@ export const SELF_SERVE_PAGE = {
   LABEL_E_COMMERCE: "e-Commerce",
   LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY:
     "Percentage of products/services not fulfilled immediately",
+
+  LABEL_TYPE_OF_PRODUCT_AND_SERVICE: "Type of product and/or service",
+  LABEL_ORDER_FULFILMENT: "Order fulfilment",
+  LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION:
+    "Average amount per credit card transaction",
+  LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST: "Annual credit card sales forecast",
+  LABEL_PRODUCT_DELIVERED_FROM: "Product delivered from",
+  LABEL_PRODUCT_DELIVERY: "Product delivery",
 
   CONTINUE_LATER_DIALOG: {
     LABEL_YOU_ARE_LEAVING_THIS_APPLICATION: "You are leaving this application",
@@ -592,7 +618,7 @@ export const SELF_SERVE_PAGE = {
               },
               textField: {
                 description: "Your website’s URL",
-                label: "e.g. www.xxx.com",
+                label: "Website URL",
                 helperText: "Please enter a valid URL",
               },
             },
@@ -682,6 +708,7 @@ export const SELF_SERVE_PAGE = {
             ],
           },
           listDropdown: {
+            label: "Duration",
             description: "Please indicate duration",
             list: [
               {
@@ -705,6 +732,8 @@ export const SELF_SERVE_PAGE = {
           textField: {
             description:
               "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
           },
         },
         salesForecast: {
@@ -746,6 +775,8 @@ export const SELF_SERVE_PAGE = {
           textField: {
             description:
               "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
           },
           listRadio: {
             description:
@@ -777,6 +808,7 @@ export const SELF_SERVE_PAGE = {
           listDropdown: {
             description: "Approximate delivery time to customers",
             placeholder: "Delivery time",
+            label: "Duration",
             list: [
               {
                 name: "Within a week",
@@ -814,10 +846,12 @@ export const SELF_SERVE_PAGE = {
             list: [
               {
                 text: "Delivered by my supplier",
-                checked: false,
+                option: "By supplier",
+                checked: true,
               },
               {
                 text: "Delivered by my business (after receipt from supplier)",
+                option: "By my business",
                 checked: false,
               },
             ],
@@ -863,7 +897,7 @@ export const SELF_SERVE_PAGE = {
 
 export const ERROR = "error";
 
-export const TITLE_PAGE = "OCBC Cashless Payments";
+export const TITLE_PAGE = "Cashless Payments Application";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 export const CONTINUE_LATER = "Continue later";
 

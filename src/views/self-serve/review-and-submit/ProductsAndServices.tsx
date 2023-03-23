@@ -1,5 +1,5 @@
 // import modules
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
@@ -11,7 +11,17 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 // render UI
 const ProductsAndServices: React.FC<any> = (props) => {
   const { data, optionSelected } = props;
-  const { LABEL_POINT_OF_SALES_TERMINAL, LABEL_ECOMMERCE } = SELF_SERVE_PAGE;
+  const {
+    LABEL_POINT_OF_SALES_TERMINAL,
+    LABEL_ECOMMERCE,
+    LABEL_TYPE_OF_PRODUCT_AND_SERVICE,
+    LABEL_ORDER_FULFILMENT,
+    LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION,
+    LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST,
+    LABEL_PRODUCT_DELIVERED_FROM,
+    LABEL_PRODUCT_DELIVERY,
+    LABEL_SGD,
+  } = SELF_SERVE_PAGE;
   const { eCommerce, pointOfSales } = data;
   const cx = classnames.bind(styles);
 
@@ -20,7 +30,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
       <Grid container>
         {/* {Section Title} */}
         {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
-          <Typography className={cx("section-title")}>
+          <Typography className={cx("sub-section-title")}>
             {LABEL_POINT_OF_SALES_TERMINAL}
           </Typography>
         )}
@@ -29,7 +39,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <Box className={cx("d-flex-column")}>
               <Box component="span" className={cx("text-item-input")}>
-                Type of product and/or service
+                {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
               </Box>
               <Box component="span" className={cx("text-item-value")}>
                 {pointOfSales.typeOfProductAndService}
@@ -42,7 +52,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <Box className={cx("d-flex-column")}>
               <Box component="span" className={cx("text-item-input")}>
-                Order fulfilment
+                {LABEL_ORDER_FULFILMENT}
               </Box>
               <Box component="span" className={cx("text-item-value")}>
                 {pointOfSales.orderFulfilment}
@@ -57,10 +67,10 @@ const ProductsAndServices: React.FC<any> = (props) => {
               <Grid item xs={12} md={6}>
                 <Box className={cx("d-flex-column")}>
                   <Box component="span" className={cx("text-item-input")}>
-                    Average amount per credit card transaction
+                    {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {pointOfSales.averageAmountPerCreditCardTransaction}
+                    {`${LABEL_SGD} ${pointOfSales.averageAmountPerCreditCardTransaction}`}
                   </Box>
                 </Box>
               </Grid>
@@ -69,10 +79,10 @@ const ProductsAndServices: React.FC<any> = (props) => {
               <Grid item xs={12} md={6}>
                 <Box className={cx("d-flex-column")}>
                   <Box component="span" className={cx("text-item-input")}>
-                    Annual credit card sales forecast
+                    {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {pointOfSales.annualCreditCardSalesForecast}
+                    {`${LABEL_SGD} ${pointOfSales.annualCreditCardSalesForecast}`}
                   </Box>
                 </Box>
               </Grid>
@@ -82,7 +92,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
 
         {/* {Section Title} */}
         {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
-          <Typography className={cx("section-title")}>
+          <Typography className={cx("sub-section-title")}>
             {LABEL_ECOMMERCE}
           </Typography>
         )}
@@ -91,7 +101,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <Box className={cx("d-flex-column")}>
               <Box component="span" className={cx("text-item-input")}>
-                Type of product and/or service
+                {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
               </Box>
               <Box component="span" className={cx("text-item-value")}>
                 {eCommerce.typeOfProductAndService}
@@ -104,7 +114,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <Box className={cx("d-flex-column")}>
               <Box component="span" className={cx("text-item-input")}>
-                Order fulfilment
+                {LABEL_ORDER_FULFILMENT}
               </Box>
               <Box component="span" className={cx("text-item-value")}>
                 {eCommerce.orderFulfilment}
@@ -117,12 +127,18 @@ const ProductsAndServices: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <Box className={cx("d-flex-column")}>
               <Box component="span" className={cx("text-item-input")}>
-                Product delivered from
+                {LABEL_PRODUCT_DELIVERED_FROM}
               </Box>
-              {_.map(eCommerce.productDeliveredFrom, (item) => {
-                return <Box component="span" className={cx("text-item-value")}>
-                  {item.name}
-                </Box>;
+              {_.map(eCommerce.productDeliveredFrom, (item, index) => {
+                return (
+                  <Box
+                    key={index}
+                    component="span"
+                    className={cx("text-item-value")}
+                  >
+                    {item.name}
+                  </Box>
+                );
               })}
             </Box>
           </Grid>
@@ -132,7 +148,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
           <Grid item xs={12}>
             <Box className={cx("d-flex-column")}>
               <Box component="span" className={cx("text-item-input")}>
-                Product delivery
+                {LABEL_PRODUCT_DELIVERY}
               </Box>
               <Box component="span" className={cx("text-item-value")}>
                 {eCommerce.productDelivery}
@@ -147,10 +163,10 @@ const ProductsAndServices: React.FC<any> = (props) => {
               <Grid item xs={12} md={6}>
                 <Box className={cx("d-flex-column")}>
                   <Box component="span" className={cx("text-item-input")}>
-                    Average amount per credit card transaction
+                    {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {eCommerce.averageAmountPerCreditCardTransaction}
+                    {`${LABEL_SGD} ${eCommerce.averageAmountPerCreditCardTransaction}`}
                   </Box>
                 </Box>
               </Grid>
@@ -160,10 +176,10 @@ const ProductsAndServices: React.FC<any> = (props) => {
               <Grid item xs={12} md={6}>
                 <Box className={cx("d-flex-column")}>
                   <Box component="span" className={cx("text-item-input")}>
-                    Annual credit card sales forecast
+                    {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {eCommerce.annualCreditCardSalesForecast}s
+                    {`${LABEL_SGD} ${eCommerce.annualCreditCardSalesForecast}`}
                   </Box>
                 </Box>
               </Grid>

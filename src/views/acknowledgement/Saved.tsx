@@ -2,7 +2,7 @@
 import React from "react";
 import classnames from "classnames/bind";
 import { Category } from "@sectionsg/orc";
-import { Box, Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
 
 // import images
@@ -33,32 +33,38 @@ const Saved: React.FC<any> = () => {
       {/* {Content} */}
       <Container className={cx("container pb-270")}>
         <Grid container spacing={2}>
+          {/* {Category} */}
           <Grid item xs={12} lg={3}>
-            {/* {Category} */}
             <Box className={cx("category-wrapper")}>
               <Category>{title}</Category>
             </Box>
           </Grid>
+
+          {/* {Acknowledgement} */}
           <Grid item xs={12} lg={4}>
             <Box className={cx("acknowledgement-wrapper")}>
               {/* {Image} */}
-              <img
-                src={AcknowledgementSuccess}
-                alt="successful-image"
-                className={cx("acknowledgement-image")}
-              />
-              {/* {Title} */}
-              <Box className={cx("acknowledgement-title mb-24")}>{title}</Box>
+              <Box className={cx("image-wrapper")}>
+                <img src={AcknowledgementSuccess} alt="successful-image" />
+              </Box>
 
-              {/* {Description} */}
-              <Box className={cx("acknowledgement-description")}>
-                {`${description.before}`}
-                &nbsp;
-                <Box component="span" id={cx("email")}>
-                  {dataCompanyAndContactInformationStep.email}
-                </Box>
-                &nbsp;
-                {`${description.after}`}
+              {/* {Content} */}
+              <Box className={cx("content-wrapper")}>
+                {/* {Title} */}
+                <Typography className={cx("title")}>
+                  {title}
+                </Typography>
+
+                {/* {Description} */}
+                <Typography component="div" className={cx("description")}>
+                  {description.before}
+                  &nbsp;
+                  <Typography component="span" id={cx("email")}>
+                    {dataCompanyAndContactInformationStep.email}
+                  </Typography>
+                  &nbsp;
+                  {description.after}
+                </Typography>
               </Box>
             </Box>
           </Grid>

@@ -39,6 +39,15 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
   /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
+
+  /**
    * Get data from list check box and save to store
    * @param data
    */

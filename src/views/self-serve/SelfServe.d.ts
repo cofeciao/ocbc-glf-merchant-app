@@ -5,6 +5,7 @@ declare namespace ISelfServe {
     cx?: any;
     edit?: string;
     children?: string | JSX.Element | JSX.Element[];
+    className?: string
   }
   export interface IDataStepper {
     id: string;

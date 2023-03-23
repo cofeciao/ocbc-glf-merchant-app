@@ -47,7 +47,7 @@ const BusinessDetails: React.FC<any> = (props) => {
     <Box>
       {/* {Section Title} */}
       {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
-        <Typography className={cx("section-title")}>
+        <Typography className={cx("sub-section-title")}>
           {LABEL_POINT_OF_SALES_TERMINAL}
         </Typography>
       )}
@@ -106,7 +106,7 @@ const BusinessDetails: React.FC<any> = (props) => {
 
         {/* {Section Title} */}
         {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
-          <Typography className={cx("section-title")}>
+          <Typography className={cx("sub-section-title")}>
             {LABEL_ECOMMERCE}
           </Typography>
         )}
