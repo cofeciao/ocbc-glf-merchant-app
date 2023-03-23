@@ -8,6 +8,7 @@ import LaunchConfirmtionPage from "./views/launch-confirmtion";
 import WelcomePage from "./views/welcome";
 import ContainerManual from "./views/rm";
 import AcknowledgementPage from "./views/acknowledgement";
+import RMAcknowledgementPage from "./views/rm-acknowledgement";
 
 export default [
   <Route exact path="/" component={HomePage} key="/" />,
@@ -23,6 +24,12 @@ export default [
   />,
   <Route exact path="/rm/:slug" component={ContainerManual} key="/rm/:slug" />,
   <Route exact path="/self/:slug" component={SelfServe} key="/self/:slug" />,
+  <Route
+    exact
+    path="/rm/acknowledgement/:slug"
+    component={RMAcknowledgementPage}
+    key="/rm/acknowledgement/:slug"
+  />,
   <Route
     exact
     path="/acknowledgement/:slug"

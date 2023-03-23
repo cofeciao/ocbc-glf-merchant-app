@@ -14,15 +14,6 @@
       & .error-text {
         color: red;
       }
-
-      & .MuiButtonBase-root {
-        .MuiIconButton-label {
-          color: #575d65;
-        }
-      }
-      .MuiIconButton-root:hover {
-        color: transparent !important;
-      }
   
       & .MuiFormControl-root {
         & .MuiInputBase-root,
@@ -61,11 +52,23 @@
       .header-wrapper {
         margin-bottom: 40px;
         & .section-title {
-          margin-bottom: 16px;
-          font-weight: 700;
-          font-size: $fzH2;
-          line-height: 32px;
-          color: #363b40;
+          display: flex;
+
+          & .title {
+            margin-bottom: 16px;
+            font-weight: 700;
+            font-size: $fzH2;
+            line-height: 32px;
+            color: #363b40;
+          }
+          & .edit {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #005EFD;
+            padding: 6px 0px 0px 16px;
+            text-decoration: none;
+          }
         }
   
         & .section-description {
@@ -79,7 +82,7 @@
   
       & .sub-section-description {
         font-weight: 400;
-        font-size: 14px;
+        font-size: 18px;
         line-height: 20px;
         color: #777e87;
         margin-bottom: 16px;
@@ -184,5 +187,19 @@
     font-size: 12px;
     line-height: 16px;
     color: #777E87;
+  }
+
+  // Styled group radio component
+  .group-radio {
+    & .MuiTypography-root {
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      color: #575D65;
+    }
+    & .MuiFormGroup-row {
+      margin-top: 10px;
+      gap: 40px;
+    }
   }
 }

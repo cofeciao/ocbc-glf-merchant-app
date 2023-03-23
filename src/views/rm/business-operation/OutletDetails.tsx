@@ -7,7 +7,8 @@ import { useHistory } from "react-router-dom";
 import { STEP_RM } from "@/utils/constants-rm";
 import { useFieldArray, useForm } from "react-hook-form";
 
-// import constants
+// import icons
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 // import style
 import styles from "./BusinessOperation.scss";
@@ -25,8 +26,8 @@ const OutletDetails: React.FC<any> = (props) => {
   
   const {
     LIST_STEP: {
-      business_operation: {
-        section: { outlet_details },
+      businessOperation: {
+        section: { outletDetails },
       },
     },
   } = STEP_RM;
@@ -36,67 +37,11 @@ const OutletDetails: React.FC<any> = (props) => {
   const [listRadioPreferType, setListRadioPreferType] = useState<any>([]);
   const [checkedRadioPreferType, setCheckedRadioPreferType] = useState<string>('')
   const [dataForm, setDataForm] = useState<any>({
-    inputFields: {
-      business_name: {
-        label: "Doing business name",
-        helperText: "",
-        requiredText: "",
-      },
-      block_number: {
-        label: "Block/House number",
-        helperText: "",
-        requiredText: "",
-      },
-      street_name: {
-        label: "Street name",
-        helperText: "",
-        requiredText: "",
-      },
-      unit_number: {
-        label: "Unit name",
-        helperText: "Please enter a valid unit number",
-        requiredText: "",
-      },
-      building_name: {
-        label: "Building name",
-        helperText: "Please enter a valid building name",
-        requiredText: "",
-      },
-      postal_code: {
-        label: "Postal code",
-        helperText: "Please enter a valid postal code",
-        requiredText: "",
-      },
-    },
-    listRadioOutlet: [
-      {
-        text: "Yes",
-        checked: false,
-      },
-      {
-        text: "No",
-        checked: false,
-      },
-    ],
-    inputFieldsIndicateBank: {
-      selects: {
-        label: "Select",
-        helperText: "",
-        requiredText: "",
-      },
-      branch_code: {
-        label: "Branch code",
-        helperText: "",
-        requiredText: "",
-      },
-      account_number: {
-        label: "Account number",
-        helperText: "",
-        requiredText: "",
-      },
-    }
-   });
-
+    inputFields: outletDetails.inputFields,
+    listRadioOutlet: outletDetails.listRadioOutlet,
+    inputFieldsIndicateBank: outletDetails.inputFieldsIndicateBank
+  });
+   const [fileImage, setFileImage] = useState<any>({});
 
   // form
   const {
@@ -129,10 +74,10 @@ const OutletDetails: React.FC<any> = (props) => {
   }, [listRadio])
   
   useEffect(() => {
-    if (outlet_details) {
-      setDataSectionOutletDetail(outlet_details) 
+    if (outletDetails) {
+      setDataSectionOutletDetail(outletDetails) 
     }
-  }, [outlet_details])
+  }, [outletDetails])
   
   return (
     <Box className={cx("outlet-details-wrapper")}>
@@ -140,7 +85,7 @@ const OutletDetails: React.FC<any> = (props) => {
         {/* {Is your business ready for operation?} */}
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
-            Do you have an existing website?
+            {outletDetails.labelListRadioMethodDoYouPrefer}
           </Typography>
 
             <RadioGroup 
@@ -169,7 +114,16 @@ const OutletDetails: React.FC<any> = (props) => {
               <FormControlLabel 
                 key={index} 
                 value={item.value} 
-                control={<Radio disableFocusRipple disableRipple disableTouchRipple />} 
+                control={
+                  <Radio 
+                    disableFocusRipple 
+                    disableRipple 
+                    disableTouchRipple 
+                    checkedIcon={
+                      <CheckCircleIcon />
+                    }
+                  />
+                } 
                 label={item.text} 
               />
             ))}
@@ -193,7 +147,11 @@ const OutletDetails: React.FC<any> = (props) => {
         )}
         {checkedRadioPreferType === 'upload_a_list' && (
           <Grid item xs={12}>
-            <UploadImage onChange={(file) => console.log(file)} />
+            <UploadImage
+              value={fileImage}
+              onRemove={() =>setFileImage({})}  
+              onChange={(file: any) => setFileImage(file)} 
+            />
           </Grid>
         )}
       </Grid>

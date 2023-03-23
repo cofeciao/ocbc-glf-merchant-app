@@ -3,13 +3,31 @@ import { createSlice } from "@reduxjs/toolkit";
 const Formslice = createSlice({
   name: "form",
   initialState: {
-    cashlessPaymentMethod: [],
+    // RM flows
     dataCompanyDetail: {},
-    companyAndContactInformationStep: {},
-    acraAndContactInformationStep: {
-      contact_detail: {},
-      authorised_person_details: {},
+    dataAcraDetail: {},
+    servicesAppliedStep: {
+      transactionAndCardAcceptanceTypeStep: [],
+      otherServices: {
+        instalmentPaymentPlan: {},
+        directCurrencyConversion: {},
+        mailOrder: {},
+      }
     },
+    acraAndContactInformationStep: {
+      contactDetail: {},
+      authorisedPersonDetails: {},
+    },
+    supplementaryDocumentStep: {
+      authorisedSignatoryNRIC: [],
+      tenacyDocumentOrSiteVisitPhotos: [],
+      copyOfBankStatement: [],
+      anyOtherSupportingDocuments: []
+    },
+
+    //---
+    cashlessPaymentMethod: [],
+    companyAndContactInformationStep: {},
     transactionAndCardAcceptanceTypeStep: [],
     businessDetailsStep: {},
     listWebsiteUrl: [],
@@ -18,7 +36,7 @@ const Formslice = createSlice({
       pointOfSales: {},
       eCommerce: {},
     },
-    dataAcraDetail: {}
+
   },
   reducers: {
     /**
@@ -29,11 +47,38 @@ const Formslice = createSlice({
     saveDataCashlessPaymentMethod: (state, action) => {
       state.cashlessPaymentMethod = action.payload;
     },
+
+     /**
+     * function save data of ACRA and contact information step
+     * @param state - State for form
+     * @param action  - Payload
+     */
     saveDataAcraDetail: (state, action) => {
       state.dataAcraDetail = action.payload;
     },
     saveDataCompanyDetail: (state, action) => {
       state.dataCompanyDetail = action.payload;
+    },
+    
+    /**
+     * function save data of ACRA and contact information step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataTransactionServicesApplied: (state, action) => {
+      state.servicesAppliedStep.transactionAndCardAcceptanceTypeStep = action.payload;
+    },
+    saveDataOtherServicesApplied: (state, action) => {
+      state.servicesAppliedStep.otherServices = action.payload;
+    },
+
+     /**
+     * function save data of Supplementary documents step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+     saveDataSupplementaryDocument: (state, action) => {
+      state.supplementaryDocumentStep = action.payload;
     },
    
     /**
@@ -101,6 +146,9 @@ const Formslice = createSlice({
 export const {
   saveDataCashlessPaymentMethod,
   saveDataCompanyDetail,
+  saveDataTransactionServicesApplied,
+  saveDataOtherServicesApplied,
+  saveDataSupplementaryDocument,
   saveDataCompanyAndContactInformationStep,
   saveDataAcraAndContactInformationStep,
   saveDataTransactionAndCardAcceptanceTypeStep,

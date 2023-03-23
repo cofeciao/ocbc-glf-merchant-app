@@ -1,13 +1,13 @@
 declare namespace IServicesApplied {
   export interface ITransactionCard {
     dataCheckbox: any[];
-    key: number;
-    getDataFromListCheckbox: (data: any) => void;
+    keyCheckbox: number;
+    getDataFromListCheckbox: (values: any) => void;
   }
 
   interface IRadio {
-    text: string;
-    checked: boolean;
+    label: string;
+    value: string;
   }
 
   interface IListCheckBox {
@@ -18,36 +18,39 @@ declare namespace IServicesApplied {
 
   export interface IRepaymentPeriodsOffered {
     title?: string;
+    labelSeeMore: string;
+    labelLess: string;
     listCheckBox: IListCheckBox[]
   }
   interface ISectionRadios {
-    instalment_payment_plan: {
+    instalmentPaymentPlan: {
       title: string;
       name: string;
-      checked: boolean;
+      checked?: boolean;
+      value?: string;
       listRadio: IRadio[];
-      repayment_periods_offered: IRepaymentPeriodsOffered;
+      repaymentPeriodsOffered: IRepaymentPeriodsOffered;
     };
-    direct_currency_conversion: {
+    directCurrencyConversion: {
       title: string;
       name: string;
-      checked: boolean;
+      checked?: boolean;
+      value?: string;
       listRadio: IRadio[];
     };
-    mail_order: {
+    mailOrder: {
       title: string;
       name: string;
-      checked: boolean;
+      checked?: boolean;
+      value?: string;
       listRadio: IRadio[];
     }
   }
 
   export interface IOtherServices {
     cx: any;
-    sectionRadios: ISectionRadios; 
-    setDataRadio: (value: any) => void;
-    setDataCheckboxRepayment: (value: any) => void;
-    dataCheckboxRepayment: any   
+    dataOtherServices: ISectionRadios; 
+    setDataOtherService: (value: any) => void;
   }
 
 }

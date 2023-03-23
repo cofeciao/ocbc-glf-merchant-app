@@ -14,10 +14,10 @@ import IconUploadImage from "@/assets/images/icon-upload-image.svg";
 import styles from "./rm.scss";
 
 // import types
-import { IRMFlow } from "./rm";
+import { IRmFlow } from "./rm";
 
 // render UI
-const UploadImage: React.FC<IRMFlow.IUploadImage> = (props) => {
+const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
   const { 
     onChange,
     onRemove,

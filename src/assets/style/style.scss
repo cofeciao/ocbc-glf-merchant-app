@@ -937,11 +937,16 @@ body {
   line-height: 24px !important;
 }
 
+.MuiRadio-colorSecondary.Mui-checked {
+  color: #3D525D !important;
+}
+.MuiIconButton-colorSecondary:hover {
+  background-color: transparent !important;
+}
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color: #3D525D !important;
+}
 .row-first {
   color:$tundora !important;
   font-weight: 700 !important;
-}
-
-.MuiIconButton-root:hover {
-  background-color: transparent !important;
 }

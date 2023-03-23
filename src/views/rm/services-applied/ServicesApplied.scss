@@ -7,9 +7,7 @@
     line-height: 20px;
     color: #777E87;
   }
-  & .header-wrapper{ 
-    margin-top: 56px;
-  }
+
   & .category-wrapper {
     div::before {
       background-color: #E30613
@@ -19,6 +17,9 @@
     }
   }
   & .checkbox-wrapper {
+    & .MuiCheckbox-root {
+      color: #3D525D !important;
+    }
     & .group-checkbox {
       margin-top: 40px;
   
@@ -44,10 +45,6 @@
           margin-right: 40px;
         }
   
-        input[type=checkbox] {
-         background-color: black !important;
-        }
-  
         & .MuiFormControlLabel-label {
           font-weight: 600;
           font-size: 16px;
@@ -63,7 +60,8 @@
         color: #005EFD;
         align-items: center;
         cursor: pointer;
-  
+        width: fit-content;
+
         svg {
           margin-left: 10px;
         }

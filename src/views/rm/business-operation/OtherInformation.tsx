@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
+import { Radio } from "@sectionsg/orc";
 
 // import constants
 
@@ -20,7 +21,7 @@ import styles from "./BusinessOperation.scss";
 
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
-  const { sections } = props;
+  const { sections, listRadio, labelDoesYourRetailStoreAccpetCardPayment } = props;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const [key, setKey] = useState<number>(0);
@@ -48,6 +49,9 @@ const OtherInformation: React.FC<any> = (props) => {
                         key={index}
                         control={
                           <Checkbox
+                            disableTouchRipple
+                            disableRipple
+                            disableFocusRipple
                             checked={checkbox.checked}
                             // onChange={handleChange}
                             name="checkedB"
@@ -64,6 +68,26 @@ const OtherInformation: React.FC<any> = (props) => {
           </Grid>
         );
       })}
+      <Grid container>
+        <Grid item xs={12}>
+          <Typography className={cx("sub-section-description")}>
+            {labelDoesYourRetailStoreAccpetCardPayment}
+          </Typography>
+
+          <Radio
+            name="lockIn"
+            listCheckBox={listRadio}
+            radioKey={0}
+            // value={dataWebsiteInformation.checkedYouHaveExistingWebsite ? "Yes" : "No"}
+            // getValue={(value: any) => {
+            //   setDataWebsiteInformation({
+            //     ...dataWebsiteInformation,
+            //     checkedYouHaveExistingWebsite: value === "Yes" ? true : false
+            //   })
+            // }}
+          />
+        </Grid>
+      </Grid>
     </Box>
   );
 };

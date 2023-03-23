@@ -2,95 +2,102 @@
 import { Category, Button } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
+import { Link } from "react-router-dom";
+import _ from "lodash";
 
 // import constants
-import { LIST_ROUTER, NEXT } from "@/utils/constants";
-import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW, NEXT, CONTINUE_LATER } from "@/utils/constants-rm";
 
 // import style
 import styles from "./ServicesApplied.scss";
 
 // import types
+import { IServicesApplied } from "./ServicesApplied";
 
 //import icon
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
+// import stores
+import { saveDataTransactionServicesApplied, saveDataOtherServicesApplied } from "@/store/form";
+
 // import components
 import TransactionCard from "./TransactionCard";
 import OtherServices from "./OtherServices";
-import { IServicesApplied } from "./ServicesApplied";
-import { Link } from "react-router-dom";
 
 // render UI
-const ServicesApplied: React.FC<any> = () => {
+const ServicesApplied: React.FC<any> = (props) => {
   const {
     LIST_STEP: {
-      services_applied: {
+      servicesApplied: {
         text,
-        section: { transaction_and_card_acceptance_type, other_services },
+        section: { transactionAndCardAcceptanceType, otherServices },
       },
     },
   } = STEP_RM;
+
+  // classnames
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
   
+  // hooks
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // States
   const [key, setKey] = useState<number>(0);
-  const history = useHistory();
   const [dataCheckbox, setDataCheckbox] = useState(
-    transaction_and_card_acceptance_type.data_list_checkbox
+    transactionAndCardAcceptanceType.dataListCheckbox
   );
-  
-  const [dataRadio, setDataRadio] = useState<IServicesApplied.ISectionRadios>({
-    instalment_payment_plan: other_services.sectionRadios.instalment_payment_plan,
-    direct_currency_conversion: other_services.sectionRadios.direct_currency_conversion,
-    mail_order: other_services.sectionRadios.mail_order,
+  const [dataOtherService, setDataOtherService] = useState<IServicesApplied.ISectionRadios>({
+    instalmentPaymentPlan: otherServices.sectionRadios.instalmentPaymentPlan,
+    directCurrencyConversion: otherServices.sectionRadios.directCurrencyConversion,
+    mailOrder: otherServices.sectionRadios.mailOrder,
   });
-  const [dataCheckboxRepayment, setDataCheckboxRepayment] = useState(
-    other_services.sectionRadios.instalment_payment_plan.repayment_periods_offered.listCheckBox
-  )
-  
+
   /**
-   * Get data from list check box
+   * Retrieves data of Transaction and card acceptance type from Store
+   */
+  const dataTransactionAndCardAcceptanceTypeStore = useSelector(
+    (state: any) =>
+      state.form.servicesAppliedStep.transactionAndCardAcceptanceTypeStep
+  );
+
+  /**
+   * Retrieves data of other service from Store
+   */
+  const dataOtherServicesStore = useSelector(
+    (state: any) =>
+      state.form.servicesAppliedStep.otherServices
+  );
+
+  /**
+   * Set data from Transaction and card acceptance type section
    * @param data
    */
-  const getDataFromListCheckbox = (data: any) => {
-    dispatch(saveDataTransactionAndCardAcceptanceTypeStep(data));
+  const getDataFromListCheckbox = (datas: any) => {
+    dispatch(saveDataTransactionServicesApplied(datas));
   };
 
   /**
-   * Retrieves data of dataListCheckbox from Store
+   * get data from Other services section
+   * @param data
    */
-  const dataListCheckbox = useSelector(
-    (state: any) =>
-      state.form.transactionAndCardAcceptanceTypeStep.dataListCheckbox
-  );
+  const getDataOtherServices = (datas: IServicesApplied.ISectionRadios) => {
+    dispatch(saveDataOtherServicesApplied(datas));
+  };
 
   /**
-   * Handle update state when dataListCheckbox updated from store
+   * render UI button
+   * @returns {HTML}
    */
-  useEffect(() => {
-    if (dataListCheckbox && !!dataListCheckbox.length) {
-      setDataCheckbox(dataListCheckbox);
-    }
-  }, [dataListCheckbox]);
-
-  /**
-   * Handle update state when dataRadio updated from store
-   */
-  useEffect(() => {
-    if (dataRadio && !!dataRadio.instalment_payment_plan.listRadio.length 
-      && !!dataRadio.direct_currency_conversion.listRadio.length 
-      && !!dataRadio.mail_order.listRadio.length) {
-      setDataRadio(dataRadio);
-    }
-  }, [dataRadio]);
+  const handleNext = () => {
+    history.push(URL_MANUAL_FLOW.businessOperation);
+    getDataOtherServices(dataOtherService)
+  }
 
   /**
    * render UI button
@@ -100,9 +107,7 @@ const ServicesApplied: React.FC<any> = () => {
     return (
       <Button
         backgroundClass="bgGunmetalBluegrey"
-        onClick={() => {
-          history.push(URL_MANUAL_FLOW.businessOperation);
-        }}
+        onClick={handleNext}
       >
         <>
           {NEXT} <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
@@ -110,10 +115,47 @@ const ServicesApplied: React.FC<any> = () => {
       </Button>
     );
   };
-
+  /**
+   * handle back button
+   */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.contactInformation);
+    if (typeof window !== 'undefined') {
+      const prePathName = localStorage.getItem("firstStepPath");
+      history.push(prePathName);
+    }
   }
+
+  /**
+   * Handle update state when dataListCheckbox updated from store
+   */
+    useEffect(() => {
+      if (dataTransactionAndCardAcceptanceTypeStore && !!dataTransactionAndCardAcceptanceTypeStore.length) {
+        setDataCheckbox(dataTransactionAndCardAcceptanceTypeStore);
+      }
+    }, [dataTransactionAndCardAcceptanceTypeStore]);
+  
+  /**
+   * Handle update state when dataRadio updated from store
+   */
+  useEffect(() => {
+    if (dataOtherServicesStore 
+      && Object.keys(dataOtherServicesStore.instalmentPaymentPlan).length > 0 
+      && Object.keys(dataOtherServicesStore.directCurrencyConversion).length > 0
+      && Object.keys(dataOtherServicesStore.mailOrder).length > 0
+    ) {
+      setDataOtherService({
+        instalmentPaymentPlan: dataOtherServicesStore.instalmentPaymentPlan,
+        directCurrencyConversion: dataOtherServicesStore.directCurrencyConversion,
+        mailOrder: dataOtherServicesStore.mailOrder
+      });
+    } else {
+      setDataOtherService({
+        instalmentPaymentPlan: otherServices.sectionRadios.instalmentPaymentPlan,
+        directCurrencyConversion: otherServices.sectionRadios.directCurrencyConversion,
+        mailOrder: otherServices.sectionRadios.mailOrder,
+      })
+    }
+  }, [dataOtherServicesStore, otherServices]);
 
   return (
     <Box
@@ -129,24 +171,22 @@ const ServicesApplied: React.FC<any> = () => {
       {/* {Section Transaction and card acceptaner type} */}
       <SectionWrapper
         cx={cx}
-        title={transaction_and_card_acceptance_type.title}
-        description={transaction_and_card_acceptance_type.description}
+        title={transactionAndCardAcceptanceType.title}
+        description={transactionAndCardAcceptanceType.description}
       >
         <TransactionCard 
+          keyCheckbox={key} 
           dataCheckbox={dataCheckbox}
-          key={key} 
-          getDataFromListCheckbox={getDataFromListCheckbox} 
+          getDataFromListCheckbox={getDataFromListCheckbox}
         />
       </SectionWrapper>
 
       {/* {Section Other Services} */}
-      <SectionWrapper cx={cx} title={other_services.title} >
+      <SectionWrapper cx={cx} title={otherServices.title} >
         <OtherServices 
           cx={cx} 
-          sectionRadios={dataRadio} 
-          setDataRadio={setDataRadio} 
-          dataCheckboxRepayment={dataCheckboxRepayment}
-          setDataCheckboxRepayment={setDataCheckboxRepayment}
+          dataOtherServices={dataOtherService} 
+          setDataOtherService={setDataOtherService} 
         />
       </SectionWrapper>
 
@@ -157,7 +197,7 @@ const ServicesApplied: React.FC<any> = () => {
         </Button>
         <div>
           <div className={cx('d-inline')}>
-            <Link to="/">Continue later</Link>
+            <Link to="/">{CONTINUE_LATER}</Link>
           </div>
           <div className="ml-dt-30 d-inline">
             {renderButton()}

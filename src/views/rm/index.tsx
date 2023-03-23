@@ -16,10 +16,14 @@ import classNames from 'classnames/bind';
 import { 
   BENEFICIAL_OWNERSHIP,
   BUSINESS_OPERATION,
+  COMPANY_CONTACT_INFORMATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
+  DECLARATION, 
+  FEE_AUTHORISATION, 
   FEE_RATES, 
   PRODUCTS_SERVICES, 
+  REVIEW_SUBMIT, 
   SENSITIVE_DATA, 
   SERVICES_APPLIED, 
   SUPPLEMENTARY_DOCUMENT, 
@@ -38,11 +42,14 @@ import FeesRates from './fees-rates';
 import Sensitive from './sensitive-data';
 import BeneficialOwnership from './beneficial-ownership';
 import SupplementaryDocuments from './supplementary-documents';
+import ReviewSubmit from './review-submit';
+import FeeAuthorisation from './fee-authorisation';
+import CompanyContactInformation from './company-contact-information';
 
 // render UI
 const ContainerManual = () => {
   // hooks
-  const { slug } = useParams();
+  const { slug } = useParams<{ slug: string }>();
   const history = useHistory();
   const childRef: any = useRef();
   const dispatch = useDispatch();
@@ -51,7 +58,6 @@ const ContainerManual = () => {
   const cx = classNames.bind(styles);
 
   // States
-  const [addressDetail, setAddressDetail] = useState<any>();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -116,13 +122,16 @@ const ContainerManual = () => {
             content={(
               <>
                 {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
-                {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} />}
+                {slug === COMPANY_CONTACT_INFORMATION && <CompanyContactInformation ref={childRef} handleCallAPI={() => {}} />}
+                {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} slug={slug} />}
                 {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
                 {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}
-                {slug === FEE_RATES && <FeesRates ref={childRef} />}
                 {slug === SENSITIVE_DATA && <Sensitive ref={childRef} />}
+                {slug === FEE_RATES && <FeesRates ref={childRef} />}
+                {slug === FEE_AUTHORISATION && <FeeAuthorisation ref={childRef} />}
                 {slug === BENEFICIAL_OWNERSHIP && <BeneficialOwnership ref={childRef} />}
                 {slug === SUPPLEMENTARY_DOCUMENT && <SupplementaryDocuments ref={childRef} />}
+                {slug === REVIEW_SUBMIT && <ReviewSubmit ref={childRef} />}
               </>
             )}
           />
