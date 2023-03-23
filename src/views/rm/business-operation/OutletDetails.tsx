@@ -1,14 +1,11 @@
 // import modules
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, FormControl, FormControlLabel, FormLabel, Grid, RadioGroup, Radio, Typography } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import { STEP_RM } from "@/utils/constants-rm";
 import { useFieldArray, useForm } from "react-hook-form";
-
-// import icons
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 // import style
 import styles from "./BusinessOperation.scss";
@@ -16,6 +13,7 @@ import styles from "./BusinessOperation.scss";
 // import Component
 import OutletForm from "./OutletForm";
 import UploadImage from "../UploadImage";
+import GroupRadio from "../GroupRadio";
 
 // render UI
 const OutletDetails: React.FC<any> = (props) => {
@@ -34,7 +32,6 @@ const OutletDetails: React.FC<any> = (props) => {
   
   // States
   const [dataSectionOutletDetail, setDataSectionOutletDetail] = useState<any>({});
-  const [listRadioPreferType, setListRadioPreferType] = useState<any>([]);
   const [checkedRadioPreferType, setCheckedRadioPreferType] = useState<string>('')
   const [dataForm, setDataForm] = useState<any>({
     inputFields: outletDetails.inputFields,
@@ -66,12 +63,6 @@ const OutletDetails: React.FC<any> = (props) => {
   const handleAddOutlet = () => {
     append(dataForm)
   };
-
-  useEffect(() => {
-   if (listRadio) {
-    setListRadioPreferType(listRadio);
-   }
-  }, [listRadio])
   
   useEffect(() => {
     if (outletDetails) {
@@ -82,52 +73,23 @@ const OutletDetails: React.FC<any> = (props) => {
   return (
     <Box className={cx("outlet-details-wrapper")}>
       <Grid container>
-        {/* {Is your business ready for operation?} */}
+        {/* {Which method do you prefer?} */}
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
             {outletDetails.labelListRadioMethodDoYouPrefer}
           </Typography>
 
-            <RadioGroup 
-              aria-label="prefer_type" 
-              name="prefer_type" 
-              value={checkedRadioPreferType} 
-              onChange={(e) => (
-                setCheckedRadioPreferType(e.target.value),
-                setListRadioPreferType([
-                  ...listRadioPreferType.map((el: any) => {
-                    if (el.value === e.target.value) {
-                      return {
-                        ...el,
-                        checked: true
-                      }
-                    }
-                    return {
-                      ...el, 
-                      checked: false
-                    };
-                  })
-                ])
-              )}
-            >
-            {listRadioPreferType.map((item: any, index: number) => (
-              <FormControlLabel 
-                key={index} 
-                value={item.value} 
-                control={
-                  <Radio 
-                    disableFocusRipple 
-                    disableRipple 
-                    disableTouchRipple 
-                    checkedIcon={
-                      <CheckCircleIcon />
-                    }
-                  />
-                } 
-                label={item.text} 
-              />
-            ))}
-          </RadioGroup>
+          <GroupRadio
+            cx={cx}
+            name="methodDoYouPrefer"
+            value={checkedRadioPreferType}
+            listRadio={listRadio}
+            isRow={false}
+            onChange={(event) => {
+              const { value } = event.target;
+              setCheckedRadioPreferType(value)
+            }}
+          />
         </Grid>
         {checkedRadioPreferType === 'fill_in_here' && (
           <OutletForm 

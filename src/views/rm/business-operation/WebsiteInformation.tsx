@@ -1,18 +1,17 @@
 // import modules
 import { Radio } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid, TextField, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 
 // import icons
-import IconTrash from "@/assets/images/icon-trash.svg";
 import IconPlus from "@/assets/images/icon-plus.svg";
 
 // import style
 import styles from "./BusinessOperation.scss";
 import { useFieldArray, useForm } from "react-hook-form";
 import { STEP_RM } from "@/utils/constants-rm";
+import GroupRadio from "../GroupRadio";
 
 // import types
 
@@ -32,7 +31,9 @@ const WebsiteInformation: React.FC<any> = (props) => {
   // States
   const [dataWebsiteInformation, setDataWebsiteInformation] = useState<any>({
     checkedYouHaveExistingWebsite: websiteInfomation.checkedYouHaveExistingWebsite,
-    checkedCanCustomersPlaceOrderThroughYourWebsite: websiteInfomation.checkedCanCustomersPlaceOrderThroughYourWebsite
+    checkedCanCustomersPlaceOrderThroughYourWebsite: websiteInfomation.checkedCanCustomersPlaceOrderThroughYourWebsite,
+    valueYouHaveExistingWebsite: "",
+    valueCanCustomersPlaceOrderThroughYourWebsite: "",
   })
 
   // form
@@ -63,21 +64,23 @@ const WebsiteInformation: React.FC<any> = (props) => {
             {websiteInfomation.labelDoYouHaveAnExistingWebsite}
           </Typography>
 
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio}
-            radioKey={0}
-            value={dataWebsiteInformation.checkedYouHaveExistingWebsite ? "Yes" : "No"}
-            getValue={(value: any) => {
+          <GroupRadio
+            cx={cx}
+            name="youHaveExistingWebsite"
+            value={dataWebsiteInformation.valueYouHaveExistingWebsite}
+            listRadio={listRadio}
+            onChange={(event) => {
+              const { value } = event.target;
               setDataWebsiteInformation({
                 ...dataWebsiteInformation,
-                checkedYouHaveExistingWebsite: value === "Yes" ? true : false
+                checkedYouHaveExistingWebsite: value === "yes" ? true : false,
+                valueYouHaveExistingWebsite: value
               })
             }}
           />
         </Grid>
 
-        {!dataWebsiteInformation.checkedYouHaveExistingWebsite && (
+        {dataWebsiteInformation.checkedYouHaveExistingWebsite && (
           <Grid item xs={12}>
             <Grid 
               container
@@ -141,16 +144,17 @@ const WebsiteInformation: React.FC<any> = (props) => {
           <Typography className={cx("sub-section-description")}>
             {websiteInfomation.labelCanCustomersPlaceOrderThroughYourWebsite}
           </Typography>
-
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio}
-            radioKey={0}
-            value={dataWebsiteInformation.checkedCanCustomersPlaceOrderThroughYourWebsite ? "Yes" : "No"}
-            getValue={(value: any) => {
+          <GroupRadio
+            cx={cx}
+            name="youHaveExistingWebsite"
+            value={dataWebsiteInformation.valueCanCustomersPlaceOrderThroughYourWebsite}
+            listRadio={listRadio}
+            onChange={(event) => {
+              const { value } = event.target;
               setDataWebsiteInformation({
                 ...dataWebsiteInformation,
-                checkedCanCustomersPlaceOrderThroughYourWebsite: value === "Yes" ? true : false
+                checkedCanCustomersPlaceOrderThroughYourWebsite: value === "yes" ? true : false,
+                valueCanCustomersPlaceOrderThroughYourWebsite: value
               })
             }}
           />
