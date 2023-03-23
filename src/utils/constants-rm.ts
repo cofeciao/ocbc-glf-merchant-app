@@ -1934,21 +1934,25 @@ export const STEP_RM = {
           checkedDoYouCurrentHaveAnOCBCBusinessAccount: false,
           listRadioIsYourBusinessReadyForOperation: [
             {
-              text: "Yes",
+              label: "Yes",
+              value: "yes",
               checked: false,
             },
             {
-              text: "No",
+              label: "No",
+              value: "no",
               checked: false,
             },
           ],
           listRadioYouCurrentlyHaveAnOCBC: [
             {
-              text: "Yes",
+              label: "Yes",
+              value: "yes",
               checked: false,
             },
             {
-              text: "No",
+              label: "No",
+              value: "no",
               checked: false,
             },
           ],
@@ -1966,11 +1970,13 @@ export const STEP_RM = {
           checkedCanCustomersPlaceOrderThroughYourWebsite: false,
           listRadio: [
             {
-              text: "Yes",
+              label: "Yes",
+              value: "yes",
               checked: false,
             },
             {
-              text: "No",
+              label: "No",
+              value: "no",
               checked: false,
             },
           ],
@@ -2018,11 +2024,13 @@ export const STEP_RM = {
           ],
           listRadio: [
             {
-              text: "Yes",
+              label: "Yes",
+              value: "yes",
               checked: false,
             },
             {
-              text: "No",
+              label: "No",
+              value: "no",
               checked: false,
             },
           ],
@@ -2040,12 +2048,12 @@ export const STEP_RM = {
           labelBankName: "Bank Name",
           listRadio: [
             {
-              text: "Fill in here",
+              label: "Fill in here",
               value: "fill_in_here",
               checked: false,
             },
             {
-              text: "Upload a list",
+              label: "Upload a list",
               value: "upload_a_list",
               checked: false,
             },
@@ -2094,11 +2102,13 @@ export const STEP_RM = {
           },
           listRadioOutlet: [
             {
-              text: "Yes",
+              label: "Yes",
+              value: "yes",
               checked: false,
             },
             {
-              text: "No",
+              label: "No",
+              value: "no",
               checked: false,
             },
           ],

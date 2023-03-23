@@ -11,6 +11,7 @@ import { useHistory } from "react-router-dom";
 // import style
 import styles from "./BusinessOperation.scss";
 import { STEP_RM } from "@/utils/constants-rm";
+import GroupRadio from "../GroupRadio";
 
 // import types
 
@@ -35,9 +36,10 @@ const BusinessInfomation: React.FC<any> = (props) => {
     checkedIsYourBusinessReadyForOperation: businessInformation.checkedIsYourBusinessReadyForOperation,
     checkedDoYouCurrentHaveAnOCBCBusinessAccount: businessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount,
     valueAtHowManyOutlet: 0,
-    valueOCBCBusinessAccountNumber: ""
+    valueOCBCBusinessAccountNumber: "",
+    valueIsYourBusinessReadyForOperation: "",
+    valueDoYouCurrentHaveAnOCBCBusinessAccount: ""
   });
-
 
   return (
     <Box
@@ -52,18 +54,20 @@ const BusinessInfomation: React.FC<any> = (props) => {
             {businessInformation.labelIsYouBusinessReadyForOperation}
           </Typography>
 
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadioIsYourBusinessReadyForOperation}
-            radioKey={0}
-            value={dataBusinessInformation.checkedIsYourBusinessReadyForOperation ? "Yes" : "No"}
-            getValue={(value: any) => {
-              setDataBusinessinformation({
-                ...dataBusinessInformation,
-                checkedIsYourBusinessReadyForOperation: value === "Yes" ? true : false
-              })
-            }}
-          />
+        <GroupRadio
+          cx={cx}
+          name="isYourBusinessReadyForOperation"
+          value={dataBusinessInformation.valueIsYourBusinessReadyForOperation}
+          listRadio={listRadioIsYourBusinessReadyForOperation}
+          onChange={(event) => {
+            const { value } = event.target;
+            setDataBusinessinformation({
+              ...dataBusinessInformation,
+              checkedIsYourBusinessReadyForOperation: value === "yes" ? true : false,
+              valueIsYourBusinessReadyForOperation: value
+            })
+          }}
+        />
         </Grid>
         {dataBusinessInformation.checkedIsYourBusinessReadyForOperation && (
           <Grid item xs={12}>
@@ -77,6 +81,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                 id={`uuidv4()`}
                 label="Number of outlets"
                 variant="filled"
+                type="number"
                 // onBlur={(event) => {
                 //   getPersonalInformation(
                 //     "RegisteredEntityName",
@@ -95,16 +100,17 @@ const BusinessInfomation: React.FC<any> = (props) => {
           <Typography className={cx("sub-section-description")}>
             {businessInformation.labelDoYouCurrentHaveAnOCBCBusinessAccount}
           </Typography>
-
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadioYouCurrentlyHaveAnOCBC}
-            radioKey={0}
-            value={dataBusinessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount ? "Yes" : "No"}
-            getValue={(value: any) => {
+          <GroupRadio
+            cx={cx}
+            name="doYouCurrentHaveAnOCBCBusinessAccount"
+            value={dataBusinessInformation.valueDoYouCurrentHaveAnOCBCBusinessAccount}
+            listRadio={listRadioYouCurrentlyHaveAnOCBC}
+            onChange={(event) => {
+              const { value } = event.target;
               setDataBusinessinformation({
                 ...dataBusinessInformation,
-                checkedDoYouCurrentHaveAnOCBCBusinessAccount: value === "Yes" ? true : false
+                checkedDoYouCurrentHaveAnOCBCBusinessAccount: value === "yes" ? true : false,
+                valueDoYouCurrentHaveAnOCBCBusinessAccount: value
               })
             }}
           />

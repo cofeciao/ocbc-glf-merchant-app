@@ -20,13 +20,14 @@ const GroupRadio:React.FC<IRmFlow.IGroupRadio> = (props) => {
     value, 
     onChange, 
     disabled,
-    listRadio 
+    listRadio,
+    isRow = true
   } = props;
 
   return (
     <FormControl component="fieldset" className={cx("group-radio")}>
       <FormLabel component="legend" className={cx("group-radio__label")}>{label}</FormLabel>
-      <RadioGroup name={name} value={value} onChange={onChange} row>
+      <RadioGroup name={name} value={value} onChange={onChange} row={isRow} >
         {Array.isArray(listRadio) && listRadio.map((item: IRmFlow.IRadio, index: number) => (
           <FormControlLabel 
             key={index}

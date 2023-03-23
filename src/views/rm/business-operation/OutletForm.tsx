@@ -18,6 +18,7 @@ import { STEP_RM } from "@/utils/constants-rm";
 
 // import icons
 import AddIcon from '@material-ui/icons/Add';
+import GroupRadio from "../GroupRadio";
 
 // render UI
 const OutletForm: React.FC<any> = (props) => {
@@ -64,6 +65,8 @@ const OutletForm: React.FC<any> = (props) => {
     const onSubmit = (values: any) => {
       console.log(values)
     }
+
+    console.log(dataSectionOutletDetail.checkedOutlet)
 
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -152,16 +155,17 @@ const OutletForm: React.FC<any> = (props) => {
             <Typography className={cx("sub-section-description")}>
               {outletDetails.labelListOutletBeUsingTheBank}
             </Typography>
-            <Radio
-              name={`radios[${index}].radios`}
-              listCheckBox={val.listRadioOutlet}
-              radioKey={0}
+            <GroupRadio
+              cx={cx}
+              name="bankAcccountIndicatedAbove"
               value={dataSectionOutletDetail.checkedOutlet}
-              getValue={(value: any) => {             
-                setDataSectionOutletDetail({
-                  ...dataSectionOutletDetail, 
-                  checkedOutlet: value === "Yes" ? true : false
-                })
+              listRadio={val.listRadioOutlet}
+              onChange={(event) => {
+                const { value } = event.target;
+                setDataSectionOutletDetail ({
+                  ...dataSectionOutletDetail,
+                  checkedOutlet: value
+                })  
               }}
             />
           </Grid>
