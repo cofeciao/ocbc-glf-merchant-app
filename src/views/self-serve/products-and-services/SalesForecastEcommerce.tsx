@@ -1,6 +1,5 @@
 // import modules
 import React, { ChangeEvent, useState } from "react";
-
 import {
   Box,
   Grid,
@@ -62,11 +61,7 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
                               <InputAdornment position="start">
                                 {textField.label}
                               </InputAdornment>
-                            ),
-                            inputProps: {
-                              inputMode: "numeric",
-                              pattern: "[0-9]*",
-                            },
+                            )
                           }
                         : {}
                     }

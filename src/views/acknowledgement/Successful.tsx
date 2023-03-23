@@ -2,7 +2,7 @@
 import React from "react";
 import classnames from "classnames/bind";
 import { Category } from "@sectionsg/orc";
-import { Box, Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
 
 // import images
@@ -37,18 +37,24 @@ const Successful: React.FC<any> = () => {
           {/* {Acknowledgement} */}
           <Grid item xs={12} lg={4}>
             <Box className={cx("acknowledgement-wrapper")}>
-              <img
-                src={AcknowledgementSuccess}
-                alt="successful-image"
-                className={cx("acknowledgement-image")}
-              />
-              <Box className={cx("acknowledgement-title mb-24")}>
-                {LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION}
+              {/* {Image} */}
+              <Box className={cx("image-wrapper")}>
+                <img src={AcknowledgementSuccess} alt="successful-image" />
               </Box>
-              <Box className={cx("acknowledgement-description")}>
-                {
-                  LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS
-                }
+
+              {/* {Content} */}
+              <Box className={cx("content-wrapper")}>
+                {/* {Title} */}
+                <Typography className={cx("title")}>
+                  {LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION}
+                </Typography>
+
+                {/* {Description} */}
+                <Typography className={cx("description")}>
+                  {
+                    LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS
+                  }
+                </Typography>
               </Box>
             </Box>
           </Grid>

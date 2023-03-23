@@ -11,13 +11,18 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import _ from "lodash";
+import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
 // import constant
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
-import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
-const CompanyRegistration: React.FC<ICompanyAndContactInformation.ICompanyRegistration> = (props) => {
+const CompanyRegistration: React.FC<
+  ICompanyAndContactInformation.ICompanyRegistration
+> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const { LIST_COMPANY_TYPE } = SELF_SERVE_PAGE;
   const { registeredEntityName, uniqueEntityNumber, companyType } =
@@ -100,6 +105,7 @@ const CompanyRegistration: React.FC<ICompanyAndContactInformation.ICompanyRegist
                 }
                 labelId="select-company-type-label"
                 id="select-company-type"
+                IconComponent={ExpandMore}
                 {...register("companyType", {
                   required: true,
                 })}

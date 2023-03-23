@@ -20,6 +20,9 @@ import {
 } from "@/utils/constants";
 import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
+
 // render UI
 const ContactDetails: React.FC<
   ICompanyAndContactInformation.IContactDetails
@@ -51,6 +54,7 @@ const ContactDetails: React.FC<
                 }
                 labelId="salutation-select-filled-label"
                 id="salutation-select-filled"
+                IconComponent={ExpandMore}
                 {...register("salutation", {
                   required: true,
                 })}
@@ -98,12 +102,11 @@ const ContactDetails: React.FC<
                     defaultValue={
                       _.has(dataRedux, "email") ? dataRedux.email : ""
                     }
-                    id={uuidv4()}
                     label={email.label}
                     key={null}
                     variant="filled"
                     helperText={
-                      errors.email && `${ERROR_ICON} ${errors.email.message}`
+                      errors.email && errors.email.message
                     }
                     {...register("email", {
                       required: email.requiredText,
@@ -111,7 +114,7 @@ const ContactDetails: React.FC<
                         // eslint-disable-next-line no-useless-escape
                         value:
                           /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        message: email.helperText,
+                        message: `${ERROR_ICON} ${email.helperText}`,
                       },
                     })}
                   />
@@ -173,8 +176,6 @@ const ContactDetails: React.FC<
                         },
                         onBlur: (event: ChangeEvent<HTMLInputElement>) => {
                           if (event.target.value === "") {
-                            // Temporarily put here to debug on staging
-                            console.log("event.target.value === empty", event.target.value)
                             setValue("contactNumber", "");
                             setError("contactNumber", {
                               type: "required",
@@ -191,12 +192,13 @@ const ContactDetails: React.FC<
                             {/* {Phone Number select field} */}
                             <Select
                               renderValue={(value) => value}
+                              error={errors.AreaCode && true}
+                              IconComponent={ExpandMore}
                               defaultValue={
                                 _.has(dataRedux, "areaCode")
                                   ? dataRedux.areaCode
                                   : LIST_COUNTRIES_CODE[0].value
                               }
-                              error={errors.AreaCode && true}
                               {...register("areaCode", {
                                 required: true,
                               })}

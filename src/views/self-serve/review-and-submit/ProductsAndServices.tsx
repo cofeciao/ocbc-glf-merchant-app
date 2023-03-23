@@ -20,6 +20,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
     LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST,
     LABEL_PRODUCT_DELIVERED_FROM,
     LABEL_PRODUCT_DELIVERY,
+    LABEL_SGD,
   } = SELF_SERVE_PAGE;
   const { eCommerce, pointOfSales } = data;
   const cx = classnames.bind(styles);
@@ -69,7 +70,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
                     {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {pointOfSales.averageAmountPerCreditCardTransaction}
+                    {`${LABEL_SGD} ${pointOfSales.averageAmountPerCreditCardTransaction}`}
                   </Box>
                 </Box>
               </Grid>
@@ -81,7 +82,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
                     {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {pointOfSales.annualCreditCardSalesForecast}
+                    {`${LABEL_SGD} ${pointOfSales.annualCreditCardSalesForecast}`}
                   </Box>
                 </Box>
               </Grid>
@@ -130,7 +131,11 @@ const ProductsAndServices: React.FC<any> = (props) => {
               </Box>
               {_.map(eCommerce.productDeliveredFrom, (item, index) => {
                 return (
-                  <Box key={index} component="span" className={cx("text-item-value")}>
+                  <Box
+                    key={index}
+                    component="span"
+                    className={cx("text-item-value")}
+                  >
                     {item.name}
                   </Box>
                 );
@@ -161,7 +166,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
                     {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {eCommerce.averageAmountPerCreditCardTransaction}
+                    {`${LABEL_SGD} ${eCommerce.averageAmountPerCreditCardTransaction}`}
                   </Box>
                 </Box>
               </Grid>
@@ -174,7 +179,7 @@ const ProductsAndServices: React.FC<any> = (props) => {
                     {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                   </Box>
                   <Box component="span" className={cx("text-item-value")}>
-                    {eCommerce.annualCreditCardSalesForecast}
+                    {`${LABEL_SGD} ${eCommerce.annualCreditCardSalesForecast}`}
                   </Box>
                 </Box>
               </Grid>
