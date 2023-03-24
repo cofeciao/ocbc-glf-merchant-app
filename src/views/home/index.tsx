@@ -1,12 +1,17 @@
 // import modules
-import { Box, Container, Grid } from "@material-ui/core";
+import { 
+  Box, 
+  Container, 
+  Grid, 
+  Button, 
+  DialogContent, 
+  Dialog
+ } from "@material-ui/core";
 import {
   Footer,
   Header,
   Loading,
-  Button,
   Category,
-  Dialog,
 } from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
@@ -17,8 +22,11 @@ import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
 import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
 import EntryDialog from "@/views/home/entry-dialog";
 
-//import icon
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+// import icons
+import CloseIcon from '@material-ui/icons/Close';
+
+// import images
+import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 
 // import constants
 import {
@@ -118,9 +126,17 @@ const Home: React.FC = () => {
   // Render UI
   return (
     <>
-      {/* {Continue later Dialog} */}
-      <Dialog isOpen={openDialog} onRequestClose={handleRollBackPage}>
-        <EntryDialog onCloseDialog={handleCloseDialog} />
+      <Dialog
+        open={openDialog}
+        onClose={handleRollBackPage}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}><CloseIcon onClick={handleRollBackPage} /></div>
+        <DialogContent>
+          <EntryDialog onCloseDialog={handleCloseDialog} />
+        </DialogContent>
       </Dialog>
 
       {/* {Loading} */}
@@ -174,17 +190,16 @@ const Home: React.FC = () => {
 
               {/* Next button */}
               <Box
-                className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
+                className={cx("button-wrapper","d-flex justify-end mt-dt-40")}
               >
-                <Button
-                  backgroundClass="bgGunmetalBluegrey"
-                  onClick={handleClickButton}
+                <Button 
+                  variant="contained" 
                   disabled={hasDataCheckbox}
-                  buttonType=""
+                  onClick={handleClickButton}
                 >
                   {START}
-                  <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
-                </Button>
+                  <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
+                </Button>   
               </Box>
             </Grid>
           </Grid>

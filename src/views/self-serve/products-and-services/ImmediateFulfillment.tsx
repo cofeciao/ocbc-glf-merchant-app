@@ -1,6 +1,6 @@
 // import modules
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Radio, Checkbox } from "@sectionsg/orc";
+import { Checkbox } from "@sectionsg/orc";
 import {
   Box,
   FormControl,
@@ -16,11 +16,13 @@ import _ from "lodash";
 
 // import constants
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
+import GroupRadio from "@/components/GroupRadio";
 
 // import types
 
 // render UI
 const ImmediateFulfillment: React.FC<any> = (props) => {
+  // props
   const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
   const {
     cx,
@@ -34,7 +36,10 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
   } = props;
   const { textField, listCheckboxSecondary, listDropdown, listRadioSecondary } =
     data;
+
+    // states
   const [inputValue, setInputValue] = useState("");
+  const [productDelivery,setProductDelivery] = useState<string>(listRadioSecondary.list[0].value);
 
   /**
    * Prevent user input non-number
@@ -220,17 +225,21 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
 
           {/* {Radio group} */}
           {!_.isEmpty(listRadioSecondary.list) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={listRadioSecondary.list}
-              vertical
-              getValue={(value: any) => {
+            <GroupRadio
+              cx={cx}
+              name="productDelivery"
+              value={productDelivery}
+              isRow={false}
+              listRadio={listRadioSecondary.list}
+              onChange={(event) => {
+                const { value } = event.target;
                 setValue(
                   "Ecom.productDelivery",
-                  value === listRadioSecondary.list[0].text
-                    ? listRadioSecondary.list[0].option
-                    : listRadioSecondary.list[1].option
+                  value === listRadioSecondary.list[0].value
+                    ? listRadioSecondary.list[0].value
+                    : listRadioSecondary.list[1].value
                 );
+                setProductDelivery(value);
               }}
             />
           )}

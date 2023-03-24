@@ -1,18 +1,21 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
 import React, { useState } from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import ImmediateFulfillment from "./ImmediateFulfillment";
 import _ from "lodash";
 import TooltipDialog from "./Tooltip-dialog";
+import GroupRadio from "@/components/GroupRadio";
 
 // import types
 
 // render UI
 const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
+  // props
   const { cx, data, register, unregister, errors, setValue, dataRedux } = props;
   const { listRadio } = data;
-  const [valueSelected, setValueSelected] = useState();
+  
+  //states
+  const [valueSelected, setValueSelected] = useState<string>(listRadio.list[0].value);
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
@@ -32,14 +35,16 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
 
         {/* {Radio Group} */}
         {!_.isEmpty(listRadio.list) && (
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio.list}
-            radioKey={0}
-            vertical
-            getValue={(value: any) => {
+          <GroupRadio
+            cx={cx}
+            name="orderFulfilment"
+            value={valueSelected}
+            isRow={false}
+            listRadio={listRadio.list}
+            onChange={(event) => {
+              const { value } = event.target;
               setValue("Ecom.orderFulfilment", value);
-              setValueSelected(value.toLowerCase().replace(/ /g, "-")); // get name string to value
+              setValueSelected(value)
             }}
           />
         )}

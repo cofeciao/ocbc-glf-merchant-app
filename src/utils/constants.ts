@@ -58,11 +58,13 @@ export const HOME_PAGE = {
     },
     LIST_RADIO_ENTRY_POINT: [
       {
-        text: "Start a new Cashless payment application",
+        label: "Start a new Cashless payment application",
+        value: "start_a_new_cashless_payment_application",
         checked: false,
       },
       {
-        text: "Continue from saved application",
+        label: "Continue from saved application",
+        value: "continue_from_saved_application",
         checked: false,
       },
     ],
@@ -224,7 +226,7 @@ export const SELF_SERVE_PAGE = {
     REVIEW_AND_SAVE: {
       title: "Continue with your application later",
       description:
-        "This will save and close your application. We will send the savedapplication to the details below.",
+        "This will save and close your application. We will send the saved application to the details below.",
     },
   },
 
@@ -234,11 +236,13 @@ export const SELF_SERVE_PAGE = {
         "How quickly does your business fulfil these products and/or services?",
       listRadio: [
         {
-          text: "Immediate fulfillment",
+          label: "Immediate fulfillment",
+          value: "immediate_fulfillment",
           checked: true,
         },
         {
-          text: "Fulfillment over a period of time",
+          label: "Fulfillment over a period of time",
+          value: "fulfillment-over-a-period-of-time",
           checked: false,
         },
       ],
@@ -286,12 +290,12 @@ export const SELF_SERVE_PAGE = {
   PERCENT_CHARACTERS: "%",
   LIST_RADIO_YES_NO: [
     {
-      text: "Yes",
+      label: "Yes",
       value: "yes",
       checked: true,
     },
     {
-      text: "No",
+      label: "No",
       value: "no",
       checked: false,
     },
@@ -698,11 +702,13 @@ export const SELF_SERVE_PAGE = {
               "How quickly does your business fulfil these products and/or services?",
             list: [
               {
-                text: "Immediate fulfillment",
+                label: "Immediate fulfillment",
+                value: "immediate_fulfillment",
                 checked: true,
               },
               {
-                text: "Fulfillment over a period of time",
+                label: "Fulfillment over a period of time",
+                value: "fulfillment-over-a-period-of-time",
                 checked: false,
               },
             ],
@@ -783,11 +789,13 @@ export const SELF_SERVE_PAGE = {
               "How quickly does your business fulfil these products and/or services?",
             list: [
               {
-                text: "Immediate fulfillment",
+                label: "Immediate fulfillment",
+                value: "immediate_fulfillment",
                 checked: true,
               },
               {
-                text: "Fulfillment over a period of time",
+                label: "Fulfillment over a period of time",
+                value: "fulfillment-over-a-period-of-time",
                 checked: false,
               },
             ],
@@ -845,13 +853,15 @@ export const SELF_SERVE_PAGE = {
             description: "How will your products be delivered?",
             list: [
               {
-                text: "Delivered by my supplier",
+                label: "Delivered by my supplier",
                 option: "By supplier",
+                value: "By supplier",
                 checked: true,
               },
               {
-                text: "Delivered by my business (after receipt from supplier)",
+                label: "Delivered by my business (after receipt from supplier)",
                 option: "By my business",
+                value: "By my business",
                 checked: false,
               },
             ],
@@ -1558,7 +1568,7 @@ export const DATA_TABS_REP_NON_REPRICING_MANUAL_SELECTED = [
 export const NEXT = "Next";
 export const REVIEW = "Review";
 export const SUBMIT = "Submit";
-export const START = "START";
+export const START = "Start";
 
 export const LIST_COUNTRIES = [
   {

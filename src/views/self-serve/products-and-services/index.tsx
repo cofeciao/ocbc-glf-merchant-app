@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -25,6 +25,7 @@ import styles from "./ProductsAndServices.scss";
 
 // render UI
 const ProductsAndServices: React.FC<any> = () => {
+  // props
   const {
     LABEL_E_COMMERCE,
     LABEL_POINT_OF_SALES_TERMINAL,
@@ -32,7 +33,11 @@ const ProductsAndServices: React.FC<any> = () => {
       productsAndService: { text, pointOfSalesForm, ecommerceForm },
     },
   } = SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
+  
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
 

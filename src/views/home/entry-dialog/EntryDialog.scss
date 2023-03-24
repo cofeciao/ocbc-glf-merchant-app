@@ -10,34 +10,48 @@
 }
 
 .header-dialog-wrapper {
-  border-bottom: 1px solid #e2e7ec;
-  padding-bottom: 56px;
   & .title {
+    margin-top: 12px;
+  }
+  & .title-start-over {
+    margin-top: 36px;
     font-weight: 700;
     font-size: 24px;
     line-height: 32px;
-    color: #363b40;
-    margin-bottom: 16px;
+    color: #363B40;
   }
-  & .description {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 28px;
-    color: #777e87;
+  & .radio-group-container {
+    margin-top: 32px;
   }
 }
 
+
 .entry-dialog-wrapper {
-  & .title {
-    margin-bottom: 40px !important;
-  }
   & .radio-group-entry-dialog {
     & .MuiFormGroup-root {
       gap: 16px;
+      margin-left: 11px;
+
+      & .active {
+        background-color: #567180;
+        & .MuiTypography-root {
+          color: $white;
+        }
+        & .MuiIconButton-label {
+          color: $white;
+        }
+      }
+
+      & .inactive {
+        background-color: $white;
+        color: #575D65;
+      }
       & label {
-        padding: 16px 18px;
+        padding: 8px 10px;
         box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.12);
         border-radius: 8px;
+        width: 100%;
+
         & .MuiTypography-root {
           font-weight: 600;
           font-size: 16px;
@@ -46,5 +60,8 @@
         }
       }
     }
+  }
+  & .group-button {
+    margin-bottom: 48px !important;
   }
 }

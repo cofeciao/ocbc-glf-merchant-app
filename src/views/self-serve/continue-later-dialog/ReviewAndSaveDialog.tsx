@@ -1,7 +1,6 @@
 // import modules
-import { Button } from "@sectionsg/orc";
 import React from "react";
-import { Box, Grid, Typography } from "@material-ui/core";
+import { Box, Grid, Typography, Button } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory, Link } from "react-router-dom";
 import _ from "lodash";
@@ -16,9 +15,8 @@ import styles from "./ContinueLaterDialog.scss";
 
 // render UI
 const ReviewAndSaveDialog: React.FC<any> = (props) => {
+  //props
   const { dataRedux, onCloseDialog } = props;
-  const { email, name, contactNumber } = dataRedux;
-  const cx = classnames.bind(styles);
   const {
     LABEL_CONTACT_NUMBER,
     LABEL_NAME,
@@ -29,6 +27,14 @@ const ReviewAndSaveDialog: React.FC<any> = (props) => {
       REVIEW_AND_SAVE: { title, description },
     },
   } = SELF_SERVE_PAGE;
+  
+  //data redux
+  const { email, name, contactNumber } = dataRedux;
+  
+  //classnames
+  const cx = classnames.bind(styles);
+  
+  //hooks
   const history = useHistory();
 
   return (
@@ -88,11 +94,11 @@ const ReviewAndSaveDialog: React.FC<any> = (props) => {
       </Box>
 
       {/* {Button Group} */}
-      <Box className={cx("group-button")}>
+      <Box className={cx("group-button", "mt-dt-40", "mb-dt-56")}>
         {/* {Submit Button} */}
         <Button
-          id={cx("yes-button")}
           variant="contained"
+          id={cx("yes-button")}
           onClick={() => {
             history.push(LIST_ROUTER.acknowledgement_saved);
           }}
@@ -104,9 +110,10 @@ const ReviewAndSaveDialog: React.FC<any> = (props) => {
         <Box className={cx("d-inline")}>
           <Link
             to="/"
+            id={cx("leave-button")}
             onClick={(e: any) => {
               e.preventDefault();
-              onCloseDialog(true);
+              onCloseDialog();
             }}
           >
             {LABEL_CANCEL}

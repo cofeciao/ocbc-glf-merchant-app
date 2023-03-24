@@ -24,9 +24,11 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import icons
 import IconPlus from "@/assets/images/icon-plus.svg";
+import GroupRadio from "@/components/GroupRadio";
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
+  // props
   const {
     listField,
     register,
@@ -43,17 +45,22 @@ const WebsiteInformation: React.FC<any> = (props) => {
     LABEL_WEBSITE,
     PLEASE_SELECT_LABEL,
   } = SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
-  const [existingWebsite, setExistingWebsite] = useState("Yes");
+  
+  // states
+  const [existingWebsite, setExistingWebsite] = useState("yes");
+  const [placeOrdersThroughYourWebiste, setPlaceOrderThroughWebsite] = useState("yes");
   const [listTextField, setListTextField] = useState([
     { ...listField.textField },
   ]);
 
   useEffect(() => {
-    if (existingWebsite === "Yes" || optionSelected === "point-of-sales") {
+    if (existingWebsite === "yes" || optionSelected === "point-of-sales") {
       unregister("websiteLiveDate");
     }
-    if (existingWebsite === "No") {
+    if (existingWebsite === "no") {
       unregister("placeOrderThroughWebsite");
     }
   }, [existingWebsite]);
@@ -92,11 +99,13 @@ const WebsiteInformation: React.FC<any> = (props) => {
           )}
 
           {!_.isEmpty(LIST_RADIO_YES_NO) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={LIST_RADIO_YES_NO}
-              radioKey={0}
-              getValue={(value: any) => {
+            <GroupRadio
+              cx={cx}
+              name="existingWebsite"
+              value={existingWebsite}
+              listRadio={LIST_RADIO_YES_NO}
+              onChange={(event) => {
+                const { value } = event.target;
                 setValue("existingWebsite", value);
                 setExistingWebsite(value);
               }}
@@ -106,7 +115,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
 
         {/* {Please indicate the live date of your website} */}
         {!_.isEqual(optionSelected, "point-of-sales") &&
-          _.isEqual(existingWebsite, "No") && (
+          _.isEqual(existingWebsite, "no") && (
             <Grid item xs={12}>
               {/* {Description} */}
               {_.has(listField.dropdownField, "description") && (
@@ -155,7 +164,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
           )}
 
         {/* {Your website’s URL?} */}
-        {_.isEqual(existingWebsite, "Yes") && (
+        {_.isEqual(existingWebsite, "yes") && (
           <Grid item xs={12} className={cx("website-url-group-wrapper")}>
             {_.map(listTextField, (item, index) => {
               return (
@@ -253,7 +262,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
         )}
 
         {/* {Can customers place orders through your website?} */}
-        {!_.isEqual(existingWebsite, "No") && (
+        {!_.isEqual(existingWebsite, "no") && (
           <Grid item xs={12}>
             {!_.isEmpty(
               listField.listRadioPlaceOrderThroughWebsite.description
@@ -264,13 +273,16 @@ const WebsiteInformation: React.FC<any> = (props) => {
             )}
 
             {!_.isEmpty(LIST_RADIO_YES_NO) && (
-              <Radio
-                name="lockIn"
-                listCheckBox={LIST_RADIO_YES_NO}
-                radioKey={0}
-                getValue={(value: any) =>
-                  setValue("placeOrderThroughWebsite", value)
-                }
+              <GroupRadio
+                cx={cx}
+                name="businessAccount"
+                value={placeOrdersThroughYourWebiste}
+                listRadio={LIST_RADIO_YES_NO}
+                onChange={(event) => {
+                  const { value } = event.target;
+                  setValue("placeOrderThroughWebsite", value);
+                  setPlaceOrderThroughWebsite(value);
+                }}
               />
             )}
           </Grid>

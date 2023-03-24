@@ -1,6 +1,6 @@
 // import modules
 import React, { useState } from "react";
-import { Checkbox, Radio } from "@sectionsg/orc";
+import { Checkbox } from "@sectionsg/orc";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
@@ -9,11 +9,13 @@ import _ from "lodash";
 // import style
 import styles from "./BusinessDetails.scss";
 import { unregister } from "@/serviceWorker";
+import GroupRadio from "@/components/GroupRadio";
 
 // import types
 
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
+  // props
   const { sections, setValue, register, unregister } = props;
   const {
     listCheckboxBusinessOfferings,
@@ -21,10 +23,14 @@ const OtherInformation: React.FC<any> = (props) => {
     listRadio,
   } = sections;
   const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
+
+  // states
   const [openRadioRetailStore, setOpenRadioRetailStore] =
     useState<boolean>(false);
-
+  const [retailStoreAcceptCardPayments, setRetailStoreAcceptCardPayments] = useState<string>("yes");
   /**
    * handle data from Available Spaces list checkbox
    * @param value
@@ -108,13 +114,15 @@ const OtherInformation: React.FC<any> = (props) => {
 
             {/* {List Radio} */}
             {!_.isEmpty(LIST_RADIO_YES_NO) && (
-              <Radio
-                name="lockIn"
-                listCheckBox={LIST_RADIO_YES_NO}
-                radioKey={0}
-                getValue={(value: any) => {
-                  // setValue("businessReadyToOperate", value);
-                  // setBusinessReadyToOperate(value);
+              <GroupRadio
+                cx={cx}
+                name="retailStoreAcceptCardPayments"
+                value={retailStoreAcceptCardPayments}
+                listRadio={LIST_RADIO_YES_NO}
+                onChange={(event) => {
+                  const { value } = event.target;
+                  setValue("retailStoreAcceptCardPayments", value);
+                  setRetailStoreAcceptCardPayments(value);
                 }}
               />
             )}
