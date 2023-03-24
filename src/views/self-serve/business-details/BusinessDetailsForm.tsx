@@ -18,6 +18,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
     errors,
     setValue,
     dataRedux,
+    listWebsiteRedux,
   } = props;
   const { businessInfomation, otherInfomation, websiteInfomation } = data;
 
@@ -31,6 +32,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
             ? businessInfomation.title
             : businessInfomation.subTitle
         }
+        className="business-infomation-section-wrapper"
       >
         {/* {Sub-title} */}
         {_.has(businessInfomation, "subTitle") &&
@@ -61,6 +63,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
               ? websiteInfomation.title
               : websiteInfomation.subTitle
           }
+          className="website-infomation-section-wrapper"
         >
           {/* {Sub-title} */}
           {_.has(websiteInfomation, "subTitle") &&
@@ -79,6 +82,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
             errors={errors}
             unregister={unregister}
             dataRedux={dataRedux}
+            listWebsiteRedux={listWebsiteRedux}
           />
         </SectionWrapper>
       )}
