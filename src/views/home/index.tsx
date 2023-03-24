@@ -172,9 +172,12 @@ const Home: React.FC = () => {
                 getValueCheckbox={handleGetValueCheckbox}
               />
 
+              {/* {Seperator} */}
+              <Box className="section-seperator" />
+
               {/* Next button */}
               <Box
-                className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
+                className={cx("button-wrapper", "d-flex justify-end mt-dt-56")}
               >
                 <Button
                   backgroundClass="bgGunmetalBluegrey"
