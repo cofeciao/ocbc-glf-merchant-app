@@ -1,10 +1,11 @@
 // import modules
 import { Radio } from "@sectionsg/orc";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 import _ from "lodash";
 import TooltipDialog from "./Tooltip-dialog";
+import { updateDataListRadio } from "@/utils/utils";
 
 // import types
 
@@ -13,6 +14,24 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
   const { cx, data, register, unregister, errors, setValue, dataRedux } = props;
   const { listRadio } = data;
   const [valueSelected, setValueSelected] = useState();
+  const [listOrderFulfilment, setListOrderFulfilment] = useState(
+    listRadio.list
+  );
+
+  /**
+   * Check data from redux and dump data into fields
+   */
+  useEffect(() => {
+    if (
+      _.has(dataRedux, "orderFulfilment") &&
+      !_.isEmpty(dataRedux.orderFulfilment)
+    ) {
+      setListOrderFulfilment(
+        updateDataListRadio(dataRedux.orderFulfilment, listOrderFulfilment)
+      );
+      setValueSelected(listOrderFulfilment[1].text);
+    }
+  }, [dataRedux]);
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
@@ -21,8 +40,9 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
         {/* {Description} */}
         {_.has(listRadio, "description") && (
           <Typography
+            component="div"
             className={cx(
-              "fulfilment-information-description input-field-description d-flex"
+              "fulfilment-information-description sub-section-description d-flex mb-16"
             )}
           >
             {listRadio.description}
@@ -31,22 +51,22 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
         )}
 
         {/* {Radio Group} */}
-        {!_.isEmpty(listRadio.list) && (
+        {!_.isEmpty(listOrderFulfilment) && (
           <Radio
             name="lockIn"
-            listCheckBox={listRadio.list}
+            listCheckBox={listOrderFulfilment}
             radioKey={0}
             vertical
             getValue={(value: any) => {
               setValue("POS.orderFulfilment", value);
-              setValueSelected(value.toLowerCase().replace(/ /g, "-")); // get name string to value
+              setValueSelected(value);
             }}
           />
         )}
       </Grid>
 
       {/* {Fulfillment Over A Period Of Time option} */}
-      {_.isEqual(valueSelected, "fulfillment-over-a-period-of-time") && (
+      {_.isEqual(valueSelected, listOrderFulfilment[1].text) && (
         <FulfillmentOverAPeriodOfTime
           cx={cx}
           data={data}

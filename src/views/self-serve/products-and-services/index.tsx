@@ -58,6 +58,7 @@ const ProductsAndServices: React.FC<any> = () => {
     formState: { errors, isValid, isDirty },
     getValues,
     setValue,
+    watch
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -145,7 +146,7 @@ const ProductsAndServices: React.FC<any> = () => {
 
       {/* {Next Button}  */}
       <RedirectButton
-        disabledNextButton={!isValid || !isDirty}
+        disabledNextButton={!isValid}
         continueLater
         backButton
         variant="next"

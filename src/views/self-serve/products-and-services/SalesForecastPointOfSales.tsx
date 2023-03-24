@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -15,10 +15,35 @@ import { ERROR_ICON } from "@/utils/constants";
 // render UI
 const SalesForecast: React.FC<any> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
-  const [isSelected1, setIsSelected1] = useState<boolean>(false);
-  const [isSelected2, setIsSelected2] = useState<boolean>(false);
-  const [value1, setValue1] = useState<string>("");
-  const [value2, setValue2] = useState<string>("");
+  const [openAdornmentFirst, setOpenAdornmentFirst] = useState<boolean>(false);
+  const [openAdornmentSecond, setOpenAdornmentSecond] = useState<boolean>(false);
+  const [
+    valueaverageAmountPerCreditCardTransaction,
+    setValueaverageAmountPerCreditCardTransaction,
+  ] = useState<string>("");
+  const [
+    valueAnnualCreditCardSalesForecast,
+    setValueAnnualCreditCardSalesForecast,
+  ] = useState<string>("");
+
+  /**
+   * Check data from redux and dump data into input fields
+   */
+  useEffect(() => {
+    if (_.has(dataRedux, "averageAmountPerCreditCardTransaction")) {
+      setValueaverageAmountPerCreditCardTransaction(
+        dataRedux.averageAmountPerCreditCardTransaction
+      );
+      setOpenAdornmentFirst(true)
+    }
+
+    if (_.has(dataRedux, "annualCreditCardSalesForecast")) {
+      setValueAnnualCreditCardSalesForecast(
+        dataRedux.annualCreditCardSalesForecast
+      );
+      setOpenAdornmentSecond(true)
+    }
+  }, [dataRedux]);
 
   /**
    * Handle numeric value from inputs
@@ -31,17 +56,22 @@ const SalesForecast: React.FC<any> = (props) => {
     // Change value to thousand seperator, eg: 1000000 => 1,000,000
     const sanitizedText = event.target.value.replace(/[^0-9]/g, "");
     const formattedText = sanitizedText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    index === 0 ? setValue1(formattedText) : setValue2(formattedText);
+    index === 0
+      ? setValueaverageAmountPerCreditCardTransaction(formattedText)
+      : setValueAnnualCreditCardSalesForecast(formattedText);
   };
 
   // render UI
   return (
     <Box className={cx("sales-forecast-wrapper")}>
+      {/* {Description} */}
       {_.has(data, "description") && (
         <Typography className={cx("section-description")}>
           {data.description}
         </Typography>
       )}
+
+      {/* {TextField} */}
       <Grid item xs={12}>
         <Box className={cx("text-field-group")}>
           {_.map(data.listTextField, (textField, index: number) => {
@@ -50,12 +80,16 @@ const SalesForecast: React.FC<any> = (props) => {
                 <Grid item xs={12} md={6} lg={5}>
                   <TextField
                     fullWidth
-                    value={index === 0 ? value1 : value2}
+                    value={
+                      index === 0
+                        ? valueaverageAmountPerCreditCardTransaction
+                        : valueAnnualCreditCardSalesForecast
+                    }
                     variant="filled"
                     label={textField.description}
                     InputProps={
-                      (isSelected1 && index === 0) ||
-                      (isSelected2 && index === 1)
+                      (openAdornmentFirst && index === 0) ||
+                      (openAdornmentSecond && index === 1)
                         ? {
                             startAdornment: (
                               <InputAdornment position="start">
@@ -66,7 +100,7 @@ const SalesForecast: React.FC<any> = (props) => {
                         : {}
                     }
                     onFocus={() => {
-                      index === 0 ? setIsSelected1(true) : setIsSelected2(true);
+                      index === 0 ? setOpenAdornmentFirst(true) : setOpenAdornmentSecond(true);
                     }}
                     error={
                       _.has(errors, "POS") &&
@@ -99,8 +133,8 @@ const SalesForecast: React.FC<any> = (props) => {
                       onBlur: (e: any) => {
                         e.target.value === ""
                           ? index === 0
-                            ? setIsSelected1(false)
-                            : setIsSelected2(false)
+                            ? setOpenAdornmentFirst(false)
+                            : setOpenAdornmentSecond(false)
                           : null;
                       },
                     })}

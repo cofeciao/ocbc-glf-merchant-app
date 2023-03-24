@@ -17,7 +17,7 @@ const BusinessOfferingEcommerce: React.FC<any> = (props) => {
 
   return (
     <Box className={cx("business-offering-wrapper")}>
-      {!_.isNil(textField) && (
+      {!_.isEmpty(textField) && (
         <Box className={cx("main-input-field")}>
           <TextField
             fullWidth

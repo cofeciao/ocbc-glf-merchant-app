@@ -14,16 +14,19 @@ import {
   Typography,
 } from "@material-ui/core";
 import classnames from "classnames/bind";
-import _ from "lodash";
+import _, { forEach } from "lodash";
+import { updateDataListRadio } from "@/utils/utils";
 
 // import style
 import styles from "./BusinessDetails.scss";
-import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
-// import types
+// import constants
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import icons
 import IconPlus from "@/assets/images/icon-plus.svg";
+
+// import types
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
@@ -35,20 +38,71 @@ const WebsiteInformation: React.FC<any> = (props) => {
     errors,
     dataRedux,
     optionSelected,
+    listWebsiteRedux,
   } = props;
   const {
     LIST_RADIO_YES_NO,
     LABEL_ADD_MORE_WEBSITES,
     LABEL_REMOVE,
     LABEL_WEBSITE,
-    PLEASE_SELECT_LABEL,
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const [existingWebsite, setExistingWebsite] = useState("Yes");
   const [listTextField, setListTextField] = useState([
     { ...listField.textField },
   ]);
+  const [listRadioExistingWebsite, setListRadioExistingWebsite] =
+    useState(LIST_RADIO_YES_NO);
+  const [
+    listRadioPlaceOrderThroughWebsite,
+    setListRadioPlaceOrderThroughWebsite,
+  ] = useState(LIST_RADIO_YES_NO);
 
+  /**
+   * Handle fill website url from Redux
+   */
+  useEffect(() => {
+    listWebsiteRedux
+      .filter((item: string) => item !== undefined)
+      .map((_item: string, index: number) => {
+        if (index !== 0) {
+          handleAddWebsite();
+        }
+      });
+  }, [listWebsiteRedux]);
+
+  /**
+   * Check data from redux and dump data into fields
+   */
+  useEffect(() => {
+    if (
+      _.has(dataRedux, "businessReadyToOperate") &&
+      !_.isEmpty(dataRedux.businessReadyToOperate)
+    ) {
+      setListRadioExistingWebsite(
+        updateDataListRadio(
+          dataRedux.businessReadyToOperate,
+          listRadioExistingWebsite
+        )
+      );
+    }
+
+    if (
+      _.has(dataRedux, "businessAccount") &&
+      !_.isEmpty(dataRedux.businessAccount)
+    ) {
+      setListRadioPlaceOrderThroughWebsite(
+        updateDataListRadio(
+          dataRedux.businessAccount,
+          listRadioPlaceOrderThroughWebsite
+        )
+      );
+    }
+  }, [dataRedux]);
+
+  /**
+   * Handle unregister when user clicks on Radio
+   */
   useEffect(() => {
     if (existingWebsite === "Yes" || optionSelected === "point-of-sales") {
       unregister("websiteLiveDate");
@@ -62,9 +116,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
    * After clicking "add more websites" button under the text field, the text field will have 1 more field per click
    */
   const handleAddWebsite = () => {
-    if (listTextField.length < 3) {
-      setListTextField([...listTextField, { ...listField.textField }]);
-    }
+    setListTextField([...listTextField, { ...listField.textField }]);
   };
 
   /**
@@ -85,16 +137,18 @@ const WebsiteInformation: React.FC<any> = (props) => {
       <Grid container>
         {/* {Do you have an existing website?} */}
         <Grid item xs={12}>
+          {/* {Description} */}
           {!_.isEmpty(listField.listRadioExistingWebsite.description) && (
             <Typography className={cx("sub-section-description")}>
               {listField.listRadioExistingWebsite.description}
             </Typography>
           )}
 
-          {!_.isEmpty(LIST_RADIO_YES_NO) && (
+          {/* {Radio} */}
+          {!_.isEmpty(listRadioExistingWebsite) && (
             <Radio
               name="lockIn"
-              listCheckBox={LIST_RADIO_YES_NO}
+              listCheckBox={listRadioExistingWebsite}
               radioKey={0}
               getValue={(value: any) => {
                 setValue("existingWebsite", value);
@@ -192,11 +246,12 @@ const WebsiteInformation: React.FC<any> = (props) => {
                       <Box key={item.label} className={cx("text-field-item")}>
                         <TextField
                           fullWidth
-                          placeholder={listTextField[0].label}
+                          label={listTextField[0].label}
                           variant="filled"
+                          key={index}
                           defaultValue={
                             _.has(dataRedux, `yourWebsiteURL${index}`)
-                              ? `${dataRedux.numberOfOutlets}${index}`
+                              ? dataRedux[`yourWebsiteURL${index}`]
                               : ""
                           }
                           error={
@@ -255,6 +310,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
         {/* {Can customers place orders through your website?} */}
         {!_.isEqual(existingWebsite, "No") && (
           <Grid item xs={12}>
+            {/* {Description} */}
             {!_.isEmpty(
               listField.listRadioPlaceOrderThroughWebsite.description
             ) && (
@@ -263,10 +319,11 @@ const WebsiteInformation: React.FC<any> = (props) => {
               </Typography>
             )}
 
-            {!_.isEmpty(LIST_RADIO_YES_NO) && (
+            {/* {Radio} */}
+            {!_.isEmpty(listRadioPlaceOrderThroughWebsite) && (
               <Radio
                 name="lockIn"
-                listCheckBox={LIST_RADIO_YES_NO}
+                listCheckBox={listRadioPlaceOrderThroughWebsite}
                 radioKey={0}
                 getValue={(value: any) =>
                   setValue("placeOrderThroughWebsite", value)

@@ -13,10 +13,13 @@ import {
 } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
+import { updateDataListRadio } from "@/utils/utils";
+
+// import constants
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./BusinessDetails.scss";
-import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 
@@ -31,9 +34,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
     dataRedux,
     optionSelected,
   } = props;
-  const {
-    LIST_RADIO_YES_NO,
-  } = SELF_SERVE_PAGE;
+  const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const defaultValueListRadio = LIST_RADIO_YES_NO.filter(
     (item) => item.checked === true
@@ -41,6 +42,36 @@ const BusinessInfomation: React.FC<any> = (props) => {
   const [businessReadyToOperate, setBusinessReadyToOperate] = useState<string>(
     defaultValueListRadio[0].text
   );
+  const [listRadiobusinessReadyToOperate, setListRadiobusinessReadyToOperate] =
+    useState(LIST_RADIO_YES_NO);
+  const [listRadioBusinessAccount, setListRadioBusinessAccount] =
+    useState(LIST_RADIO_YES_NO);
+
+  /**
+   * Check data from redux and dump data into fields
+   */
+  useEffect(() => {
+    if (
+      _.has(dataRedux, "businessReadyToOperate") &&
+      !_.isEmpty(dataRedux.businessReadyToOperate)
+    ) {
+      setListRadiobusinessReadyToOperate(
+        updateDataListRadio(
+          dataRedux.businessReadyToOperate,
+          listRadiobusinessReadyToOperate
+        )
+      );
+    }
+
+    if (
+      _.has(dataRedux, "businessAccount") &&
+      !_.isEmpty(dataRedux.businessAccount)
+    ) {
+      setListRadioBusinessAccount(
+        updateDataListRadio(dataRedux.businessAccount, listRadioBusinessAccount)
+      );
+    }
+  }, [dataRedux]);
 
   /**
    * Handle unregister for fields
@@ -64,10 +95,10 @@ const BusinessInfomation: React.FC<any> = (props) => {
           )}
 
           {/* {List Radio} */}
-          {!_.isEmpty(LIST_RADIO_YES_NO) && (
+          {!_.isEmpty(listRadiobusinessReadyToOperate) && (
             <Radio
               name="lockIn"
-              listCheckBox={LIST_RADIO_YES_NO}
+              listCheckBox={listRadiobusinessReadyToOperate}
               radioKey={0}
               getValue={(value: any) => {
                 setValue("businessReadyToOperate", value);
@@ -149,14 +180,19 @@ const BusinessInfomation: React.FC<any> = (props) => {
                   {_.has(listField.textField, "label") && (
                     <TextField
                       fullWidth
-                      placeholder={listField.textField.label}
+                      label={listField.textField.label}
                       variant="filled"
                       defaultValue={
                         _.has(dataRedux, "numberOfOutlets")
                           ? dataRedux.numberOfOutlets
                           : ""
                       }
-                      error={errors.numberOfOutlets && true}
+                      error={
+                        _.has(errors, "numberOfOutlets") &&
+                        _.has(errors.numberOfOutlets, "type") &&
+                        !_.isEqual(errors.numberOfOutlets.type, "required") &&
+                        true
+                      }
                       helperText={
                         errors.numberOfOutlets && errors.numberOfOutlets.message
                       }
@@ -185,10 +221,10 @@ const BusinessInfomation: React.FC<any> = (props) => {
           )}
 
           {/* {List Radio} */}
-          {!_.isEmpty(LIST_RADIO_YES_NO) && (
+          {!_.isEmpty(listRadioBusinessAccount) && (
             <Radio
               name="lockIn"
-              listCheckBox={LIST_RADIO_YES_NO}
+              listCheckBox={listRadioBusinessAccount}
               radioKey={0}
               getValue={(value: any) => setValue("businessAccount", value)}
             />

@@ -29,6 +29,7 @@ const BusinessDetails: React.FC<any> = () => {
         forms: { sections },
       },
     },
+    LIST_RADIO_YES_NO,
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
@@ -50,6 +51,11 @@ const BusinessDetails: React.FC<any> = () => {
     (state: any) => state.form.businessDetailsStep
   );
 
+  /**
+   * Retrieves data of Business Details step from Store
+   */
+  const listWebsiteUrl = useSelector((state: any) => state.form.listWebsiteUrl);
+
   const {
     register,
     formState: { errors, isValid, isDirty },
@@ -59,13 +65,13 @@ const BusinessDetails: React.FC<any> = () => {
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      yourWebsiteURL0: "",
-      yourWebsiteURL1: "",
-      yourWebsiteURL2: "",
-      businessReadyToOperate: "Yes",
-      businessAccount: "Yes",
-      existingWebsite: "Yes",
-      placeOrderThroughWebsite: "Yes",
+      yourWebsiteURL0: listWebsiteUrl[0],
+      yourWebsiteURL1: listWebsiteUrl[1],
+      yourWebsiteURL2: listWebsiteUrl[2],
+      businessReadyToOperate: LIST_RADIO_YES_NO[0].text,
+      businessAccount: LIST_RADIO_YES_NO[0].text,
+      existingWebsite: LIST_RADIO_YES_NO[0].text,
+      placeOrderThroughWebsite: LIST_RADIO_YES_NO[0].text,
     },
   });
 
@@ -82,17 +88,13 @@ const BusinessDetails: React.FC<any> = () => {
 
   // render UI
   return (
-    <Box
-      className={cx(
-        "transaction-and-card-acceptance-type-wrapper step-wrapper"
-      )}
-    >
+    <Box className={cx("business-details-wrapper step-wrapper")}>
       {/* {Category} */}
       <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
       </Box>
 
-      {/* {Form with dynamic data} */}
+      {/* {Form} */}
       <BusinessDetailsForm
         cx={cx}
         optionSelected={optionSelected}
@@ -102,11 +104,12 @@ const BusinessDetails: React.FC<any> = () => {
         unregister={unregister}
         errors={errors}
         setValue={setValue}
+        listWebsiteRedux={listWebsiteUrl}
       />
 
       {/* {Next Button}  */}
       <RedirectButton
-        disabledNextButton={!isValid || !isDirty}
+        disabledNextButton={!isValid}
         continueLater
         backButton
         variant="next"

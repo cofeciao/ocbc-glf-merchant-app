@@ -76,7 +76,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                 label={textField.label}
                 variant="filled"
                 type="text"
-                value={inputValue}  
+                value={inputValue}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -95,7 +95,6 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                       .type,
                     "required"
                   ) &&
-                  errors.Ecom.percentageOfProductsNotFulfilledImmediately &&
                   true
                 }
                 helperText={
@@ -149,7 +148,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
           {!_.isEmpty(listCheckboxSecondary.list) && (
             <Checkbox
               isFullWidth
-              list={listCheckboxSecondary.list}
+              list={listCheckboxSecondary.list} 
               checkBoxClass={cx("your-product-come-from-checkbox")}
               getValue={(value: any) => {
                 setValue("Ecom.productDeliveredFrom", value);

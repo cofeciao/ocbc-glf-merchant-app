@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -14,15 +14,38 @@ import { ERROR_ICON } from "@/utils/constants";
 
 // render UI
 const SalesForecastEcommerce: React.FC<any> = (props) => {
-  const { cx, data, register, errors, dataRedux } =
-    props;
-  const [isSelected1, setIsSelected1] = useState<boolean>(false);
-  const [isSelected2, setIsSelected2] = useState<boolean>(false);
-  const [value1, setValue1] = useState<string>("");
-  const [value2, setValue2] = useState<string>("");
+  const { cx, data, register, errors, dataRedux } = props;
+  const [openAdornmentFirst, setOpenAdornmentFirst] = useState<boolean>(false);
+  const [openAdornmentFirstSecond, setOpenAdornmentFirstSecond] = useState<boolean>(false);
+  const [
+    valueAverageAmountPerCreditCardTransaction,
+    setValueAverageAmountPerCreditCardTransaction,
+  ] = useState<string>("");
+  const [
+    valueAnnualCreditCardSalesForecast,
+    setValueAnnualCreditCardSalesForecast,
+  ] = useState<string>("");
 
   /**
-   * Handle numeric value from inputs
+   * Check data from redux and dump data into input fields
+   */
+  useEffect(() => {
+    if (_.has(dataRedux, "averageAmountPerCreditCardTransaction")) {
+      setValueAverageAmountPerCreditCardTransaction(
+        dataRedux.averageAmountPerCreditCardTransaction
+      );
+      setOpenAdornmentFirst(true);
+    }
+    if (_.has(dataRedux, "annualCreditCardSalesForecast")) {
+      setValueAnnualCreditCardSalesForecast(
+        dataRedux.annualCreditCardSalesForecast
+      );
+      setOpenAdornmentFirstSecond(true);
+    }
+  }, [dataRedux]);
+
+  /**
+   * Replace numeric values ​​from input
    * @param event
    */
   const handleChange = (
@@ -32,7 +55,9 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
     // Change value to thousand seperator, eg: 1000000 => 1,000,000
     const sanitizedText = event.target.value.replace(/[^0-9]/g, "");
     const formattedText = sanitizedText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    index === 0 ? setValue1(formattedText) : setValue2(formattedText);
+    index === 0
+      ? setValueAverageAmountPerCreditCardTransaction(formattedText)
+      : setValueAnnualCreditCardSalesForecast(formattedText);
   };
 
   // render UI
@@ -52,24 +77,28 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
                   <TextField
                     fullWidth
                     label={textField.description}
-                    value={index === 0 ? value1 : value2}
+                    value={
+                      index === 0
+                        ? valueAverageAmountPerCreditCardTransaction
+                        : valueAnnualCreditCardSalesForecast
+                    }
                     InputProps={
-                      (isSelected1 && index === 0) ||
-                      (isSelected2 && index === 1)
+                      (openAdornmentFirst && index === 0) ||
+                      (openAdornmentFirstSecond && index === 1)
                         ? {
                             startAdornment: (
                               <InputAdornment position="start">
                                 {textField.label}
                               </InputAdornment>
-                            )
+                            ),
                           }
                         : {}
                     }
                     onFocus={() => {
                       if (index === 0) {
-                        setIsSelected1(true);
+                        setOpenAdornmentFirst(true);
                       } else {
-                        setIsSelected2(true);
+                        setOpenAdornmentFirstSecond(true);
                       }
                     }}
                     error={
@@ -105,8 +134,8 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
                       onBlur: (e: any) => {
                         e.target.value === ""
                           ? index === 0
-                            ? setIsSelected1(false)
-                            : setIsSelected2(false)
+                            ? setOpenAdornmentFirst(false)
+                            : setOpenAdornmentFirstSecond(false)
                           : null;
                       },
                     })}
