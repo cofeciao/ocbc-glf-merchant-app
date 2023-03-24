@@ -1558,7 +1558,7 @@ export const DATA_TABS_REP_NON_REPRICING_MANUAL_SELECTED = [
 export const NEXT = "Next";
 export const REVIEW = "Review";
 export const SUBMIT = "Submit";
-export const START = "START";
+export const START = "Start";
 
 export const LIST_COUNTRIES = [
   {
