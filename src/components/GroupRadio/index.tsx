@@ -9,9 +9,9 @@ import FormLabel from '@material-ui/core/FormLabel';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 // import types
-import { IRmFlow } from './rm';
+import { IGroupRadios } from './GroupRadio';
 
-const GroupRadio:React.FC<IRmFlow.IGroupRadio> = (props) => {
+const GroupRadio:React.FC<IGroupRadios.IGroupRadio> = (props) => {
   // props
   const { 
     cx, 
@@ -28,7 +28,7 @@ const GroupRadio:React.FC<IRmFlow.IGroupRadio> = (props) => {
     <FormControl component="fieldset" className={cx("group-radio")}>
       <FormLabel component="legend" className={cx("group-radio__label")}>{label}</FormLabel>
       <RadioGroup name={name} value={value} onChange={onChange} row={isRow} >
-        {Array.isArray(listRadio) && listRadio.map((item: IRmFlow.IRadio, index: number) => (
+        {Array.isArray(listRadio) && listRadio.map((item: IGroupRadios.IRadio, index: number) => (
           <FormControlLabel 
             key={index}
             value={item.value} 

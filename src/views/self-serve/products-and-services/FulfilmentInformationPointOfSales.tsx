@@ -5,15 +5,19 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 import _ from "lodash";
 import TooltipDialog from "./Tooltip-dialog";
+import GroupRadio from "@/components/GroupRadio";
 import { updateDataListRadio } from "@/utils/utils";
 
 // import types
 
 // render UI
 const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
+  //props
   const { cx, data, register, unregister, errors, setValue, dataRedux } = props;
   const { listRadio } = data;
-  const [valueSelected, setValueSelected] = useState();
+
+  //states
+  const [valueSelected, setValueSelected] = useState<string>(listRadio.list[0].value);
   const [listOrderFulfilment, setListOrderFulfilment] = useState(
     listRadio.list
   );
@@ -52,14 +56,16 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
 
         {/* {Radio Group} */}
         {!_.isEmpty(listOrderFulfilment) && (
-          <Radio
-            name="lockIn"
-            listCheckBox={listOrderFulfilment}
-            radioKey={0}
-            vertical
-            getValue={(value: any) => {
+          <GroupRadio
+            cx={cx}
+            name="orderFulfilment"
+            value={valueSelected}
+            isRow={false}
+            listRadio={listRadio.list}
+            onChange={(event) => {
+              const { value } = event.target;
               setValue("POS.orderFulfilment", value);
-              setValueSelected(value);
+              setValueSelected(value)
             }}
           />
         )}

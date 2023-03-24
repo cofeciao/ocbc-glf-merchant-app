@@ -26,7 +26,6 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
     cx, 
     dataOtherServices, 
     setDataOtherService, 
-    getDataOtherServices 
   } = props;
   
   const {

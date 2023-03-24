@@ -1,5 +1,4 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
 import React, { useEffect, useState } from "react";
 import {
   Box,
@@ -20,11 +19,13 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./BusinessDetails.scss";
+import GroupRadio from "@/components/GroupRadio";
 
 // import types
 
 // render UI
 const BusinessInfomation: React.FC<any> = (props) => {
+  // props
   const {
     listField,
     register,
@@ -36,12 +37,12 @@ const BusinessInfomation: React.FC<any> = (props) => {
   } = props;
   const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
-  const defaultValueListRadio = LIST_RADIO_YES_NO.filter(
-    (item) => item.checked === true
-  );
+
+  // States
   const [businessReadyToOperate, setBusinessReadyToOperate] = useState<string>(
-    defaultValueListRadio[0].text
+    LIST_RADIO_YES_NO[0].value
   );
+  const [currentlyHaveAnOCBCBussinessAccount, setCurrentlyHaveAnOCBCBussinessAccount] = useState<string>("yes");
   const [listRadiobusinessReadyToOperate, setListRadiobusinessReadyToOperate] =
     useState(LIST_RADIO_YES_NO);
   const [listRadioBusinessAccount, setListRadioBusinessAccount] =
@@ -96,11 +97,13 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
           {/* {List Radio} */}
           {!_.isEmpty(listRadiobusinessReadyToOperate) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={listRadiobusinessReadyToOperate}
-              radioKey={0}
-              getValue={(value: any) => {
+            <GroupRadio
+              cx={cx}
+              name="businessReadyToOperate"
+              value={businessReadyToOperate}
+              listRadio={listRadiobusinessReadyToOperate}
+              onChange={(event) => {
+                const { value } = event.target;
                 setValue("businessReadyToOperate", value);
                 setBusinessReadyToOperate(value);
               }}
@@ -110,7 +113,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
         {/* {Please indicate when your business will start operations} */}
         {_.has(listField.dropdownField, "placeholder") &&
-          _.isEqual(businessReadyToOperate, "No") && (
+          _.isEqual(businessReadyToOperate, "no") && (
             <Grid item xs={12}>
               {/* {Description} */}
               {_.has(listField.dropdownField, "description") && (
@@ -222,11 +225,16 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
           {/* {List Radio} */}
           {!_.isEmpty(listRadioBusinessAccount) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={listRadioBusinessAccount}
-              radioKey={0}
-              getValue={(value: any) => setValue("businessAccount", value)}
+            <GroupRadio
+              cx={cx}
+              name="businessAccount"
+              value={currentlyHaveAnOCBCBussinessAccount}
+              listRadio={listRadioBusinessAccount}
+              onChange={(event) => {
+                const { value } = event.target;
+                setValue("businessAccount", value);
+                setCurrentlyHaveAnOCBCBussinessAccount(value);
+              }}
             />
           )}
         </Grid>

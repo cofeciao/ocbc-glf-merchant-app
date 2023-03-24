@@ -1,7 +1,6 @@
 // import modules
-import { Button } from "@sectionsg/orc";
 import React, { useState } from "react";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Button, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
 
@@ -41,7 +40,7 @@ const ExpiredDialog: React.FC<any> = (props) => {
     <Box className={cx("entry-dialog-wrapper")}>
       {/* {Title} */}
       <Box className={cx("header-dialog-wrapper")}>
-        <Typography className={cx("title mb-16")}>
+        <Typography className={cx("title-start-over mb-16")}>
           {LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED}
         </Typography>
         <Typography className={cx("description")}>
@@ -52,8 +51,8 @@ const ExpiredDialog: React.FC<any> = (props) => {
       {/* {Next Button} */}
       <Box className={cx("group-button mt-dt-40")}>
         <Box className="d-inline">
-          <Button
-            backgroundClass="bgGunmetalBluegrey"
+           <Button 
+            variant="contained" 
             onClick={handleClickNextButton}
           >
             {LABEL_START_OVER}

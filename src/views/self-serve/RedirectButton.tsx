@@ -1,19 +1,26 @@
 // import modules
 import React, { useState } from "react";
-import { Box } from "@material-ui/core";
-import { Button, Dialog } from "@sectionsg/orc";
+import { 
+  Box, 
+  Button, 
+  DialogContent,
+  Dialog
+ } from "@material-ui/core";
 import _ from "lodash";
 import { Link } from "react-router-dom";
 import { CONTINUE_LATER, NEXT, START, SUBMIT } from "@/utils/constants";
 import classnames from "classnames/bind";
 import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 
+// import icons
+import CloseIcon from '@material-ui/icons/Close';
+
 // import styles
 import styles from "./SelfServe.scss";
 
-// import icons
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+// import images
+import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
+import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
 
 const RedirectButton: React.FC<any> = (props) => {
   const {
@@ -24,22 +31,32 @@ const RedirectButton: React.FC<any> = (props) => {
     onClickBack,
     disabledNextButton,
   } = props;
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
+
+  // classnames
   const cx = classnames.bind(styles);
+  
+  //states
+  const [openContinueLaterDialog, setOpenContinueLaterDialog] = useState<boolean>(false);
 
   /**
-   * Handle close Dialog
+   * Handle toggle Dialog
    */
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+  const handleOpenContinueLaterDialog = () => {
+    setOpenContinueLaterDialog(true);
+  };
+  const handleCloseContinueLaterDialog = () => {
+    setOpenContinueLaterDialog(false);
   };
 
   return (
     <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
       {/* {Back Button} */}
       {!_.isNil(backButton) && (
-        <Button backgroundClass="square" onClick={onClickBack}>
-          <ArrowBackIcon className={cx("arrow")} />
+        <Button
+          onClick={onClickBack}
+          variant="outlined"
+        >
+          <img src={IconArrowLeft} alt="icon arrow left" />
         </Button>
       )}
 
@@ -51,7 +68,7 @@ const RedirectButton: React.FC<any> = (props) => {
               to="/"
               onClick={(event: any) => {
                 event.preventDefault();
-                setOpenDialog(true);
+                setOpenContinueLaterDialog(true);
               }}
             >
               {CONTINUE_LATER}
@@ -61,8 +78,8 @@ const RedirectButton: React.FC<any> = (props) => {
 
         {/* {Main Button} */}
         <Box className="ml-dt-30 d-inline">
-          <Button
-            backgroundClass="bgGunmetalBluegrey"
+          <Button 
+            variant="contained" 
             disabled={disabledNextButton}
             onClick={onClickNext}
           >
@@ -70,15 +87,26 @@ const RedirectButton: React.FC<any> = (props) => {
               {(_.isEqual(variant, "next") && NEXT) ||
                 (_.isEqual(variant, "submit") && SUBMIT) ||
                 (_.isEqual(variant, "start") && START)}
-              <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
+              <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
             </>
           </Button>
         </Box>
       </Box>
-
-      {/* {Continue later Dialog} */}
-      <Dialog isOpen={openDialog} onRequestClose={handleCloseDialog}>
-        <ContinueLaterDialog onCloseDialog={handleCloseDialog} />
+      
+      <Dialog
+        open={openContinueLaterDialog}
+        onClose={handleCloseContinueLaterDialog}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseContinueLaterDialog} /></div>
+        <DialogContent>
+          <ContinueLaterDialog 
+            handleCloseContinueLaterDialog={handleCloseContinueLaterDialog}
+            handleOpenContinueLaterDialog={handleOpenContinueLaterDialog} 
+          />
+        </DialogContent>
       </Dialog>
     </Box>
   );

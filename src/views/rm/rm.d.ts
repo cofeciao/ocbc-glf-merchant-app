@@ -31,6 +31,7 @@ declare namespace IRmFlow {
     value: string;
     disabled?: boolean;
     onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
+    isRow?: boolean;
   }
 
   export interface IRadio {

@@ -1,6 +1,6 @@
 // import modules
 import React, { useEffect, useState } from "react";
-import { Checkbox, Radio } from "@sectionsg/orc";
+import { Checkbox } from "@sectionsg/orc";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
@@ -9,6 +9,8 @@ import { updateDataListRadio } from "@/utils/utils";
 
 // import style
 import styles from "./BusinessDetails.scss";
+import { unregister } from "@/serviceWorker";
+import GroupRadio from "@/components/GroupRadio";
 
 // import types
 
@@ -21,9 +23,14 @@ const OtherInformation: React.FC<any> = (props) => {
     listRadio,
   } = sections;
   const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
+
+  // states
   const [openRadioRetailStore, setOpenRadioRetailStore] =
     useState<boolean>(false);
+  const [retailStoreAcceptCardPayments, setRetailStoreAcceptCardPayments] = useState<string>("yes");
   const [listRadioRetailStore, setListRadioRetailStore] =
     useState(LIST_RADIO_YES_NO);
 
@@ -52,7 +59,7 @@ const OtherInformation: React.FC<any> = (props) => {
     if (openRadioRetailStore) {
       setValue(
         "cardPaymentAvailableAtRetailStore",
-        listRadioRetailStore[0].text
+        listRadioRetailStore[0].label
       );
     } else {
       setValue("cardPaymentAvailableAtRetailStore", "");
@@ -141,16 +148,16 @@ const OtherInformation: React.FC<any> = (props) => {
             )}
 
             {/* {List Radio} */}
-            {!_.isEmpty(listRadioRetailStore) && (
-              <Radio
-                name="lockIn"
-                listCheckBox={listRadioRetailStore}
-                radioKey={0}
-                getValue={(value: string) => {
-                  setValue(
-                    "cardPaymentAvailableAtRetailStore",
-                    value ? value : listRadioRetailStore[0].text
-                  );
+            {!_.isEmpty(LIST_RADIO_YES_NO) && (
+              <GroupRadio
+                cx={cx}
+                name="cardPaymentAvailableAtRetailStore"
+                value={retailStoreAcceptCardPayments}
+                listRadio={LIST_RADIO_YES_NO}
+                onChange={(event) => {
+                  const { value } = event.target;
+                  setValue("cardPaymentAvailableAtRetailStore", value);
+                  setRetailStoreAcceptCardPayments(value);
                 }}
               />
             )}
