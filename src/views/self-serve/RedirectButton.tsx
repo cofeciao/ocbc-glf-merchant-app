@@ -4,7 +4,7 @@ import { Box } from "@material-ui/core";
 import { Button, Dialog } from "@sectionsg/orc";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-import { CONTINUE_LATER, NEXT, SUBMIT } from "@/utils/constants";
+import { CONTINUE_LATER, NEXT, START, SUBMIT } from "@/utils/constants";
 import classnames from "classnames/bind";
 import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 
@@ -15,7 +15,7 @@ import styles from "./SelfServe.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
-const RedirectButton = (props: any) => {
+const RedirectButton: React.FC<any> = (props) => {
   const {
     variant,
     continueLater,
@@ -68,7 +68,8 @@ const RedirectButton = (props: any) => {
           >
             <>
               {(_.isEqual(variant, "next") && NEXT) ||
-                (_.isEqual(variant, "submit") && SUBMIT)}
+                (_.isEqual(variant, "submit") && SUBMIT) ||
+                (_.isEqual(variant, "start") && START)}
               <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
             </>
           </Button>
