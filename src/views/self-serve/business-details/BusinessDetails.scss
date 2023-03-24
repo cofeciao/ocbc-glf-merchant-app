@@ -1,9 +1,14 @@
 @import "../../../assets/style/variable.scss";
 
-.transaction-and-card-acceptance-type-wrapper {
-  & .MuiInputBase-root {
-    & input {
-      padding: 16px 8px 17px;
+.business-details-wrapper {
+  & .MuiTextField-root {
+    label {
+      margin-left: -4px;
+    }
+    & .MuiInputBase-root {
+      & input {
+        padding-left: 8px;
+      }
     }
   }
 
@@ -54,6 +59,18 @@
     }
     &.MuiButton-root {
       text-transform: unset;
+    }
+  }
+
+  & .business-details-form-wrapper {
+    & .section-title {
+      margin-bottom: 40px;
+    }
+    & .business-infomation-section-wrapper,
+    .website-infomation-section-wrapper {
+      & .section-seperate {
+        display: none;
+      }
     }
   }
 

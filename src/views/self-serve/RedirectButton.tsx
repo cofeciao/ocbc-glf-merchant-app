@@ -8,7 +8,7 @@ import {
  } from "@material-ui/core";
 import _ from "lodash";
 import { Link } from "react-router-dom";
-import { CONTINUE_LATER, NEXT, SUBMIT } from "@/utils/constants";
+import { CONTINUE_LATER, NEXT, START, SUBMIT } from "@/utils/constants";
 import classnames from "classnames/bind";
 import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 
@@ -22,8 +22,7 @@ import styles from "./SelfServe.scss";
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
 
-const RedirectButton = (props: any) => {
-  // props
+const RedirectButton: React.FC<any> = (props) => {
   const {
     variant,
     continueLater,
@@ -84,9 +83,12 @@ const RedirectButton = (props: any) => {
             disabled={disabledNextButton}
             onClick={onClickNext}
           >
-             {(_.isEqual(variant, "next") && NEXT) ||
-              (_.isEqual(variant, "submit") && SUBMIT)}
-            <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
+            <>
+              {(_.isEqual(variant, "next") && NEXT) ||
+                (_.isEqual(variant, "submit") && SUBMIT) ||
+                (_.isEqual(variant, "start") && START)}
+              <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
+            </>
           </Button>
         </Box>
       </Box>

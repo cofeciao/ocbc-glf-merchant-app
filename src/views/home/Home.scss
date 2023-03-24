@@ -1,5 +1,23 @@
 @import "../../assets/style/variable.scss";
 
+// focused color for input
+.MuiFilledInput-underline,
+.MuiInput-underline {
+  &::after {
+    border-bottom: 1px solid #005efd !important;
+  }
+  &.Mui-error::after {
+    border-bottom: 1px solid #ed5347 !important;
+  }
+}
+
+.section-seperator {
+  height: 1px;
+  width: 100%;
+  background: #e2e7ec;
+  margin-top: 56px;
+}
+
 .home-page-wrapper {
   margin-top: 40px;
   display: flex;
@@ -8,7 +26,7 @@
 
   & .home-category {
     div::before {
-      background-color: #E30613
+      background-color: #e30613;
     }
     @media (max-width: 767px) {
       margin-bottom: 40px;

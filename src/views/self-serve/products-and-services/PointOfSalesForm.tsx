@@ -36,7 +36,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
-      <SectionWrapper cx={cx} title={title}>
+      <SectionWrapper cx={cx} title={title} className="pos-section-wrapper">
         <Grid container>
           {/* {Business Offering} */}
           <Grid item xs={12}>

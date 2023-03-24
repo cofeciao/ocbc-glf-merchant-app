@@ -12,8 +12,26 @@ input:-webkit-autofill {
   box-shadow: 0 0 0px 1000px #fafcfc inset;
 }
 
+// focused color for input
+.MuiFilledInput-underline, .MuiInput-underline {
+  &::after {
+    border-bottom: 1px solid #005efd !important;
+  }
+  &.Mui-error::after {
+    border-bottom: 1px solid #ed5347 !important;
+  }
+}
+
+// focused color for input with variant='outlined'
+.MuiOutlinedInput-root {
+  .mui-focused fieldset {
+    border-bottom: 1px solid #005efd !important;
+  }
+}
+
 .MuiSelect-icon {
   font-size: 27px !important;
+  top: unset !important;
 }
 
 #common-dialog {
@@ -99,7 +117,7 @@ input:-webkit-autofill {
           color: #575d65;
         }
         #mui-component-select-areaCode {
-          padding-right: 44px;
+          padding-right: 50px;
         }
       }
 
@@ -109,7 +127,6 @@ input:-webkit-autofill {
     }
 
     .header-wrapper {
-      margin-bottom: 40px;
       gap: 16px;
     }
 
@@ -177,6 +194,7 @@ input:-webkit-autofill {
       padding-left: 8px;
       .MuiSelect-icon {
         border-right: 1px solid #e2e7ec;
+        width: 60px;
       }
     }
 

@@ -1,10 +1,11 @@
 // import modules
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox } from "@sectionsg/orc";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 import _ from "lodash";
+import { updateDataListRadio } from "@/utils/utils";
 
 // import style
 import styles from "./BusinessDetails.scss";
@@ -15,8 +16,7 @@ import GroupRadio from "@/components/GroupRadio";
 
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
-  // props
-  const { sections, setValue, register, unregister } = props;
+  const { sections, setValue, dataRedux } = props;
   const {
     listCheckboxBusinessOfferings,
     listCheckboxAvailableSpaces,
@@ -31,24 +31,57 @@ const OtherInformation: React.FC<any> = (props) => {
   const [openRadioRetailStore, setOpenRadioRetailStore] =
     useState<boolean>(false);
   const [retailStoreAcceptCardPayments, setRetailStoreAcceptCardPayments] = useState<string>("yes");
+  const [listRadioRetailStore, setListRadioRetailStore] =
+    useState(LIST_RADIO_YES_NO);
+
   /**
-   * handle data from Available Spaces list checkbox
+   * Check data from redux and dump data into fields
+   */
+  useEffect(() => {
+    if (
+      _.has(dataRedux, "cardPaymentAvailableAtRetailStore") &&
+      !_.isEmpty(dataRedux.cardPaymentAvailableAtRetailStore)
+    ) {
+      setOpenRadioRetailStore(true);
+      setListRadioRetailStore(
+        updateDataListRadio(
+          dataRedux.cardPaymentAvailableAtRetailStore,
+          listRadioRetailStore
+        )
+      );
+    }
+  }, [dataRedux]);
+
+  /**
+   * Handle set value to redux
+   */
+  useEffect(() => {
+    if (openRadioRetailStore) {
+      setValue(
+        "cardPaymentAvailableAtRetailStore",
+        listRadioRetailStore[0].label
+      );
+    } else {
+      setValue("cardPaymentAvailableAtRetailStore", "");
+    }
+  }, [openRadioRetailStore]);
+
+  /**
+   * handle data from availableSpaces list checkbox
    * @param value
    */
   const handleDataAvailableSpaces = (value: any) => {
-    // Set value react-hooks-form
+    // set value to react-hooks-form
     setValue("availableSpaces", value);
 
-    //  handle showing and set value for radio field
+    // handle open RetailStore radio
     const found = value.findIndex(
       (item: any) => item.name === listCheckboxAvailableSpaces.list[1].text
     );
     if (found >= 0) {
       setOpenRadioRetailStore(true);
-      register("cardPaymentAvailableAtRetailStore");
     } else {
       setOpenRadioRetailStore(false);
-      unregister("cardPaymentAvailableAtRetailStore");
     }
   };
 
@@ -60,6 +93,7 @@ const OtherInformation: React.FC<any> = (props) => {
       className={cx("other-information-wrapper")}
     >
       <Grid container>
+        {/* {What is your business offering?} */}
         <Grid item xs={12}>
           {/* {Description} */}
           {!_.isEmpty(listCheckboxBusinessOfferings.description) && (
@@ -82,6 +116,7 @@ const OtherInformation: React.FC<any> = (props) => {
         </Grid>
       </Grid>
 
+      {/* {Do you currently have any of the following?} */}
       <Grid container>
         <Grid item xs={12}>
           {/* {Description} */}
@@ -116,12 +151,12 @@ const OtherInformation: React.FC<any> = (props) => {
             {!_.isEmpty(LIST_RADIO_YES_NO) && (
               <GroupRadio
                 cx={cx}
-                name="retailStoreAcceptCardPayments"
+                name="cardPaymentAvailableAtRetailStore"
                 value={retailStoreAcceptCardPayments}
                 listRadio={LIST_RADIO_YES_NO}
                 onChange={(event) => {
                   const { value } = event.target;
-                  setValue("retailStoreAcceptCardPayments", value);
+                  setValue("cardPaymentAvailableAtRetailStore", value);
                   setRetailStoreAcceptCardPayments(value);
                 }}
               />

@@ -51,12 +51,12 @@ const SelfServe: React.FC = () => {
   };
 
   /**
-   * Detect reload page and start again
+   * Detect reload page and start over
    */
   useEffect(() => {
     window.scrollTo(0, 0);
     if (history.action === "POP") {
-      window.location.href = (process.env.myinfo as any).redirectUri
+      window.location.href = (process.env.myinfo as any).redirectUri;
     }
     let trackingEvent = (window as any).attachEvent || window.addEventListener;
     let chkevent = (window as any).attachEvent
@@ -76,6 +76,12 @@ const SelfServe: React.FC = () => {
     return dataListStep;
   };
 
+  // Render UI
+  if (history.action === "POP") {
+    return <></>;
+  }
+
+  // Render UI
   return (
     <>
       {/* {Header} */}
