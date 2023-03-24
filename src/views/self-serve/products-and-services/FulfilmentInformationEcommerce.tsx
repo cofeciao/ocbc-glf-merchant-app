@@ -21,6 +21,7 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
         {/* {Description} */}
         {!_.isEmpty(listRadio.description) && (
           <Typography
+            component="div"
             className={cx(
               "fulfilment-information-description input-field-description d-flex"
             )}

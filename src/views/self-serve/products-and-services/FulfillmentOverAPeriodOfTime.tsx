@@ -139,7 +139,6 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                         .type,
                       "required"
                     ) &&
-                    errors.POS.percentageOfProductsNotFulfilledImmediately &&
                     true
                   }
                   helperText={

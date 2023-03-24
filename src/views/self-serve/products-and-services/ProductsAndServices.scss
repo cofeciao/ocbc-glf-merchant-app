@@ -11,6 +11,25 @@
     padding-left: 8px;
   }
 
+  & .products-and-services-form-wrapper {
+    & .pos-section-wrapper {
+      & .section-seperate {
+        display: none;
+      }
+    }
+
+    & .ecommerce-section-wrapper,
+    .pos-section-wrapper {
+      & .section-title {
+        margin-bottom: 40px;
+      }
+
+      & .sub-section-title {
+        margin-bottom: 32px;
+      }
+    }
+  }
+
   & .sales-forecast-wrapper {
     & .MuiInputAdornment-root {
       padding: 0;
@@ -22,14 +41,17 @@
         color: #777e87;
       }
     }
+
     & .MuiInputBase-input {
       padding-bottom: 5px;
       padding-top: 24px;
       padding-left: 0;
     }
+
     & .section-description {
       margin-bottom: 24px;
     }
+
     & .text-field-group {
       display: flex;
       flex-direction: column;
@@ -38,22 +60,36 @@
   }
 
   & .fulfilment-information-wrapper {
-    .icon-tooltip {
-      margin-left: 10px;
+    & .tooltip-dialog-wrapper {
+      display: inline-flex;
+      & .icon-tooltip {
+        margin-left: 10px;
+        cursor: pointer;
+      }
     }
+
     & .MuiInputLabel-root {
       margin-left: -4px;
     }
+
     & .MuiFilledInput-input {
       padding-top: 24px;
       padding-bottom: 9px;
       padding-left: 8px;
     }
+
     & .your-product-come-from-checkbox {
+      & .MuiTypography-root {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #575d65;
+      }
       & .MuiGrid-container {
         gap: unset;
       }
     }
+
     & .MuiFormControlLabel-label {
       font-weight: 600;
       font-size: 16px;
@@ -97,21 +133,25 @@
     #counter {
       padding-right: 8px;
     }
+
     textarea {
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
       color: #575d65;
     }
+
     & .MuiInputBase-root {
       height: unset;
     }
+
     & .MuiTextField-root {
       overflow: hidden;
       label {
         width: 100%;
       }
     }
+
     & .business-offering-description {
       font-weight: 400;
       font-size: $fzH5 !important;

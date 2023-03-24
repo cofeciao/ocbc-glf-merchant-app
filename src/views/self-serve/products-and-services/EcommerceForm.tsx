@@ -2,7 +2,7 @@
 import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
-import SectionWrapper from "../SectionWrapper";
+import SectionWrapper from "@/views/self-serve/SectionWrapper";
 import BusinessOfferingEcommerce from "./BusinessOfferingEcommerce";
 import FulfilmentInformationEcommerce from "./FulfilmentInformationEcommerce";
 import SalesForecastEcommerce from "./SalesForecastEcommerce";
@@ -26,7 +26,11 @@ const EcommerceForm: React.FC<any> = (props) => {
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
-      <SectionWrapper cx={cx} title={title}>
+      <SectionWrapper
+        cx={cx}
+        title={title}
+        className="ecommerce-section-wrapper"
+      >
         <Grid container>
           {/* {Business Offering} */}
           <Grid item xs={12}>
@@ -65,6 +69,7 @@ const EcommerceForm: React.FC<any> = (props) => {
               data={fulfilmentInformation}
               dataRedux={dataRedux}
               variant={variant}
+              errors={errors}
               register={register}
               unregister={unregister}
               setValue={setValue}
