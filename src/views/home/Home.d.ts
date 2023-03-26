@@ -30,7 +30,7 @@ declare namespace IHome {
     title: string,
     description: string,
     errorMessage: string,
-    checkboxKey: number,
+    checkboxKey?: number,
     dataCardCheckbox: ICheckBox[],
     getValueCheckbox?: Function
   }
