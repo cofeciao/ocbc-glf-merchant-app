@@ -964,7 +964,7 @@ body {
     line-height: 28px;
     color: $white;
     text-transform: capitalize !important;
-    
+
     img {
       margin-left: 10px;
     }
@@ -1012,7 +1012,7 @@ body {
         }
       }
     }
-    
+
     & .MuiDialogContent-root {
       min-width: 660px;
       & .MuiGrid-container {
@@ -1038,7 +1038,7 @@ body {
 
     & .MuiDialogActions-root {
       margin-bottom: 20px;
-      justify-content: flex-start;  
+      justify-content: flex-start;
       padding: 20px;
 
       button {
@@ -1065,7 +1065,7 @@ body {
     padding: 24px 24px 0;
     svg {
       cursor: pointer;
-    } 
+    }
 
   }
 }
