@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -24,7 +24,7 @@ import styles from "./ProductsAndServices.scss";
 // import types
 
 // render UI
-const ProductsAndServices: React.FC<any> = () => {
+const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
   // props
   const {
     LABEL_E_COMMERCE,
@@ -69,14 +69,30 @@ const ProductsAndServices: React.FC<any> = () => {
     defaultValues: {
       POS: {
         orderFulfilment:
-          pointOfSalesForm.fulfilmentInformation.listRadio.list[0].text || "",
+          pointOfSalesForm.fulfilmentInformation.listRadio.list[0].label || "",
       },
       Ecom: {
-        orderFulfilment: ecommerceForm.fulfilmentInformation.listRadio.list[0].text || "",
+        orderFulfilment: ecommerceForm.fulfilmentInformation.listRadio.list[0].label || "",
         productDelivery: ecommerceForm.fulfilmentInformation.listRadioSecondary.list[0].option || "",
       },
     },
   });
+
+  /**
+   * handle back to page when click on stepper
+   */
+  useImperativeHandle(ref, () => ({
+    validateForm() {
+      return true
+      // if (acraAndContactInformationStep) {
+      //   if (_.isEmpty(acraAndContactInformationStep)) {
+      //     return true;
+      //   }
+      //   return handleNext();
+      // }
+      // return true;
+    },
+  }));
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -166,5 +182,5 @@ const ProductsAndServices: React.FC<any> = () => {
       />
     </Box>
   );
-};
+});
 export default ProductsAndServices;

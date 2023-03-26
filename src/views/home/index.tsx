@@ -8,7 +8,6 @@ import {
   Dialog
  } from "@material-ui/core";
 import {
-  Footer,
   Header,
   Loading,
   Category,
@@ -42,6 +41,7 @@ import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // import style
 import styles from "./Home.scss";
+import Footer from "@/components/Footer";
 
 // render UI
 const Home: React.FC = () => {

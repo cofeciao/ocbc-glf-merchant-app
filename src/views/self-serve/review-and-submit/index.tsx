@@ -1,6 +1,6 @@
 // import modules
 import { Category, Button } from "@sectionsg/orc";
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -24,7 +24,7 @@ import styles from "./ReviewAndSubmit.scss";
 // import types
 
 // render UI
-const ReviewAndSubmit: React.FC<any> = () => {
+const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
   const {
     LABEL_CASHLESS_PAYMENT_METHOD,
     LABEL_COMPANY_REGISTRATION,
@@ -67,6 +67,23 @@ const ReviewAndSubmit: React.FC<any> = () => {
       .filter((item: string) => item !== "")
       .join("-")
   );
+
+
+  /**
+   * handle back to page when click on stepper
+   */
+  useImperativeHandle(ref, () => ({
+    validateForm() {
+      return true
+      // if (acraAndContactInformationStep) {
+      //   if (_.isEmpty(acraAndContactInformationStep)) {
+      //     return true;
+      //   }
+      //   return handleNext();
+      // }
+      // return true;
+    },
+  }));
 
   /**
    * Retrieves data of Company And Contact Information step from Store
@@ -166,5 +183,5 @@ const ReviewAndSubmit: React.FC<any> = () => {
       />
     </Box>
   );
-};
+});
 export default ReviewAndSubmit;

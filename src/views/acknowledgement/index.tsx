@@ -1,13 +1,11 @@
 // import modules
 import React, { useEffect } from "react";
 import classnames from "classnames/bind";
-import { Footer, Header } from "@sectionsg/orc";
+import { Header } from "@sectionsg/orc";
 import { Box } from "@material-ui/core";
 import _ from "lodash";
 import { useHistory, useParams } from "react-router";
-import Successful from "./Successful";
-import Interest from "./Interest";
-import Saved from "./Saved";
+
 
 // import constants
 import { TITLE_PAGE } from "@/utils/constants-rm";
@@ -15,6 +13,12 @@ import { TITLE_PAGE } from "@/utils/constants-rm";
 // import style
 import styles from "./Acknowledgement.scss";
 import { adobeAbandon } from "@/utils/adobeTracking";
+
+// import components
+import Successful from "./Successful";
+import Interest from "./Interest";
+import Saved from "./Saved";
+import Footer from "@/components/Footer";
 
 // render UI
 const Acknowledgement: React.FC<any> = () => {

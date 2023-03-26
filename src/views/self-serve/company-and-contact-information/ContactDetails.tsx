@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
@@ -11,6 +11,9 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import _ from "lodash";
+
+// import icons
+import CheckIcon from '@material-ui/icons/Check';
 
 // import constant
 import {
@@ -27,10 +30,19 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 const ContactDetails: React.FC<
   ICompanyAndContactInformation.IContactDetails
 > = (props) => {
+
+  // props
   const { cx, data, dataRedux, register, errors, setValue, setError } = props;
   const { LIST_SALUTATION } = SELF_SERVE_PAGE;
   const { salutation, name, designation, email, contactNumber } =
     data.inputFields;
+
+  // states
+  const [valueSelected, setValueSelected] = useState<string>(
+    _.has(dataRedux, "areaCode") ? dataRedux.areaCode : LIST_COUNTRIES_CODE[0].value
+  );
+
+  console.log(valueSelected)
 
   return (
     <Box className={cx("contact-details-wrapper")}>
@@ -201,12 +213,31 @@ const ContactDetails: React.FC<
                               }
                               {...register("areaCode", {
                                 required: true,
+                                onChange: (event: any) => setValueSelected(event.target.value)
                               })}
                             >
+                               <MenuItem disabled className={cx("item-selected")}>
+                                  <div className={cx("group-item-select")}>
+                                    <span>&nbsp;&nbsp;&emsp;</span>
+                                    <span style={{
+                                      color: "#97A1AE",
+                                      fontWeight: "400",
+                                      fontSize: "16px",
+                                      lineHeight: "24px",
+                                    }}>Please select</span>
+                                  </div>
+                               </MenuItem>
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
-                                  <MenuItem key={index} value={item.value}>
-                                    {`${item.value} ${item.name}`}
+                                  <MenuItem
+                                    className={cx("item-selected")}
+                                    key={index} 
+                                    value={item.value}
+                                  >
+                                    <div className={cx("group-item-select")}>
+                                      {valueSelected === item.value ? <CheckIcon /> : <span>&nbsp;&nbsp;&emsp;</span>}
+                                      <span>{`${item.name} (${item.value})`}</span>
+                                    </div>
                                   </MenuItem>
                                 );
                               })}

@@ -10,13 +10,17 @@ import {
 import classnames from "classnames/bind";
 import React from "react";
 import _ from "lodash";
+import { isEmpty } from "lodash";
 
 // import style
 import styles from "./ListCheckBox.scss";
 
 // import types
 import { ICheckBox, IListCheckBox } from "./ListCheckBox";
-import { isEmpty } from "lodash";
+
+// import images
+import IconCheckbox from "@/assets/images/icon-checkbox.svg";
+import IconCheckedBox from "@/assets/images/icon-checkedbox.svg";
 
 // render UI
 const ListCheckbox = (props: IListCheckBox) => {
@@ -151,7 +155,14 @@ const ListCheckbox = (props: IListCheckBox) => {
                 }
                 checked={item.checked}
                 value={item.value}
-                control={<Checkbox disableFocusRipple disableRipple disableTouchRipple />} // Checkbox from Material
+                control={
+                  <Checkbox 
+                    disableFocusRipple 
+                    disableRipple 
+                    disableTouchRipple 
+                    icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                    checkedIcon={<img src={IconCheckedBox} alt="icon checkedbox" />}
+                  />} // Checkbox from Material
               />
             </Grid>
             {/* {Expanded content} */}

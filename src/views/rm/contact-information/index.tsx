@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import {
   Loading,
   Button,
@@ -35,6 +35,7 @@ import { IContactInformation } from "./ContactInformation";
 import ContactDetails from "./ContactDetails";
 import SectionWrapper from "../SectionWrapper";
 import AuthorisedPersonDetails from "./AuthorisedPersonDetails";
+import _ from "lodash";
 
 const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ handleCallAPI }, ref) => {
   const cx = classNames.bind(styles);
@@ -98,6 +99,22 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
   const handlePrev = () => {
     history.push(WELCOME_PATH)
   }
+
+  /**
+   * handle back to page when click on stepper
+   */
+  useImperativeHandle(ref, () => ({
+    validateForm() {
+      return true
+      // if (acraAndContactInformationStep) {
+      //   if (_.isEmpty(acraAndContactInformationStep)) {
+      //     return true;
+      //   }
+      //   return handleNext();
+      // }
+      // return true;
+    },
+  }));
 
    /**
    * Handle button next

@@ -3,14 +3,13 @@ import _ from 'lodash';
 import { adobeAbandon } from '@/utils/adobeTracking';
 
 // import component lib
-import {
-  Footer, FormLayout, Header, Tabs
-} from '@sectionsg/orc';
+import { FormLayout, Header, Tabs } from '@sectionsg/orc';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from 'react-router';
 import { Container } from '@material-ui/core';
 import classNames from 'classnames/bind';
+import Footer from "@/components/Footer";
 
 // import constants
 import { 
@@ -19,7 +18,6 @@ import {
   COMPANY_CONTACT_INFORMATION,
   CONTACT_INFORMATION, 
   DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
-  DECLARATION, 
   FEE_AUTHORISATION, 
   FEE_RATES, 
   PRODUCTS_SERVICES, 
@@ -86,18 +84,20 @@ const ContainerManual = () => {
  * @param {string} path - Slug for page 
  */
   const handleClick = (path: any) => {
-    if (childRef.current) {
-      if (formReduxData.isBorrower) {
-        if (childRef.current.validateForm()) {
-          history.push(`/rm/borrower/${path}`);
-        }
-      } else {
-        if (childRef.current.validateForm()) {
-          history.push(`/rm/${path}`);
-        }
-        childRef.current.handleNextPage();
-      }
-    }
+    history.push(`/rm/${path}`);
+     console.log(path)
+    // if (childRef.current) {
+    //   if (formReduxData.isBorrower) {
+    //     if (childRef.current.validateForm()) {
+    //       history.push(`/rm/borrower/${path}`);
+    //     }
+    //   } else {
+    //     if (childRef.current.validateForm()) {
+    //       history.push(`/rm/${path}`);
+    //     }
+    //     childRef.current.handleNextPage();
+    //   }
+    // }
   };
 
   return (

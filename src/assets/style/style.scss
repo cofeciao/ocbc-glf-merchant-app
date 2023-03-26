@@ -1066,6 +1066,35 @@ body {
     svg {
       cursor: pointer;
     } 
+  }
+}
 
+// styled select phone number
+.MuiList-root {
+  background-color: #F5F5F5;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+
+  & .MuiMenuItem-root {
+  
+  }
+  & .item-selected {
+    border-bottom: 0.5px solid rgba(60, 60, 67, 0.36);
+    & .group-item-select {
+      padding: 5px 0px;
+      display: flex;
+      align-items: center;
+      & .MuiSvgIcon-root {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  & .item-selected:last-child {
+    border-bottom: 0px;
+  }
+
+  & .item-selected.Mui-selected {
+    background-color: transparent;
   }
 }
