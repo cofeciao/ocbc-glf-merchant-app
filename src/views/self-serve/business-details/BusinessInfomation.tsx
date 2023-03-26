@@ -1,5 +1,5 @@
 // import modules
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -13,19 +13,21 @@ import {
 import classnames from "classnames/bind";
 import _ from "lodash";
 import { updateDataListRadio } from "@/utils/utils";
+import GroupRadio from "@/components/GroupRadio";
 
 // import constants
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./BusinessDetails.scss";
-import GroupRadio from "@/components/GroupRadio";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
 
 // render UI
 const BusinessInfomation: React.FC<any> = (props) => {
-  // props
   const {
     listField,
     register,
@@ -38,44 +40,43 @@ const BusinessInfomation: React.FC<any> = (props) => {
   const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
 
-  // States
+  // GroupRadio's state
   const [businessReadyToOperate, setBusinessReadyToOperate] = useState<string>(
-    LIST_RADIO_YES_NO[0].value
+    dataRedux.businessReadyToOperate || LIST_RADIO_YES_NO[0].value
   );
-  const [currentlyHaveAnOCBCBussinessAccount, setCurrentlyHaveAnOCBCBussinessAccount] = useState<string>("yes");
-  const [listRadiobusinessReadyToOperate, setListRadiobusinessReadyToOperate] =
-    useState(LIST_RADIO_YES_NO);
-  const [listRadioBusinessAccount, setListRadioBusinessAccount] =
-    useState(LIST_RADIO_YES_NO);
+  const [
+    currentlyHaveAnOCBCBussinessAccount,
+    setCurrentlyHaveAnOCBCBussinessAccount,
+  ] = useState<string>(dataRedux.businessAccount || LIST_RADIO_YES_NO[0].value);
+
+  // TextField's state
+  const [inputValue, setInputValue] = useState(dataRedux.numberOfOutlets || "");
 
   /**
-   * Check data from redux and dump data into fields
+   * Prevent user typing non-number
    */
-  useEffect(() => {
-    if (
-      _.has(dataRedux, "businessReadyToOperate") &&
-      !_.isEmpty(dataRedux.businessReadyToOperate)
-    ) {
-      setListRadiobusinessReadyToOperate(
-        updateDataListRadio(
-          dataRedux.businessReadyToOperate,
-          listRadiobusinessReadyToOperate
-        )
-      );
-    }
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value.replace(/\D/g, ""));
+  }
 
-    if (
-      _.has(dataRedux, "businessAccount") &&
-      !_.isEmpty(dataRedux.businessAccount)
-    ) {
-      setListRadioBusinessAccount(
-        updateDataListRadio(dataRedux.businessAccount, listRadioBusinessAccount)
-      );
-    }
-  }, [dataRedux]);
+  // List GroupRadio's state
+  const [listRadioBusinessReadyToOperate, setListRadioBusinessReadyToOperate] =
+    useState(
+      dataRedux.businessReadyToOperate
+        ? updateDataListRadio(
+            dataRedux.businessReadyToOperate,
+            LIST_RADIO_YES_NO
+          )
+        : LIST_RADIO_YES_NO
+    );
+  const [listRadioBusinessAccount, setListRadioBusinessAccount] = useState(
+    dataRedux.businessAccount
+      ? updateDataListRadio(dataRedux.businessAccount, LIST_RADIO_YES_NO)
+      : LIST_RADIO_YES_NO
+  );
 
   /**
-   * Handle unregister for fields
+   * Handle unregister for fields when GroupRadio changes
    */
   useEffect(() => {
     if (optionSelected === "e-commerce") {
@@ -95,13 +96,13 @@ const BusinessInfomation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {/* {List Radio} */}
-          {!_.isEmpty(listRadiobusinessReadyToOperate) && (
+          {/* {GroupRadio} */}
+          {!_.isEmpty(listRadioBusinessReadyToOperate) && (
             <GroupRadio
               cx={cx}
               name="businessReadyToOperate"
               value={businessReadyToOperate}
-              listRadio={listRadiobusinessReadyToOperate}
+              listRadio={listRadioBusinessReadyToOperate}
               onChange={(event) => {
                 const { value } = event.target;
                 setValue("businessReadyToOperate", value);
@@ -113,7 +114,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
         {/* {Please indicate when your business will start operations} */}
         {_.has(listField.dropdownField, "placeholder") &&
-          _.isEqual(businessReadyToOperate, "no") && (
+          _.isEqual(businessReadyToOperate, "No") && (
             <Grid item xs={12}>
               {/* {Description} */}
               {_.has(listField.dropdownField, "description") && (
@@ -122,7 +123,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                 </Typography>
               )}
 
-              {/* {List Select} */}
+              {/* {Select} */}
               <Grid xs={12} md={4}>
                 <FormControl
                   variant="filled"
@@ -140,14 +141,14 @@ const BusinessInfomation: React.FC<any> = (props) => {
                   {!_.isEmpty(listField.dropdownField.list) && (
                     <Select
                       fullWidth
-                      placeholder="Please"
+                      IconComponent={ExpandMore}
+                      labelId="select-operation-starting-period-label"
+                      id="select-operation-starting-period"
                       defaultValue={
                         _.has(dataRedux, "operationStartingPeriod")
                           ? dataRedux.operationStartingPeriod
                           : ""
                       }
-                      labelId="select-operation-starting-period-label"
-                      id="select-operation-starting-period"
                       {...register("operationStartingPeriod", {
                         required: true,
                       })}
@@ -177,7 +178,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                 </Typography>
               )}
 
-              {/* {Text field} */}
+              {/* {TextField} */}
               {
                 <Grid item xs={12} lg={4}>
                   {_.has(listField.textField, "label") && (
@@ -185,11 +186,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                       fullWidth
                       label={listField.textField.label}
                       variant="filled"
-                      defaultValue={
-                        _.has(dataRedux, "numberOfOutlets")
-                          ? dataRedux.numberOfOutlets
-                          : ""
-                      }
+                      value={inputValue}
                       error={
                         _.has(errors, "numberOfOutlets") &&
                         _.has(errors.numberOfOutlets, "type") &&
@@ -206,6 +203,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                           value: /^\d+$/,
                           message: `${ERROR_ICON} ${listField.textField.helperText}`,
                         },
+                        onChange: handleChange,
                       })}
                     />
                   )}
@@ -223,7 +221,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {/* {List Radio} */}
+          {/* {GroupRadio} */}
           {!_.isEmpty(listRadioBusinessAccount) && (
             <GroupRadio
               cx={cx}

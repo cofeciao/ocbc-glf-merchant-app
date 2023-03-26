@@ -6,11 +6,10 @@ import classnames from "classnames/bind";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 import _ from "lodash";
 import { updateDataListRadio } from "@/utils/utils";
+import GroupRadio from "@/components/GroupRadio";
 
 // import style
 import styles from "./BusinessDetails.scss";
-import { unregister } from "@/serviceWorker";
-import GroupRadio from "@/components/GroupRadio";
 
 // import types
 
@@ -30,9 +29,18 @@ const OtherInformation: React.FC<any> = (props) => {
   // states
   const [openRadioRetailStore, setOpenRadioRetailStore] =
     useState<boolean>(false);
-  const [retailStoreAcceptCardPayments, setRetailStoreAcceptCardPayments] = useState<string>("yes");
-  const [listRadioRetailStore, setListRadioRetailStore] =
-    useState(LIST_RADIO_YES_NO);
+  const [retailStoreAcceptCardPayments, setRetailStoreAcceptCardPayments] =
+    useState<string>(
+      dataRedux.cardPaymentAvailableAtRetailStore || LIST_RADIO_YES_NO[0].value
+    );
+  const [listRadioRetailStore, setListRadioRetailStore] = useState(
+    dataRedux.cardPaymentAvailableAtRetailStore
+      ? updateDataListRadio(
+          dataRedux.cardPaymentAvailableAtRetailStore,
+          LIST_RADIO_YES_NO
+        )
+      : LIST_RADIO_YES_NO
+  );
 
   /**
    * Check data from redux and dump data into fields
@@ -43,12 +51,6 @@ const OtherInformation: React.FC<any> = (props) => {
       !_.isEmpty(dataRedux.cardPaymentAvailableAtRetailStore)
     ) {
       setOpenRadioRetailStore(true);
-      setListRadioRetailStore(
-        updateDataListRadio(
-          dataRedux.cardPaymentAvailableAtRetailStore,
-          listRadioRetailStore
-        )
-      );
     }
   }, [dataRedux]);
 
@@ -59,7 +61,7 @@ const OtherInformation: React.FC<any> = (props) => {
     if (openRadioRetailStore) {
       setValue(
         "cardPaymentAvailableAtRetailStore",
-        listRadioRetailStore[0].label
+        listRadioRetailStore[0].value
       );
     } else {
       setValue("cardPaymentAvailableAtRetailStore", "");
@@ -67,7 +69,7 @@ const OtherInformation: React.FC<any> = (props) => {
   }, [openRadioRetailStore]);
 
   /**
-   * handle data from availableSpaces list checkbox
+   * Handle data from availableSpaces list checkbox
    * @param value
    */
   const handleDataAvailableSpaces = (value: any) => {
