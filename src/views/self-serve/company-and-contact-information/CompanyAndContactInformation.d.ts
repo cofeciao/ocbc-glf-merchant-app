@@ -39,6 +39,7 @@ declare namespace ICompanyAndContactInformation {
     cx: any;
     errors?: any;
     register?: any;
+    unregister?: any;
     setValue?: any;
     setError: any;
     data: {
