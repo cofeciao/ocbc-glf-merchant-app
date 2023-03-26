@@ -1,29 +1,29 @@
 // import modules
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox } from "@sectionsg/orc";
 import {
   Box,
   FormControl,
   Grid,
-  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@material-ui/core";
+import GroupRadio from "@/components/GroupRadio";
 import _ from "lodash";
 
 // import constants
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
-import GroupRadio from "@/components/GroupRadio";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
 
 // render UI
 const ImmediateFulfillment: React.FC<any> = (props) => {
   // props
-  const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
   const {
     cx,
     data,
@@ -34,110 +34,14 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
     errors,
     dataRedux,
   } = props;
-  const { textField, listCheckboxSecondary, listDropdown, listRadioSecondary } =
-    data;
-
-    // states
-  const [inputValue, setInputValue] = useState("");
-  const [productDelivery,setProductDelivery] = useState<string>(listRadioSecondary.list[0].value);
-
-  /**
-   * Prevent user input non-number
-   */
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value.replace(/\D/g, ""));
-  }
-
-  /**
-   * Handle unregister if fields are hidden
-   */
-  useEffect(() => {
-    if (!_.isEqual(variant, "fulfillment-over-a-period-of-time")) {
-      unregister("Ecom.percentageOfProductsNotFulfilledImmediately", {
-        keepDefaultValue: false,
-      });
-    }
-  }, [variant]);
+  const { listCheckboxSecondary, listDropdown, listRadioSecondary } = data;
+  const [productDelivery, setProductDelivery] = useState<string>(
+    dataRedux.productDelivery || listRadioSecondary.list[0].value
+  );
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
       <Grid container className={cx("mt-dt-40")}>
-        {/* {Percentage of products/services not fulfilled immediately} */}
-        {_.isEqual(variant, "fulfillment-over-a-period-of-time") && (
-          <Grid item xs={12}>
-            {/* {Description} */}
-            {!_.isEmpty(textField.description) && (
-              <Typography
-                className={cx(
-                  "fulfilment-information-description input-field-description"
-                )}
-              >
-                {textField.description}
-              </Typography>
-            )}
-            <Grid item xs={12} md={5}>
-              <TextField
-                fullWidth
-                label={textField.label}
-                variant="filled"
-                type="text"
-                value={inputValue}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      {PERCENT_CHARACTERS}
-                    </InputAdornment>
-                  ),
-                }}
-                error={
-                  _.has(errors, "Ecom") &&
-                  _.has(
-                    errors.Ecom,
-                    "percentageOfProductsNotFulfilledImmediately"
-                  ) &&
-                  !_.isEqual(
-                    errors.Ecom.percentageOfProductsNotFulfilledImmediately
-                      .type,
-                    "required"
-                  ) &&
-                  true
-                }
-                helperText={
-                  _.has(errors, "Ecom") &&
-                  _.has(
-                    errors.Ecom,
-                    "percentageOfProductsNotFulfilledImmediately"
-                  )
-                    ? errors.Ecom.percentageOfProductsNotFulfilledImmediately
-                        .message
-                    : ""
-                }
-                defaultValue={
-                  _.has(
-                    dataRedux,
-                    "percentageOfProductsNotFulfilledImmediately"
-                  )
-                    ? dataRedux.percentageOfProductsNotFulfilledImmediately
-                    : ""
-                }
-                className={cx("percentage-input-field")}
-                {...register(
-                  "Ecom.percentageOfProductsNotFulfilledImmediately",
-                  {
-                    required: true,
-                    pattern: {
-                      // eslint-disable-next-line no-useless-escape
-                      value: /^\b(0|[1-9][0-9]?|100)\b$/,
-                      message: `${ERROR_ICON} ${textField.helperText}`,
-                    },
-                    onChange: handleChange,
-                  }
-                )}
-              />
-            </Grid>
-          </Grid>
-        )}
-
         {/* {Where will your products come from?} */}
         <Grid item xs={12}>
           {_.has(listCheckboxSecondary, "description") && (
@@ -153,7 +57,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
           {!_.isEmpty(listCheckboxSecondary.list) && (
             <Checkbox
               isFullWidth
-              list={listCheckboxSecondary.list} 
+              list={listCheckboxSecondary.list}
               checkBoxClass={cx("your-product-come-from-checkbox")}
               getValue={(value: any) => {
                 setValue("Ecom.productDeliveredFrom", value);
@@ -192,6 +96,12 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                   fullWidth
                   labelId="select-duration-label"
                   id="select-duration"
+                  IconComponent={ExpandMore}
+                  defaultValue={
+                    _.has(dataRedux, "deliveryTimeToCustomers")
+                      ? dataRedux.deliveryTimeToCustomers
+                      : ""
+                  }
                   {...register("Ecom.deliveryTimeToCustomers", {
                     required: false,
                   })}

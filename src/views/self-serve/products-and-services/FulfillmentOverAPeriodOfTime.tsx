@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import {
   Box,
   FormControl,
@@ -16,29 +16,22 @@ import _ from "lodash";
 // import constants
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
+
 // import types
 
 // render UI
 const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
   const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
-  const { cx, data, variant, register, errors, unregister, dataRedux } = props;
+  const { cx, data, register, errors, dataRedux } = props;
   const { listDropdown, textField } = data;
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(
+    dataRedux.percentageOfProductsNotFulfilledImmediately || ""
+  );
 
   /**
-   * Handle unregister if fields are hidden
-   */
-  useEffect(() => {
-    if (!_.isEqual(variant, "fulfillment-over-a-period-of-time")) {
-      unregister([
-        "POS.deliveryTimeToCustomers",
-        "POS.percentageOfProductsNotFulfilledImmediately",
-      ]);
-    }
-  }, [variant]);
-
-  /**
-   * Prevent user input non-number
+   * Prevent user typing non-number
    */
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setInputValue(e.target.value.replace(/\D/g, ""));
@@ -50,7 +43,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
         <Grid item xs={12}>
           <Grid container className={cx("mt-dt-40")}>
             {/* {Please indicate duration} */}
-            <Grid item xs={6}>
+            <Grid item xs={5}>
               {/* {Description} */}
               {!_.isEmpty(listDropdown.description) && (
                 <Typography
@@ -78,6 +71,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                     fullWidth
                     labelId="select-duration-label"
                     id="select-duration"
+                    IconComponent={ExpandMore}
                     defaultValue={
                       _.has(dataRedux, "deliveryTimeToCustomers")
                         ? dataRedux.deliveryTimeToCustomers
@@ -149,14 +143,6 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                     )
                       ? errors.POS.percentageOfProductsNotFulfilledImmediately
                           .message
-                      : ""
-                  }
-                  defaultValue={
-                    _.has(
-                      dataRedux,
-                      "percentageOfProductsNotFulfilledImmediately"
-                    )
-                      ? dataRedux.percentageOfProductsNotFulfilledImmediately
                       : ""
                   }
                   {...register(
