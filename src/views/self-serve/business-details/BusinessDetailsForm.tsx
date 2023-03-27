@@ -17,6 +17,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
     unregister,
     errors,
     setValue,
+    dispatch,
     dataRedux,
     listWebsiteRedux,
   } = props;
@@ -81,6 +82,7 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
             register={register}
             errors={errors}
             unregister={unregister}
+            dispatch={dispatch}
             dataRedux={dataRedux}
             listWebsiteRedux={listWebsiteRedux}
           />

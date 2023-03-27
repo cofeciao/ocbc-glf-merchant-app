@@ -1,10 +1,9 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
 import React, { useEffect, useState } from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 import _ from "lodash";
-import TooltipDialog from "./Tooltip-dialog";
+import TooltipDialog from "./TooltipDialog";
 import GroupRadio from "@/components/GroupRadio";
 import { updateDataListRadio } from "@/utils/utils";
 
@@ -17,25 +16,33 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
   const { listRadio } = data;
 
   //states
-  const [valueSelected, setValueSelected] = useState<string>(listRadio.list[0].value);
+  const [valueSelected, setValueSelected] = useState<string>(
+    _.has(dataRedux, "orderFulfilment")
+      ? dataRedux.orderFulfilment
+      : listRadio.list[0].value
+  );
   const [listOrderFulfilment, setListOrderFulfilment] = useState(
-    listRadio.list
+    _.has(dataRedux, "orderFulfilment")
+      ? updateDataListRadio(dataRedux.orderFulfilment, listRadio.list)
+      : listRadio.list
   );
 
   /**
-   * Check data from redux and dump data into fields
+   * Handle unregister if fields are hidden
    */
   useEffect(() => {
-    if (
-      _.has(dataRedux, "orderFulfilment") &&
-      !_.isEmpty(dataRedux.orderFulfilment)
-    ) {
-      setListOrderFulfilment(
-        updateDataListRadio(dataRedux.orderFulfilment, listOrderFulfilment)
+    if (!_.isEqual(valueSelected, listRadio.list[1].label)) {
+      unregister(
+        [
+          "POS.deliveryTimeToCustomers",
+          "POS.percentageOfProductsNotFulfilledImmediately",
+        ],
+        {
+          keepDefaultValue: false,
+        }
       );
-      setValueSelected(listOrderFulfilment[1].text);
     }
-  }, [dataRedux]);
+  }, [valueSelected]);
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
@@ -61,18 +68,21 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
             name="orderFulfilment"
             value={valueSelected}
             isRow={false}
-            listRadio={listRadio.list}
+            listRadio={listOrderFulfilment}
             onChange={(event) => {
               const { value } = event.target;
               setValue("POS.orderFulfilment", value);
-              setValueSelected(value)
+              setValueSelected(value);
+              setListOrderFulfilment(
+                updateDataListRadio(value, listOrderFulfilment)
+              );
             }}
           />
         )}
       </Grid>
 
       {/* {Fulfillment Over A Period Of Time option} */}
-      {_.isEqual(valueSelected, listOrderFulfilment[1].text) && (
+      {_.isEqual(valueSelected, listOrderFulfilment[1].value) && (
         <FulfillmentOverAPeriodOfTime
           cx={cx}
           data={data}

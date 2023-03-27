@@ -16,15 +16,27 @@ const CashlessPaymentMethod: React.FC<any> = (props) => {
 
   return (
     <Box>
-      <Grid container>
+      <Grid container className={cx("cashless-payment-method-container")}>
         <Grid item xs={12}>
           <Box className={cx("d-flex-column")}>
             <Box component="span" className={cx("text-item-input")}>
-             {LABEL_MODE}
+              {LABEL_MODE}
             </Box>
-            {_.map(data, (item) => {
-              return (
-                <Box component="span" className={cx("text-item-value")}>
+            {_.map(data, (item, index) => {
+              return _.size(data) > 1 ? (
+                <Box
+                  key={index}
+                  component="ul"
+                  className={cx("text-item-value")}
+                >
+                  <Box component="li">{item.label}</Box>
+                </Box>
+              ) : (
+                <Box
+                  key={index}
+                  component="span"
+                  className={cx("text-item-value")}
+                >
                   {item.label}
                 </Box>
               );

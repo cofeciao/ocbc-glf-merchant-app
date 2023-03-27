@@ -43,6 +43,12 @@ export const ACKNOWLEDGEMENT_PAGE = {
 };
 
 export const HOME_PAGE = {
+  CAPTCHA: {
+    LABEL_GET_ANOTHER_CODE: "Get Another Code",
+    HELPER_TEXT: "Captcha does not match",
+    LABEL_TEXT_FIELD: "Verification Code",
+  },
+  
   ENTRY_POINT: {
     PLEASE_FILL_IN_THE_DETAILS: "Please fill in the details",
     LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED:
@@ -99,6 +105,7 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
+  LABEL_EDIT: "Edit",
   LABEL_SGD: "SGD",
   TOOLTIP_CONTENT: {
     fulfilmentPeriod: {
@@ -162,6 +169,9 @@ export const SELF_SERVE_PAGE = {
     ],
   },
 
+  LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA:
+    "Payment options (Includes Mastercard and Visa)",
+  LABEL_SERVICE: "Service",
   LABEL_COMPANY_AND_CONTACT_INFORMATION: "Company and contact information",
   LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE:
     "Transaction and card acceptance type",
@@ -291,12 +301,12 @@ export const SELF_SERVE_PAGE = {
   LIST_RADIO_YES_NO: [
     {
       label: "Yes",
-      value: "yes",
+      value: "Yes",
       checked: true,
     },
     {
       label: "No",
-      value: "no",
+      value: "No",
       checked: false,
     },
   ],
@@ -624,6 +634,7 @@ export const SELF_SERVE_PAGE = {
                 description: "Your website’s URL",
                 label: "Website URL",
                 helperText: "Please enter a valid URL",
+                inputValue: "",
               },
             },
           },
@@ -703,12 +714,12 @@ export const SELF_SERVE_PAGE = {
             list: [
               {
                 label: "Immediate fulfillment",
-                value: "immediate_fulfillment",
+                value: "Immediate fulfillment",
                 checked: true,
               },
               {
                 label: "Fulfillment over a period of time",
-                value: "fulfillment-over-a-period-of-time",
+                value: "Fulfillment over a period of time",
                 checked: false,
               },
             ],
@@ -790,12 +801,12 @@ export const SELF_SERVE_PAGE = {
             list: [
               {
                 label: "Immediate fulfillment",
-                value: "immediate_fulfillment",
+                value: "Immediate fulfillment",
                 checked: true,
               },
               {
                 label: "Fulfillment over a period of time",
-                value: "fulfillment-over-a-period-of-time",
+                value: "Fulfillment over a period of time",
                 checked: false,
               },
             ],
