@@ -11,6 +11,8 @@ import CompanyRegistration from "./CompanyRegistration";
 import ContactDetails from "./ContactDetails";
 import { saveDataCompanyAndContactInformationStep } from "@/store/form";
 import { useSelector } from "react-redux";
+import RedirectButton from "../RedirectButton";
+import _ from "lodash";
 
 // import constants
 import {
@@ -19,15 +21,11 @@ import {
   SELF_SERVE_PAGE,
 } from "@/utils/constants";
 
-// import style
+// import styles
 import styles from "./CompanyAndContactInformation.scss";
 
 // import types
 // import {ICompanyAndContactInformation} from "./CompanyAndContactInformation"
-
-//import icon
-import RedirectButton from "../RedirectButton";
-import _ from "lodash";
 
 // render UI
 const CompanyAndContactInformation: React.FC = () => {
@@ -52,6 +50,7 @@ const CompanyAndContactInformation: React.FC = () => {
 
   const {
     register,
+    unregister,
     formState: { errors, isValid },
     setValue,
     getValues,
@@ -115,6 +114,7 @@ const CompanyAndContactInformation: React.FC = () => {
           cx={cx}
           errors={errors}
           register={register}
+          unregister={unregister}
           setValue={setValue}
           setError={setError}
           data={contactDetails}

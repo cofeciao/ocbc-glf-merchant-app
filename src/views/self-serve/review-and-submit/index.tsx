@@ -117,7 +117,14 @@ const ReviewAndSubmit: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Company And Contact Infomation} */}
-      <SectionWrapper cx={cx} title={LABEL_COMPANY_REGISTRATION}>
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_COMPANY_REGISTRATION}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.company_and_contact_information);
+        }}
+      >
         <CompanyAndContactInfomation data={companyAndContactInformationStep} />
       </SectionWrapper>
 
@@ -125,6 +132,10 @@ const ReviewAndSubmit: React.FC<any> = () => {
       <SectionWrapper
         cx={cx}
         title={LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+        }}
       >
         <TransactionAndCardAcceptanceType
           data={transactionAndCardAcceptanceTypeStep}
@@ -132,7 +143,14 @@ const ReviewAndSubmit: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Business Details} */}
-      <SectionWrapper cx={cx} title={LABEL_BUSINESS_DETAILS}>
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_BUSINESS_DETAILS}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.business_details);
+        }}
+      >
         <BusinessDetails
           data={businessDetailsStep}
           listWebsiteUrl={listWebsiteUrl}
@@ -141,12 +159,22 @@ const ReviewAndSubmit: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Products And Services} */}
-      <SectionWrapper cx={cx} title={LABEL_PRODUCTS_AND_SERVICES}>
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_PRODUCTS_AND_SERVICES}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.products_and_services);
+        }}
+      >
         <ProductsAndServices
           data={productsAndServicesStep}
           optionSelected={optionSelected}
         />
       </SectionWrapper>
+
+      {/* {Divider} */}
+      <Box id={cx("divider")} />
 
       {/* {Agree Policy} */}
       <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />

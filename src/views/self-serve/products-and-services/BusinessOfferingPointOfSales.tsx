@@ -12,7 +12,11 @@ import { ERROR_ICON } from "@/utils/constants";
 const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const { textField } = data;
-  const [counter, setCounter] = useState<number>(0);
+  const [counter, setCounter] = useState<number>(
+    !_.isEmpty(dataRedux[textField.keyName])
+      ? dataRedux[textField.keyName].length
+      : 0
+  );
   const maxLength = 180;
 
   return (

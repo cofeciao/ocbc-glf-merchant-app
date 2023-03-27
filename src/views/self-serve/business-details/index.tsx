@@ -68,10 +68,10 @@ const BusinessDetails: React.FC<any> = () => {
       yourWebsiteURL0: listWebsiteUrl[0],
       yourWebsiteURL1: listWebsiteUrl[1],
       yourWebsiteURL2: listWebsiteUrl[2],
-      businessReadyToOperate: LIST_RADIO_YES_NO[0].text,
-      businessAccount: LIST_RADIO_YES_NO[0].text,
-      existingWebsite: LIST_RADIO_YES_NO[0].text,
-      placeOrderThroughWebsite: LIST_RADIO_YES_NO[0].text,
+      businessReadyToOperate: LIST_RADIO_YES_NO[0].label,
+      businessAccount: LIST_RADIO_YES_NO[0].label,
+      existingWebsite: LIST_RADIO_YES_NO[0].label,
+      placeOrderThroughWebsite: LIST_RADIO_YES_NO[0].label,
     },
   });
 
@@ -104,6 +104,7 @@ const BusinessDetails: React.FC<any> = () => {
         unregister={unregister}
         errors={errors}
         setValue={setValue}
+        dispatch={dispatch}
         listWebsiteRedux={listWebsiteUrl}
       />
 

@@ -36,7 +36,7 @@ const ProductsAndServices: React.FC<any> = () => {
 
   // classnames
   const cx = classnames.bind(styles);
-  
+
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
@@ -63,17 +63,49 @@ const ProductsAndServices: React.FC<any> = () => {
     formState: { errors, isValid, isDirty },
     getValues,
     setValue,
-    watch
+    watch,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
       POS: {
         orderFulfilment:
-          pointOfSalesForm.fulfilmentInformation.listRadio.list[0].text || "",
+          productsAndServicesStep.pointOfSales.orderFulfilment ||
+          pointOfSalesForm.fulfilmentInformation.listRadio.list[0].label,
+        typeOfProductAndService:
+          productsAndServicesStep.pointOfSales.typeOfProductAndService || "",
+        averageAmountPerCreditCardTransaction:
+          productsAndServicesStep.pointOfSales
+            .averageAmountPerCreditCardTransaction || "",
+        annualCreditCardSalesForecast:
+          productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast ||
+          "",
+        deliveryTimeToCustomers:
+          productsAndServicesStep.pointOfSales.deliveryTimeToCustomers,
+        percentageOfProductsNotFulfilledImmediately:
+          productsAndServicesStep.pointOfSales
+            .percentageOfProductsNotFulfilledImmediately,
       },
       Ecom: {
-        orderFulfilment: ecommerceForm.fulfilmentInformation.listRadio.list[0].text || "",
-        productDelivery: ecommerceForm.fulfilmentInformation.listRadioSecondary.list[0].option || "",
+        orderFulfilment:
+          productsAndServicesStep.eCommerce.orderFulfilment ||
+          ecommerceForm.fulfilmentInformation.listRadio.list[0].label,
+        productDelivery:
+          productsAndServicesStep.eCommerce.productDelivery ||
+          ecommerceForm.fulfilmentInformation.listRadioSecondary.list[0].option,
+        typeOfProductAndService:
+          productsAndServicesStep.eCommerce.typeOfProductAndService || "",
+        deliveryTimeToCustomers:
+          productsAndServicesStep.eCommerce.deliveryTimeToCustomers || "",
+        averageAmountPerCreditCardTransaction:
+          productsAndServicesStep.eCommerce
+            .averageAmountPerCreditCardTransaction || "",
+        annualCreditCardSalesForecast:
+          productsAndServicesStep.eCommerce.annualCreditCardSalesForecast || "",
+        productDeliveredFrom:
+          productsAndServicesStep.eCommerce.productDeliveredFrom || "",
+        percentageOfProductsNotFulfilledImmediately:
+          productsAndServicesStep.eCommerce
+            .percentageOfProductsNotFulfilledImmediately,
       },
     },
   });
@@ -102,6 +134,7 @@ const ProductsAndServices: React.FC<any> = () => {
           cx={cx}
           variant="point-of-sales"
           data={pointOfSalesForm}
+          optionSelected={optionSelected}
           dataRedux={productsAndServicesStep.pointOfSales}
           register={register}
           unregister={unregister}

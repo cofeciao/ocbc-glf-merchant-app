@@ -18,7 +18,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // render UI
 const ContinueLaterDialog: React.FC<any> = (props) => {
-  const { handleOpenContinueLaterDialog, handleCloseContinueLaterDialog } = props;
+  const { handleOpenContinueLaterDialog } = props;
   const {
     LABEL_YOU_ARE_LEAVING_THIS_APPLICATION,
     LABEL_SAVE_YOUR_PROGRESS_AND_CONTINUE_LATER,

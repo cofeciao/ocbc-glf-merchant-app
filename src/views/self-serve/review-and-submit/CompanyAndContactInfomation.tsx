@@ -26,7 +26,7 @@ const CompanyAndContactInfomation: React.FC<any> = (props) => {
 
   return (
     <Box>
-      <Grid container>
+      <Grid container className={cx("company-registration-container")}>
         <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
             <Grid item xs={12} md={6}>
@@ -63,9 +63,11 @@ const CompanyAndContactInfomation: React.FC<any> = (props) => {
             </Box>
           </Box>
         </Grid>
+      </Grid>
 
-        <Box className={cx("section-title")}>{LABEL_CONTACT_DETAILS}</Box>
+      <Box className={cx("sub-section-title")}>{LABEL_CONTACT_DETAILS}</Box>
 
+      <Grid container className={cx("contact-details-container")}>
         <Grid item xs={12}>
           <Box className={cx("d-flex-column")}>
             <Box component="span" className={cx("text-item-input")}>

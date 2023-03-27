@@ -13,7 +13,8 @@ input:-webkit-autofill {
 }
 
 // focused color for input
-.MuiFilledInput-underline, .MuiInput-underline {
+.MuiFilledInput-underline,
+.MuiInput-underline {
   &::after {
     border-bottom: 1px solid #005efd !important;
   }
@@ -92,6 +93,22 @@ input:-webkit-autofill {
       color: red;
     }
 
+    & .header-wrapper {
+      gap: 16px;
+
+      & .content-title {
+        gap: 16px;
+        align-items: baseline;
+        & .edit-link {
+          cursor: pointer;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: #005efd;
+        }
+      }
+    }
+
     & .MuiFormControl-root {
       & .MuiInputBase-root,
       .MuiFormLabel-root {
@@ -124,10 +141,6 @@ input:-webkit-autofill {
       & .MuiInput-underline::before {
         border-color: #e2e7ec;
       }
-    }
-
-    .header-wrapper {
-      gap: 16px;
     }
 
     & .section-title {
