@@ -201,6 +201,7 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
         disabledNextButton={disabledButton}
         continueLater
         backButton
+        isIcon={false}
         variant="submit"
         onClickBack={() => {
           history.push(LIST_ROUTER.products_and_services);

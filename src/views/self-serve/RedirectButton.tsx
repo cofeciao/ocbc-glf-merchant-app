@@ -30,6 +30,7 @@ const RedirectButton: React.FC<any> = (props) => {
     onClickNext,
     onClickBack,
     disabledNextButton,
+    isIcon = true,
   } = props;
 
   // classnames
@@ -87,7 +88,9 @@ const RedirectButton: React.FC<any> = (props) => {
               {(_.isEqual(variant, "next") && NEXT) ||
                 (_.isEqual(variant, "submit") && SUBMIT) ||
                 (_.isEqual(variant, "start") && START)}
-              <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
+                {isIcon && (
+                  <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
+                )}
             </>
           </Button>
         </Box>
