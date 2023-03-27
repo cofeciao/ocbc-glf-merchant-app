@@ -1,5 +1,5 @@
 // import modules
-import React from "react";
+import React, { useState } from "react";
 import { Box, TextField } from "@material-ui/core";
 import _ from "lodash";
 
@@ -12,7 +12,12 @@ import { ERROR_ICON } from "@/utils/constants";
 const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const { textField } = data;
-  console.log(errors);
+  const [counter, setCounter] = useState<number>(
+    !_.isEmpty(dataRedux[textField.keyName])
+      ? dataRedux[textField.keyName].length
+      : 0
+  );
+  const maxLength = 180;
 
   return (
     <Box className={cx("business-offering-wrapper")}>
@@ -20,7 +25,16 @@ const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
         <Box className={cx("main-input-field")}>
           <TextField
             fullWidth
-            placeholder={textField.label}
+            multiline
+            rowsMax={3}
+            label={
+              <Box width="130%" className={cx("d-flex space-between")}>
+                <span>{textField.label}</span>
+                <span id={cx("counter")}>
+                  {counter > maxLength ? maxLength : counter}/{maxLength}
+                </span>
+              </Box>
+            }
             variant="filled"
             error={
               _.has(errors, "POS") &&
@@ -46,6 +60,9 @@ const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
                 // eslint-disable-next-line no-useless-escape
                 value: /^.{0,180}$/,
                 message: `${ERROR_ICON} ${textField.helperText}`,
+              },
+              onChange: (e: any) => {
+                setCounter(e.target.value.length);
               },
             })}
           />

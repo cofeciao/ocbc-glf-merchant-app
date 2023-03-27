@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const Formslice = createSlice({
   name: "form",
   initialState: {
-    // RM flows
+    // RM flow
     dataCompanyDetail: {},
     dataAcraDetail: {},
     servicesAppliedStep: {
@@ -25,13 +25,12 @@ const Formslice = createSlice({
       anyOtherSupportingDocuments: []
     },
 
-    //---
+    // Self flow
     cashlessPaymentMethod: [],
     companyAndContactInformationStep: {},
     transactionAndCardAcceptanceTypeStep: [],
     businessDetailsStep: {},
     listWebsiteUrl: [],
-
     productsAndServicesStep: {
       pointOfSales: {},
       eCommerce: {},
@@ -59,7 +58,7 @@ const Formslice = createSlice({
     saveDataCompanyDetail: (state, action) => {
       state.dataCompanyDetail = action.payload;
     },
-    
+
     /**
      * function save data of ACRA and contact information step
      * @param state - State for form
@@ -80,7 +79,7 @@ const Formslice = createSlice({
      saveDataSupplementaryDocument: (state, action) => {
       state.supplementaryDocumentStep = action.payload;
     },
-   
+
     /**
      * function save data of step Company And Contact Information
      * @param state - State for form

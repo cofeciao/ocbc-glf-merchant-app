@@ -1,8 +1,7 @@
 // import modules
-import { Button, Dialog } from "@sectionsg/orc";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Box, Typography } from "@material-ui/core";
+import { Box, Typography, Dialog, Button, DialogContent } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { Link } from "react-router-dom";
 import ReviewAndSaveDialog from "./ReviewAndSaveDialog";
@@ -10,13 +9,16 @@ import _ from "lodash";
 
 // import style
 import styles from "./ContinueLaterDialog.scss";
+
+//import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
-// import types
+// import icons
+import CloseIcon from '@material-ui/icons/Close';
 
 // render UI
 const ContinueLaterDialog: React.FC<any> = (props) => {
-  const { onCloseDialog } = props;
+  const { handleOpenContinueLaterDialog } = props;
   const {
     LABEL_YOU_ARE_LEAVING_THIS_APPLICATION,
     LABEL_SAVE_YOUR_PROGRESS_AND_CONTINUE_LATER,
@@ -37,7 +39,7 @@ const ContinueLaterDialog: React.FC<any> = (props) => {
    * Handle close dialog
    */
   const handleCloseDialog = () => {
-    onCloseDialog(true);
+    handleOpenContinueLaterDialog();
     setOpenDialog(false);
   };
 
@@ -58,11 +60,10 @@ const ContinueLaterDialog: React.FC<any> = (props) => {
           {LABEL_SAVE_YOUR_PROGRESS_AND_CONTINUE_LATER}
         </Typography>
       </Box>
-      <Box className={cx("group-button")}>
+      <Box className={cx("group-button", "mt-dt-40", "mb-dt-56")}>
         <Button
-          id={cx("yes-button")}
-          variant="contained"
           onClick={handleYesButton}
+          variant="contained"
         >
           {LABEL_YES_SAVE_APPLICATION}
         </Button>
@@ -81,11 +82,20 @@ const ContinueLaterDialog: React.FC<any> = (props) => {
       </Box>
 
       {/* {Dialog} */}
-      <Dialog isOpen={openDialog} onRequestClose={handleCloseDialog}>
-        <ReviewAndSaveDialog
-          dataRedux={dataCompanyAndContactInformationStep}
-          onCloseDialog={handleCloseDialog}
-        />
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseDialog} /></div>
+        <DialogContent>
+          <ReviewAndSaveDialog
+            dataRedux={dataCompanyAndContactInformationStep}
+            onCloseDialog={handleCloseDialog}
+          />
+        </DialogContent>
       </Dialog>
     </Box>
   );

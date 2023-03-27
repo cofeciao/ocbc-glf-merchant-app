@@ -3,19 +3,27 @@ import { Box, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import _ from "lodash";
 import { ISelfServe } from "@/views/self-serve/SelfServe";
+import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 const SectionWrapper = (props: ISelfServe.ISectionWrapper) => {
-  const { title, description, cx, edit, children } = props;
+  const { title, description, cx, edit, children, className, onClickEdit } =
+    props;
+
+  const { LABEL_EDIT } = SELF_SERVE_PAGE;
   return (
-    <Grid container className={cx("section-wrapper")}>
+    <Grid container className={cx(`section-wrapper ${className}`)}>
       <Grid item xs={12}>
         {!_.isEmpty(title || description) && (
           <Box className="header-wrapper">
             {/* {Title} */}
             {title && (
-              <Box className={cx("header-wrapper d-flex")}>
+              <Box className={cx("content-title d-flex")}>
                 <Typography className={cx("section-title")}>{title}</Typography>
-                {edit && <Box>Edit</Box>}
+                {edit && (
+                  <Box component="a" onClick={onClickEdit} className={cx("edit-link")}>
+                    {LABEL_EDIT}
+                  </Box>
+                )}
               </Box>
             )}
 

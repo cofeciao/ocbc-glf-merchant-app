@@ -1,14 +1,32 @@
 @import "../../assets/style/variable.scss";
 
+// focused color for input
+.MuiFilledInput-underline,
+.MuiInput-underline {
+  &::after {
+    border-bottom: 1px solid #005efd !important;
+  }
+  &.Mui-error::after {
+    border-bottom: 1px solid #ed5347 !important;
+  }
+}
+
 .home-page-wrapper {
   margin-top: 40px;
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 61px;
 
+  #divider {
+    height: 1px;
+    width: 100%;
+    background: #e2e7ec;
+    margin-top: 56px;
+  }
+
   & .home-category {
     div::before {
-      background-color: #E30613
+      background-color: #e30613;
     }
     @media (max-width: 767px) {
       margin-bottom: 40px;
@@ -60,6 +78,30 @@
       font-size: $fzH5;
       line-height: 28px;
       color: #777e87;
+    }
+  }
+
+  & .captcha-wrapper {
+    .MuiFormLabel-root {
+      color: #777e87;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      &::before {
+        border-color: #e2e7ec;
+      }
+      & input {
+        background-color: #fafcfc;
+      }
+    }
+
+    & .get-another-code-button {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #005efd;
+      cursor: pointer;
+      user-select: none;
     }
   }
 }

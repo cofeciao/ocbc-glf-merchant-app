@@ -1,6 +1,5 @@
 // import modules
-import React, { useState } from "react";
-
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -16,9 +15,52 @@ import { ERROR_ICON } from "@/utils/constants";
 // render UI
 const SalesForecastEcommerce: React.FC<any> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
-  const [isSelected1, setIsSelected1] = useState(false);
-  const [isSelected2, setIsSelected2] = useState(false);
+  const [openAdornmentFirst, setOpenAdornmentFirst] = useState<boolean>(false);
+  const [openAdornmentFirstSecond, setOpenAdornmentFirstSecond] = useState<boolean>(false);
+  const [
+    valueAverageAmountPerCreditCardTransaction,
+    setValueAverageAmountPerCreditCardTransaction,
+  ] = useState<string>("");
+  const [
+    valueAnnualCreditCardSalesForecast,
+    setValueAnnualCreditCardSalesForecast,
+  ] = useState<string>("");
 
+  /**
+   * Check data from redux and dump data into input fields
+   */
+  useEffect(() => {
+    if (_.has(dataRedux, "averageAmountPerCreditCardTransaction")) {
+      setValueAverageAmountPerCreditCardTransaction(
+        dataRedux.averageAmountPerCreditCardTransaction
+      );
+      setOpenAdornmentFirst(true);
+    }
+    if (_.has(dataRedux, "annualCreditCardSalesForecast")) {
+      setValueAnnualCreditCardSalesForecast(
+        dataRedux.annualCreditCardSalesForecast
+      );
+      setOpenAdornmentFirstSecond(true);
+    }
+  }, [dataRedux]);
+
+  /**
+   * Replace numeric values ​​from input
+   * @param event
+   */
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    // Change value to thousand seperator, eg: 1000000 => 1,000,000
+    const sanitizedText = event.target.value.replace(/[^0-9]/g, "");
+    const formattedText = sanitizedText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    index === 0
+      ? setValueAverageAmountPerCreditCardTransaction(formattedText)
+      : setValueAnnualCreditCardSalesForecast(formattedText);
+  };
+
+  // render UI
   return (
     <Box className={cx("sales-forecast-wrapper")}>
       {_.has(data, "description") && (
@@ -28,30 +70,36 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
       )}
       <Grid item xs={12}>
         <Box className={cx("text-field-group")}>
-          {_.map(data.listTextField, (textField, index) => {
+          {_.map(data.listTextField, (textField, index: number) => {
             return (
               <Box key={index}>
-                <Grid item xs={5}>
+                <Grid item xs={12} md={6} lg={5}>
                   <TextField
                     fullWidth
                     label={textField.description}
-                    InputProps={
-                      isSelected1 ? (
-                        {
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              {textField.label}
-                            </InputAdornment>
-                          ),
-                        }
-                      ) : (
-                        <></>
-                      )
+                    value={
+                      index === 0
+                        ? valueAverageAmountPerCreditCardTransaction
+                        : valueAnnualCreditCardSalesForecast
                     }
-                    onFocus={(e) => setIsSelected(true)}
-                    onBlur={(e) => {
-                      console.log("blur asdjadbabdjabdjasbdsj");
-                      setIsSelected(false);
+                    InputProps={
+                      (openAdornmentFirst && index === 0) ||
+                      (openAdornmentFirstSecond && index === 1)
+                        ? {
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                {textField.label}
+                              </InputAdornment>
+                            ),
+                          }
+                        : {}
+                    }
+                    onFocus={() => {
+                      if (index === 0) {
+                        setOpenAdornmentFirst(true);
+                      } else {
+                        setOpenAdornmentFirstSecond(true);
+                      }
                     }}
                     error={
                       _.has(errors, "Ecom") &&
@@ -78,8 +126,17 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
                       required: true,
                       pattern: {
                         // eslint-disable-next-line no-useless-escape
-                        value: /^[1-9]\d*$/,
+                        value: /^[1-9]\d{0,2}(,\d{3})*$/,
                         message: `${ERROR_ICON} ${textField.helperText}`,
+                      },
+                      onChange: (event: ChangeEvent<HTMLInputElement>) =>
+                        handleChange(event, index),
+                      onBlur: (e: any) => {
+                        e.target.value === ""
+                          ? index === 0
+                            ? setOpenAdornmentFirst(false)
+                            : setOpenAdornmentFirstSecond(false)
+                          : null;
                       },
                     })}
                   />

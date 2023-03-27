@@ -1,57 +1,88 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 import _ from "lodash";
+import TooltipDialog from "./TooltipDialog";
+import GroupRadio from "@/components/GroupRadio";
+import { updateDataListRadio } from "@/utils/utils";
 
 // import types
 
 // render UI
 const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
-  const {
-    cx,
-    data,
-    register,
-    unregister,
-    errors,
-    setValue,
-    dataRedux,
-  } = props;
+  //props
+  const { cx, data, register, unregister, errors, setValue, dataRedux } = props;
   const { listRadio } = data;
-  const [valueSelected, setValueSelected] = useState();
+
+  //states
+  const [valueSelected, setValueSelected] = useState<string>(
+    _.has(dataRedux, "orderFulfilment")
+      ? dataRedux.orderFulfilment
+      : listRadio.list[0].value
+  );
+  const [listOrderFulfilment, setListOrderFulfilment] = useState(
+    _.has(dataRedux, "orderFulfilment")
+      ? updateDataListRadio(dataRedux.orderFulfilment, listRadio.list)
+      : listRadio.list
+  );
+
+  /**
+   * Handle unregister if fields are hidden
+   */
+  useEffect(() => {
+    if (!_.isEqual(valueSelected, listRadio.list[1].label)) {
+      unregister(
+        [
+          "POS.deliveryTimeToCustomers",
+          "POS.percentageOfProductsNotFulfilledImmediately",
+        ],
+        {
+          keepDefaultValue: false,
+        }
+      );
+    }
+  }, [valueSelected]);
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
+      {/* {How quickly does your business fulfil these products and/or services?} */}
       <Grid item xs={12}>
         {/* {Description} */}
         {_.has(listRadio, "description") && (
           <Typography
+            component="div"
             className={cx(
-              "fulfilment-information-description input-field-description"
+              "fulfilment-information-description sub-section-description d-flex mb-16"
             )}
           >
             {listRadio.description}
+            <TooltipDialog />
           </Typography>
         )}
 
         {/* {Radio Group} */}
-        {!_.isEmpty(listRadio.list) && (
-          <Radio
-            name="lockIn"
-            listCheckBox={listRadio.list}
-            radioKey={0}
-            vertical
-            getValue={(value: any) => {
+        {!_.isEmpty(listOrderFulfilment) && (
+          <GroupRadio
+            cx={cx}
+            name="orderFulfilment"
+            value={valueSelected}
+            isRow={false}
+            listRadio={listOrderFulfilment}
+            onChange={(event) => {
+              const { value } = event.target;
               setValue("POS.orderFulfilment", value);
-              setValueSelected(value.toLowerCase().replace(/ /g, "-")); // get name string to value
+              setValueSelected(value);
+              setListOrderFulfilment(
+                updateDataListRadio(value, listOrderFulfilment)
+              );
             }}
           />
         )}
       </Grid>
 
       {/* {Fulfillment Over A Period Of Time option} */}
-      {_.isEqual(valueSelected, "fulfillment-over-a-period-of-time") && (
+      {_.isEqual(valueSelected, listOrderFulfilment[1].value) && (
         <FulfillmentOverAPeriodOfTime
           cx={cx}
           data={data}

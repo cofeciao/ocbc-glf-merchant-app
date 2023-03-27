@@ -1,6 +1,6 @@
 // import modules
 import { Container, Grid } from "@material-ui/core";
-import { Footer, Header, Loading, Category } from "@sectionsg/orc";
+import { Header, Loading, Category } from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
 import React, { useState } from "react";
@@ -15,7 +15,8 @@ import { LINK_EXTERNAL_PAGE, TITLE_PAGE } from "../../utils/constants-rm";
 import styles from "./Login.scss";
 import LoginForm from "./LoginForm";
 
-// import child component
+// import components
+import Footer from "@/components/Footer";
 
 // render UI
 const LoginPage: React.FC = ({}) => {

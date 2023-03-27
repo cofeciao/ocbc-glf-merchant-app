@@ -43,6 +43,12 @@ export const ACKNOWLEDGEMENT_PAGE = {
 };
 
 export const HOME_PAGE = {
+  CAPTCHA: {
+    LABEL_GET_ANOTHER_CODE: "Get Another Code",
+    HELPER_TEXT: "Captcha does not match",
+    LABEL_TEXT_FIELD: "Verification Code",
+  },
+  
   ENTRY_POINT: {
     PLEASE_FILL_IN_THE_DETAILS: "Please fill in the details",
     LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED:
@@ -58,11 +64,13 @@ export const HOME_PAGE = {
     },
     LIST_RADIO_ENTRY_POINT: [
       {
-        text: "Start a new Cashless payment application",
+        label: "Start a new Cashless payment application",
+        value: "start_a_new_cashless_payment_application",
         checked: false,
       },
       {
-        text: "Continue from saved application",
+        label: "Continue from saved application",
+        value: "continue_from_saved_application",
         checked: false,
       },
     ],
@@ -97,6 +105,25 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
+  LABEL_EDIT: "Edit",
+  LABEL_SGD: "SGD",
+  TOOLTIP_CONTENT: {
+    fulfilmentPeriod: {
+      title: "Fulfilment period",
+      description:
+        "Fulfilment period refers to the length of time between customers making a payment and receiving a product or service.",
+    },
+    imediateFulfilment: {
+      title: "Immediate fulfilment",
+      description:
+        "Customers receive the product or service upon payment e.g., food establishments, retail, etc.",
+    },
+    fulfilmentOver: {
+      title: "Fulfilment over a period of time",
+      description:
+        "Customers receive a product or service spread out over a period of time after payment e.g., subscriptions, spa packages, etc.",
+    },
+  },
   LIST_CHECKBOX_AGREE_POLICY: {
     description:
       "Before submitting your application, please ensure that you read and understand the following:",
@@ -142,6 +169,9 @@ export const SELF_SERVE_PAGE = {
     ],
   },
 
+  LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA:
+    "Payment options (Includes Mastercard and Visa)",
+  LABEL_SERVICE: "Service",
   LABEL_COMPANY_AND_CONTACT_INFORMATION: "Company and contact information",
   LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE:
     "Transaction and card acceptance type",
@@ -189,6 +219,14 @@ export const SELF_SERVE_PAGE = {
   LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY:
     "Percentage of products/services not fulfilled immediately",
 
+  LABEL_TYPE_OF_PRODUCT_AND_SERVICE: "Type of product and/or service",
+  LABEL_ORDER_FULFILMENT: "Order fulfilment",
+  LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION:
+    "Average amount per credit card transaction",
+  LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST: "Annual credit card sales forecast",
+  LABEL_PRODUCT_DELIVERED_FROM: "Product delivered from",
+  LABEL_PRODUCT_DELIVERY: "Product delivery",
+
   CONTINUE_LATER_DIALOG: {
     LABEL_YOU_ARE_LEAVING_THIS_APPLICATION: "You are leaving this application",
     LABEL_SAVE_YOUR_PROGRESS_AND_CONTINUE_LATER:
@@ -198,7 +236,7 @@ export const SELF_SERVE_PAGE = {
     REVIEW_AND_SAVE: {
       title: "Continue with your application later",
       description:
-        "This will save and close your application. We will send the savedapplication to the details below.",
+        "This will save and close your application. We will send the saved application to the details below.",
     },
   },
 
@@ -208,11 +246,13 @@ export const SELF_SERVE_PAGE = {
         "How quickly does your business fulfil these products and/or services?",
       listRadio: [
         {
-          text: "Immediate fulfillment",
+          label: "Immediate fulfillment",
+          value: "immediate_fulfillment",
           checked: true,
         },
         {
-          text: "Fulfillment over a period of time",
+          label: "Fulfillment over a period of time",
+          value: "fulfillment-over-a-period-of-time",
           checked: false,
         },
       ],
@@ -260,13 +300,13 @@ export const SELF_SERVE_PAGE = {
   PERCENT_CHARACTERS: "%",
   LIST_RADIO_YES_NO: [
     {
-      text: "Yes",
-      value: "yes",
+      label: "Yes",
+      value: "Yes",
       checked: true,
     },
     {
-      text: "No",
-      value: "no",
+      label: "No",
+      value: "No",
       checked: false,
     },
   ],
@@ -592,8 +632,9 @@ export const SELF_SERVE_PAGE = {
               },
               textField: {
                 description: "Your website’s URL",
-                label: "e.g. www.xxx.com",
+                label: "Website URL",
                 helperText: "Please enter a valid URL",
+                inputValue: "",
               },
             },
           },
@@ -672,16 +713,19 @@ export const SELF_SERVE_PAGE = {
               "How quickly does your business fulfil these products and/or services?",
             list: [
               {
-                text: "Immediate fulfillment",
+                label: "Immediate fulfillment",
+                value: "Immediate fulfillment",
                 checked: true,
               },
               {
-                text: "Fulfillment over a period of time",
+                label: "Fulfillment over a period of time",
+                value: "Fulfillment over a period of time",
                 checked: false,
               },
             ],
           },
           listDropdown: {
+            label: "Duration",
             description: "Please indicate duration",
             list: [
               {
@@ -705,6 +749,8 @@ export const SELF_SERVE_PAGE = {
           textField: {
             description:
               "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
           },
         },
         salesForecast: {
@@ -746,17 +792,21 @@ export const SELF_SERVE_PAGE = {
           textField: {
             description:
               "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
           },
           listRadio: {
             description:
               "How quickly does your business fulfil these products and/or services?",
             list: [
               {
-                text: "Immediate fulfillment",
+                label: "Immediate fulfillment",
+                value: "Immediate fulfillment",
                 checked: true,
               },
               {
-                text: "Fulfillment over a period of time",
+                label: "Fulfillment over a period of time",
+                value: "Fulfillment over a period of time",
                 checked: false,
               },
             ],
@@ -777,6 +827,7 @@ export const SELF_SERVE_PAGE = {
           listDropdown: {
             description: "Approximate delivery time to customers",
             placeholder: "Delivery time",
+            label: "Duration",
             list: [
               {
                 name: "Within a week",
@@ -813,11 +864,15 @@ export const SELF_SERVE_PAGE = {
             description: "How will your products be delivered?",
             list: [
               {
-                text: "Delivered by my supplier",
-                checked: false,
+                label: "Delivered by my supplier",
+                option: "By supplier",
+                value: "By supplier",
+                checked: true,
               },
               {
-                text: "Delivered by my business (after receipt from supplier)",
+                label: "Delivered by my business (after receipt from supplier)",
+                option: "By my business",
+                value: "By my business",
                 checked: false,
               },
             ],
@@ -863,7 +918,7 @@ export const SELF_SERVE_PAGE = {
 
 export const ERROR = "error";
 
-export const TITLE_PAGE = "OCBC Cashless Payments";
+export const TITLE_PAGE = "Cashless Payments Application";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 export const CONTINUE_LATER = "Continue later";
 
@@ -1524,7 +1579,7 @@ export const DATA_TABS_REP_NON_REPRICING_MANUAL_SELECTED = [
 export const NEXT = "Next";
 export const REVIEW = "Review";
 export const SUBMIT = "Submit";
-export const START = "START";
+export const START = "Start";
 
 export const LIST_COUNTRIES = [
   {

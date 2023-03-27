@@ -950,3 +950,148 @@ body {
   color:$tundora !important;
   font-weight: 700 !important;
 }
+
+// styled Button
+.MuiButton-contained {
+  background-color: #3D525D !important;
+  border-radius: 8px !important;
+  height: 52px;
+  padding: 22px !important;
+
+  .MuiButton-label {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 28px;
+    color: $white;
+    text-transform: capitalize !important;
+
+    img {
+      margin-left: 10px;
+    }
+  }
+}
+.MuiButton-contained.Mui-disabled {
+  background-color: #E2E7EC !important;
+
+  .MuiButton-label {
+    color: #B1B8C5 !important;
+  }
+}
+
+.MuiButton-contained:hover {
+  background-color: #567180 !important;
+}
+
+.MuiButton-outlined {
+  border-color:#3D525D !important;
+  border-radius: 8px !important;
+  height: 52px !important;
+}
+
+// style Dialog
+.MuiDialog-paperWidthMd {
+  max-width: 660px !important;
+}
+
+.MuiDialog-container {
+  background-color: #B1B8C5;
+  padding: 28px;
+
+  & .MuiDialog-paper {
+    & .MuiDialogTitle-root {
+      h2 {
+        display: flex;
+        flex-direction: column;
+
+        & .title {
+          font-weight: 700;
+          font-size: 24px;
+          line-height: 32px;
+          color: #363B40;
+          margin-bottom: 16px;
+        }
+      }
+    }
+
+    & .MuiDialogContent-root {
+      min-width: 660px;
+      & .MuiGrid-container {
+        & .MuiGrid-item {
+          & .title {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #777E87;
+          }
+          & .content {
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            color: #575D65;
+          }
+        }
+      }
+      hr {
+        margin-top: 54px;
+      }
+    }
+
+    & .MuiDialogActions-root {
+      margin-bottom: 20px;
+      justify-content: flex-start;
+      padding: 20px;
+
+      button {
+        height: 52px;
+      }
+      p {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 28px;
+        color: #005EFD;
+        cursor: pointer;
+        margin-left: 24px;
+      }
+    }
+  }
+
+  & .MuiPaper-rounded {
+    border-radius: 8px;
+  }
+
+  & .icon-close {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px 24px 0;
+    svg {
+      cursor: pointer;
+    } 
+  }
+}
+
+// styled select phone number
+.MuiList-root {
+  background-color: #F5F5F5;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+ 
+  & .item-selected {
+    border-bottom: 0.5px solid rgba(60, 60, 67, 0.36);
+    & .group-item-select {
+      padding: 5px 0px;
+      display: flex;
+      align-items: center;
+      & .MuiSvgIcon-root {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  & .item-selected:last-child {
+    border-bottom: 0px;
+  }
+
+  & .item-selected.Mui-selected {
+    background-color: transparent;
+  }
+}

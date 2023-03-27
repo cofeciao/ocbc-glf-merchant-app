@@ -1,3 +1,5 @@
-declare namespace ITransactionAndCardAcceptanceType {}
+declare namespace IEntryDialog {
+  
+}
 
-export { ITransactionAndCardAcceptanceType };
+export { IEntryDialog };

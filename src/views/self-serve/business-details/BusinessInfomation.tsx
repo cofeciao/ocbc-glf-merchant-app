@@ -1,6 +1,5 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -13,10 +12,17 @@ import {
 } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
+import { updateDataListRadio } from "@/utils/utils";
+import GroupRadio from "@/components/GroupRadio";
+
+// import constants
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./BusinessDetails.scss";
-import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
 
@@ -31,20 +37,46 @@ const BusinessInfomation: React.FC<any> = (props) => {
     dataRedux,
     optionSelected,
   } = props;
-  const {
-    LIST_RADIO_YES_NO,
-    PLEASE_SELECT_LABEL,
-  } = SELF_SERVE_PAGE;
+  const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
-  const defaultValueListRadio = LIST_RADIO_YES_NO.filter(
-    (item) => item.checked === true
-  );
+
+  // GroupRadio's state
   const [businessReadyToOperate, setBusinessReadyToOperate] = useState<string>(
-    defaultValueListRadio[0].text
+    dataRedux.businessReadyToOperate || LIST_RADIO_YES_NO[0].value
+  );
+  const [
+    currentlyHaveAnOCBCBussinessAccount,
+    setCurrentlyHaveAnOCBCBussinessAccount,
+  ] = useState<string>(dataRedux.businessAccount || LIST_RADIO_YES_NO[0].value);
+
+  // TextField's state
+  const [inputValue, setInputValue] = useState(dataRedux.numberOfOutlets || "");
+
+  /**
+   * Prevent user typing non-number
+   */
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setInputValue(e.target.value.replace(/\D/g, ""));
+  }
+
+  // List GroupRadio's state
+  const [listRadioBusinessReadyToOperate, setListRadioBusinessReadyToOperate] =
+    useState(
+      dataRedux.businessReadyToOperate
+        ? updateDataListRadio(
+            dataRedux.businessReadyToOperate,
+            LIST_RADIO_YES_NO
+          )
+        : LIST_RADIO_YES_NO
+    );
+  const [listRadioBusinessAccount, setListRadioBusinessAccount] = useState(
+    dataRedux.businessAccount
+      ? updateDataListRadio(dataRedux.businessAccount, LIST_RADIO_YES_NO)
+      : LIST_RADIO_YES_NO
   );
 
   /**
-   * Handle unregister for fields
+   * Handle unregister for fields when GroupRadio changes
    */
   useEffect(() => {
     if (optionSelected === "e-commerce") {
@@ -64,13 +96,15 @@ const BusinessInfomation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {/* {List Radio} */}
-          {!_.isEmpty(LIST_RADIO_YES_NO) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={LIST_RADIO_YES_NO}
-              radioKey={0}
-              getValue={(value: any) => {
+          {/* {GroupRadio} */}
+          {!_.isEmpty(listRadioBusinessReadyToOperate) && (
+            <GroupRadio
+              cx={cx}
+              name="businessReadyToOperate"
+              value={businessReadyToOperate}
+              listRadio={listRadioBusinessReadyToOperate}
+              onChange={(event) => {
+                const { value } = event.target;
                 setValue("businessReadyToOperate", value);
                 setBusinessReadyToOperate(value);
               }}
@@ -89,7 +123,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                 </Typography>
               )}
 
-              {/* {List Select} */}
+              {/* {Select} */}
               <Grid xs={12} md={4}>
                 <FormControl
                   variant="filled"
@@ -107,14 +141,14 @@ const BusinessInfomation: React.FC<any> = (props) => {
                   {!_.isEmpty(listField.dropdownField.list) && (
                     <Select
                       fullWidth
-                      placeholder="Please"
+                      IconComponent={ExpandMore}
+                      labelId="select-operation-starting-period-label"
+                      id="select-operation-starting-period"
                       defaultValue={
                         _.has(dataRedux, "operationStartingPeriod")
                           ? dataRedux.operationStartingPeriod
                           : ""
                       }
-                      labelId="select-operation-starting-period-label"
-                      id="select-operation-starting-period"
                       {...register("operationStartingPeriod", {
                         required: true,
                       })}
@@ -144,20 +178,21 @@ const BusinessInfomation: React.FC<any> = (props) => {
                 </Typography>
               )}
 
-              {/* {Text field} */}
+              {/* {TextField} */}
               {
-                <Grid item xs={4}>
+                <Grid item xs={12} lg={4}>
                   {_.has(listField.textField, "label") && (
                     <TextField
                       fullWidth
-                      placeholder={listField.textField.label}
+                      label={listField.textField.label}
                       variant="filled"
-                      defaultValue={
-                        _.has(dataRedux, "numberOfOutlets")
-                          ? dataRedux.numberOfOutlets
-                          : ""
+                      value={inputValue}
+                      error={
+                        _.has(errors, "numberOfOutlets") &&
+                        _.has(errors.numberOfOutlets, "type") &&
+                        !_.isEqual(errors.numberOfOutlets.type, "required") &&
+                        true
                       }
-                      error={errors.numberOutlets && true}
                       helperText={
                         errors.numberOfOutlets && errors.numberOfOutlets.message
                       }
@@ -168,6 +203,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
                           value: /^\d+$/,
                           message: `${ERROR_ICON} ${listField.textField.helperText}`,
                         },
+                        onChange: handleChange,
                       })}
                     />
                   )}
@@ -185,13 +221,18 @@ const BusinessInfomation: React.FC<any> = (props) => {
             </Typography>
           )}
 
-          {/* {List Radio} */}
-          {!_.isEmpty(LIST_RADIO_YES_NO) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={LIST_RADIO_YES_NO}
-              radioKey={0}
-              getValue={(value: any) => setValue("businessAccount", value)}
+          {/* {GroupRadio} */}
+          {!_.isEmpty(listRadioBusinessAccount) && (
+            <GroupRadio
+              cx={cx}
+              name="businessAccount"
+              value={currentlyHaveAnOCBCBussinessAccount}
+              listRadio={listRadioBusinessAccount}
+              onChange={(event) => {
+                const { value } = event.target;
+                setValue("businessAccount", value);
+                setCurrentlyHaveAnOCBCBussinessAccount(value);
+              }}
             />
           )}
         </Grid>

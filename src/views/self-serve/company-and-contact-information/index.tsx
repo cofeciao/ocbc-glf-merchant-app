@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -11,6 +11,8 @@ import CompanyRegistration from "./CompanyRegistration";
 import ContactDetails from "./ContactDetails";
 import { saveDataCompanyAndContactInformationStep } from "@/store/form";
 import { useSelector } from "react-redux";
+import RedirectButton from "../RedirectButton";
+import _ from "lodash";
 
 // import constants
 import {
@@ -19,18 +21,14 @@ import {
   SELF_SERVE_PAGE,
 } from "@/utils/constants";
 
-// import style
+// import styles
 import styles from "./CompanyAndContactInformation.scss";
 
 // import types
 // import {ICompanyAndContactInformation} from "./CompanyAndContactInformation"
 
-//import icon
-import RedirectButton from "../RedirectButton";
-import _ from "lodash";
-
 // render UI
-const CompanyAndContactInformation: React.FC = () => {
+const CompanyAndContactInformation: React.FC<any> = forwardRef(({}, ref) => {
   const {
     LIST_STEP: {
       companyAndContactInformation: {
@@ -50,13 +48,14 @@ const CompanyAndContactInformation: React.FC = () => {
     (state: any) => state.form.companyAndContactInformationStep
   );
 
+
   const {
     register,
+    unregister,
     formState: { errors, isValid },
     setValue,
     getValues,
-    setError,
-    watch,
+    setError
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -73,10 +72,27 @@ const CompanyAndContactInformation: React.FC = () => {
       areaCode: LIST_COUNTRIES_CODE[0].value,
     },
   });
-  // Temporarily put here to debug on staging
-  const watchAll = watch();
-  console.log("watchAll", watchAll);
-  console.log("errors", errors);
+
+   /**
+   * handle back to page when click on stepper
+   */
+   useImperativeHandle(ref, () => ({
+    validateForm() {
+      if (_.isEmpty(dataCompanyAndContactInformationStep)) {
+        return true;
+      }
+      return history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+    },
+  }));
+
+  /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
 
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>
@@ -90,6 +106,7 @@ const CompanyAndContactInformation: React.FC = () => {
         cx={cx}
         title={companyRegistration.title}
         description={companyRegistration.description}
+        className="company-registration-section"
       >
         <CompanyRegistration
           cx={cx}
@@ -110,6 +127,7 @@ const CompanyAndContactInformation: React.FC = () => {
           cx={cx}
           errors={errors}
           register={register}
+          unregister={unregister}
           setValue={setValue}
           setError={setError}
           data={contactDetails}
@@ -128,5 +146,6 @@ const CompanyAndContactInformation: React.FC = () => {
       />
     </Box>
   );
-};
+});
+
 export default CompanyAndContactInformation;

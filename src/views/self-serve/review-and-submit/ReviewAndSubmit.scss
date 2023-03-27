@@ -1,6 +1,68 @@
 @import "../../../assets/style/variable.scss";
 
 .review-and-submit-wrapper {
+  #divider {
+    height: 1px;
+    width: 100%;
+    background: #e2e7ec;
+    margin-top: unset;
+    margin-bottom: 32px;
+  }
+
+  & .section-wrapper {
+    margin-bottom: unset;
+    & .MuiGrid-container {
+      row-gap: unset;
+    }
+
+    & ul {
+      margin-left: 25px;
+    }
+
+    & .cashless-payment-method-container {
+      margin-bottom: 56px;
+    }
+
+    & .transaction-and-card-acceptance-type-container {
+      margin-bottom: 56px;
+      gap: 30px;
+    }
+
+    & .company-registration-container {
+      margin-bottom: 54px;
+      gap: 30px;
+    }
+
+    & .contact-details-container {
+      margin-bottom: 54px;
+      gap: 30px;
+    }
+
+    & .point-of-sales-container {
+      margin-bottom: 40px;
+      gap: 30px;
+    }
+
+    & .ecommerce-container {
+      margin-bottom: 56px;
+      gap: 30px;
+    }
+
+    & .section-title {
+      // margin-top: 56px;
+      margin-bottom: 40px;
+    }
+
+    & .sub-section-title {
+      // margin-top: 54px;
+      // margin-bottom: 32px;
+    }
+
+    & .section-seperate {
+      display: none;
+    }
+  }
+
   & .text-item-input {
     font-weight: 400;
     font-size: 14px;

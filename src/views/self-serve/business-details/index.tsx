@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveDataBusinessDetailsStep,
@@ -21,7 +21,7 @@ import styles from "./BusinessDetails.scss";
 
 // import types
 
-const BusinessDetails: React.FC<any> = () => {
+const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
   const {
     LIST_STEP: {
       businessDetails: {
@@ -29,10 +29,20 @@ const BusinessDetails: React.FC<any> = () => {
         forms: { sections },
       },
     },
+    LIST_RADIO_YES_NO,
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
+
+  /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
 
   /**
    * Retrieves data of Business Details step from Store
@@ -40,6 +50,27 @@ const BusinessDetails: React.FC<any> = () => {
   const businessDetailsStep = useSelector(
     (state: any) => state.form.businessDetailsStep
   );
+
+  /**
+   * Retrieves data of Business Details step from Store
+   */
+  const listWebsiteUrl = useSelector((state: any) => state.form.listWebsiteUrl);
+
+  /**
+   * handle back to page when click on stepper
+   */
+  useImperativeHandle(ref, () => ({
+    validateForm() {
+      return true
+      // if (acraAndContactInformationStep) {
+      //   if (_.isEmpty(acraAndContactInformationStep)) {
+      //     return true;
+      //   }
+      //   return handleNext();
+      // }
+      // return true;
+    },
+  }));
 
   const {
     register,
@@ -50,13 +81,13 @@ const BusinessDetails: React.FC<any> = () => {
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      yourWebsiteURL0: "",
-      yourWebsiteURL1: "",
-      yourWebsiteURL2: "",
-      businessReadyToOperate: "Yes",
-      businessAccount: "Yes",
-      existingWebsite: "Yes",
-      placeOrderThroughWebsite: "Yes",
+      yourWebsiteURL0: listWebsiteUrl[0],
+      yourWebsiteURL1: listWebsiteUrl[1],
+      yourWebsiteURL2: listWebsiteUrl[2],
+      businessReadyToOperate: LIST_RADIO_YES_NO[0].label,
+      businessAccount: LIST_RADIO_YES_NO[0].label,
+      existingWebsite: LIST_RADIO_YES_NO[0].label,
+      placeOrderThroughWebsite: LIST_RADIO_YES_NO[0].label,
     },
   });
 
@@ -73,17 +104,13 @@ const BusinessDetails: React.FC<any> = () => {
 
   // render UI
   return (
-    <Box
-      className={cx(
-        "transaction-and-card-acceptance-type-wrapper step-wrapper"
-      )}
-    >
+    <Box className={cx("business-details-wrapper step-wrapper")}>
       {/* {Category} */}
       <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
       </Box>
 
-      {/* {Form with dynamic data} */}
+      {/* {Form} */}
       <BusinessDetailsForm
         cx={cx}
         optionSelected={optionSelected}
@@ -93,11 +120,13 @@ const BusinessDetails: React.FC<any> = () => {
         unregister={unregister}
         errors={errors}
         setValue={setValue}
+        dispatch={dispatch}
+        listWebsiteRedux={listWebsiteUrl}
       />
 
       {/* {Next Button}  */}
       <RedirectButton
-        disabledNextButton={!isValid || !isDirty}
+        disabledNextButton={!isValid}
         continueLater
         backButton
         variant="next"
@@ -120,5 +149,5 @@ const BusinessDetails: React.FC<any> = () => {
       />
     </Box>
   );
-};
+});
 export default BusinessDetails;

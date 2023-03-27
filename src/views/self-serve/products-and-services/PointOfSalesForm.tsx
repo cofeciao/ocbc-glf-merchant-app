@@ -25,6 +25,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
     unregister,
     setValue,
     errors,
+    clearErrors,
   } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
   const {
@@ -35,7 +36,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
-      <SectionWrapper cx={cx} title={title}>
+      <SectionWrapper cx={cx} title={title} className="pos-section-wrapper">
         <Grid container>
           {/* {Business Offering} */}
           <Grid item xs={12}>
@@ -75,6 +76,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
               dataRedux={dataRedux}
               variant={variant}
               register={register}
+              errors={errors}
               unregister={unregister}
               setValue={setValue}
             />
@@ -93,6 +95,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
               dataRedux={dataRedux}
               register={register}
               errors={errors}
+              clearErrors={clearErrors}
             />
           </Grid>
         </Grid>

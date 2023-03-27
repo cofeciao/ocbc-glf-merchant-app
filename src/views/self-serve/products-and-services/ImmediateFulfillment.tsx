@@ -1,81 +1,47 @@
 // import modules
-import React, { useEffect } from "react";
-import { Radio, Checkbox } from "@sectionsg/orc";
+import React, { useEffect, useState } from "react";
+import { Checkbox } from "@sectionsg/orc";
 import {
   Box,
   FormControl,
   Grid,
-  InputAdornment,
   InputLabel,
   MenuItem,
   Select,
-  TextField,
   Typography,
 } from "@material-ui/core";
+import GroupRadio from "@/components/GroupRadio";
 import _ from "lodash";
 
 // import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
 
 // render UI
 const ImmediateFulfillment: React.FC<any> = (props) => {
-  const { PLEASE_SELECT_LABEL, PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
-  const { cx, data, variant, setValue, register, unregister } = props;
-  const { textField, listCheckboxSecondary, listDropdown, listRadioSecondary } =
-    data;
-
-  /**
-   * Handle unregister if fields are hidden
-   */
-  useEffect(() => {
-    if (!_.isEqual(variant, "fulfillment-over-a-period-of-time")) {
-      unregister("Ecom.percentageOfProductsNotFulfilledImmediately", {
-        keepDefaultValue: false,
-      });
-    }
-  }, [variant]);
+  // props
+  const {
+    cx,
+    data,
+    variant,
+    setValue,
+    register,
+    unregister,
+    errors,
+    dataRedux,
+  } = props;
+  const { listCheckboxSecondary, listDropdown, listRadioSecondary } = data;
+  const [productDelivery, setProductDelivery] = useState<string>(
+    dataRedux.productDelivery || listRadioSecondary.list[0].value
+  );
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
       <Grid container className={cx("mt-dt-40")}>
-        {/* {Percentage of products/services not fulfilled immediately} */}
-        {_.isEqual(variant, "fulfillment-over-a-period-of-time") && (
-          <Grid item xs={12}>
-            {/* {Description} */}
-            {!_.isEmpty(textField.description) && (
-              <Typography
-                className={cx(
-                  "fulfilment-information-description input-field-description"
-                )}
-              >
-                {textField.description}
-              </Typography>
-            )}
-            <Grid item xs={12} md={4}>
-              <TextField
-                name="numberformat"
-                id="formatted-numberformat-input"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      {PERCENT_CHARACTERS}
-                    </InputAdornment>
-                  ),
-                }}
-                className={cx("percentage-input-field")}
-                {...register(
-                  "Ecom.percentageOfProductsNotFulfilledImmediately",
-                  {
-                    required: true,
-                  }
-                )}
-              />
-            </Grid>
-          </Grid>
-        )}
-
         {/* {Where will your products come from?} */}
         <Grid item xs={12}>
           {_.has(listCheckboxSecondary, "description") && (
@@ -120,7 +86,6 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
               className={cx("duration-select")}
               fullWidth
             >
-              {console.log(listDropdown.placeholder)}
               {!_.isEmpty(listDropdown.placeholder) && (
                 <InputLabel id="select-duration-label">
                   {listDropdown.placeholder}
@@ -131,6 +96,12 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
                   fullWidth
                   labelId="select-duration-label"
                   id="select-duration"
+                  IconComponent={ExpandMore}
+                  defaultValue={
+                    _.has(dataRedux, "deliveryTimeToCustomers")
+                      ? dataRedux.deliveryTimeToCustomers
+                      : ""
+                  }
                   {...register("Ecom.deliveryTimeToCustomers", {
                     required: false,
                   })}
@@ -163,12 +134,21 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
 
           {/* {Radio group} */}
           {!_.isEmpty(listRadioSecondary.list) && (
-            <Radio
-              name="lockIn"
-              listCheckBox={listRadioSecondary.list}
-              vertical
-              getValue={(value: any) => {
-                setValue("Ecom.productDelivery", value);
+            <GroupRadio
+              cx={cx}
+              name="productDelivery"
+              value={productDelivery}
+              isRow={false}
+              listRadio={listRadioSecondary.list}
+              onChange={(event) => {
+                const { value } = event.target;
+                setValue(
+                  "Ecom.productDelivery",
+                  value === listRadioSecondary.list[0].value
+                    ? listRadioSecondary.list[0].value
+                    : listRadioSecondary.list[1].value
+                );
+                setProductDelivery(value);
               }}
             />
           )}

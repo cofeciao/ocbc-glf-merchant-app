@@ -40,22 +40,22 @@ const BusinessDetails: React.FC<any> = (props) => {
 
   const listWebsiteUrlFilter = _.filter(
     listWebsiteUrl,
-    (website: string) => website !== ""
+    (website: string) =>  _.size(website)
   );
 
   return (
     <Box>
       {/* {Section Title} */}
       {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
-        <Typography className={cx("section-title")}>
+        <Typography className={cx("sub-section-title")}>
           {LABEL_POINT_OF_SALES_TERMINAL}
         </Typography>
       )}
 
-      <Grid container>
+      <Grid container className={cx("point-of-sales-container")}>
         {/* {Number of outlets with Point-of-Sales termimals} */}
         {!_.isEmpty(numberOfOutlets) && (
-          <Grid item xs={12}>
+          <Grid item xs={12} className={cx("row-item")}>
             <Box className={cx("d-flex-column")}>
               {/* {Label} */}
               <Box component="span" className={cx("text-item-input")}>
@@ -72,7 +72,7 @@ const BusinessDetails: React.FC<any> = (props) => {
 
         {/* {Business ready to operate} */}
         {!_.isEmpty(businessReadyToOperate) && (
-          <Grid item xs={12}>
+          <Grid item xs={12} className={cx("row-item")}>
             <Box className={cx("d-flex-column")}>
               {/* {Label} */}
               <Box component="span" className={cx("text-item-input")}>
@@ -89,7 +89,7 @@ const BusinessDetails: React.FC<any> = (props) => {
 
         {/* {OCBC business account} */}
         {!_.isEmpty(businessAccount) && (
-          <Grid item xs={12}>
+          <Grid item xs={12} className={cx("row-item")}>
             <Box className={cx("d-flex-column")}>
               {/* {Label} */}
               <Box component="span" className={cx("text-item-input")}>
@@ -103,15 +103,17 @@ const BusinessDetails: React.FC<any> = (props) => {
             </Box>
           </Grid>
         )}
+      </Grid>
 
-        {/* {Section Title} */}
-        {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
-          <Typography className={cx("section-title")}>
-            {LABEL_ECOMMERCE}
-          </Typography>
-        )}
+      {/* {Section Title} */}
+      {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
+        <Typography className={cx("sub-section-title")}>
+          {LABEL_ECOMMERCE}
+        </Typography>
+      )}
 
-        <Grid item xs={12}>
+      <Grid container className={cx("ecommerce-container")}>
+        <Grid item xs={12} className={cx("row-item")}>
           <Grid container className={cx("n-wrap")}>
             {/* {Existing website} */}
             {!_.isEmpty(existingWebsite) && (
@@ -142,9 +144,21 @@ const BusinessDetails: React.FC<any> = (props) => {
                   }
 
                   {/* {Content list} */}
-                  {_.map(listWebsiteUrlFilter, (website) => {
-                    return (
-                      <Box component="span" className={cx("text-item-value")}>
+                  {_.map(listWebsiteUrlFilter, (website, index) => {
+                    return _.size(listWebsiteUrlFilter) > 1 ? (
+                      <Box
+                        key={index}
+                        component="ul"
+                        className={cx("text-item-value")}
+                      >
+                        <Box component="li">{website}</Box>
+                      </Box>
+                    ) : (
+                      <Box
+                        key={index}
+                        component="span"
+                        className={cx("text-item-value")}
+                      >
                         {website}
                       </Box>
                     );
@@ -176,7 +190,7 @@ const BusinessDetails: React.FC<any> = (props) => {
 
         {/* {Place order through website} */}
         {!_.isEmpty(placeOrderThroughWebsite) && (
-          <Grid item xs={12}>
+          <Grid item xs={12} className={cx("row-item")}>
             <Box className={cx("d-flex-column")}>
               {/* {Label} */}
               <Box component="span" className={cx("text-item-input")}>
@@ -192,44 +206,64 @@ const BusinessDetails: React.FC<any> = (props) => {
         )}
 
         {/* {Business offerings} */}
-        {!_.isEmpty(businessOfferings) && <Grid item xs={12}>
-          <Box className={cx("d-flex-column")}>
-            {/* {Label} */}
-            <Box component="span" className={cx("text-item-input")}>
-              {LABEL_BUSINESS_OFFERINGS}
+        {!_.isEmpty(businessOfferings) && (
+          <Grid item xs={12} className={cx("row-item")}>
+            <Box className={cx("d-flex-column")}>
+              {/* {Label} */}
+              <Box component="span" className={cx("text-item-input")}>
+                {LABEL_BUSINESS_OFFERINGS}
+              </Box>
+
+              {/* {Content list} */}
+              {_.map(businessOfferings, (item, index) => {
+                return (
+                  <Box
+                    key={index}
+                    component="span"
+                    className={cx("text-item-value")}
+                  >
+                    {item.name}
+                  </Box>
+                );
+              })}
             </Box>
+          </Grid>
+        )}
 
-            {/* {Content list} */}
-            {_.map(businessOfferings, (item) => {
-              return (
-                <Box component="span" className={cx("text-item-value")}>
-                  {item.name}
-                </Box>
-              );
-            })}
-          </Box>
-        </Grid>}
-
-        <Grid item xs={12}>
+        <Grid item xs={12} className={cx("row-item")}>
           <Grid container className={cx("n-wrap")}>
             {/* {Available spaces} */}
-            {!_.isEmpty(availableSpaces) && <Grid item xs={12} md={6}>
-              <Box className={cx("d-flex-column")}>
-                {/* {Label} */}
-                <Box component="span" className={cx("text-item-input")}>
-                  {LABEL_AVAILABLE_SPACES}
-                </Box>
+            {!_.isEmpty(availableSpaces) && (
+              <Grid item xs={12} md={6}>
+                <Box className={cx("d-flex-column")}>
+                  {/* {Label} */}
+                  <Box component="span" className={cx("text-item-input")}>
+                    {LABEL_AVAILABLE_SPACES}
+                  </Box>
 
-                {/* {Content list} */}
-                {_.map(availableSpaces, (item) => {
-                  return (
-                    <Box component="span" className={cx("text-item-value")}>
-                      {item.name}
-                    </Box>
-                  );
-                })}
-              </Box>
-            </Grid>}
+                  {/* {Content list} */}
+                  {_.map(availableSpaces, (item, index) => {
+                    return _.size(availableSpaces) > 1 ? (
+                      <Box
+                        key={index}
+                        component="ul"
+                        className={cx("text-item-value")}
+                      >
+                        <Box component="li">{item.name}</Box>
+                      </Box>
+                    ) : (
+                      <Box
+                        key={index}
+                        component="div"
+                        className={cx("text-item-value")}
+                      >
+                        {item.name}
+                      </Box>
+                    );
+                  })}
+                </Box>
+              </Grid>
+            )}
 
             {/* {Card payment available at retail store} */}
             {!_.isEmpty(cardPaymentAvailableAtRetailStore) && (

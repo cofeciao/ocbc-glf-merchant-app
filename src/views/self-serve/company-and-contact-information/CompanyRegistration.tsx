@@ -1,6 +1,5 @@
 // import modules
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import {
   Box,
   FormControl,
@@ -11,13 +10,18 @@ import {
   InputLabel,
 } from "@material-ui/core";
 import _ from "lodash";
+import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
 // import constant
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
-import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
-const CompanyRegistration: React.FC<ICompanyAndContactInformation.ICompanyRegistration> = (props) => {
+const CompanyRegistration: React.FC<
+  ICompanyAndContactInformation.ICompanyRegistration
+> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const { LIST_COMPANY_TYPE } = SELF_SERVE_PAGE;
   const { registeredEntityName, uniqueEntityNumber, companyType } =
@@ -39,7 +43,6 @@ const CompanyRegistration: React.FC<ICompanyAndContactInformation.ICompanyRegist
                       ? dataRedux.registeredEntityName
                       : ""
                   }
-                  id={uuidv4()}
                   label={registeredEntityName.label}
                   variant="filled"
                   {...register("registeredEntityName", {
@@ -59,20 +62,24 @@ const CompanyRegistration: React.FC<ICompanyAndContactInformation.ICompanyRegist
                       ? dataRedux.uniqueEntityNumber
                       : ""
                   }
-                  id={uuidv4()}
-                  error={errors.uniqueEntityNumber && true}
                   label={uniqueEntityNumber.label}
                   variant="filled"
+                  error={
+                    _.has(errors, "uniqueEntityNumber") &&
+                    _.has(errors.uniqueEntityNumber, "type") &&
+                    !_.isEqual(errors.uniqueEntityNumber.type, "required") &&
+                    true
+                  }
                   helperText={
                     errors.uniqueEntityNumber &&
-                    `${ERROR_ICON} ${errors.uniqueEntityNumber.message}`
+                    errors.uniqueEntityNumber.message
                   }
                   {...register("uniqueEntityNumber", {
-                    required: uniqueEntityNumber.requiredText,
+                    required: true,
                     pattern: {
                       // eslint-disable-next-line no-useless-escape
                       value: /^[A-Za-z0-9]{9}[A-Za-z0-9]{1}$|^[A-Za-z0-9]{10}$/,
-                      message: uniqueEntityNumber.helperText,
+                      message: `${ERROR_ICON} ${uniqueEntityNumber.helperText}`,
                     },
                   })}
                 />
@@ -100,6 +107,7 @@ const CompanyRegistration: React.FC<ICompanyAndContactInformation.ICompanyRegist
                 }
                 labelId="select-company-type-label"
                 id="select-company-type"
+                IconComponent={ExpandMore}
                 {...register("companyType", {
                   required: true,
                 })}

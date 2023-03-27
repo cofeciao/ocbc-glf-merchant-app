@@ -1,12 +1,23 @@
 // import modules
-import { Button, Dialog } from "@sectionsg/orc";
 import React, { useState } from "react";
-import { Box, Grid, TextField, Typography } from "@material-ui/core";
+import { 
+  Box, 
+  Grid, 
+  TextField, 
+  Typography, 
+  Button, 
+  DialogContent,
+  Dialog
+} from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import ExpiredDialog from "./ExpiredDialog";
 import _ from "lodash";
+
+// import images
+import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
+import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
 
 // import constants
 import {
@@ -17,11 +28,7 @@ import {
 
 // import style
 import styles from "./EntryDialog.scss";
-
-// import icons
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-
+import EntryDialog from ".";
 
 // import types
 
@@ -55,7 +62,7 @@ const RetrieveDialog: React.FC<any> = (props) => {
         </Typography>
 
         <Grid container>
-          <Grid item xs={12} className={cx("radio-group-entry-dialog")}>
+          <Grid item xs={8} className={cx("radio-group-entry-dialog")}>
             {/* {List Radio} */}
             <Box className={cx("text-field-group-wrapper")}>
               <Box className={cx("text-field-item")}>
@@ -85,38 +92,41 @@ const RetrieveDialog: React.FC<any> = (props) => {
       </Box>
 
       {/* {Next Button} */}
-      <Box className={cx("group-button mt-dt-40")}>
+      <Box className={cx("group-button mt-dt-40 mb-dt-56")}>
         <Box className="d-flex space-between">
           {/* {Back Button} */}
-          {
-            <Button
-              backgroundClass="square"
-              onClick={() => onCloseDialog(true)}
-            >
-              <ArrowBackIcon className={cx("arrow")} />
-            </Button>
-          }
+          
+          <Button
+            onClick={() => onCloseDialog(true)}
+            variant="outlined"
+          >
+            <img src={IconArrowLeft} alt="icon arrow left" />
+          </Button>
+          
 
           {/* {Next Button} */}
-          <Button
-            backgroundClass="bgGunmetalBluegrey"
+          <Button 
+            variant="contained" 
             disabled={!isValid || !isDirty}
             onClick={handleClickNextButton}
           >
-            <>
-              {NEXT}
-              <ArrowForwardIcon className={cx("arrow", "mrl-dt-5")} />
-            </>
+            {NEXT}
+            <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
           </Button>
         </Box>
       </Box>
 
       {/* {Dialog} */}
       <Dialog
-        isOpen={openExpiredDialog}
-        // onRequestClose={handleCloseRetrieveDialog}
+        open={openExpiredDialog}
+        onClose={() => {}}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <ExpiredDialog onCloseDialog={() => {}} />
+        <DialogContent>
+          <ExpiredDialog onCloseDialog={() => {}} />
+        </DialogContent>
       </Dialog>
     </Box>
   );

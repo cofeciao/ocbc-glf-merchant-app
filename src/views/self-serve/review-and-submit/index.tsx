@@ -1,6 +1,6 @@
 // import modules
 import { Category, Button } from "@sectionsg/orc";
-import React, { useState } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -12,28 +12,19 @@ import TransactionAndCardAcceptanceType from "./TransactionAndCardAcceptanceType
 import AgreePolicy from "./AgreePolicy";
 import ProductsAndServices from "./ProductsAndServices";
 import BusinessDetails from "./BusinessDetails";
+import RedirectButton from "../RedirectButton";
 import _ from "lodash";
 
 // import constants
-import {
-  CONTINUE_LATER,
-  LIST_ROUTER,
-  SELF_SERVE_PAGE,
-  SUBMIT,
-} from "@/utils/constants";
+import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
 
 // import types
 
-//import icon
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import { Link } from "react-router-dom";
-import RedirectButton from "../RedirectButton";
-
 // render UI
-const ReviewAndSubmit: React.FC<any> = () => {
+const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
   const {
     LABEL_CASHLESS_PAYMENT_METHOD,
     LABEL_COMPANY_REGISTRATION,
@@ -49,10 +40,19 @@ const ReviewAndSubmit: React.FC<any> = () => {
   const history = useHistory();
 
   /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
+
+  /**
    * Retrieves data of Transaction And Card Acceptance Type step from Store
    */
   const cashlessPaymentsMethods = useSelector((state: any) =>
-    state.form.transactionAndCardAcceptanceTypeStep.filter(
+    state.form.cashlessPaymentMethod.filter(
       (item: any) => item.checked === true
     )
   );
@@ -67,6 +67,23 @@ const ReviewAndSubmit: React.FC<any> = () => {
       .filter((item: string) => item !== "")
       .join("-")
   );
+
+
+  /**
+   * handle back to page when click on stepper
+   */
+  useImperativeHandle(ref, () => ({
+    validateForm() {
+      return true
+      // if (acraAndContactInformationStep) {
+      //   if (_.isEmpty(acraAndContactInformationStep)) {
+      //     return true;
+      //   }
+      //   return handleNext();
+      // }
+      // return true;
+    },
+  }));
 
   /**
    * Retrieves data of Company And Contact Information step from Store
@@ -117,7 +134,14 @@ const ReviewAndSubmit: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Company And Contact Infomation} */}
-      <SectionWrapper cx={cx} title={LABEL_COMPANY_REGISTRATION}>
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_COMPANY_REGISTRATION}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.company_and_contact_information);
+        }}
+      >
         <CompanyAndContactInfomation data={companyAndContactInformationStep} />
       </SectionWrapper>
 
@@ -125,6 +149,10 @@ const ReviewAndSubmit: React.FC<any> = () => {
       <SectionWrapper
         cx={cx}
         title={LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+        }}
       >
         <TransactionAndCardAcceptanceType
           data={transactionAndCardAcceptanceTypeStep}
@@ -132,7 +160,14 @@ const ReviewAndSubmit: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Business Details} */}
-      <SectionWrapper cx={cx} title={LABEL_BUSINESS_DETAILS}>
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_BUSINESS_DETAILS}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.business_details);
+        }}
+      >
         <BusinessDetails
           data={businessDetailsStep}
           listWebsiteUrl={listWebsiteUrl}
@@ -141,13 +176,24 @@ const ReviewAndSubmit: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Products And Services} */}
-      <SectionWrapper cx={cx} title={LABEL_PRODUCTS_AND_SERVICES}>
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_PRODUCTS_AND_SERVICES}
+        edit={true}
+        onClickEdit={() => {
+          history.push(LIST_ROUTER.products_and_services);
+        }}
+      >
         <ProductsAndServices
           data={productsAndServicesStep}
           optionSelected={optionSelected}
         />
       </SectionWrapper>
 
+      {/* {Divider} */}
+      <Box id={cx("divider")} />
+
+      {/* {Agree Policy} */}
       <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />
 
       {/* {Next Button}  */}
@@ -155,6 +201,7 @@ const ReviewAndSubmit: React.FC<any> = () => {
         disabledNextButton={disabledButton}
         continueLater
         backButton
+        isIcon={false}
         variant="submit"
         onClickBack={() => {
           history.push(LIST_ROUTER.products_and_services);
@@ -165,5 +212,5 @@ const ReviewAndSubmit: React.FC<any> = () => {
       />
     </Box>
   );
-};
+});
 export default ReviewAndSubmit;
