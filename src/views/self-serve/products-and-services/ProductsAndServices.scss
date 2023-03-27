@@ -13,13 +13,21 @@
 
   & .products-and-services-form-wrapper {
     & .pos-section-wrapper {
+      & .MuiGrid-container {
+        row-gap: 56px;
+      }
+      & .section-title {
+        margin-bottom: 40px;
+      }
+      & .sub-section-title {
+        margin-bottom: 40px;
+      }
       & .section-seperate {
         display: none;
       }
     }
 
-    & .ecommerce-section-wrapper,
-    .pos-section-wrapper {
+    & .ecommerce-section-wrapper {
       & .section-title {
         margin-bottom: 40px;
       }
@@ -62,9 +70,24 @@
   & .fulfilment-information-wrapper {
     & .tooltip-dialog-wrapper {
       display: inline-flex;
+      & #common-dialog {
+        background: rgba(177, 184, 197, 0.7);
+        & > div > div {
+          padding: 64px 24px 56px;
+        }
+      }
+
       & .icon-tooltip {
         margin-left: 10px;
         cursor: pointer;
+      }
+
+      & .section-title {
+        margin-bottom: 16px;
+      }
+
+      & .last-description {
+        margin: 0;
       }
     }
 
@@ -123,12 +146,12 @@
 
   & .input-field-description {
     font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 18px;
+    line-height: 28px;
     color: #777e87;
     margin-bottom: 16px;
   }
-  
+
   & .business-offering-wrapper {
     #counter {
       padding-right: 8px;

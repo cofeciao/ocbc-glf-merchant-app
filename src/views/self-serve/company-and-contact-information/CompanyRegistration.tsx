@@ -1,6 +1,5 @@
 // import modules
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import {
   Box,
   FormControl,
@@ -44,7 +43,6 @@ const CompanyRegistration: React.FC<
                       ? dataRedux.registeredEntityName
                       : ""
                   }
-                  id={uuidv4()}
                   label={registeredEntityName.label}
                   variant="filled"
                   {...register("registeredEntityName", {
@@ -64,20 +62,24 @@ const CompanyRegistration: React.FC<
                       ? dataRedux.uniqueEntityNumber
                       : ""
                   }
-                  id={uuidv4()}
-                  error={errors.uniqueEntityNumber && true}
                   label={uniqueEntityNumber.label}
                   variant="filled"
+                  error={
+                    _.has(errors, "uniqueEntityNumber") &&
+                    _.has(errors.uniqueEntityNumber, "type") &&
+                    !_.isEqual(errors.uniqueEntityNumber.type, "required") &&
+                    true
+                  }
                   helperText={
                     errors.uniqueEntityNumber &&
-                    `${ERROR_ICON} ${errors.uniqueEntityNumber.message}`
+                    errors.uniqueEntityNumber.message
                   }
                   {...register("uniqueEntityNumber", {
-                    required: uniqueEntityNumber.requiredText,
+                    required: true,
                     pattern: {
                       // eslint-disable-next-line no-useless-escape
                       value: /^[A-Za-z0-9]{9}[A-Za-z0-9]{1}$|^[A-Za-z0-9]{10}$/,
-                      message: uniqueEntityNumber.helperText,
+                      message: `${ERROR_ICON} ${uniqueEntityNumber.helperText}`,
                     },
                   })}
                 />

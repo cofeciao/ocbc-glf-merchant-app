@@ -1,30 +1,30 @@
 // import modules
-import { 
-  Box, 
-  Container, 
-  Grid, 
-  Button, 
-  DialogContent, 
-  Dialog
- } from "@material-ui/core";
 import {
   Header,
   Loading,
   Category,
 } from "@sectionsg/orc";
+import {
+  Box,
+  Container,
+  Grid,
+  Button,
+  DialogContent,
+  Dialog,
+  TextField,
+} from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
-import React, { useEffect, useState } from "react";
+import React, { FocusEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
 import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
 import EntryDialog from "@/views/home/entry-dialog";
+import Captcha from "@/components/Captcha/captcha";
 
 // import icons
-import CloseIcon from '@material-ui/icons/Close';
-
-// import images
+import CloseIcon from "@material-ui/icons/Close";
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 
 // import constants
@@ -34,6 +34,7 @@ import {
   HOME_PAGE,
   START,
   LIST_ROUTER,
+  ERROR_ICON,
 } from "../../utils/constants";
 
 // import types
@@ -49,10 +50,10 @@ const Home: React.FC = () => {
     TITLE_CASHLESS_PAYMENTS_HOME,
     CASHLESS_PAYMENTS_METHODS,
     THINGS_TO_TAKE_NOTE_OF,
+    CAPTCHA: { LABEL_GET_ANOTHER_CODE, HELPER_TEXT, LABEL_TEXT_FIELD },
   } = HOME_PAGE;
   const cx = classnames.bind(styles);
   const history = useHistory();
-  const [key, setKey] = useState<number>(0);
   const [dataCardCheckbox, setDataCardCheckbox] = useState<ICheckBox[]>(
     CASHLESS_PAYMENTS_METHODS.data_list_checkbox
   );
@@ -60,6 +61,9 @@ const Home: React.FC = () => {
   const [loading] = useState(false);
   const [interest, setInterest] = useState(false);
   const [openDialog, setOpenDialog] = useState<boolean>(true);
+  const [captchaCode, setCaptchaCode] = useState<string>("");
+  const [exactCaptcha, setExactCaptcha] = useState<boolean>();
+  const [inputCaptcha, setInputCaptcha] = useState<string>("");
 
   /**
    * Back to Card Acceptance page
@@ -123,6 +127,20 @@ const Home: React.FC = () => {
     }
   };
 
+  /**
+   * Random string for Captcha
+   * @returns
+   */
+  function handleRandomString() {
+    let result = "";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const charactersLength = characters.length;
+    for (let i = 0; i < 6; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
   // Render UI
   return (
     <>
@@ -133,7 +151,9 @@ const Home: React.FC = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <div className={cx("icon-close")}><CloseIcon onClick={handleRollBackPage} /></div>
+        <div className={cx("icon-close")}>
+          <CloseIcon onClick={handleRollBackPage} />
+        </div>
         <DialogContent>
           <EntryDialog onCloseDialog={handleCloseDialog} />
         </DialogContent>
@@ -167,7 +187,7 @@ const Home: React.FC = () => {
             </Grid>
 
             {/* {Column right} */}
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} lg={8}>
               {/* {Section Home Things To Take Note Of} */}
               <HomeThingsToTakeNoteOf
                 cx={cx}
@@ -183,26 +203,86 @@ const Home: React.FC = () => {
                   CASHLESS_PAYMENTS_METHODS.messgase_error_list_checkbox
                 }
                 dataCardCheckbox={dataCardCheckbox}
-                checkboxKey={key}
                 cx={cx}
                 getValueCheckbox={handleGetValueCheckbox}
               />
 
-              {/* {Seperator} */}
-              <Box className="section-seperator" />
+              {/* {Captcha} */}
+              <Box className={cx("captcha-wrapper")}>
+                <Grid item xs={12}>
+                  <Grid container>
+                    {/* {CAPTCHA} */}
+                    <Grid item xs={12} md={3}>
+                      <Captcha
+                        textColor="black"
+                        captchaCode={captchaCode}
+                        backgroundColor="white"
+                        onGeneratedCaptcha={(captcha: string) =>
+                          setCaptchaCode(captcha)
+                        }
+                      />
+                    </Grid>
 
-              {/* Next button */}
+                    {/* {TextField} */}
+                    <Grid item xs={12} md={3}>
+                      <TextField
+                        fullWidth
+                        label={LABEL_TEXT_FIELD}
+                        variant="filled"
+                        error={
+                          exactCaptcha === false && _.size(inputCaptcha) && true
+                        }
+                        helperText={
+                          exactCaptcha === false && _.size(inputCaptcha)
+                            ? `${ERROR_ICON} ${HELPER_TEXT}`
+                            : ""
+                        }
+                        onBlur={(event: FocusEvent<HTMLInputElement>) => {
+                          setInputCaptcha(event.target.value);
+                          if (_.size(event.target.value)) {
+                            if (event.target.value !== captchaCode) {
+                              setExactCaptcha(false);
+                            } else {
+                              setExactCaptcha(true);
+                            }
+                          }
+                        }}
+                      />
+                    </Grid>
+                  </Grid>
+                </Grid>
+
+                {/* {Button} */}
+                <Grid item xs={12}>
+                  <Box
+                    component="a"
+                    onClick={() => setCaptchaCode(handleRandomString())}
+                    className={cx("get-another-code-button mt-16")}
+                  >
+                    {LABEL_GET_ANOTHER_CODE}
+                  </Box>
+                </Grid>
+              </Box>
+
+              {/* {Divider} */}
+              <Box id={cx("divider")} />
+
+              {/* {Next Button} */}
               <Box
-                className={cx("button-wrapper","d-flex justify-end mt-dt-40")}
+                className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
               >
-                <Button 
-                  variant="contained" 
-                  disabled={hasDataCheckbox}
+                <Button
+                  variant="contained"
+                  disabled={hasDataCheckbox || !exactCaptcha}
                   onClick={handleClickButton}
                 >
                   {START}
-                  <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
-                </Button>   
+                  <img
+                    src={IconArrowRight}
+                    alt="icon arrow right"
+                    className={cx("arrow", "mrl-dt-5")}
+                  />
+                </Button>
               </Box>
             </Grid>
           </Grid>

@@ -52,7 +52,7 @@ const HomeCashlessPaymentMethods: React.FC<
         textError={errorMessage}
         dataCardCheckbox={dataCardCheckbox}
         lg={4}
-        md={4}
+        md={6}
         sm={6}
         xs={12}
         checkboxKey={checkboxKey}

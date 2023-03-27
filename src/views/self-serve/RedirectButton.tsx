@@ -30,6 +30,7 @@ const RedirectButton: React.FC<any> = (props) => {
     onClickNext,
     onClickBack,
     disabledNextButton,
+    isIcon = true,
   } = props;
 
   // classnames
@@ -87,7 +88,9 @@ const RedirectButton: React.FC<any> = (props) => {
               {(_.isEqual(variant, "next") && NEXT) ||
                 (_.isEqual(variant, "submit") && SUBMIT) ||
                 (_.isEqual(variant, "start") && START)}
-              <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
+                {isIcon && (
+                  <img src={IconArrowRight} alt="icon arrow right" className={cx("arrow", "mrl-dt-5")} />
+                )}
             </>
           </Button>
         </Box>
@@ -99,6 +102,7 @@ const RedirectButton: React.FC<any> = (props) => {
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        TransitionProps={{ style: { backgroundColor: "rgba(177, 184, 197, 0.7)" }}}
       >
         <div className={cx("icon-close")}><CloseIcon onClick={handleCloseContinueLaterDialog} /></div>
         <DialogContent>

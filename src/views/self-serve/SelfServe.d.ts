@@ -3,9 +3,10 @@ declare namespace ISelfServe {
     title?: JSX.Element | string;
     description?: string;
     cx?: any;
-    edit?: string;
+    edit?: boolean;
+    onClickEdit?: () => void;
     children?: string | JSX.Element | JSX.Element[];
-    className?: string
+    className?: string;
   }
   export interface IDataStepper {
     id: string;

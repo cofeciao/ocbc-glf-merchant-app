@@ -13,8 +13,6 @@ export const updateDataListRadio = (value, listRadio) => {
     acc.push(newItem);
     return acc;
   }, []);
-  console.log(newData);
-
   return newData;
 };
 

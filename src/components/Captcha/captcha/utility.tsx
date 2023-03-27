@@ -1,0 +1,11 @@
+export const DEFAULT = {
+  WIDTH: 220,
+  HEIGHT: 86,
+  BACKGROUND_COLOR: '#008CBA',
+  DOT_COLOR: '#000',
+  TEXT_COLOR: '#FFF',
+  LINE_COLOR: '#000',
+  FONT_MIN: '30px',
+  FONT_MAX: '35px',
+  FONT_FAMILY: 'Arial',
+};

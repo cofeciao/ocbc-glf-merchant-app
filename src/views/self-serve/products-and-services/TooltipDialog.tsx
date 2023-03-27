@@ -3,20 +3,18 @@ import React, { useState } from "react";
 import { Box, Typography, Dialog, DialogContent } from "@material-ui/core";
 import _ from "lodash";
 import classnames from "classnames/bind";
-// import { Dialog } from "@sectionsg/orc";
+
+// import icons
+import CloseIcon from "@material-ui/icons/Close";
 
 // import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import icons
 import IconTooltip from "@/assets/images/icon-tooltip.svg";
-import CloseIcon from '@material-ui/icons/Close';
 
 // import style
 import styles from "./ProductsAndServices.scss";
-
-// import types
-import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
 const TooltipDialog: React.FC = (props) => {
@@ -71,6 +69,7 @@ const TooltipDialog: React.FC = (props) => {
 
   return (
     <Box className={cx("tooltip-dialog-wrapper")}>
+      {/* {Icon} */}
       <img
         onClick={handleClickTooltip}
         src={IconTooltip}

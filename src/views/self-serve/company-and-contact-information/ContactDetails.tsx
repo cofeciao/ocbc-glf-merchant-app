@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
@@ -9,6 +9,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  InputAdornment,
 } from "@material-ui/core";
 import _ from "lodash";
 
@@ -27,30 +28,67 @@ import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
-const ContactDetails: React.FC<
-  ICompanyAndContactInformation.IContactDetails
-> = (props) => {
-
-  // props
-  const { cx, data, dataRedux, register, errors, setValue, setError } = props;
+const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = (props) => {
+  const {
+    cx,
+    data,
+    dataRedux,
+    register,
+    unregister,
+    errors,
+    setValue,
+    setError,
+  } = props;
   const { LIST_SALUTATION } = SELF_SERVE_PAGE;
   const { salutation, name, designation, email, contactNumber } =
     data.inputFields;
-
-  // states
-  const [valueSelected, setValueSelected] = useState<string>(
-    _.has(dataRedux, "areaCode") ? dataRedux.areaCode : LIST_COUNTRIES_CODE[0].value
+  const [numberPhone, setNumberPhone] = useState<string>(
+    dataRedux.contactNumber || ""
   );
+  const [areaCode, setAreaCode] = useState<string>("+65");
 
-  console.log(valueSelected)
+  /**
+   * Prevent user typing non-number
+   */
+  function handleChangeContactNumber(event: ChangeEvent<HTMLInputElement>) {
+    setNumberPhone(event.target.value.replace(/\D/g, ""));
+  }
+
+  /**
+   * contact number validation only apply for area code +65 (SG)
+   */
+  useEffect(() => {
+    const handleUnregisterPattern = () => {
+      unregister("contactNumber");
+    };
+    if (areaCode === "+65") {
+      if (!_.isEmpty(numberPhone) && numberPhone.length !== 8) {
+        setError("contactNumber", {
+          type: "pattern",
+          message: `${ERROR_ICON} ${contactNumber.helperText}`,
+        });
+      }
+      register("contactNumber", {
+        required: true,
+        pattern: {
+          value: /^[0-9]{8}$/,
+          message: `${ERROR_ICON} ${contactNumber.helperText}`,
+        },
+      });
+    } else {
+      handleUnregisterPattern();
+      register("contactNumber", {
+        required: true,
+      });
+    }
+  }, [areaCode]);
 
   return (
     <Box className={cx("contact-details-wrapper")}>
       <Grid container>
-        {/* {Top full row} */}
+        {/* {Salutation} */}
         {_.has(salutation, "label") && (
           <Grid item xs={3}>
-            {/* {Salutation select field} */}
             <FormControl
               variant="filled"
               className={cx("company-type-select")}
@@ -61,19 +99,19 @@ const ContactDetails: React.FC<
               </InputLabel>
               <Select
                 fullWidth
-                defaultValue={
-                  _.has(dataRedux, "salutation") ? dataRedux.salutation : ""
-                }
                 labelId="salutation-select-filled-label"
                 id="salutation-select-filled"
                 IconComponent={ExpandMore}
+                defaultValue={
+                  _.has(dataRedux, "salutation") ? dataRedux.salutation : ""
+                }
                 {...register("salutation", {
                   required: true,
                 })}
               >
                 {_.map(LIST_SALUTATION, (item, index) => {
                   return (
-                    <MenuItem key={index} value={item.value}>
+                    <MenuItem key={index} value={item.name}>
                       {item.name}
                     </MenuItem>
                   );
@@ -84,18 +122,17 @@ const ContactDetails: React.FC<
         )}
 
         <Grid container direction="row" wrap={"nowrap"}>
-          {/* {Column left} */}
+          {/* {Column Reft} */}
           <Grid item xs={12} md={6}>
             <Grid container>
+              {/* {Name} */}
               {_.has(name, "label") && (
                 <Grid item xs={12}>
-                  {/* {Name input field} */}
                   <TextField
                     fullWidth
                     defaultValue={
                       _.has(dataRedux, "name") ? dataRedux.name : ""
                     }
-                    id={uuidv4()}
                     label={name.label}
                     variant="filled"
                     {...register("name", {
@@ -105,23 +142,25 @@ const ContactDetails: React.FC<
                 </Grid>
               )}
 
+              {/* {Email} */}
               {_.has(email, "label") && (
                 <Grid item xs={12}>
-                  {/* {Email input field} */}
                   <TextField
                     fullWidth
-                    error={errors.email && true}
+                    label={email.label}
+                    variant="filled"
+                    error={
+                      _.has(errors, "email") &&
+                      _.has(errors.email, "type") &&
+                      !_.isEqual(errors.email.type, "required") &&
+                      true
+                    }
                     defaultValue={
                       _.has(dataRedux, "email") ? dataRedux.email : ""
                     }
-                    label={email.label}
-                    key={null}
-                    variant="filled"
-                    helperText={
-                      errors.email && errors.email.message
-                    }
+                    helperText={errors.email && errors.email.message}
                     {...register("email", {
-                      required: email.requiredText,
+                      required: true,
                       pattern: {
                         // eslint-disable-next-line no-useless-escape
                         value:
@@ -135,12 +174,12 @@ const ContactDetails: React.FC<
             </Grid>
           </Grid>
 
-          {/* {Column right} */}
+          {/* {Column Right} */}
           <Grid item xs={12} md={6}>
             <Grid container>
+              {/* {Designation} */}
               {_.has(designation, "label") && (
                 <Grid item xs={12}>
-                  {/* {Designation input field} */}
                   <TextField
                     fullWidth
                     defaultValue={
@@ -157,35 +196,30 @@ const ContactDetails: React.FC<
                 </Grid>
               )}
 
-              <Grid item lg={12} md={12} sm={12} xs={12}>
-                {/* {Contact Number input field} */}
+              <Grid item xs={12}>
+                {/* {Contact Number} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
                   _.has(contactNumber, "label") && (
                     <TextField
                       fullWidth
-                      defaultValue={
-                        _.has(dataRedux, "contactNumber")
-                          ? dataRedux.contactNumber
-                          : ""
-                      }
-                      type="number"
+                      className={cx("formatted-numberphone-input")}
+                      type="text"
+                      label={contactNumber.label}
+                      name="contactNumber"
+                      value={numberPhone}
                       error={
                         _.has(errors, "contactNumber") &&
                         !_.isEqual(errors.contactNumber.type, "required") &&
                         true
                       }
-                      className={cx("formatted-numberphone-input")}
-                      label={contactNumber.label}
                       helperText={
+                        _.has(errors, "contactNumber") &&
                         _.has(errors.contactNumber, "type") &&
+                        !_.isEqual(errors.contactNumber.type, "required") &&
                         errors.contactNumber.message
                       }
                       {...register("contactNumber", {
-                        required: true,
-                        pattern: {
-                          value: /^[0-9]{8}$/,
-                          message: `${ERROR_ICON} ${contactNumber.helperText}`,
-                        },
+                        onChange: handleChangeContactNumber,
                         onBlur: (event: ChangeEvent<HTMLInputElement>) => {
                           if (event.target.value === "") {
                             setValue("contactNumber", "");
@@ -200,11 +234,14 @@ const ContactDetails: React.FC<
                       })}
                       InputProps={{
                         startAdornment: (
-                          <Box className={cx("formatted-numberphone-select")}>
-                            {/* {Phone Number select field} */}
+                          <InputAdornment
+                            position="start"
+                            component="div"
+                            className={cx("formatted-numberphone-select")}
+                          >
+                            {/* {Phone Number adorment} */}
                             <Select
                               renderValue={(value) => value}
-                              error={errors.AreaCode && true}
                               IconComponent={ExpandMore}
                               defaultValue={
                                 _.has(dataRedux, "areaCode")
@@ -213,7 +250,11 @@ const ContactDetails: React.FC<
                               }
                               {...register("areaCode", {
                                 required: true,
-                                onChange: (event: any) => setValueSelected(event.target.value)
+                                onChange: (
+                                  event: ChangeEvent<HTMLInputElement>
+                                ) => {
+                                  setAreaCode(event.target.value);
+                                },
                               })}
                             >
                                <MenuItem disabled className={cx("item-selected")}>
@@ -235,14 +276,14 @@ const ContactDetails: React.FC<
                                     value={item.value}
                                   >
                                     <div className={cx("group-item-select")}>
-                                      {valueSelected === item.value ? <CheckIcon /> : <span>&nbsp;&nbsp;&emsp;</span>}
+                                      {areaCode === item.value ? <CheckIcon /> : <span>&nbsp;&nbsp;&emsp;</span>}
                                       <span>{`${item.name} (${item.value})`}</span>
                                     </div>
                                   </MenuItem>
                                 );
                               })}
                             </Select>
-                          </Box>
+                          </InputAdornment>
                         ),
                       }}
                     />
