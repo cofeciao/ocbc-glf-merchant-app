@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveDataBusinessDetailsStep,
@@ -21,7 +21,7 @@ import styles from "./BusinessDetails.scss";
 
 // import types
 
-const BusinessDetails: React.FC<any> = () => {
+const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
   const {
     LIST_STEP: {
       businessDetails: {
@@ -55,6 +55,22 @@ const BusinessDetails: React.FC<any> = () => {
    * Retrieves data of Business Details step from Store
    */
   const listWebsiteUrl = useSelector((state: any) => state.form.listWebsiteUrl);
+
+  /**
+   * handle back to page when click on stepper
+   */
+  useImperativeHandle(ref, () => ({
+    validateForm() {
+      return true
+      // if (acraAndContactInformationStep) {
+      //   if (_.isEmpty(acraAndContactInformationStep)) {
+      //     return true;
+      //   }
+      //   return handleNext();
+      // }
+      // return true;
+    },
+  }));
 
   const {
     register,
@@ -133,5 +149,5 @@ const BusinessDetails: React.FC<any> = () => {
       />
     </Box>
   );
-};
+});
 export default BusinessDetails;

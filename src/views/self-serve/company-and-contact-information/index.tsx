@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect } from "react";
+import React, { forwardRef, useEffect, useImperativeHandle } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -28,7 +28,7 @@ import styles from "./CompanyAndContactInformation.scss";
 // import {ICompanyAndContactInformation} from "./CompanyAndContactInformation"
 
 // render UI
-const CompanyAndContactInformation: React.FC = () => {
+const CompanyAndContactInformation: React.FC<any> = forwardRef(({}, ref) => {
   const {
     LIST_STEP: {
       companyAndContactInformation: {
@@ -48,13 +48,14 @@ const CompanyAndContactInformation: React.FC = () => {
     (state: any) => state.form.companyAndContactInformationStep
   );
 
+
   const {
     register,
     unregister,
     formState: { errors, isValid },
     setValue,
     getValues,
-    setError,
+    setError
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -71,6 +72,18 @@ const CompanyAndContactInformation: React.FC = () => {
       areaCode: LIST_COUNTRIES_CODE[0].value,
     },
   });
+
+   /**
+   * handle back to page when click on stepper
+   */
+   useImperativeHandle(ref, () => ({
+    validateForm() {
+      if (_.isEmpty(dataCompanyAndContactInformationStep)) {
+        return true;
+      }
+      return history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+    },
+  }));
 
   /**
    * Handle scrolling to top on page load
@@ -133,5 +146,6 @@ const CompanyAndContactInformation: React.FC = () => {
       />
     </Box>
   );
-};
+});
+
 export default CompanyAndContactInformation;

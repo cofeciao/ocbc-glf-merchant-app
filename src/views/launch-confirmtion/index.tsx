@@ -6,11 +6,13 @@ import { Container, Grid } from "@material-ui/core";
 // import style
 import styles from "./LaunchConfirmtion.scss";
 
-// import component lib
+// import components
 import {
   Button,
-  Link,Header,Footer
+  Link,
+  Header
 } from '@sectionsg/orc';
+import Footer from "@/components/Footer";
 
 //import contants
 import {TITLE_PAGE, LINK_EXTERNAL_PAGE} from "../../utils/constants-rm";

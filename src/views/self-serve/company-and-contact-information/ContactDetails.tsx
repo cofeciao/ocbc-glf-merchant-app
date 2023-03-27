@@ -13,6 +13,9 @@ import {
 } from "@material-ui/core";
 import _ from "lodash";
 
+// import icons
+import CheckIcon from '@material-ui/icons/Check';
+
 // import constant
 import {
   ERROR_ICON,
@@ -25,9 +28,7 @@ import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
-const ContactDetails: React.FC<
-  ICompanyAndContactInformation.IContactDetails
-> = (props) => {
+const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = (props) => {
   const {
     cx,
     data,
@@ -256,10 +257,28 @@ const ContactDetails: React.FC<
                                 },
                               })}
                             >
+                               <MenuItem disabled className={cx("item-selected")}>
+                                  <div className={cx("group-item-select")}>
+                                    <span>&nbsp;&nbsp;&emsp;</span>
+                                    <span style={{
+                                      color: "#97A1AE",
+                                      fontWeight: "400",
+                                      fontSize: "16px",
+                                      lineHeight: "24px",
+                                    }}>Please select</span>
+                                  </div>
+                               </MenuItem>
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
-                                  <MenuItem key={index} value={item.value}>
-                                    {`${item.value} ${item.name}`}
+                                  <MenuItem
+                                    className={cx("item-selected")}
+                                    key={index} 
+                                    value={item.value}
+                                  >
+                                    <div className={cx("group-item-select")}>
+                                      {areaCode === item.value ? <CheckIcon /> : <span>&nbsp;&nbsp;&emsp;</span>}
+                                      <span>{`${item.name} (${item.value})`}</span>
+                                    </div>
                                   </MenuItem>
                                 );
                               })}

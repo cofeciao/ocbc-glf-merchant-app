@@ -1,5 +1,10 @@
 // import modules
 import {
+  Header,
+  Loading,
+  Category,
+} from "@sectionsg/orc";
+import {
   Box,
   Container,
   Grid,
@@ -8,7 +13,6 @@ import {
   Dialog,
   TextField,
 } from "@material-ui/core";
-import { Footer, Header, Loading, Category } from "@sectionsg/orc";
 import classnames from "classnames/bind";
 import _ from "lodash";
 import React, { FocusEvent, useEffect, useState } from "react";
@@ -38,6 +42,7 @@ import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // import style
 import styles from "./Home.scss";
+import Footer from "@/components/Footer";
 
 // render UI
 const Home: React.FC = () => {

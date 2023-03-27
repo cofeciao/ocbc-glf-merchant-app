@@ -1,15 +1,15 @@
 // import modules
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router";
 import { Container } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { Header, Footer, FormLayout, Tabs } from "@sectionsg/orc";
+import { Header, FormLayout, Tabs } from "@sectionsg/orc";
 import CompanyAndContactInformation from "@/views/self-serve/company-and-contact-information";
 import TransactionAndCardAcceptanceType from "@/views/self-serve/transaction-and-card-acceptance-type";
 import BusinessDetails from "@/views/self-serve/business-details";
 import ProductsAndServices from "@/views/self-serve/products-and-services";
 import ReviewAndSubmit from "@/views/self-serve/review-and-submit";
-import { adobeAbandon } from "@/utils/adobeTracking";
+import Footer from "@/components/Footer";
 
 // import constants
 import {
@@ -23,6 +23,7 @@ import styles from "@/views/self-serve/SelfServe.scss";
 
 // import types
 import { ISelfServe } from "./SelfServe";
+import { adobeAbandon } from "@/utils/adobeTracking";
 
 // render UI
 const SelfServe: React.FC = () => {
@@ -30,6 +31,7 @@ const SelfServe: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { LIST_STEP } = SELF_SERVE_PAGE;
   const history = useHistory();
+  const childRef: any = useRef();
 
   /**
    * add event listener to handle page reload
@@ -81,6 +83,26 @@ const SelfServe: React.FC = () => {
     return <></>;
   }
 
+    /**
+ * Handle click into on stepper
+ * @param {string} path - Slug for page 
+ */
+    const handleClick = (path: any) => {
+      history.push(`/self/${path}`);
+      // if (childRef.current) {
+      //   if (formReduxData.isBorrower) {
+      //     if (childRef.current.validateForm()) {
+      //       history.push(`/self/borrower/${path}`);
+      //     }
+      //   } else {
+      //     if (childRef.current.validateForm()) {
+      //       history.push(`/self/${path}`);
+      //     }
+      //     childRef.current.handleNextPage();
+      //   }
+      // }
+    };
+
   // Render UI
   return (
     <>
@@ -95,20 +117,26 @@ const SelfServe: React.FC = () => {
         <section className={cx("self-serve-wrapper")}>
           <FormLayout
             isMyInfo={true}
-            tabs={<Tabs tabId={slug} dataTabs={handleDetectDynamicStepper()} />}
+            tabs={
+              <Tabs 
+                tabId={slug} 
+                dataTabs={handleDetectDynamicStepper()} 
+                handleClick={handleClick}
+              />
+            }
             content={
               <>
                 {slug === LIST_STEP.companyAndContactInformation.id && (
-                  <CompanyAndContactInformation />
+                  <CompanyAndContactInformation ref={childRef} />
                 )}
                 {slug === LIST_STEP.transactionAndCardAcceptanceType.id && (
-                  <TransactionAndCardAcceptanceType />
+                  <TransactionAndCardAcceptanceType ref={childRef} />
                 )}
-                {slug === LIST_STEP.businessDetails.id && <BusinessDetails />}
+                {slug === LIST_STEP.businessDetails.id && <BusinessDetails ref={childRef} />}
                 {slug === LIST_STEP.productsAndService.id && (
-                  <ProductsAndServices />
+                  <ProductsAndServices ref={childRef} />
                 )}
-                {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit />}
+                {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit ref={childRef} />}
               </>
             }
           />

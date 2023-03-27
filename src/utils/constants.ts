@@ -45,8 +45,8 @@ export const ACKNOWLEDGEMENT_PAGE = {
 export const HOME_PAGE = {
   CAPTCHA: {
     LABEL_GET_ANOTHER_CODE: "Get Another Code",
-    HELPER_TEXT: "",
-    LABEL_TEXT_FIELD: "",
+    HELPER_TEXT: "Captcha does not match",
+    LABEL_TEXT_FIELD: "Verification Code",
   },
   
   ENTRY_POINT: {
@@ -107,23 +107,23 @@ export const HOME_PAGE = {
 export const SELF_SERVE_PAGE = {
   LABEL_EDIT: "Edit",
   LABEL_SGD: "SGD",
-  LIST_TOOLTIP_CONTENT: [
-    {
+  TOOLTIP_CONTENT: {
+    fulfilmentPeriod: {
       title: "Fulfilment period",
       description:
         "Fulfilment period refers to the length of time between customers making a payment and receiving a product or service.",
     },
-    {
+    imediateFulfilment: {
       title: "Immediate fulfilment",
       description:
         "Customers receive the product or service upon payment e.g., food establishments, retail, etc.",
     },
-    {
+    fulfilmentOver: {
       title: "Fulfilment over a period of time",
       description:
         "Customers receive a product or service spread out over a period of time after payment e.g., subscriptions, spa packages, etc.",
     },
-  ],
+  },
   LIST_CHECKBOX_AGREE_POLICY: {
     description:
       "Before submitting your application, please ensure that you read and understand the following:",

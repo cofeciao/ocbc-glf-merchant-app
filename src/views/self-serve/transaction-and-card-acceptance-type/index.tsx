@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListCheckBox from "@/components/ListCheckBox";
 import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
@@ -20,7 +20,7 @@ import styles from "./TransactionAndCardAcceptanceType.scss";
 // import types
 
 // render UI
-const TransactionAndCardAcceptanceType: React.FC<any> = () => {
+const TransactionAndCardAcceptanceType: React.FC<any> = forwardRef(({}, ref) => {
   const {
     LIST_STEP: {
       transactionAndCardAcceptanceType: {
@@ -61,6 +61,23 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   const dataListCheckbox = useSelector(
     (state: any) => state.form.transactionAndCardAcceptanceTypeStep
   );
+
+  /**
+   * handle back to page when click on stepper
+   */
+  useImperativeHandle(ref, () => ({
+    validateForm() {
+      return true
+      // if (acraAndContactInformationStep) {
+      //   if (_.isEmpty(acraAndContactInformationStep)) {
+      //     return true;
+      //   }
+      //   return handleNext();
+      // }
+      // return true;
+    },
+  }));
+
 
   /**
    * Handle update state when dataListCheckbox updated from store
@@ -126,5 +143,5 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
       />
     </Box>
   );
-};
+});
 export default TransactionAndCardAcceptanceType;
