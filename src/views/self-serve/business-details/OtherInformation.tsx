@@ -12,9 +12,12 @@ import GroupRadio from "@/components/GroupRadio";
 import styles from "./BusinessDetails.scss";
 
 // import types
+import { IBusinessDetails } from "./BusinessDetails";
 
 // render UI
-const OtherInformation: React.FC<any> = (props) => {
+const OtherInformation: React.FC<IBusinessDetails.IOtherInformation> = (
+  props
+) => {
   const { sections, setValue, dataRedux } = props;
   const {
     listCheckboxBusinessOfferings,

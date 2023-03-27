@@ -69,7 +69,7 @@ const ImmediateFulfillment: React.FC<any> = (props) => {
         {/* {Approximate delivery time to customers} */}
         <Grid item xs={12}>
           {/* {Description} */}
-          <Grid item xs={5}>
+          <Grid item xs={12} md={6} lg={5}>
             {!_.isEmpty(listDropdown.description) && (
               <Typography
                 className={cx(

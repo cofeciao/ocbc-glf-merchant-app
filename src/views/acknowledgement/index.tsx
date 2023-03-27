@@ -17,7 +17,7 @@ import styles from "./Acknowledgement.scss";
 import { adobeAbandon } from "@/utils/adobeTracking";
 
 // render UI
-const Acknowledgement: React.FC<any> = () => {
+const Acknowledgement: React.FC = () => {
   const cx = classnames.bind(styles);
   const { slug } = useParams<{ slug: string }>();
   const history = useHistory();

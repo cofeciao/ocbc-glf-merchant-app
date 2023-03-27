@@ -17,12 +17,25 @@ import GroupRadio from "@/components/GroupRadio";
 import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
+const FulfilmentInformationEcommerce: React.FC<
+  IProductsAndServices.IFulfilmentInformationSection
+> = (props) => {
   // props
-  const { cx, data, register, unregister, errors, setValue, dataRedux } = props;
-  const { listRadio } = data;
+  const {
+    cx,
+    data,
+    register,
+    unregister,
+    errors,
+    setError,
+    clearErrors,
+    setValue,
+    dataRedux,
+  } = props;
+  const { listRadio, textField } = data;
 
   // states
   const [valueSelected, setValueSelected] = useState<string>(
@@ -98,13 +111,13 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
       {_.isEqual(valueSelected, listOrderFulfilment[1].value) && (
         <Grid item xs={12} className={cx("mt-dt-40")}>
           {/* {Description} */}
-          {!_.isEmpty(data.textField.description) && (
+          {!_.isEmpty(textField.description) && (
             <Typography
               className={cx(
                 "fulfilment-information-description input-field-description"
               )}
             >
-              {data.textField.description}
+              {textField.description}
             </Typography>
           )}
 
@@ -112,7 +125,7 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
           <Grid item xs={12} md={5}>
             <TextField
               fullWidth
-              label={data.textField.label}
+              label={textField.label}
               variant="filled"
               type="text"
               value={inputValue}
@@ -151,7 +164,7 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
                 pattern: {
                   // eslint-disable-next-line no-useless-escape
                   value: /^\b(0|[1-9][0-9]?|100)\b$/,
-                  message: `${ERROR_ICON} ${data.textField.helperText}`,
+                  message: `${ERROR_ICON} ${textField.helperText}`,
                 },
                 onChange: handleChange,
               })}
@@ -170,6 +183,8 @@ const FulfilmentInformationEcommerce: React.FC<any> = (props) => {
           register={register}
           unregister={unregister}
           errors={errors}
+          setError={setError}
+          clearErrors={clearErrors}
           setValue={setValue}
         />
       }

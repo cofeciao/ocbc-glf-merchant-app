@@ -48,6 +48,7 @@ const CompanyAndContactInformation: React.FC = () => {
     (state: any) => state.form.companyAndContactInformationStep
   );
 
+  // React-hook-form
   const {
     register,
     unregister,

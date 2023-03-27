@@ -6,11 +6,14 @@ import _ from "lodash";
 import TooltipDialog from "./TooltipDialog";
 import GroupRadio from "@/components/GroupRadio";
 import { updateDataListRadio } from "@/utils/utils";
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // import types
 
 // render UI
-const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
+const FulfilmentInformationPointOfSales: React.FC<
+  IProductsAndServices.IFulfilmentInformationSection
+> = (props) => {
   //props
   const { cx, data, register, unregister, errors, setValue, dataRedux } = props;
   const { listRadio } = data;
@@ -33,10 +36,7 @@ const FulfilmentInformationPointOfSales: React.FC<any> = (props) => {
   useEffect(() => {
     if (!_.isEqual(valueSelected, listRadio.list[1].label)) {
       unregister(
-        [
-          "POS.deliveryTimeToCustomers",
-          "POS.percentageOfProductsNotFulfilledImmediately",
-        ],
+        ["POS.duration", "POS.percentageOfProductsNotFulfilledImmediately"],
         {
           keepDefaultValue: false,
         }

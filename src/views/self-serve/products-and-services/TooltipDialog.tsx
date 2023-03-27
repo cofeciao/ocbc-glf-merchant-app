@@ -18,7 +18,7 @@ import styles from "./ProductsAndServices.scss";
 import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const TooltipDialog: React.FC = (props) => {
+const TooltipDialog: React.FC = () => {
   const cx = classnames.bind(styles);
   const [open, setOpen] = useState<boolean>(false);
   const { LIST_TOOLTIP_CONTENT } = SELF_SERVE_PAGE;

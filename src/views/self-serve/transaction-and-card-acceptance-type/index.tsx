@@ -14,13 +14,14 @@ import _ from "lodash";
 // import constants
 import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
-// import style
+// import styles
 import styles from "./TransactionAndCardAcceptanceType.scss";
 
 // import types
+import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // render UI
-const TransactionAndCardAcceptanceType: React.FC<any> = () => {
+const TransactionAndCardAcceptanceType: React.FC = () => {
   const {
     LIST_STEP: {
       transactionAndCardAcceptanceType: {
@@ -31,8 +32,9 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
   const history = useHistory();
+
+  // State
   const [dataCheckbox, setDataCheckbox] = useState(
     whichServiceAreYouApplyingFor.data_list_checkbox
   );
@@ -51,7 +53,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
    * Get data from list check box and save to store
    * @param data
    */
-  const getDataFromListCheckbox = (data: any) => {
+  const getDataFromListCheckbox = (data: ICheckBox[]) => {
     dispatch(saveDataTransactionAndCardAcceptanceTypeStep(data));
   };
 
@@ -59,7 +61,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
    * Retrieves data of dataListCheckbox from Store
    */
   const dataListCheckbox = useSelector(
-    (state: any) => state.form.transactionAndCardAcceptanceTypeStep
+    (state: any) => state.form.transactionAndCardAcceptanceTypeStep as ICheckBox[]
   );
 
   /**
@@ -106,7 +108,6 @@ const TransactionAndCardAcceptanceType: React.FC<any> = () => {
           md={4}
           sm={6}
           xs={12}
-          checkboxKey={key}
           getValue={getDataFromListCheckbox}
         />
       </SectionWrapper>

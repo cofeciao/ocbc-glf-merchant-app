@@ -21,7 +21,7 @@ import styles from "./BusinessDetails.scss";
 
 // import types
 
-const BusinessDetails: React.FC<any> = () => {
+const BusinessDetails: React.FC = () => {
   const {
     LIST_STEP: {
       businessDetails: {
@@ -54,11 +54,14 @@ const BusinessDetails: React.FC<any> = () => {
   /**
    * Retrieves data of Business Details step from Store
    */
-  const listWebsiteUrl = useSelector((state: any) => state.form.listWebsiteUrl);
+  const listWebsiteUrl = useSelector(
+    (state: any) => state.form.listWebsiteUrl as Array<string>
+  );
 
+  // React-hook-form
   const {
     register,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     getValues,
     setValue,
     unregister,

@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -21,10 +21,8 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 // import style
 import styles from "./ProductsAndServices.scss";
 
-// import types
-
 // render UI
-const ProductsAndServices: React.FC<any> = () => {
+const ProductsAndServices: React.FC = () => {
   // props
   const {
     LABEL_E_COMMERCE,
@@ -57,13 +55,15 @@ const ProductsAndServices: React.FC<any> = () => {
     (state: any) => state.form.productsAndServicesStep
   );
 
+  // React-hook-form
   const {
     register,
     unregister,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     getValues,
     setValue,
-    watch,
+    setError,
+    clearErrors,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -79,11 +79,6 @@ const ProductsAndServices: React.FC<any> = () => {
         annualCreditCardSalesForecast:
           productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast ||
           "",
-        deliveryTimeToCustomers:
-          productsAndServicesStep.pointOfSales.deliveryTimeToCustomers,
-        percentageOfProductsNotFulfilledImmediately:
-          productsAndServicesStep.pointOfSales
-            .percentageOfProductsNotFulfilledImmediately,
       },
       Ecom: {
         orderFulfilment:
@@ -103,9 +98,6 @@ const ProductsAndServices: React.FC<any> = () => {
           productsAndServicesStep.eCommerce.annualCreditCardSalesForecast || "",
         productDeliveredFrom:
           productsAndServicesStep.eCommerce.productDeliveredFrom || "",
-        percentageOfProductsNotFulfilledImmediately:
-          productsAndServicesStep.eCommerce
-            .percentageOfProductsNotFulfilledImmediately,
       },
     },
   });
@@ -151,6 +143,8 @@ const ProductsAndServices: React.FC<any> = () => {
           register={register}
           unregister={unregister}
           setValue={setValue}
+          setError={setError}
+          clearErrors={clearErrors}
           errors={errors}
         />
       ) : (
@@ -178,6 +172,8 @@ const ProductsAndServices: React.FC<any> = () => {
             unregister={unregister}
             setValue={setValue}
             errors={errors}
+            setError={setError}
+            clearErrors={clearErrors}
           />
         </Box>
       )}
