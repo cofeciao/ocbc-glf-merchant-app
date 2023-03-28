@@ -107,9 +107,12 @@ const RedirectButton: React.FC<ISelfServe.IRedirectButton> = (props) => {
           style: { backgroundColor: "rgba(177, 184, 197, 0.7)" },
         }}
       >
+        {/* {Icon} */}
         <Box className={cx("icon-close")}>
           <CloseIcon onClick={handleCloseContinueLaterDialog} />
         </Box>
+
+        {/* {Content} */}
         <DialogContent>
           <ContinueLaterDialog
             handleOpenContinueLaterDialog={handleOpenContinueLaterDialog}
