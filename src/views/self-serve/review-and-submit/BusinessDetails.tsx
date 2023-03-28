@@ -7,9 +7,12 @@ import _ from "lodash";
 // import style
 import styles from "./ReviewAndSubmit.scss";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { IReviewAndSubmit } from "./ReviewAndSubmit";
 
 // render UI
-const BusinessDetails: React.FC<any> = (props) => {
+const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
+  props
+) => {
   const {
     LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS,
     LABEL_BUSINESS_READY_TO_OPERATE,
@@ -38,9 +41,8 @@ const BusinessDetails: React.FC<any> = (props) => {
   } = data;
   const cx = classnames.bind(styles);
 
-  const listWebsiteUrlFilter = _.filter(
-    listWebsiteUrl,
-    (website: string) =>  _.size(website)
+  const listWebsiteUrlFilter = _.filter(listWebsiteUrl, (website: string) =>
+    _.size(website)
   );
 
   return (

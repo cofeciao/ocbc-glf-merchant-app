@@ -27,9 +27,12 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 import IconPlus from "@/assets/images/icon-plus.svg";
 
 // import types
+import { IBusinessDetails } from "./BusinessDetails";
 
 // render UI
-const WebsiteInformation: React.FC<any> = (props) => {
+const WebsiteInformation: React.FC<IBusinessDetails.IWebsiteInformation> = (
+  props
+) => {
   // props
   const {
     listField,

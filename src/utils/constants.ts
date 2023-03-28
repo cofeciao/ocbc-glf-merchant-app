@@ -217,6 +217,7 @@ export const SELF_SERVE_PAGE = {
   LABEL_SALES_FORECAST: "Sales forecast",
   LABEL_POINT_OF_SALES_TERMINAL: "Point-of-Sales terminal",
   LABEL_E_COMMERCE: "e-Commerce",
+  LABEL_DURATION: "Duration",
   LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY:
     "Percentage of products/services not fulfilled immediately",
 
@@ -226,6 +227,7 @@ export const SELF_SERVE_PAGE = {
     "Average amount per credit card transaction",
   LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST: "Annual credit card sales forecast",
   LABEL_PRODUCT_DELIVERED_FROM: "Product delivered from",
+  LABEL_DELIVERY_TIME_TO_CUSTOMERS: "Delivery time to customers",
   LABEL_PRODUCT_DELIVERY: "Product delivery",
 
   CONTINUE_LATER_DIALOG: {

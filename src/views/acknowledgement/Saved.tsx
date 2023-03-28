@@ -15,7 +15,7 @@ import { ACKNOWLEDGEMENT_PAGE } from "@/utils/constants";
 import styles from "./Acknowledgement.scss";
 import { useSelector } from "react-redux";
 
-const Saved: React.FC<any> = () => {
+const Saved: React.FC = () => {
   const {
     SAVED: { title, description },
   } = ACKNOWLEDGEMENT_PAGE;
@@ -51,9 +51,7 @@ const Saved: React.FC<any> = () => {
               {/* {Content} */}
               <Box className={cx("content-wrapper")}>
                 {/* {Title} */}
-                <Typography className={cx("title")}>
-                  {title}
-                </Typography>
+                <Typography className={cx("title")}>{title}</Typography>
 
                 {/* {Description} */}
                 <Typography component="div" className={cx("description")}>

@@ -8,11 +8,12 @@ import _ from "lodash";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
+import { IReviewAndSubmit } from "./ReviewAndSubmit";
 
 // render UI
-const AgreePolicy: React.FC<any> = (props) => {
+const AgreePolicy: React.FC<IReviewAndSubmit.IAgreePolicy> = (props) => {
   const { LIST_CHECKBOX_AGREE_POLICY } = SELF_SERVE_PAGE;
-  const { getValue } = props;
+  const { onGetValue } = props;
   const cx = classnames.bind(styles);
   const [valueCheckbox, setValueCheckbox] = useState();
 
@@ -20,13 +21,14 @@ const AgreePolicy: React.FC<any> = (props) => {
    * Check policy checkbox to handling submit button
    */
   useEffect(() => {
-    if (
-      !_.isNil(valueCheckbox) &&
-      _.size(valueCheckbox) >= LIST_CHECKBOX_AGREE_POLICY.listCheckbox.length
-    ) {
-      getValue(true);
-    } else {
-      getValue(false);
+    if (!_.isNil(valueCheckbox)) {
+      if (
+        _.size(valueCheckbox) >= LIST_CHECKBOX_AGREE_POLICY.listCheckbox.length
+      ) {
+        onGetValue(true);
+      } else {
+        onGetValue(false);
+      }
     }
   }, [valueCheckbox]);
 

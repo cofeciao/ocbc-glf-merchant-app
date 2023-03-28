@@ -10,8 +10,13 @@ import styles from "./ReviewAndSubmit.scss";
 // import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
+// import contants
+import { IReviewAndSubmit } from "./ReviewAndSubmit";
+
 // render UI
-const TransactionAndCardAcceptanceType: React.FC<any> = (props) => {
+const TransactionAndCardAcceptanceType: React.FC<
+  IReviewAndSubmit.ITransactionAndCardAcceptanceType
+> = (props) => {
   const { data } = props;
   const { LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA, LABEL_SERVICE } =
     SELF_SERVE_PAGE;

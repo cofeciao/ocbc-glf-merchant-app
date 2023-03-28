@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -73,11 +73,9 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                     id="select-duration"
                     IconComponent={ExpandMore}
                     defaultValue={
-                      _.has(dataRedux, "deliveryTimeToCustomers")
-                        ? dataRedux.deliveryTimeToCustomers
-                        : ""
+                      _.has(dataRedux, "duration") ? dataRedux.duration : ""
                     }
-                    {...register("POS.deliveryTimeToCustomers", {
+                    {...register("POS.duration", {
                       required: true,
                     })}
                   >

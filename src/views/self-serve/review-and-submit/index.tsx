@@ -1,8 +1,8 @@
 // import modules
-import { Category, Button } from "@sectionsg/orc";
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid } from "@material-ui/core";
+import { Category } from "@sectionsg/orc";
+import React, { forwardRef, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "@/views/self-serve/SectionWrapper";
@@ -21,10 +21,8 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 // import style
 import styles from "./ReviewAndSubmit.scss";
 
-// import types
-
 // render UI
-const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
+const ReviewAndSubmit: React.FC = () => {
   const {
     LABEL_CASHLESS_PAYMENT_METHOD,
     LABEL_COMPANY_REGISTRATION,
@@ -67,23 +65,6 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
       .filter((item: string) => item !== "")
       .join("-")
   );
-
-
-  /**
-   * handle back to page when click on stepper
-   */
-  useImperativeHandle(ref, () => ({
-    validateForm() {
-      return true
-      // if (acraAndContactInformationStep) {
-      //   if (_.isEmpty(acraAndContactInformationStep)) {
-      //     return true;
-      //   }
-      //   return handleNext();
-      // }
-      // return true;
-    },
-  }));
 
   /**
    * Retrieves data of Company And Contact Information step from Store
@@ -194,7 +175,7 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
       <Box id={cx("divider")} />
 
       {/* {Agree Policy} */}
-      <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />
+      <AgreePolicy onGetValue={(value: boolean) => setDisableButton(!value)} />
 
       {/* {Next Button}  */}
       <RedirectButton
@@ -212,5 +193,5 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
       />
     </Box>
   );
-});
+};
 export default ReviewAndSubmit;

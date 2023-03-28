@@ -56,6 +56,8 @@ const Home: React.FC = () => {
   } = HOME_PAGE;
   const cx = classnames.bind(styles);
   const history = useHistory();
+
+  // State
   const [dataCardCheckbox, setDataCardCheckbox] = useState<ICheckBox[]>(
     CASHLESS_PAYMENTS_METHODS.data_list_checkbox
   );
@@ -66,6 +68,7 @@ const Home: React.FC = () => {
   const [captchaCode, setCaptchaCode] = useState<string>("");
   const [exactCaptcha, setExactCaptcha] = useState<boolean>();
   const [inputCaptcha, setInputCaptcha] = useState<string>("");
+  const [reloadCaptchaMethod, setReloadCaptchaMethod] = useState<Function>();
 
   /**
    * Back to Card Acceptance page
@@ -129,19 +132,9 @@ const Home: React.FC = () => {
     }
   };
 
-  /**
-   * Random string for Captcha
-   * @returns
-   */
-  function handleRandomString() {
-    let result = "";
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const charactersLength = characters.length;
-    for (let i = 0; i < 6; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
+  const reloadCaptcha = () => {
+    typeof reloadCaptchaMethod === "function" && reloadCaptchaMethod();
+  };
 
   // Render UI
   return (
@@ -223,6 +216,9 @@ const Home: React.FC = () => {
                         onGeneratedCaptcha={(captcha: string) =>
                           setCaptchaCode(captcha)
                         }
+                        methodReloadCaptcha={(callback: Function) =>
+                          setReloadCaptchaMethod(callback)
+                        }
                       />
                     </Grid>
 
@@ -259,7 +255,7 @@ const Home: React.FC = () => {
                 <Grid item xs={12}>
                   <Box
                     component="a"
-                    onClick={() => setCaptchaCode(handleRandomString())}
+                    onClick={() => reloadCaptcha()}
                     className={cx("get-another-code-button mt-16")}
                   >
                     {LABEL_GET_ANOTHER_CODE}

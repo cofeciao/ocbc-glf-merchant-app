@@ -8,8 +8,11 @@ import _ from "lodash";
 import styles from "./ReviewAndSubmit.scss";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
+// import types
+import { IReviewAndSubmit } from "./ReviewAndSubmit";
+
 // render UI
-const CashlessPaymentMethod: React.FC<any> = (props) => {
+const CashlessPaymentMethod: React.FC<IReviewAndSubmit.ICashlessPaymentMethod> = (props) => {
   const { data } = props;
   const { LABEL_MODE } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);

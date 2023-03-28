@@ -7,20 +7,24 @@ import _ from "lodash";
 import { ERROR_ICON } from "@/utils/constants";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const BusinessOfferingPointOfSales: React.FC<any> = (props) => {
+const BusinessOfferingPointOfSales: React.FC<
+  IProductsAndServices.IBusinessOfferingSection
+> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const { textField } = data;
+  const maxLength = 180;
   const [counter, setCounter] = useState<number>(
     !_.isEmpty(dataRedux[textField.keyName])
       ? dataRedux[textField.keyName].length
       : 0
   );
-  const maxLength = 180;
 
   return (
     <Box className={cx("business-offering-wrapper")}>
+      {/* {} */}
       {!_.isNil(textField) && (
         <Box className={cx("main-input-field")}>
           <TextField

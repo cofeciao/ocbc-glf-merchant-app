@@ -12,9 +12,10 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 import styles from "./ContinueLaterDialog.scss";
 
 // import types
+import { IContinueLaterDialog } from "./ContinueLaterDialog";
 
 // render UI
-const ReviewAndSaveDialog: React.FC<any> = (props) => {
+const ReviewAndSaveDialog: React.FC<IContinueLaterDialog.IReviewAndSaveDialog> = (props) => {
   //props
   const { dataRedux, onCloseDialog } = props;
   const {
@@ -27,13 +28,13 @@ const ReviewAndSaveDialog: React.FC<any> = (props) => {
       REVIEW_AND_SAVE: { title, description },
     },
   } = SELF_SERVE_PAGE;
-  
+
   //data redux
   const { email, name, contactNumber } = dataRedux;
-  
+
   //classnames
   const cx = classnames.bind(styles);
-  
+
   //hooks
   const history = useHistory();
 

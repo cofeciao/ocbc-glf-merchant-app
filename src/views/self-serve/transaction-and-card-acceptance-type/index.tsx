@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useState, useEffect, useImperativeHandle, forwardRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListCheckBox from "@/components/ListCheckBox";
 import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
@@ -14,13 +14,14 @@ import _ from "lodash";
 // import constants
 import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
-// import style
+// import styles
 import styles from "./TransactionAndCardAcceptanceType.scss";
 
 // import types
+import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // render UI
-const TransactionAndCardAcceptanceType: React.FC<any> = forwardRef(({}, ref) => {
+const TransactionAndCardAcceptanceType: React.FC = () => {
   const {
     LIST_STEP: {
       transactionAndCardAcceptanceType: {
@@ -31,8 +32,9 @@ const TransactionAndCardAcceptanceType: React.FC<any> = forwardRef(({}, ref) => 
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
   const history = useHistory();
+
+  // State
   const [dataCheckbox, setDataCheckbox] = useState(
     whichServiceAreYouApplyingFor.data_list_checkbox
   );
@@ -51,7 +53,7 @@ const TransactionAndCardAcceptanceType: React.FC<any> = forwardRef(({}, ref) => 
    * Get data from list check box and save to store
    * @param data
    */
-  const getDataFromListCheckbox = (data: any) => {
+  const getDataFromListCheckbox = (data: ICheckBox[]) => {
     dispatch(saveDataTransactionAndCardAcceptanceTypeStep(data));
   };
 
@@ -59,25 +61,9 @@ const TransactionAndCardAcceptanceType: React.FC<any> = forwardRef(({}, ref) => 
    * Retrieves data of dataListCheckbox from Store
    */
   const dataListCheckbox = useSelector(
-    (state: any) => state.form.transactionAndCardAcceptanceTypeStep
+    (state: any) =>
+      state.form.transactionAndCardAcceptanceTypeStep as ICheckBox[]
   );
-
-  /**
-   * handle back to page when click on stepper
-   */
-  useImperativeHandle(ref, () => ({
-    validateForm() {
-      return true
-      // if (acraAndContactInformationStep) {
-      //   if (_.isEmpty(acraAndContactInformationStep)) {
-      //     return true;
-      //   }
-      //   return handleNext();
-      // }
-      // return true;
-    },
-  }));
-
 
   /**
    * Handle update state when dataListCheckbox updated from store
@@ -123,7 +109,6 @@ const TransactionAndCardAcceptanceType: React.FC<any> = forwardRef(({}, ref) => 
           md={4}
           sm={6}
           xs={12}
-          checkboxKey={key}
           getValue={getDataFromListCheckbox}
         />
       </SectionWrapper>
@@ -143,5 +128,5 @@ const TransactionAndCardAcceptanceType: React.FC<any> = forwardRef(({}, ref) => 
       />
     </Box>
   );
-});
+};
 export default TransactionAndCardAcceptanceType;

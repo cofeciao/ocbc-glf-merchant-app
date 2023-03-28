@@ -25,9 +25,10 @@ import styles from "./BusinessDetails.scss";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
+import { IBusinessDetails } from "./BusinessDetails";
 
 // render UI
-const BusinessInfomation: React.FC<any> = (props) => {
+const BusinessInfomation: React.FC<IBusinessDetails.IBusinessInfomation> = (props) => {
   const {
     listField,
     register,
@@ -113,59 +114,58 @@ const BusinessInfomation: React.FC<any> = (props) => {
         </Grid>
 
         {/* {Please indicate when your business will start operations} */}
-        {_.has(listField.dropdownField, "placeholder") &&
-          _.isEqual(businessReadyToOperate, "No") && (
-            <Grid item xs={12}>
-              {/* {Description} */}
-              {_.has(listField.dropdownField, "description") && (
-                <Typography className={cx("sub-section-description mb-16")}>
-                  {listField.dropdownField.description}
-                </Typography>
-              )}
+        {_.isEqual(businessReadyToOperate, "No") && (
+          <Grid item xs={12}>
+            {/* {Description} */}
+            {_.has(listField.dropdownField, "description") && (
+              <Typography className={cx("sub-section-description mb-16")}>
+                {listField.dropdownField.description}
+              </Typography>
+            )}
 
-              {/* {Select} */}
-              <Grid xs={12} md={4}>
-                <FormControl
-                  variant="filled"
-                  className={cx("operation-starting-period-select")}
-                  fullWidth
-                >
-                  {/* {Label} */}
-                  {!_.isEmpty(listField.dropdownField.placeholder) && (
-                    <InputLabel htmlFor="select-operation-starting-period-label">
-                      {listField.dropdownField.placeholder}
-                    </InputLabel>
-                  )}
+            {/* {Select} */}
+            <Grid xs={12} md={4}>
+              <FormControl
+                variant="filled"
+                className={cx("operation-starting-period-select")}
+                fullWidth
+              >
+                {/* {Label} */}
+                {!_.isEmpty(listField.dropdownField.placeholder) && (
+                  <InputLabel htmlFor="select-operation-starting-period-label">
+                    {listField.dropdownField.placeholder}
+                  </InputLabel>
+                )}
 
-                  {/* {Select} */}
-                  {!_.isEmpty(listField.dropdownField.list) && (
-                    <Select
-                      fullWidth
-                      IconComponent={ExpandMore}
-                      labelId="select-operation-starting-period-label"
-                      id="select-operation-starting-period"
-                      defaultValue={
-                        _.has(dataRedux, "operationStartingPeriod")
-                          ? dataRedux.operationStartingPeriod
-                          : ""
-                      }
-                      {...register("operationStartingPeriod", {
-                        required: true,
-                      })}
-                    >
-                      {_.map(listField.dropdownField.list, (item, index) => {
-                        return (
-                          <MenuItem key={index} value={item.value}>
-                            {item.name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  )}
-                </FormControl>
-              </Grid>
+                {/* {Select} */}
+                {!_.isEmpty(listField.dropdownField.list) && (
+                  <Select
+                    fullWidth
+                    IconComponent={ExpandMore}
+                    labelId="select-operation-starting-period-label"
+                    id="select-operation-starting-period"
+                    defaultValue={
+                      _.has(dataRedux, "operationStartingPeriod")
+                        ? dataRedux.operationStartingPeriod
+                        : ""
+                    }
+                    {...register("operationStartingPeriod", {
+                      required: true,
+                    })}
+                  >
+                    {_.map(listField.dropdownField.list, (item, index) => {
+                      return (
+                        <MenuItem key={index} value={item.value}>
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                )}
+              </FormControl>
             </Grid>
-          )}
+          </Grid>
+        )}
 
         {/* {At how many outlets will you deploy Point-of-Sales terminals?} */}
         {_.has(listField, "textField") &&

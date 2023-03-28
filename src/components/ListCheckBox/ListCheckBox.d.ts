@@ -4,7 +4,7 @@ export interface IListCheckBox {
   label: string;
   textError: string;
   dataCardCheckbox: ICheckBox[];
-  checkboxKey: number;
+  checkboxKey?: number;
   getValue?: Function;
   lg?: boolean | GridSize;
   md?: boolean | GridSize;

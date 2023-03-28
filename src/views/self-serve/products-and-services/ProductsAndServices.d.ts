@@ -4,6 +4,120 @@ declare namespace IProductsAndServices {
     description: string;
     cx?: any;
   }
+
+  export interface IBusinessOfferingSection {
+    cx: any;
+    data: IBusinessOffering;
+    register: any;
+    errors: any;
+    dataRedux: any;
+  }
+
+  export interface IBusinessOffering {
+    title: string;
+    description: string;
+    textField: ITextField;
+  }
+
+  export interface ITextField {
+    keyName?: string;
+    label?: string;
+    description?: string;
+    helperText?: string;
+    helperTextGuide?: string;
+  }
+  export interface IListCheckbox {
+    description?: string;
+    list: {
+      text: string;
+      checked?: boolean;
+    }[];
+  }
+  export interface IListRadio {
+    description?: string;
+    list: {
+      label: string;
+      value: string;
+      checked?: boolean;
+    }[];
+  }
+  export interface IListDropdown {
+    label: string;
+    description?: string;
+    list: {
+      name: string;
+      value: string;
+    }[];
+  }
+
+  export interface IFulfilmentInformation {
+    title?: string;
+    listRadio?: IListRadio;
+    listDropdown?: IListDropdown;
+    listCheckbox?: IListCheckbox;
+    textField?: ITextField;
+    listCheckboxSecondary?: {
+      description?: string;
+      list: {
+        text: string;
+        check?: boolean;
+      }[];
+    };
+    listRadioSecondary?: IListRadio;
+  }
+
+  export interface IFulfilmentInformationSection {
+    cx: any;
+    data: IFulfilmentInformation;
+    dataRedux?: any;
+    variant?: string;
+    unregister?: any;
+    setError?: any;
+    clearErrors?: any;
+    setValue?: any;
+    register?: any;
+    errors?: any;
+  }
+
+  export interface IForm {
+    cx: any;
+    data: {
+      businessOffering: IBusinessOffering;
+      fulfilmentInformation: IFulfilmentInformation;
+      salesForecast: ISalesForecast;
+    };
+    dataRedux?: any;
+    title?: string;
+    optionSelected?: string;
+    variant: string;
+    register: any;
+    unregister: any;
+    setValue: any;
+    errors?: any;
+    clearErrors?: any;
+    setError?: any;
+  }
+
+  export interface ISalesForecast {
+    title: string;
+    description: string;
+    listTextField: ITextField[];
+  }
+
+  export interface ISalesForecastSection {
+    cx: any;
+    data: ISalesForecast;
+    dataRedux?: any;
+    title?: any;
+    optionSelected?: string;
+    variant?: string;
+    register?: any;
+    unregister?: any;
+    setValue?: any;
+    errors?: any;
+    clearErrors?: any;
+    setError?: any;
+  }
 }
 
 export { IProductsAndServices };
