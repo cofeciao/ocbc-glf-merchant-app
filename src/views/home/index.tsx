@@ -152,6 +152,7 @@ const Home: React.FC = () => {
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        TransitionProps={{ style: { backgroundColor: "rgba(177, 184, 197, 0.7)" }}}
       >
         <div className={cx("icon-close")}>
           <img src={CloseIcon} alt="icon close" onClick={handleRollBackPage} />
