@@ -61,7 +61,8 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
    * Retrieves data of dataListCheckbox from Store
    */
   const dataListCheckbox = useSelector(
-    (state: any) => state.form.transactionAndCardAcceptanceTypeStep as ICheckBox[]
+    (state: any) =>
+      state.form.transactionAndCardAcceptanceTypeStep as ICheckBox[]
   );
 
   /**

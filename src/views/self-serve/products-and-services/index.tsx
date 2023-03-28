@@ -1,6 +1,8 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect } from "react";
+import React, {
+  useEffect,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";

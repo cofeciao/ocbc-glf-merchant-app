@@ -1,7 +1,6 @@
 // import modules
 import {
   Header,
-  Footer,
   Loading,
   Category 
 } from "@sectionsg/orc";
@@ -15,12 +14,11 @@ import {
   LINK_EXTERNAL_PAGE,
 } from "../../utils/constants-rm";
 
-// import images
-import IconEdit from "../../assets/images/icon-edit.svg";
-
 // import style
 import styles from "./Welcome.scss";
 
+// import components
+import Footer from "@/components/Footer";
 import ListCompany from "./ListCompany";
 
 // render UI

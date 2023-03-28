@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect, useState } from "react";
+import React, { forwardRef, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -182,6 +182,7 @@ const ReviewAndSubmit: React.FC = () => {
         disabledNextButton={disabledButton}
         continueLater
         backButton
+        isIcon={false}
         variant="submit"
         onClickBack={() => {
           history.push(LIST_ROUTER.products_and_services);

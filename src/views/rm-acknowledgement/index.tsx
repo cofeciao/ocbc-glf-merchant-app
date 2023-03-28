@@ -1,7 +1,7 @@
 // import modules
 import React from "react";
 import classnames from "classnames/bind";
-import { Footer, Header, Category } from "@sectionsg/orc";
+import { Header, Category } from "@sectionsg/orc";
 import _ from "lodash";
 import { useParams } from "react-router";
 
@@ -15,6 +15,7 @@ import styles from "./Acknowledgement.scss";
 import Successful from "./Successful";
 import Failed from "./Failed";
 import { Container, Grid } from "@material-ui/core";
+import Footer from "@/components/Footer";
 
 const RMAcknowledgementPage: React.FC<any> = () => {
   const cx = classnames.bind(styles);

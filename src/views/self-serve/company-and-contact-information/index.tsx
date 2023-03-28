@@ -24,11 +24,8 @@ import {
 // import styles
 import styles from "./CompanyAndContactInformation.scss";
 
-// import types
-// import {ICompanyAndContactInformation} from "./CompanyAndContactInformation"
-
 // render UI
-const CompanyAndContactInformation: React.FC = () => {
+const CompanyAndContactInformation: React.FC= () => {
   const {
     LIST_STEP: {
       companyAndContactInformation: {
@@ -55,7 +52,7 @@ const CompanyAndContactInformation: React.FC = () => {
     formState: { errors, isValid },
     setValue,
     getValues,
-    setError,
+    setError
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -135,4 +132,5 @@ const CompanyAndContactInformation: React.FC = () => {
     </Box>
   );
 };
+
 export default CompanyAndContactInformation;

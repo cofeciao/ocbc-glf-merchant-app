@@ -24,6 +24,7 @@ declare namespace ISelfServe {
     onClickNext: () => void;
     onClickBack?: () => void;
     disabledNextButton?: boolean;
+    isIcon?: boolean;
   }
 }
 

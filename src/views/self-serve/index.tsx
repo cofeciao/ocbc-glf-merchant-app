@@ -1,14 +1,15 @@
 // import modules
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router";
 import { Container } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { Header, Footer, FormLayout, Tabs } from "@sectionsg/orc";
+import { Header, FormLayout, Tabs } from "@sectionsg/orc";
 import CompanyAndContactInformation from "@/views/self-serve/company-and-contact-information";
 import TransactionAndCardAcceptanceType from "@/views/self-serve/transaction-and-card-acceptance-type";
 import BusinessDetails from "@/views/self-serve/business-details";
 import ProductsAndServices from "@/views/self-serve/products-and-services";
 import ReviewAndSubmit from "@/views/self-serve/review-and-submit";
+import Footer from "@/components/Footer";
 import { adobeAbandon } from "@/utils/adobeTracking";
 
 // import constants
@@ -81,6 +82,14 @@ const SelfServe: React.FC = () => {
     return <></>;
   }
 
+  /**
+   * Handle click into on stepper
+   * @param {string} path - Slug for page
+   */
+  const handleClick = (path: string) => {
+    history.push(`/self/${path}`);
+  };
+
   // Render UI
   return (
     <>
@@ -95,7 +104,13 @@ const SelfServe: React.FC = () => {
         <section className={cx("self-serve-wrapper")}>
           <FormLayout
             isMyInfo={true}
-            tabs={<Tabs tabId={slug} dataTabs={handleDetectDynamicStepper()} />}
+            tabs={
+              <Tabs
+                tabId={slug}
+                dataTabs={handleDetectDynamicStepper()}
+                handleClick={handleClick}
+              />
+            }
             content={
               <>
                 {slug === LIST_STEP.companyAndContactInformation.id && (

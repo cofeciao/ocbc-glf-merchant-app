@@ -19,8 +19,6 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 // import style
 import styles from "./BusinessDetails.scss";
 
-// import types
-
 const BusinessDetails: React.FC = () => {
   const {
     LIST_STEP: {

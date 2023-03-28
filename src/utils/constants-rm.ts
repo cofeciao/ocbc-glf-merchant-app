@@ -1389,7 +1389,7 @@ export const LIST_COUNTRIES_CODE = [
 
 export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
   {
-    id: "personal-information",
+    id: "contact-information",
     numerical: "0",
     text: "ACRA and contact information",
     check: false,
