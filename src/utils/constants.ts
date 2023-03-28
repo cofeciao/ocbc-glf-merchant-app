@@ -193,6 +193,7 @@ export const SELF_SERVE_PAGE = {
   LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS:
     "Number of outlets with Point-of-Sales termimals",
   LABEL_BUSINESS_READY_TO_OPERATE: "Business ready to operate",
+  LABEL_OPERATION_STARTING_PERIOD: "Operation starging period",
   LABEL_OCBC_BUSINESS_ACCOUNT: "OCBC business account",
   LABEL_CASHLESS_PAYMENT_METHOD: "Cashless payment method(s)",
   LABEL_ECOMMERCE: "eCommerce",

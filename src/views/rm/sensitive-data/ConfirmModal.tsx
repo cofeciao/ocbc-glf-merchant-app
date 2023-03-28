@@ -4,8 +4,8 @@ import classNames from "classnames/bind";
 // import types
 import { ISensitive } from "./Sensitive";
 
-// import icons
-import CloseIcon from '@material-ui/icons/Close';
+// import images
+import CloseIcon from "@/assets/images/icon-close.svg"
 
 // import styles
 import styles from "./Sensitive.scss";
@@ -32,7 +32,7 @@ const ConfirmModal: React.FC<ISensitive.IConfirmModal> = (props) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <div className={cx("icon-close")}><CloseIcon onClick={onClose} /></div>
+      <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={onClose} /></div>
       <DialogTitle id="alert-dialog-title">
         <Typography className={cx("title")}>Payment Card Industry Data Security Standard</Typography>
       </DialogTitle>

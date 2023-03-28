@@ -23,8 +23,10 @@ import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
 import EntryDialog from "@/views/home/entry-dialog";
 import Captcha from "@/components/Captcha/captcha";
 
+// import images
+import CloseIcon from "@/assets/images/icon-close.svg"
+
 // import icons
-import CloseIcon from "@material-ui/icons/Close";
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 
 // import constants
@@ -143,9 +145,10 @@ const Home: React.FC = () => {
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        TransitionProps={{ style: { backgroundColor: "rgba(177, 184, 197, 0.7)" }}}
       >
         <div className={cx("icon-close")}>
-          <CloseIcon onClick={handleRollBackPage} />
+          <img src={CloseIcon} alt="icon close" onClick={handleRollBackPage} />
         </div>
         <DialogContent>
           <EntryDialog onCloseDialog={handleCloseDialog} />

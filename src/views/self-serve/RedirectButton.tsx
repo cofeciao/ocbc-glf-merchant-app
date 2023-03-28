@@ -7,8 +7,7 @@ import { CONTINUE_LATER, NEXT, START, SUBMIT } from "@/utils/constants";
 import classnames from "classnames/bind";
 import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 
-// import icons
-import CloseIcon from "@material-ui/icons/Close";
+import CloseIcon from "@/assets/images/icon-close.svg"
 
 // import styles
 import styles from "./SelfServe.scss";
@@ -107,9 +106,7 @@ const RedirectButton: React.FC<ISelfServe.IRedirectButton> = (props) => {
           style: { backgroundColor: "rgba(177, 184, 197, 0.7)" },
         }}
       >
-        <Box className={cx("icon-close")}>
-          <CloseIcon onClick={handleCloseContinueLaterDialog} />
-        </Box>
+        <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={handleCloseContinueLaterDialog} /></div>
         <DialogContent>
           <ContinueLaterDialog
             handleOpenContinueLaterDialog={handleOpenContinueLaterDialog}
