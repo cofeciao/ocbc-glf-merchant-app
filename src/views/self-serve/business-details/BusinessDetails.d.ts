@@ -1,3 +1,5 @@
+import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
+
 declare namespace IBusinessDetails {
   export interface IBusinessDetailsForm {
     cx: any;
@@ -14,6 +16,7 @@ declare namespace IBusinessDetails {
     dispatch?: any;
     dataRedux: any;
     listWebsiteRedux: Array<string>;
+    control?: any;
   }
 
   export interface IBusinessInfomation {
@@ -55,14 +58,6 @@ declare namespace IBusinessDetails {
     }[];
   };
 
-  export type ICheckBox = {
-    description: string;
-    list: {
-      text: string;
-      check: boolean;
-    }[];
-  };
-
   export interface IWebsiteInformation {
     title?: string;
     subTitle?: string;
@@ -83,9 +78,18 @@ declare namespace IBusinessDetails {
 
   export interface IOtherInformation {
     title?: string;
+    register?: Function;
+    unregister?: Function;
+    control?: any;
     sections: {
-      listCheckboxBusinessOfferings: ICheckBox;
-      listCheckboxAvailableSpaces: ICheckBox;
+      listCheckboxBusinessOfferings: {
+        description?: string;
+        list: ICheckBox[];
+      };
+      listCheckboxAvailableSpaces: {
+        description?: string;
+        list: ICheckBox[];
+      };
       listRadio: IRadio;
     };
     setValue?: any;

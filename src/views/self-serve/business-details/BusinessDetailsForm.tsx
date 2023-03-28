@@ -24,6 +24,7 @@ const BusinessDetailsForm: React.FC<IBusinessDetails.IBusinessDetailsForm> = (
     setValue,
     dataRedux,
     listWebsiteRedux,
+    control
   } = props;
   const { businessInfomation, otherInfomation, websiteInfomation } = data;
 
@@ -99,7 +100,10 @@ const BusinessDetailsForm: React.FC<IBusinessDetails.IBusinessDetailsForm> = (
           <OtherInformation
             dataRedux={dataRedux}
             sections={otherInfomation.sections}
+            register={register}
+            unregister={unregister}
             setValue={setValue}
+            control={control}
           />
         </SectionWrapper>
       )}

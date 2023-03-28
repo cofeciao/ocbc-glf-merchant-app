@@ -1,3 +1,5 @@
+import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
+
 declare namespace IProductsAndServices {
   export interface ITooltipDialog {
     title: string;
@@ -28,10 +30,7 @@ declare namespace IProductsAndServices {
   }
   export interface IListCheckbox {
     description?: string;
-    list: {
-      text: string;
-      checked?: boolean;
-    }[];
+    list: ICheckBox[];
   }
   export interface IListRadio {
     description?: string;
@@ -56,13 +55,7 @@ declare namespace IProductsAndServices {
     listDropdown?: IListDropdown;
     listCheckbox?: IListCheckbox;
     textField?: ITextField;
-    listCheckboxSecondary?: {
-      description?: string;
-      list: {
-        text: string;
-        check?: boolean;
-      }[];
-    };
+    listCheckboxSecondary?: IListCheckbox;
     listRadioSecondary?: IListRadio;
   }
 
@@ -77,6 +70,7 @@ declare namespace IProductsAndServices {
     setValue?: any;
     register?: any;
     errors?: any;
+    control?: any;
   }
 
   export interface IForm {
@@ -96,6 +90,7 @@ declare namespace IProductsAndServices {
     errors?: any;
     clearErrors?: any;
     setError?: any;
+    control?: any;
   }
 
   export interface ISalesForecast {

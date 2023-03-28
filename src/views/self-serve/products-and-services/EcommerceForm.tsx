@@ -24,6 +24,7 @@ const EcommerceForm: React.FC<IProductsAndServices.IForm> = (props) => {
     errors,
     clearErrors,
     setError,
+    control,
   } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
 
@@ -78,6 +79,7 @@ const EcommerceForm: React.FC<IProductsAndServices.IForm> = (props) => {
               register={register}
               unregister={unregister}
               setValue={setValue}
+              control={control}
             />
           </Grid>
 
