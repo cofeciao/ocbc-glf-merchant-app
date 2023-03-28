@@ -12,8 +12,8 @@ import { CONTINUE_LATER, NEXT, START, SUBMIT } from "@/utils/constants";
 import classnames from "classnames/bind";
 import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 
-// import icons
-import CloseIcon from '@material-ui/icons/Close';
+// import images
+import CloseIcon from "@/assets/images/icon-close.svg"
 
 // import styles
 import styles from "./SelfServe.scss";
@@ -104,7 +104,7 @@ const RedirectButton: React.FC<any> = (props) => {
         aria-describedby="alert-dialog-description"
         TransitionProps={{ style: { backgroundColor: "rgba(177, 184, 197, 0.7)" }}}
       >
-        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseContinueLaterDialog} /></div>
+        <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={handleCloseContinueLaterDialog} /></div>
         <DialogContent>
           <ContinueLaterDialog 
             handleCloseContinueLaterDialog={handleCloseContinueLaterDialog}

@@ -65,7 +65,7 @@ const CompanyAndContactInfomation: React.FC<any> = (props) => {
         </Grid>
       </Grid>
 
-      <Box className={cx("sub-section-title")}>{LABEL_CONTACT_DETAILS}</Box>
+      <Box className={cx("sub-title-contact-detail")}>{LABEL_CONTACT_DETAILS}</Box>
 
       <Grid container className={cx("contact-details-container")}>
         <Grid item xs={12}>

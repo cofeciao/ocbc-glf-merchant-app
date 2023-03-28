@@ -257,17 +257,6 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                                 },
                               })}
                             >
-                               <MenuItem disabled className={cx("item-selected")}>
-                                  <div className={cx("group-item-select")}>
-                                    <span>&nbsp;&nbsp;&emsp;</span>
-                                    <span style={{
-                                      color: "#97A1AE",
-                                      fontWeight: "400",
-                                      fontSize: "16px",
-                                      lineHeight: "24px",
-                                    }}>Please select</span>
-                                  </div>
-                               </MenuItem>
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
                                   <MenuItem
@@ -275,10 +264,7 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                                     key={index} 
                                     value={item.value}
                                   >
-                                    <div className={cx("group-item-select")}>
-                                      {areaCode === item.value ? <CheckIcon /> : <span>&nbsp;&nbsp;&emsp;</span>}
-                                      <span>{`${item.name} (${item.value})`}</span>
-                                    </div>
+                                    <span className={cx(areaCode === item.value ? "item-selected" : "item-unselected")}>{`${item.name} (${item.value})`}</span>
                                   </MenuItem>
                                 );
                               })}

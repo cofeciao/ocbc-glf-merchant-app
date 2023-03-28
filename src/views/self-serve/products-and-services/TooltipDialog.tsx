@@ -4,8 +4,8 @@ import { Box, Typography, Dialog, DialogContent } from "@material-ui/core";
 import _ from "lodash";
 import classnames from "classnames/bind";
 
-// import icons
-import CloseIcon from "@material-ui/icons/Close";
+// import images
+import CloseIcon from "@/assets/images/icon-close.svg"
 
 // import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
@@ -86,7 +86,7 @@ const TooltipDialog: React.FC = (props) => {
         aria-describedby="alert-dialog-description"
         TransitionProps={{ style: { backgroundColor: "rgba(177, 184, 197, 0.7)" }}}
       >
-        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseDialog} /></div>
+        <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={handleCloseDialog} /></div>
         <DialogContent>
           {renderContentTooltip(true, fulfilmentPeriod)}
           {renderContentTooltip(false, imediateFulfilment)}

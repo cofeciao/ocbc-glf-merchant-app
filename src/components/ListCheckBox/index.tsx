@@ -21,7 +21,9 @@ import { ICheckBox, IListCheckBox } from "./ListCheckBox";
 // import images
 import IconCheckbox from "@/assets/images/icon-checkbox.svg";
 import IconCheckedBox from "@/assets/images/icon-checkedbox.svg";
-
+import IconCheckboxBlack from "@/assets/images/icon-checkedbox-black.svg";
+import IconCheckboxBlackTransparent from "@/assets/images/icon-checkedbox-transparent.svg";
+ 
 // render UI
 const ListCheckbox = (props: IListCheckBox) => {
   const { dataCardCheckbox, getValue, xs, sm, md, lg } = props;
@@ -109,8 +111,15 @@ const ListCheckbox = (props: IListCheckBox) => {
                           disableTouchRipple
                           disableFocusRipple
                           {...checkbox}
-                          onChange={(event: any, checked: boolean) =>
+                          onChange={(event: any, checked: boolean) => {
                             handleExpandedCheckBox(event, checked)
+                          }
+                          }
+                          icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                          checkedIcon={
+                            checkbox.disabled 
+                            ? <img src={IconCheckboxBlackTransparent} alt="checkbox black transparent"/> 
+                            : <img src={IconCheckboxBlack} alt="icon checkedbox black" />
                           }
                         />
                       }
