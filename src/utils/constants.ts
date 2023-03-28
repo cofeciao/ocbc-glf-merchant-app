@@ -129,16 +129,19 @@ export const SELF_SERVE_PAGE = {
       "Before submitting your application, please ensure that you read and understand the following:",
     listCheckbox: [
       {
-        text: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
-        check: false,
+        label: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+        value: "policy1",
+        checked: false,
       },
       {
-        text: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
-        check: false,
+        label: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
+        value: "policy2",
+        checked: false,
       },
       {
-        text: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
-        check: false,
+        label: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+        value: "policy3",
+        checked: false,
       },
     ],
   },

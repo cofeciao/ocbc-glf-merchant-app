@@ -23,9 +23,10 @@ const GroupCheckBox = (props: IGroupCheckBox) => {
     register = () => {},
     name,
     required,
-    onBlur,
-    onChange,
-    getValue,
+    onBlur = () => {},
+    onChange = () => {},
+    getValue = () => {},
+    getValueOnChange = () => {},
   } = props;
   const cx = classnames.bind(styles);
 
@@ -50,7 +51,7 @@ const GroupCheckBox = (props: IGroupCheckBox) => {
       return acc;
     }, []);
     setDataListCheckbox(newData);
-    getValue(newData);
+    getValueOnChange(newData);
   };
 
   // render UI

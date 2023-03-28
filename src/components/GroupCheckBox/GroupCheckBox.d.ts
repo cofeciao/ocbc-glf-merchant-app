@@ -1,6 +1,7 @@
 export type IGroupCheckBox = {
   listCheckbox: ICheckBox[];
   getValue?: Function;
+  getValueOnChange?: Function;
   layout?: "horizontal" | "vertical";
   register?: Function;
   required?: boolean;
