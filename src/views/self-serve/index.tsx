@@ -37,10 +37,10 @@ const SelfServe: React.FC = () => {
    * add event listener to handle page reload
    */
   useEffect(() => {
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
+    // window.addEventListener("beforeunload", handleBeforeUnload);
+    // return () => {
+    //   window.removeEventListener("beforeunload", handleBeforeUnload);
+    // };
   }, []);
 
   /**
@@ -56,15 +56,15 @@ const SelfServe: React.FC = () => {
    * Detect reload page and start over
    */
   useEffect(() => {
-    window.scrollTo(0, 0);
-    if (history.action === "POP") {
-      window.location.href = (process.env.myinfo as any).redirectUri;
-    }
-    let trackingEvent = (window as any).attachEvent || window.addEventListener;
-    let chkevent = (window as any).attachEvent
-      ? "onbeforeunload"
-      : "beforeunload";
-    trackingEvent(chkevent, adobeAbandon);
+    // window.scrollTo(0, 0);
+    // if (history.action === "POP") {
+    //   window.location.href = (process.env.myinfo as any).redirectUri;
+    // }
+    // let trackingEvent = (window as any).attachEvent || window.addEventListener;
+    // let chkevent = (window as any).attachEvent
+    //   ? "onbeforeunload"
+    //   : "beforeunload";
+    // trackingEvent(chkevent, adobeAbandon);
   }, []);
 
   /**
@@ -79,9 +79,9 @@ const SelfServe: React.FC = () => {
   };
 
   // Render UI
-  if (history.action === "POP") {
-    return <></>;
-  }
+  // if (history.action === "POP") {
+  //   return <></>;
+  // }
 
     /**
  * Handle click into on stepper

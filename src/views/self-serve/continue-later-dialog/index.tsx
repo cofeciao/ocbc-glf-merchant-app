@@ -13,8 +13,8 @@ import styles from "./ContinueLaterDialog.scss";
 //import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
-// import icons
-import CloseIcon from '@material-ui/icons/Close';
+// import images
+import CloseIcon from "@/assets/images/icon-close.svg"
 
 // render UI
 const ContinueLaterDialog: React.FC<any> = (props) => {
@@ -89,7 +89,7 @@ const ContinueLaterDialog: React.FC<any> = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseDialog} /></div>
+        <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={handleCloseDialog} /></div>
         <DialogContent>
           <ReviewAndSaveDialog
             dataRedux={dataCompanyAndContactInformationStep}

@@ -17,6 +17,9 @@ import _ from "lodash";
 
 // import images
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
+import IconRadioBorder from '@/assets/images/icon-radio-border.svg';
+import IconRadioCheckedWhite from '@/assets/images/icon-radio-checked-white.svg';
+import CloseIcon from "@/assets/images/icon-close.svg";
 
 // import constant
 import { HOME_PAGE, NEXT } from "@/utils/constants";
@@ -25,9 +28,7 @@ import { HOME_PAGE, NEXT } from "@/utils/constants";
 import styles from "./EntryDialog.scss";
 
 // import icons
-import CloseIcon from '@material-ui/icons/Close';
 import RetrieveDialog from "./RetrieveDialog";
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 // import types
 import { IGroupRadios } from "@/components/GroupRadio/GroupRadio";
@@ -106,9 +107,8 @@ const EntryDialog: React.FC<any> = (props) => {
                   disableFocusRipple
                   disableRipple
                   disableTouchRipple
-                  checkedIcon={
-                    <CheckCircleIcon />
-                  }
+                  icon={<img src={IconRadioBorder} alt="icon radio border" />}
+                  checkedIcon={<img src={IconRadioCheckedWhite} alt="icon radio checked white" />}
                 />
               } 
               label={item.label}
@@ -159,7 +159,7 @@ const EntryDialog: React.FC<any> = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseRetrieveDialog} /></div>
+        <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={handleCloseRetrieveDialog} /></div>
         <DialogContent>
           <RetrieveDialog onCloseDialog={handleCloseRetrieveDialog} />
         </DialogContent>
