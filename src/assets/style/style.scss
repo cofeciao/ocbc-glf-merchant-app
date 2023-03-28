@@ -1072,28 +1072,28 @@ body {
 }
 
 // styled select phone number
-.MuiList-root {
-  background-color: #F5F5F5;
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
- 
+.MuiList-root { 
   & .item-selected {
-    border-bottom: 0.5px solid rgba(60, 60, 67, 0.36);
-    & .group-item-select {
-      padding: 5px 0px;
-      display: flex;
-      align-items: center;
-      & .MuiSvgIcon-root {
-        margin-right: 5px;
-      }
+    span {
+      padding: 6px 0px;
+      font-size: 20px;
+      line-height: 30px;
     }
-  }
-
-  & .item-selected:last-child {
-    border-bottom: 0px;
+    & .item-selected {
+      color: #575D65;
+      font-weight: 600;
+    }
+    & .item-unselected {
+      font-weight: 400;
+      color: #777E87;
+    }
   }
 
   & .item-selected.Mui-selected {
     background-color: transparent;
+  }
+
+  & .MuiListItem-button:hover {
+    background-color: #EBEFF1;
   }
 }

@@ -8,7 +8,7 @@ import classnames from "classnames/bind";
 import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 
 // import icons
-import CloseIcon from "@material-ui/icons/Close";
+import CloseIcon from "@/assets/images/icon-close.svg"
 
 // import styles
 import styles from "./SelfServe.scss";
