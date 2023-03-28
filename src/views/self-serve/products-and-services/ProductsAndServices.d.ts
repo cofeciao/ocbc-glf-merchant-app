@@ -43,6 +43,7 @@ declare namespace IProductsAndServices {
   export interface IListDropdown {
     label: string;
     description?: string;
+    placeholder?: string;
     list: {
       name: string;
       value: string;
@@ -60,6 +61,34 @@ declare namespace IProductsAndServices {
   }
 
   export interface IFulfilmentInformationSection {
+    cx: any;
+    data: IFulfilmentInformation;
+    dataRedux?: any;
+    variant?: string;
+    unregister?: any;
+    setError?: any;
+    clearErrors?: any;
+    setValue?: any;
+    register?: any;
+    errors?: any;
+    control?: any;
+  }
+
+  export interface IFulfillmentOverAPeriodOfTime {
+    cx: any;
+    data: IFulfilmentInformation;
+    dataRedux?: any;
+    variant?: string;
+    unregister?: any;
+    setError?: any;
+    clearErrors?: any;
+    setValue?: any;
+    register?: any;
+    errors?: any;
+    control?: any;
+  }
+
+  export interface IImmediateFulfillment {
     cx: any;
     data: IFulfilmentInformation;
     dataRedux?: any;

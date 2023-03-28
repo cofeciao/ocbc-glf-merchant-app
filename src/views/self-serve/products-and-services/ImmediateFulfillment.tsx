@@ -19,9 +19,10 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
 import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const ImmediateFulfillment: React.FC<any> = (props) => {
+const ImmediateFulfillment: React.FC<IProductsAndServices.IImmediateFulfillment> = (props) => {
   // props
   const { cx, data, setValue, register, dataRedux, control } = props;
   const { listCheckbox, listDropdown, listRadioSecondary } = data;

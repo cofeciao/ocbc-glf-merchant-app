@@ -20,9 +20,10 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
+const FulfillmentOverAPeriodOfTime: React.FC<IProductsAndServices.IFulfillmentOverAPeriodOfTime> = (props) => {
   const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
   const { cx, data, register, errors, dataRedux } = props;
   const { listDropdown, textField } = data;
