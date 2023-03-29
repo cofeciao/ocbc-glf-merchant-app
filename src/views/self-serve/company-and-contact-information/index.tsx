@@ -3,8 +3,8 @@ import { Category } from "@sectionsg/orc";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
+import { useParams, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SectionWrapper from "../SectionWrapper";
 import CompanyRegistration from "./CompanyRegistration";
@@ -25,7 +25,7 @@ import {
 import styles from "./CompanyAndContactInformation.scss";
 
 // render UI
-const CompanyAndContactInformation: React.FC= () => {
+const CompanyAndContactInformation: React.FC = () => {
   const {
     LIST_STEP: {
       companyAndContactInformation: {
@@ -35,8 +35,11 @@ const CompanyAndContactInformation: React.FC= () => {
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
+
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const { slug } = useParams();
 
   /**
    * Retrieves data of Company And Contact Information step from Store
@@ -52,7 +55,7 @@ const CompanyAndContactInformation: React.FC= () => {
     formState: { errors, isValid },
     setValue,
     getValues,
-    setError
+    setError,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -125,7 +128,14 @@ const CompanyAndContactInformation: React.FC= () => {
         disabledNextButton={!isValid}
         variant="next"
         onClickNext={() => {
-          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+          // redirect
+          history.push(
+            slug === "edit"
+              ? LIST_ROUTER.review_and_submit
+              : LIST_ROUTER.transaction_and_card_acceptance_type
+          );
+
+          // save to Redux
           dispatch(saveDataCompanyAndContactInformationStep(getValues()));
         }}
       />

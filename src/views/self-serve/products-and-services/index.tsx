@@ -188,11 +188,15 @@ const ProductsAndServices: React.FC = () => {
         continueLater
         backButton
         variant="next"
+
         onClickBack={() => {
           history.push(LIST_ROUTER.business_details);
         }}
         onClickNext={() => {
+          // redirect
           history.push(LIST_ROUTER.review_and_submit);
+
+          // save to Redux
           dispatch(saveDataProductsAndServicesEcom(getValues("Ecom")));
           dispatch(saveDataProductsAndServicesPOS(getValues("POS")));
         }}

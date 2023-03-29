@@ -1,6 +1,6 @@
 // import modules
-import React, { useEffect, useRef } from "react";
-import { useHistory, useParams } from "react-router";
+import React, { useEffect } from "react";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { Container } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { Header, FormLayout, Tabs } from "@sectionsg/orc";
@@ -18,6 +18,7 @@ import {
   LINK_EXTERNAL_PAGE,
   SELF_SERVE_PAGE,
 } from "../../utils/constants";
+import _ from "lodash";
 
 // import style
 import styles from "@/views/self-serve/SelfServe.scss";
@@ -28,9 +29,16 @@ import { ISelfServe } from "./SelfServe";
 // render UI
 const SelfServe: React.FC = () => {
   const cx = classnames.bind(styles);
-  const { slug } = useParams<{ slug: string }>();
   const { LIST_STEP } = SELF_SERVE_PAGE;
+
+  // hooks
   const history = useHistory();
+  const { slug } = useParams();
+  const location = useLocation();
+  const currentLocation = location.pathname.replace("self/", "");
+  const pathStep = currentLocation
+    .split("/")
+    .filter((item: string) => !_.isEmpty(item))[0];
 
   /**
    * add event listener to handle page reload
@@ -42,10 +50,10 @@ const SelfServe: React.FC = () => {
     };
   }, []);
 
-  /**
-   * Detect reload and show alert
-   * @param event
-   */
+  // /**
+  //  * Detect reload and show alert
+  //  * @param event
+  //  */
   const handleBeforeUnload = (event: any) => {
     event.preventDefault();
     event.returnValue = "";
@@ -106,23 +114,48 @@ const SelfServe: React.FC = () => {
             isMyInfo={true}
             tabs={
               <Tabs
-                tabId={slug}
+                tabId={pathStep}
                 dataTabs={handleDetectDynamicStepper()}
                 handleClick={handleClick}
               />
             }
             content={
               <>
+                {/* {CompanyAndContactInformation} */}
                 {slug === LIST_STEP.companyAndContactInformation.id && (
                   <CompanyAndContactInformation />
                 )}
+                {currentLocation ===
+                  `/${LIST_STEP.companyAndContactInformation.id}/edit` && (
+                  <CompanyAndContactInformation />
+                )}
+
+                {/* {TransactionAndCardAcceptanceType} */}
                 {slug === LIST_STEP.transactionAndCardAcceptanceType.id && (
                   <TransactionAndCardAcceptanceType />
                 )}
+                {currentLocation ===
+                  `/${LIST_STEP.transactionAndCardAcceptanceType.id}/edit` && (
+                  <TransactionAndCardAcceptanceType />
+                )}
+
+                {/* {BusinessDetails} */}
                 {slug === LIST_STEP.businessDetails.id && <BusinessDetails />}
+                {currentLocation ===
+                  `/${LIST_STEP.businessDetails.id}/edit` && (
+                  <BusinessDetails />
+                )}
+
+                {/* {ProductsAndServices} */}
                 {slug === LIST_STEP.productsAndService.id && (
                   <ProductsAndServices />
                 )}
+                {currentLocation ===
+                  `/${LIST_STEP.productsAndService.id}/edit` && (
+                  <ProductsAndServices />
+                )}
+
+                {/* {ReviewAndSubmit} */}
                 {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit />}
               </>
             }

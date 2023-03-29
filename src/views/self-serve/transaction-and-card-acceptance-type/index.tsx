@@ -6,7 +6,7 @@ import ListCheckBox from "@/components/ListCheckBox";
 import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import SectionWrapper from "@/views/self-serve/SectionWrapper";
 import RedirectButton from "@/views/self-serve/RedirectButton";
 import _ from "lodash";
@@ -31,10 +31,13 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
+
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const { slug } = useParams();
 
-  // State
+  // states
   const [dataCheckbox, setDataCheckbox] = useState(
     whichServiceAreYouApplyingFor.data_list_checkbox
   );
@@ -123,7 +126,12 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
           history.push(LIST_ROUTER.company_and_contact_information);
         }}
         onClickNext={() => {
-          history.push(LIST_ROUTER.business_details);
+          // redirect
+          history.push(
+            slug === "edit"
+              ? LIST_ROUTER.review_and_submit
+              : LIST_ROUTER.business_details
+          );
         }}
       />
     </Box>

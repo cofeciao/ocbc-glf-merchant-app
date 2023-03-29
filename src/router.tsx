@@ -1,6 +1,5 @@
 import React from "react";
 import { Route } from "react-router-dom";
-import GlobalContext from "./common/GlobalContext";
 import HomePage from "./views/home";
 import SelfServe from "./views/self-serve";
 import LoginPage from "./views/login";
@@ -11,10 +10,18 @@ import AcknowledgementPage from "./views/acknowledgement";
 import RMAcknowledgementPage from "./views/rm-acknowledgement";
 
 export default [
+  // Home
   <Route exact path="/" component={HomePage} key="/" />,
+
+  // RM
   <Route exact path="/rm/login" component={LoginPage} key="/rm/login" />,
   <Route exact path="/rm/welcome" component={WelcomePage} key="/rm/welcome" />,
-  <Route exact path="/rm/launch-confirmtion" component={LaunchConfirmtionPage} key="/rm/launch-confirmtion" />,
+  <Route
+    exact
+    path="/rm/launch-confirmtion"
+    component={LaunchConfirmtionPage}
+    key="/rm/launch-confirmtion"
+  />,
   <Route exact path="/rm/:slug" component={ContainerManual} key="/rm/:slug" />,
   <Route
     exact
@@ -23,7 +30,17 @@ export default [
     key="/rm/launch-confirmtion"
   />,
   <Route exact path="/rm/:slug" component={ContainerManual} key="/rm/:slug" />,
+
+  // Self
   <Route exact path="/self/:slug" component={SelfServe} key="/self/:slug" />,
+  <Route
+    exact
+    path="/self/:slug/:slug"
+    component={SelfServe}
+    key="/self/:slug/:slug"
+  />,
+
+  // Acknowledgement
   <Route
     exact
     path="/rm/acknowledgement/:slug"
