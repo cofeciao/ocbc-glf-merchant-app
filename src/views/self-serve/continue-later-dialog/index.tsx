@@ -13,7 +13,7 @@ import styles from "./ContinueLaterDialog.scss";
 //import constants
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
-// import images
+// import icons
 import CloseIcon from "@/assets/images/icon-close.svg"
 
 // import types
@@ -89,7 +89,7 @@ const ContinueLaterDialog: React.FC<IContinueLaterDialog.IDialog> = (props) => {
         </Box>
       </Box>
 
-      {/* {Dialog} */}
+      {/* {Review And Save Dialog} */}
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}

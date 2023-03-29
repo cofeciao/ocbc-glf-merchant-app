@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { forwardRef, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -20,6 +20,7 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
+import Loading from "@/components/Loading";
 
 // render UI
 const ReviewAndSubmit: React.FC = () => {
@@ -36,6 +37,7 @@ const ReviewAndSubmit: React.FC = () => {
   const cx = classnames.bind(styles);
   const [disabledButton, setDisableButton] = useState<boolean>(true);
   const history = useHistory();
+  const [loading, setLoading] = useState<boolean>(false);
 
   /**
    * Handle scrolling to top on page load
@@ -45,6 +47,27 @@ const ReviewAndSubmit: React.FC = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, []);
+
+  /**
+   * Temporarily put here for dev
+   */
+  const handleSubmit = async () => {
+    setLoading(true);
+    const dataForm = {
+      cashlessPaymentsMethods: cashlessPaymentsMethods,
+      companyAndContactInformationStep: companyAndContactInformationStep,
+      transactionAndCardAcceptanceTypeStep:
+        transactionAndCardAcceptanceTypeStep,
+      businessDetailsStep: {
+        listWebsiteUrl: listWebsiteUrl,
+        businessDetailsStep,
+      },
+      productsAndServicesStep: productsAndServicesStep,
+    };
+    setTimeout(() => {
+      history.push(LIST_ROUTER.acknowledgement_successful);
+    }, 2000);
+  };
 
   /**
    * Retrieves data of Transaction And Card Acceptance Type step from Store
@@ -104,6 +127,8 @@ const ReviewAndSubmit: React.FC = () => {
 
   return (
     <Box className={cx("review-and-submit-wrapper step-wrapper")}>
+      {loading && <Loading />}
+
       {/* {Category} */}
       <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
@@ -188,7 +213,7 @@ const ReviewAndSubmit: React.FC = () => {
           history.push(LIST_ROUTER.products_and_services);
         }}
         onClickNext={() => {
-          history.push(LIST_ROUTER.acknowledgement_successful);
+          handleSubmit();
         }}
       />
     </Box>

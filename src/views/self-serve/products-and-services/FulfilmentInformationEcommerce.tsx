@@ -34,6 +34,7 @@ const FulfilmentInformationEcommerce: React.FC<
     clearErrors,
     setValue,
     dataRedux,
+    control
   } = props;
   const { listRadio, textField } = data;
 
@@ -186,6 +187,7 @@ const FulfilmentInformationEcommerce: React.FC<
           setError={setError}
           clearErrors={clearErrors}
           setValue={setValue}
+          control={control}
         />
       }
     </Box>

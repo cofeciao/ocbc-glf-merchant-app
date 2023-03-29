@@ -1,3 +1,5 @@
+import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
+
 declare namespace IReviewAndSubmit {
   export interface IAgreePolicy {
     onGetValue: Function;
@@ -44,38 +46,15 @@ declare namespace IReviewAndSubmit {
     listWebsiteUrl: Array<string>;
     data: {
       businessReadyToOperate?: string;
+      operationStartingPeriod?: string;
       businessAccount?: string;
       existingWebsite?: string;
       placeOrderThroughWebsite?: string;
       numberOfOutlets?: string;
       cardPaymentAvailableAtRetailStore?: string;
       websiteLiveDate: string;
-      businessOfferings?: {
-        name: string;
-      }[];
-      availableSpaces?: {
-        name: string;
-      }[];
-    };
-  }
-
-  export interface IBusinessDetails {
-    optionSelected: string;
-    listWebsiteUrl: Array<string>;
-    data: {
-      businessReadyToOperate?: string;
-      businessAccount?: string;
-      existingWebsite?: string;
-      placeOrderThroughWebsite?: string;
-      numberOfOutlets?: string;
-      cardPaymentAvailableAtRetailStore?: string;
-      websiteLiveDate: string;
-      businessOfferings?: {
-        name: string;
-      }[];
-      availableSpaces?: {
-        name: string;
-      }[];
+      businessOfferings?: ICheckBox[];
+      availableSpaces?: ICheckBox[];
     };
   }
 
@@ -89,9 +68,7 @@ declare namespace IReviewAndSubmit {
         deliveryTimeToCustomers: string;
         averageAmountPerCreditCardTransaction: string;
         annualCreditCardSalesForecast: string;
-        productDeliveredFrom: {
-          name: string;
-        }[];
+        productDeliveredFrom: ICheckBox[];
         percentageOfProductsNotFulfilledImmediately: string;
       };
       pointOfSales: {

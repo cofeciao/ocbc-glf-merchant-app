@@ -16,6 +16,7 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
   const {
     LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS,
     LABEL_BUSINESS_READY_TO_OPERATE,
+    LABEL_OPERATION_STARTING_PERIOD,
     LABEL_OCBC_BUSINESS_ACCOUNT,
     LABEL_ECOMMERCE,
     LABEL_POINT_OF_SALES_TERMINAL,
@@ -30,6 +31,7 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
   const { optionSelected, data, listWebsiteUrl } = props;
   const {
     businessReadyToOperate,
+    operationStartingPeriod,
     businessAccount,
     existingWebsite,
     websiteLiveDate,
@@ -41,9 +43,14 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
   } = data;
   const cx = classnames.bind(styles);
 
+  // Filter
   const listWebsiteUrlFilter = _.filter(listWebsiteUrl, (website: string) =>
     _.size(website)
   );
+  const listBusinessOfferings =
+    _.filter(businessOfferings, (item) => item.checked) || [];
+  const listAvailableSpaces =
+    _.filter(availableSpaces, (item) => item.checked) || [];
 
   return (
     <Box>
@@ -72,22 +79,43 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
           </Grid>
         )}
 
-        {/* {Business ready to operate} */}
-        {!_.isEmpty(businessReadyToOperate) && (
-          <Grid item xs={12} className={cx("row-item")}>
-            <Box className={cx("d-flex-column")}>
-              {/* {Label} */}
-              <Box component="span" className={cx("text-item-input")}>
-                {LABEL_BUSINESS_READY_TO_OPERATE}
-              </Box>
+        <Grid item xs={12} className={cx("row-item")}>
+          <Grid container className={cx("n-wrap")}>
+            {/* {Business ready to operate} */}
+            {!_.isEmpty(businessReadyToOperate) && (
+              <Grid item xs={12} md={6} className={cx("row-item")}>
+                <Box className={cx("d-flex-column")}>
+                  {/* {Label} */}
+                  <Box component="span" className={cx("text-item-input")}>
+                    {LABEL_BUSINESS_READY_TO_OPERATE}
+                  </Box>
 
-              {/* {Content} */}
-              <Box component="span" className={cx("text-item-value")}>
-                {businessReadyToOperate}
-              </Box>
-            </Box>
+                  {/* {Content} */}
+                  <Box component="span" className={cx("text-item-value")}>
+                    {businessReadyToOperate}
+                  </Box>
+                </Box>
+              </Grid>
+            )}
+
+            {/* {Operation starting period} */}
+            {!_.isEmpty(operationStartingPeriod) && (
+              <Grid item xs={12} md={6}>
+                <Box className={cx("d-flex-column")}>
+                  {/* {Label} */}
+                  <Box component="span" className={cx("text-item-input")}>
+                    {LABEL_OPERATION_STARTING_PERIOD}
+                  </Box>
+
+                  {/* {Content} */}
+                  <Box component="span" className={cx("text-item-value")}>
+                    {operationStartingPeriod.charAt(0).toUpperCase() + operationStartingPeriod.slice(1).replace(/-/g, ' ')}
+                  </Box>
+                </Box>
+              </Grid>
+            )}
           </Grid>
-        )}
+        </Grid>
 
         {/* {OCBC business account} */}
         {!_.isEmpty(businessAccount) && (
@@ -217,14 +245,22 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
               </Box>
 
               {/* {Content list} */}
-              {_.map(businessOfferings, (item, index) => {
-                return (
+              {_.map(listBusinessOfferings, (item, index) => {
+                return _.size(listBusinessOfferings) > 1 ? (
                   <Box
                     key={index}
-                    component="span"
+                    component="ul"
                     className={cx("text-item-value")}
                   >
-                    {item.name}
+                    <Box component="li">{item.label}</Box>
+                  </Box>
+                ) : (
+                  <Box
+                    key={index}
+                    component="div"
+                    className={cx("text-item-value")}
+                  >
+                    {item.label}
                   </Box>
                 );
               })}
@@ -244,14 +280,14 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
                   </Box>
 
                   {/* {Content list} */}
-                  {_.map(availableSpaces, (item, index) => {
-                    return _.size(availableSpaces) > 1 ? (
+                  {_.map(listAvailableSpaces, (item, index) => {
+                    return _.size(listAvailableSpaces) > 1 ? (
                       <Box
                         key={index}
                         component="ul"
                         className={cx("text-item-value")}
                       >
-                        <Box component="li">{item.name}</Box>
+                        <Box component="li">{item.label}</Box>
                       </Box>
                     ) : (
                       <Box
@@ -259,7 +295,7 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
                         component="div"
                         className={cx("text-item-value")}
                       >
-                        {item.name}
+                        {item.label}
                       </Box>
                     );
                   })}

@@ -35,6 +35,12 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
   const { eCommerce, pointOfSales } = data;
   const cx = classnames.bind(styles);
 
+  // Filter
+  const listProductDeliveredFrom = _.filter(
+    eCommerce.productDeliveredFrom,
+    (item) => item.checked
+  );
+
   return (
     <Box>
       {/* {Point-of-Sales terminal} */}
@@ -87,7 +93,8 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                       {LABEL_DURATION}
                     </Box>
                     <Box component="span" className={cx("text-item-value")}>
-                      {pointOfSales.duration}
+                      {pointOfSales.duration.charAt(0).toUpperCase() +
+                        pointOfSales.duration.slice(1).replace(/-/g, " ")}
                     </Box>
                   </Box>
                 </Grid>
@@ -152,7 +159,7 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
         )}
       </Grid>
 
-      {/* {Section Title} */}
+      {/* {Ecommerce} */}
       {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
         <Typography className={cx("sub-section-title")}>
           {LABEL_ECOMMERCE}
@@ -227,14 +234,14 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                     <Box component="span" className={cx("text-item-input")}>
                       {LABEL_PRODUCT_DELIVERED_FROM}
                     </Box>
-                    {_.map(eCommerce.productDeliveredFrom, (item, index) => {
-                      return _.size(eCommerce.productDeliveredFrom) > 1 ? (
+                    {_.map(listProductDeliveredFrom, (item, index) => {
+                      return _.size(listProductDeliveredFrom) > 1 ? (
                         <Box
                           key={index}
                           component="ul"
                           className={cx("text-item-value")}
                         >
-                          <Box component="li">{item.name}</Box>
+                          <Box component="li">{item.label}</Box>
                         </Box>
                       ) : (
                         <Box
@@ -242,7 +249,7 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                           component="span"
                           className={cx("text-item-value")}
                         >
-                          {item.name}
+                          {item.label}
                         </Box>
                       );
                     })}
@@ -258,7 +265,12 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                       {LABEL_DELIVERY_TIME_TO_CUSTOMERS}
                     </Box>
                     <Box component="span" className={cx("text-item-value")}>
-                      {eCommerce.deliveryTimeToCustomers}
+                      {eCommerce.deliveryTimeToCustomers
+                        .charAt(0)
+                        .toUpperCase() +
+                        eCommerce.deliveryTimeToCustomers
+                          .slice(1)
+                          .replace(/-/g, " ")}
                     </Box>
                   </Box>
                 </Grid>

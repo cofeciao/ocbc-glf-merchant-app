@@ -48,7 +48,7 @@ export const HOME_PAGE = {
     HELPER_TEXT: "Captcha does not match",
     LABEL_TEXT_FIELD: "Verification Code",
   },
-  
+
   ENTRY_POINT: {
     PLEASE_FILL_IN_THE_DETAILS: "Please fill in the details",
     LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED:
@@ -129,16 +129,19 @@ export const SELF_SERVE_PAGE = {
       "Before submitting your application, please ensure that you read and understand the following:",
     listCheckbox: [
       {
-        text: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
-        check: false,
+        label: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+        value: "policy1",
+        checked: false,
       },
       {
-        text: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
-        check: false,
+        label: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
+        value: "policy2",
+        checked: false,
       },
       {
-        text: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
-        check: false,
+        label: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+        value: "policy3",
+        checked: false,
       },
     ],
   },
@@ -193,7 +196,7 @@ export const SELF_SERVE_PAGE = {
   LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS:
     "Number of outlets with Point-of-Sales termimals",
   LABEL_BUSINESS_READY_TO_OPERATE: "Business ready to operate",
-  LABEL_OPERATION_STARTING_PERIOD: "Operation starging period",
+  LABEL_OPERATION_STARTING_PERIOD: "Operation starting period",
   LABEL_OCBC_BUSINESS_ACCOUNT: "OCBC business account",
   LABEL_CASHLESS_PAYMENT_METHOD: "Cashless payment method(s)",
   LABEL_ECOMMERCE: "eCommerce",
@@ -648,12 +651,14 @@ export const SELF_SERVE_PAGE = {
                 description: "What is your business offering?",
                 list: [
                   {
-                    text: "Selling products",
-                    check: false,
+                    label: "Selling products",
+                    value: "sellingProducts",
+                    checked: false,
                   },
                   {
-                    text: "Providing services",
-                    check: false,
+                    label: "Providing services",
+                    value: "providingServices",
+                    checked: false,
                   },
                 ],
               },
@@ -661,16 +666,19 @@ export const SELF_SERVE_PAGE = {
                 description: "Do you currently have any of the following?",
                 list: [
                   {
-                    text: "Office",
-                    check: false,
+                    label: "Office",
+                    value: "office",
+                    checked: false,
                   },
                   {
-                    text: "Retail store",
-                    check: false,
+                    label: "Retail store",
+                    value: "retailStore",
+                    checked: false,
                   },
                   {
-                    text: "Warehouse",
-                    check: false,
+                    label: "Warehouse",
+                    value: "warehouse",
+                    checked: false,
                   },
                 ],
               },
@@ -818,11 +826,13 @@ export const SELF_SERVE_PAGE = {
             description: "Where will your products come from?",
             list: [
               {
-                text: "Within Singapore",
+                label: "Within Singapore",
+                value: "withinSingapore",
                 checked: false,
               },
               {
-                text: "Out of Singapore",
+                label: "Out of Singapore",
+                value: "outOfSingapore",
                 checked: false,
               },
             ],
@@ -847,19 +857,6 @@ export const SELF_SERVE_PAGE = {
               {
                 name: "More than 3 months",
                 value: "more-than-3-months",
-              },
-            ],
-          },
-          listCheckboxSecondary: {
-            description: "Where will your products come from?",
-            list: [
-              {
-                text: "Within Singapore",
-                check: false,
-              },
-              {
-                text: "Out of Singapore",
-                check: false,
               },
             ],
           },

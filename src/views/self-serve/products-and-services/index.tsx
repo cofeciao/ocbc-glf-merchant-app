@@ -1,8 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, {
-  useEffect,
-} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -66,6 +64,7 @@ const ProductsAndServices: React.FC = () => {
     setValue,
     setError,
     clearErrors,
+    control,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -103,6 +102,7 @@ const ProductsAndServices: React.FC = () => {
       },
     },
   });
+
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -148,6 +148,7 @@ const ProductsAndServices: React.FC = () => {
           setError={setError}
           clearErrors={clearErrors}
           errors={errors}
+          control={control}
         />
       ) : (
         <Box>
@@ -176,6 +177,7 @@ const ProductsAndServices: React.FC = () => {
             errors={errors}
             setError={setError}
             clearErrors={clearErrors}
+            control={control}
           />
         </Box>
       )}
