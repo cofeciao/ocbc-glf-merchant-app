@@ -8,7 +8,7 @@ import classnames from "classnames/bind";
 import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 
 // import icons
-import CloseIcon from "@/assets/images/icon-close.svg"
+import CloseIcon from "@/assets/images/icon-close.svg";
 
 // import styles
 import styles from "./SelfServe.scss";
@@ -109,7 +109,11 @@ const RedirectButton: React.FC<ISelfServe.IRedirectButton> = (props) => {
       >
         {/* {Icon} */}
         <Box className={cx("icon-close")}>
-          <CloseIcon onClick={handleCloseContinueLaterDialog} />
+          <img
+            src={CloseIcon}
+            alt="icon close"
+            onClick={handleCloseContinueLaterDialog}
+          />
         </Box>
 
         {/* {Content} */}
