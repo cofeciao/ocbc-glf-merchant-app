@@ -1074,9 +1074,9 @@ body {
 // styled select phone number
 .MuiList-root { 
   & .item-selected {
+    padding-bottom: 4px !important;
     span {
-      padding: 6px 0px;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 30px;
     }
     & .item-selected {
