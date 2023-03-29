@@ -124,7 +124,7 @@ const BusinessInfomation: React.FC<IBusinessDetails.IBusinessInfomation> = (prop
             )}
 
             {/* {Select} */}
-            <Grid xs={12} md={4}>
+            <Grid item xs={12} md={4}>
               <FormControl
                 variant="filled"
                 className={cx("operation-starting-period-select")}
