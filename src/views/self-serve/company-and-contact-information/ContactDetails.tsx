@@ -1,6 +1,5 @@
 // import modules
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import {
   Box,
   Grid,
@@ -12,9 +11,6 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import _ from "lodash";
-
-// import icons
-import CheckIcon from '@material-ui/icons/Check';
 
 // import constant
 import {
@@ -71,7 +67,7 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
       register("contactNumber", {
         required: true,
         pattern: {
-          value: /^[0-9]{8}$/,
+          value: /^(?:\+65|65)?[689]\d{7}$/g,
           message: `${ERROR_ICON} ${contactNumber.helperText}`,
         },
       });
@@ -261,7 +257,7 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                                 return (
                                   <MenuItem
                                     className={cx("item-selected")}
-                                    key={index} 
+                                    key={index}
                                     value={item.value}
                                   >
                                     <span className={cx(areaCode === item.value ? "item-selected" : "item-unselected")}>{`${item.name} (${item.value})`}</span>
