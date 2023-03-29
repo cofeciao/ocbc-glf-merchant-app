@@ -17,7 +17,7 @@ import IconTooltip from "@/assets/images/icon-tooltip.svg";
 import styles from "./ProductsAndServices.scss";
 
 // render UI
-const TooltipDialog: React.FC = (props) => {
+const TooltipDialog: React.FC = () => {
   const cx = classnames.bind(styles);
   const [open, setOpen] = useState<boolean>(false);
   const { TOOLTIP_CONTENT } = SELF_SERVE_PAGE;

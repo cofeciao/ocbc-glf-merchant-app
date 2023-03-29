@@ -10,6 +10,7 @@ import BusinessDetails from "@/views/self-serve/business-details";
 import ProductsAndServices from "@/views/self-serve/products-and-services";
 import ReviewAndSubmit from "@/views/self-serve/review-and-submit";
 import Footer from "@/components/Footer";
+import { adobeAbandon } from "@/utils/adobeTracking";
 
 // import constants
 import {
@@ -23,7 +24,6 @@ import styles from "@/views/self-serve/SelfServe.scss";
 
 // import types
 import { ISelfServe } from "./SelfServe";
-import { adobeAbandon } from "@/utils/adobeTracking";
 
 // render UI
 const SelfServe: React.FC = () => {
@@ -31,7 +31,6 @@ const SelfServe: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
   const { LIST_STEP } = SELF_SERVE_PAGE;
   const history = useHistory();
-  const childRef: any = useRef();
 
   /**
    * add event listener to handle page reload
@@ -84,25 +83,13 @@ const SelfServe: React.FC = () => {
   //   return <></>;
   // }
 
-    /**
- * Handle click into on stepper
- * @param {string} path - Slug for page 
- */
-    const handleClick = (path: any) => {
-      history.push(`/self/${path}`);
-      // if (childRef.current) {
-      //   if (formReduxData.isBorrower) {
-      //     if (childRef.current.validateForm()) {
-      //       history.push(`/self/borrower/${path}`);
-      //     }
-      //   } else {
-      //     if (childRef.current.validateForm()) {
-      //       history.push(`/self/${path}`);
-      //     }
-      //     childRef.current.handleNextPage();
-      //   }
-      // }
-    };
+  /**
+   * Handle click into on stepper
+   * @param {string} path - Slug for page
+   */
+  const handleClick = (path: string) => {
+    history.push(`/self/${path}`);
+  };
 
   // Render UI
   return (
@@ -119,25 +106,25 @@ const SelfServe: React.FC = () => {
           <FormLayout
             isMyInfo={true}
             tabs={
-              <Tabs 
-                tabId={slug} 
-                dataTabs={handleDetectDynamicStepper()} 
+              <Tabs
+                tabId={slug}
+                dataTabs={handleDetectDynamicStepper()}
                 handleClick={handleClick}
               />
             }
             content={
               <>
                 {slug === LIST_STEP.companyAndContactInformation.id && (
-                  <CompanyAndContactInformation ref={childRef} />
+                  <CompanyAndContactInformation />
                 )}
                 {slug === LIST_STEP.transactionAndCardAcceptanceType.id && (
-                  <TransactionAndCardAcceptanceType ref={childRef} />
+                  <TransactionAndCardAcceptanceType />
                 )}
-                {slug === LIST_STEP.businessDetails.id && <BusinessDetails ref={childRef} />}
+                {slug === LIST_STEP.businessDetails.id && <BusinessDetails />}
                 {slug === LIST_STEP.productsAndService.id && (
-                  <ProductsAndServices ref={childRef} />
+                  <ProductsAndServices />
                 )}
-                {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit ref={childRef} />}
+                {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit />}
               </>
             }
           />

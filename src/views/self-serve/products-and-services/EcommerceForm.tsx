@@ -8,9 +8,10 @@ import FulfilmentInformationEcommerce from "./FulfilmentInformationEcommerce";
 import SalesForecastEcommerce from "./SalesForecastEcommerce";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const EcommerceForm: React.FC<any> = (props) => {
+const EcommerceForm: React.FC<IProductsAndServices.IForm> = (props) => {
   const {
     cx,
     data,
@@ -21,6 +22,9 @@ const EcommerceForm: React.FC<any> = (props) => {
     unregister,
     setValue,
     errors,
+    clearErrors,
+    setError,
+    control,
   } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
 
@@ -70,9 +74,12 @@ const EcommerceForm: React.FC<any> = (props) => {
               dataRedux={dataRedux}
               variant={variant}
               errors={errors}
+              setError={setError}
+              clearErrors={clearErrors}
               register={register}
               unregister={unregister}
               setValue={setValue}
+              control={control}
             />
           </Grid>
 

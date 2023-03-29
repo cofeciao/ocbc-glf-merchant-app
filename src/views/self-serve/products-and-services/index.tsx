@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -21,10 +21,8 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 // import style
 import styles from "./ProductsAndServices.scss";
 
-// import types
-
 // render UI
-const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
+const ProductsAndServices: React.FC = () => {
   // props
   const {
     LABEL_E_COMMERCE,
@@ -57,13 +55,16 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
     (state: any) => state.form.productsAndServicesStep
   );
 
+  // React-hook-form
   const {
     register,
     unregister,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     getValues,
     setValue,
-    watch,
+    setError,
+    clearErrors,
+    control,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -79,11 +80,6 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
         annualCreditCardSalesForecast:
           productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast ||
           "",
-        deliveryTimeToCustomers:
-          productsAndServicesStep.pointOfSales.deliveryTimeToCustomers,
-        percentageOfProductsNotFulfilledImmediately:
-          productsAndServicesStep.pointOfSales
-            .percentageOfProductsNotFulfilledImmediately,
       },
       Ecom: {
         orderFulfilment:
@@ -103,28 +99,10 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
           productsAndServicesStep.eCommerce.annualCreditCardSalesForecast || "",
         productDeliveredFrom:
           productsAndServicesStep.eCommerce.productDeliveredFrom || "",
-        percentageOfProductsNotFulfilledImmediately:
-          productsAndServicesStep.eCommerce
-            .percentageOfProductsNotFulfilledImmediately,
       },
     },
   });
 
-  /**
-   * handle back to page when click on stepper
-   */
-  useImperativeHandle(ref, () => ({
-    validateForm() {
-      return true
-      // if (acraAndContactInformationStep) {
-      //   if (_.isEmpty(acraAndContactInformationStep)) {
-      //     return true;
-      //   }
-      //   return handleNext();
-      // }
-      // return true;
-    },
-  }));
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -167,7 +145,10 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
           register={register}
           unregister={unregister}
           setValue={setValue}
+          setError={setError}
+          clearErrors={clearErrors}
           errors={errors}
+          control={control}
         />
       ) : (
         <Box>
@@ -194,6 +175,9 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
             unregister={unregister}
             setValue={setValue}
             errors={errors}
+            setError={setError}
+            clearErrors={clearErrors}
+            control={control}
           />
         </Box>
       )}
@@ -215,5 +199,5 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
       />
     </Box>
   );
-});
+};
 export default ProductsAndServices;

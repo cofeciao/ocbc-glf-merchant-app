@@ -1,8 +1,8 @@
 // import modules
-import { Category, Button } from "@sectionsg/orc";
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid } from "@material-ui/core";
+import { Category } from "@sectionsg/orc";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "@/views/self-serve/SectionWrapper";
@@ -20,11 +20,10 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
-
-// import types
+import Loading from "@/components/Loading";
 
 // render UI
-const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
+const ReviewAndSubmit: React.FC = () => {
   const {
     LABEL_CASHLESS_PAYMENT_METHOD,
     LABEL_COMPANY_REGISTRATION,
@@ -38,6 +37,7 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
   const cx = classnames.bind(styles);
   const [disabledButton, setDisableButton] = useState<boolean>(true);
   const history = useHistory();
+  const [loading, setLoading] = useState<boolean>(false);
 
   /**
    * Handle scrolling to top on page load
@@ -47,6 +47,27 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, []);
+
+  /**
+   * Temporarily put here for dev
+   */
+  const handleSubmit = async () => {
+    setLoading(true);
+    const dataForm = {
+      cashlessPaymentsMethods: cashlessPaymentsMethods,
+      companyAndContactInformationStep: companyAndContactInformationStep,
+      transactionAndCardAcceptanceTypeStep:
+        transactionAndCardAcceptanceTypeStep,
+      businessDetailsStep: {
+        listWebsiteUrl: listWebsiteUrl,
+        businessDetailsStep,
+      },
+      productsAndServicesStep: productsAndServicesStep,
+    };
+    setTimeout(() => {
+      history.push(LIST_ROUTER.acknowledgement_successful);
+    }, 2000);
+  };
 
   /**
    * Retrieves data of Transaction And Card Acceptance Type step from Store
@@ -67,23 +88,6 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
       .filter((item: string) => item !== "")
       .join("-")
   );
-
-
-  /**
-   * handle back to page when click on stepper
-   */
-  useImperativeHandle(ref, () => ({
-    validateForm() {
-      return true
-      // if (acraAndContactInformationStep) {
-      //   if (_.isEmpty(acraAndContactInformationStep)) {
-      //     return true;
-      //   }
-      //   return handleNext();
-      // }
-      // return true;
-    },
-  }));
 
   /**
    * Retrieves data of Company And Contact Information step from Store
@@ -123,6 +127,8 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
 
   return (
     <Box className={cx("review-and-submit-wrapper step-wrapper")}>
+      {loading && <Loading />}
+
       {/* {Category} */}
       <Box className={cx("category-wrapper")}>
         <Category>{text}</Category>
@@ -194,7 +200,7 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
       <Box id={cx("divider")} />
 
       {/* {Agree Policy} */}
-      <AgreePolicy getValue={(value: boolean) => setDisableButton(!value)} />
+      <AgreePolicy onGetValue={(value: boolean) => setDisableButton(!value)} />
 
       {/* {Next Button}  */}
       <RedirectButton
@@ -207,10 +213,10 @@ const ReviewAndSubmit: React.FC<any> = forwardRef(({}, ref) => {
           history.push(LIST_ROUTER.products_and_services);
         }}
         onClickNext={() => {
-          history.push(LIST_ROUTER.acknowledgement_successful);
+          handleSubmit();
         }}
       />
     </Box>
   );
-});
+};
 export default ReviewAndSubmit;

@@ -7,8 +7,13 @@ import WebsiteInformation from "./WebsiteInformation";
 import OtherInformation from "./OtherInformation";
 import _ from "lodash";
 
+// import types
+import { IBusinessDetails } from "./BusinessDetails";
+
 // render UI
-const BusinessDetailsForm: React.FC<any> = (props) => {
+const BusinessDetailsForm: React.FC<IBusinessDetails.IBusinessDetailsForm> = (
+  props
+) => {
   const {
     cx,
     data,
@@ -17,9 +22,9 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
     unregister,
     errors,
     setValue,
-    dispatch,
     dataRedux,
     listWebsiteRedux,
+    control
   } = props;
   const { businessInfomation, otherInfomation, websiteInfomation } = data;
 
@@ -82,7 +87,6 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
             register={register}
             errors={errors}
             unregister={unregister}
-            dispatch={dispatch}
             dataRedux={dataRedux}
             listWebsiteRedux={listWebsiteRedux}
           />
@@ -96,7 +100,10 @@ const BusinessDetailsForm: React.FC<any> = (props) => {
           <OtherInformation
             dataRedux={dataRedux}
             sections={otherInfomation.sections}
+            register={register}
+            unregister={unregister}
             setValue={setValue}
+            control={control}
           />
         </SectionWrapper>
       )}
