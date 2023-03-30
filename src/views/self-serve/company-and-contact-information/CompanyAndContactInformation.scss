@@ -1,0 +1,13 @@
+@import "../../../assets/style/variable.scss";
+
+.company-and-contact-information-wrapper {
+  & .company-registration-section {
+    & .section-seperate {
+      display: none;
+    }
+  }
+  & .button-wrapper {
+    justify-content: flex-end !important;
+  }
+  
+}

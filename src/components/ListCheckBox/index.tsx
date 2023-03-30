@@ -1,72 +1,186 @@
 // import modules
 import {
   Typography,
-  Box,
   FormControlLabel,
   Checkbox,
   FormGroup,
   Grid,
-  Item,
+  Box,
 } from "@material-ui/core";
-import { CardCheckbox, Category } from "@sectionsg/orc";
 import classnames from "classnames/bind";
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
+import _ from "lodash";
+import { isEmpty } from "lodash";
 
 // import style
 import styles from "./ListCheckBox.scss";
 
 // import types
-import { IListCheckBox, ICheckBox } from "./ListCheckBox";
+import { ICheckBox, IListCheckBox } from "./ListCheckBox";
+
+// import images
+import IconCheckbox from "@/assets/images/icon-checkbox.svg";
+import IconCheckedBox from "@/assets/images/icon-checkedbox.svg";
+import IconCheckboxBlack from "@/assets/images/icon-checkedbox-black.svg";
+import IconCheckboxBlackTransparent from "@/assets/images/icon-checkedbox-transparent.svg";
 
 // render UI
 const ListCheckbox = (props: IListCheckBox) => {
-  const { label, textError, dataCardCheckbox, checkboxKey, getValue } = props;
-  const [dataCard, setDataCard] = useState<ICheckBox[]>(dataCardCheckbox);
+  const { dataCardCheckbox, getValue, xs, sm, md, lg } = props;
   const cx = classnames.bind(styles);
-  useEffect(() => {
-    setDataCard(dataCard);
-    getValue(dataCard);
-  }, [dataCard]);
+
+  /**
+   * Run after clicking any item checkboxes to process data stream
+   * @param event
+   * @param checked
+   */
+  const handleCheckBox = (event: any, checked: boolean) => {
+    const newData: any = dataCardCheckbox.reduce((acc, item) => {
+      const newItem: any = { ...item }; // Create a new object to avoid changing the original object
+      if (newItem.value === event.target.value) {
+        newItem.checked = checked;
+      }
+      acc.push(newItem);
+      return acc;
+    }, []);
+    newData.name = event.target.value;
+    getValue(newData);
+  };
+
+  /**
+   * Run after clicking any expanded item checkboxes to process data stream
+   * @param event
+   * @param checked
+   */
+  const handleExpandedCheckBox = (event: any, checked: boolean) => {
+    const newData: any = dataCardCheckbox.reduce((acc, item) => {
+      const expandedListCheckbox = {
+        ...item.expandedListCheckbox,
+      };
+
+      const newDataExpandedListCheckbox =
+        expandedListCheckbox.listCheckbox.reduce((init: any, checkbox: any) => {
+          const newitemExpanded: any = { ...checkbox }; // Create a new object to avoid changing the original object
+          if (newitemExpanded.value === event.target.value) {
+            newitemExpanded.checked = checked;
+          }
+          init.push(newitemExpanded);
+          return init;
+        }, []);
+
+      acc.push({
+        ...item,
+        expandedListCheckbox: {
+          ...item.expandedListCheckbox,
+          listCheckbox: newDataExpandedListCheckbox,
+        },
+      });
+      return acc;
+    }, []);
+    newData.name = event.target.value;
+    getValue(newData);
+  };
+
+  /**
+   * Run to show expanded template inside checkbox item
+   * @returns {HTML}
+   */
+  const renderExpanded = (item: ICheckBox) => {
+    return (
+      <Grid item xs={12}>
+        <Box className={cx("expanded-wrapper")}>
+          {/* {Expanded description} */}
+          {item.expandedListCheckbox.description && (
+            <Typography className={cx("expanded-description")}>
+              {item.expandedListCheckbox.description}
+            </Typography>
+          )}
+
+          {/* {Expanded list checkbox} */}
+          {item.expandedListCheckbox.listCheckbox && (
+            <Box className={cx("expanded-list-checkbox")}>
+              {_.map(
+                item.expandedListCheckbox.listCheckbox,
+                (checkbox, index) => {
+                  return (
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          disableRipple
+                          disableTouchRipple
+                          disableFocusRipple
+                          {...checkbox}
+                          onChange={(event: any, checked: boolean) => {
+                            handleExpandedCheckBox(event, checked)
+                          }
+                          }
+                          icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                          checkedIcon={
+                            checkbox.disabled
+                            ? <img src={IconCheckboxBlackTransparent} alt="checkbox black transparent"/>
+                            : <img src={IconCheckboxBlack} alt="icon checkedbox black" />
+                          }
+                        />
+                      }
+                      disabled={checkbox.disabled}
+                      key={index}
+                      label={checkbox.label}
+                    />
+                  );
+                }
+              )}
+            </Box>
+          )}
+        </Box>
+      </Grid>
+    );
+  };
 
   return (
     <FormGroup className={cx("list-checkbox-wrapper")}>
-      {dataCard.map((item: any) => {
+      {_.map(dataCardCheckbox, (item: any, index: number) => {
         return (
-          <Grid item xs={8}>
-            {/* <Item> */}
+          <Box key={index}>
+            <Grid key={index} item xs={xs} sm={sm} md={md} lg={lg}>
+              {/* {Form Control & Checkbox inside} */}
               <FormControlLabel
-                key={checkboxKey}
                 label={
-                  <div className={cx("card-checkbox-content")}>
+                  <Box className={cx("checkbox-content")}>
                     {item.label && (
-                      <span className={cx("card-checkbox-content--title")}>
+                      <Typography component={"span"} className={cx("title")}>
                         {item.label}
-                      </span>
+                      </Typography>
                     )}
                     {item.description && (
-                      <p className={cx("card-checkbox-content--description")}>
+                      <Typography component={"p"} className={cx("description")}>
                         {item.description}
-                      </p>
+                      </Typography>
                     )}
-                  </div>
+                  </Box>
                 }
-                onChange={(event: any, checked: boolean) => {
-                  const newData: any = dataCard.map((item: any) => {
-                    item.checked = false;
-                    if (item.value === event.target.value) {
-                      item.checked = checked;
-                    }
-                    return item;
-                  });
-                  newData.name = event.target.value;
-                  setDataCard(newData);
-                }}
+                onChange={(event: any, checked: boolean) =>
+                  handleCheckBox(event, checked)
+                }
                 checked={item.checked}
                 value={item.value}
-                control={<Checkbox />}
+                control={
+                  <Checkbox
+                    disableFocusRipple
+                    disableRipple
+                    disableTouchRipple
+                    icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                    checkedIcon={<img src={IconCheckedBox} alt="icon checkedbox" />}
+                  />} // Checkbox from Material
               />
-            {/* </Item> */}
-          </Grid>
+            </Grid>
+
+            {/* {Expanded content} */}
+            {
+              item.checked &&
+                !isEmpty(item.expandedListCheckbox) &&
+                renderExpanded(item) // render expanded after checkbox item is checked
+            }
+          </Box>
         );
       })}
     </FormGroup>

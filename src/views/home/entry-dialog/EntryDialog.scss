@@ -1,0 +1,85 @@
+@import "../../../assets/style/variable.scss";
+
+.MuiFormHelperText-root {
+  margin-left: 0px !important;
+  padding-top: 8px !important;
+  background-color: #ffffff;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.header-dialog-wrapper {
+  & .title {
+    margin-top: 12px;
+  }
+  & .title-start-over {
+    margin-top: 36px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: #363b40;
+  }
+  & .radio-group-container {
+    margin-top: 32px;
+  }
+}
+
+.entry-dialog-wrapper {
+  & .radio-group-entry-dialog {
+    & .MuiFormGroup-root {
+      gap: 16px;
+      margin-left: 11px;
+
+      & .active {
+        background-color: #567180;
+        & .MuiTypography-root {
+          color: $white;
+        }
+        & .MuiIconButton-label {
+          color: $white;
+        }
+      }
+
+      & .inactive {
+        background-color: $white;
+        color: #575d65;
+      }
+      & label {
+        padding: 8px 10px;
+        box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.12);
+        border-radius: 8px;
+        width: 100%;
+
+        & .MuiTypography-root {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          color: #575d65;
+        }
+      }
+    }
+  }
+
+  & .group-button {
+    margin-bottom: 48px !important;
+  }
+}
+
+.retrieve-dialog-wrapper {
+  & .MuiFormLabel-root {
+    &.Mui-error {
+      color: #777e87;
+    }
+    color: #777e87;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    &::before {
+      border-color: #e2e7ec;
+    }
+    & input {
+      background-color: #fafcfc;
+    }
+  }
+}

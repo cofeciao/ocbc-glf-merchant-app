@@ -1,0 +1,170 @@
+@import '../../assets/style/variable.scss';
+
+
+.welcome-page-wrapper {
+  margin-top: 56px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 61px;
+
+  & .icon-close {
+    cursor: pointer;
+  }
+
+  & .title-welcome {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: $tundora;
+  }
+
+  & .welcome-category {
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+  
+  & .input-search {
+    background: $white;
+    box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    width: 100%;
+
+    fieldset {
+      border: 0;
+    }
+  }
+
+  & .section-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    p {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      color: #005EFD;
+      cursor: pointer;
+    }
+  }
+
+  & .table-container{
+    & .action {
+      color: #005EFD;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      cursor: pointer;
+    }
+  }
+}
+
+.MuiGrid-root {
+  .not-result-found-wrapper {
+    width: 432px;
+    height: 232px;
+    box-shadow: 0px 2px 10px 1px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    position: relative;
+    margin-top: 20px;
+  
+    img {
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  
+    & .title {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 32px;
+      color: #363B40;
+      position: absolute;
+      bottom: 30px;
+      left: 20px;
+    }
+  }
+}
+
+// styled Pagination
+.pagination-container {
+  display: flex;
+  list-style-type: none;
+  margin-top: 57px;
+
+  .pagination-item {
+    padding: 0 14px;
+    height: 40px;
+    text-align: center;
+    margin: auto 6px;
+    color: $tundora;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    letter-spacing: 0.01071em;
+    border-radius: 50%;
+    min-width: 40px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 26px;
+
+    position: relative;
+
+    &.dots:hover {
+      background-color: transparent;
+      cursor: default;
+    }
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+      cursor: pointer;
+    }
+
+    &.selected {
+      background-color: $slateGray;
+      color: $white;
+    }
+
+    .arrow {
+      &::before {
+        position: relative;
+        /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
+        content: '';
+        /* By using an em scale, the arrows will size with the font */
+        display: inline-block;
+        width: 0.4em;
+        height: 0.4em;
+        border-right: 0.12em solid rgba(0, 0, 0, 0.87);
+        border-top: 0.12em solid rgba(0, 0, 0, 0.87);
+      }
+
+      &.left {
+        transform: rotate(-135deg) translate(-50%);
+        top: 13px;
+        position: absolute;
+      }
+
+      &.right {
+        transform: rotate(45deg);
+      }
+    }
+
+    &.disabled {
+      pointer-events: none;
+
+      .arrow::before {
+        border-right: 0.12em solid rgba(0, 0, 0, 0.43);
+        border-top: 0.12em solid rgba(0, 0, 0, 0.43);
+      }
+
+      &:hover {
+        background-color: transparent;
+        cursor: default;
+      }
+    }
+  }
+}

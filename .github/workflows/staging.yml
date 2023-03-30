@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Package for deployment into CMS
+name: Package for STAGING deployment
 
 # Controls when the workflow will run
 on:
@@ -103,7 +103,7 @@ jobs:
           node -v
           npm -v
           npm install
-          npm run build:production
+          npm run build:uat
 
       - name: Zip folder
         uses: montudor/action-zip@v1

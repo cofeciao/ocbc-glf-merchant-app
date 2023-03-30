@@ -1,0 +1,57 @@
+@import '../../../assets/style/variable.scss';
+
+.contact-information {
+  & .contact-information-category {
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+
+  & .contact-details-wrapper {
+    & .formatted-numberphone-input {
+      background: #fafcfc;
+      .MuiInputLabel-root {
+        padding-left: 8px;
+      }
+      & .formatted-numberphone-select {
+        padding-left: 8px;
+        .MuiSelect-icon {
+          border-right: 1px solid #e2e7ec;
+        }
+      }
+      input {
+        padding-left: 10px;
+      }
+    }
+  }
+  & .contact-details-acra-details {
+    & .MuiGrid-container {
+      row-gap: 0px !important;
+      column-gap: 0px !important;
+    }
+  }
+}
+
+
+.group-item {
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: $tundora;
+  }
+}
+
+.button-wrapper {
+  a {
+    text-decoration: none;
+    color: $dodgerBlue;
+  }
+}

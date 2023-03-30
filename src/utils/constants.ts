@@ -9,52 +9,921 @@ export const LANGUAGE = {
   ZH: "zh",
   EN: "en",
 };
-export const API_LINK = "https://test.api.myinfo.gov.sg/com/v3/authorise";
-export const REDIRECTURL =
-  "https://home-loan-services.ocbc-mfe.wearesection.com";
-export const REDIRECTURL_BAU =
-  "https://internet-uat.ocbc.com/personal-banking/loans/mortgage-form-repricing-bau";
-export const LIST_ATTRIBUTE_SIMULATOR =
-  "uinfin,name,aliasname,hanyupinyinname,hanyupinyinaliasname,marriedname,residentialstatus,birthcountry,sex,race,nationality,dob,email,mobileno,regadd,cpfcontributions,noa,hdbownership.outstandingloanbalance,hdbownership.monthlyloaninstalment,hdbownership.address,hdbownership.hdbtype,hdbownership.dateofpurchase,passexpirydate,passtype";
-export const ATTRIBUTE_LIST_REPRICING_LENGTHENING =
-  "email,mobileno,name,aliasname,hanyupinyinname,hanyupinyinaliasname,marriedname,nationality,residentialstatus,uinfin,sex,dob,birthcountry,race,passtype,passexpirydate,regadd,ownerprivate,cpfhousingwithdrawal,hdbownership.hdbtype,hdbownership.noofowners,hdbownership.dateofpurchase,hdbownership.dateofownershiptransfer,hdbownership.leasecommencementdate,hdbownership.termoflease,hdbownership.balanceloanrepayment,hdbownership.outstandingloanbalance,hdbownership.monthlyloaninstalment,hdbownership.address,noa,cpfcontributions";
-export const ATTRIBUTE_NONE_REPRICING =
-  "email,mobileno,name,aliasname,hanyupinyinname,hanyupinyinaliasname,marriedname,nationality,residentialstatus,uinfin,sex,dob,birthcountry,race,passtype,passexpirydate";
-export const APEX_APP_ID_REPRICING_LENGTHENING_UAT =
-  "STG-193200032W-OCBC-MORTGAGEREPRICE";
-export const SECRET_REPRICING_LENGTHENING_UAT =
-  "kbMksFgNFJFo7eHIVQqi4cX15wiVsjSg";
 
-export const APEX_APP_ID_NONE_REPRICING_UAT =
-  "STG-193200032W-OCBC-MORTGAGEPREPAYMENT";
-export const SECRET_NONE_REPRICING_UAT = "dcTplsUy3ouq8CTShv2ZuCJyv7SjBwVy";
+export const LIST_ROUTER = {
+  company_and_contact_information: "/self/company-and-contact-information",
+  transaction_and_card_acceptance_type:
+    "/self/transaction-and-card-acceptance-type",
+  business_details: "/self/business-details",
+  products_and_services: "/self/products-and-services",
+  review_and_submit: "/self/review-and-submit",
+  acknowledgement_successful: "/acknowledgement/successful",
+  acknowledgement_interest: "/acknowledgement/interest",
+  acknowledgement_saved: "/acknowledgement/saved",
+};
 
-export const BANNER_STAGING =
-  "https://ocbc.ext1.wearesection.com/iwov-resources/sg/ocbc/personal/data/loans-loanservicing-maintenance.json";
-export const BANNER_PRODUCTION =
-  "https://www.ocbc.com/iwov-resources/sg/ocbc/personal/data/loans-loanservicing-maintenance.json";
+export const ERROR_ICON = "\u26A0";
 
-export const DATA_DOCUMENT_RESPONSE = {
-  LoanAttachmentMgmtResp: {
-    RespBody: {
-      Message: {
-        Results: [""],
+export const ACKNOWLEDGEMENT_PAGE = {
+  LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION:
+    "Great, we have received your application!",
+  LABEL_OUR_RELATIONSHIP_MANAGER_WILL_CONTACT_YOU_WITHIN_3_WORKING_DAYS:
+    "Our Relationship Manager will contact you within 3 working days.",
+  LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS: "Apply for OCBC Cashless Payments",
+  LABEL_THANK_YOU_FOR_YOUR_INTEREST: "Thank you for your interest!",
+  LABEL_TO_APPLY_FOR_PAYNOW_PLEASE_VISIT: "To apply for PayNow, please visit",
+  LABEL_BUSINESS_INTERNET_BANKING: "Business Internet Banking",
+  SAVED: {
+    title: "Your application is saved",
+    description: {
+      before: "We will send instructions to",
+      after: "for you to access your saved application.",
+    },
+  },
+};
+
+export const HOME_PAGE = {
+  CAPTCHA: {
+    LABEL_GET_ANOTHER_CODE: "Get Another Code",
+    HELPER_TEXT: "Captcha does not match",
+    LABEL_TEXT_FIELD: "Verification Code",
+  },
+
+  ENTRY_POINT: {
+    PLEASE_FILL_IN_THE_DETAILS: "Please fill in the details",
+    LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED:
+      "Your saved application has expired",
+    LABEL_PLEASE_RESTART_YOUR_APPLICATION: "Please restart your application.",
+    LABEL_WHAT_ARE_YOU_HERE_FOR: "What are you here for?",
+    LABEL_START_OVER: "Start over",
+    TEXT_FIELD_REFERENCE_NUMBER: {
+      label: "Reference number",
+      description: "Check your email for the reference number",
+      helperText: "Enter a valid reference number",
+      requiredText: "",
+    },
+    LIST_RADIO_ENTRY_POINT: [
+      {
+        label: "Start a new Cashless payment application",
+        value: "start_a_new_cashless_payment_application",
+        checked: false,
+      },
+      {
+        label: "Continue from saved application",
+        value: "continue_from_saved_application",
+        checked: false,
+      },
+    ],
+  },
+
+  TITLE_CASHLESS_PAYMENTS_HOME: "Apply for OCBC Cashless Payments",
+  CASHLESS_PAYMENTS_METHODS: {
+    title: "Cashless payments methods",
+    description: "Which cashless payment methods are you applying for?",
+    messgase_error_list_checkbox: "Please select at least one service",
+    data_list_checkbox: [
+      {
+        label: "Credit/Debit cards",
+        description: "This application will take about 10 minutes.",
+        value: "creditcards",
+        checked: false,
+      },
+      {
+        label: "Paynow",
+        value: "paynow",
+        checked: false,
+      },
+    ],
+  },
+  THINGS_TO_TAKE_NOTE_OF: {
+    title: "Things to take note of",
+    listItem: [
+      "You will need to provide information on your business such as name, Unique Entity Number (UEN), fulfilment type, and sales forecast",
+      "Your business details will be pulled from ACRA to access your application",
+    ],
+  },
+};
+
+export const SELF_SERVE_PAGE = {
+  LABEL_EDIT: "Edit",
+  LABEL_SGD: "SGD",
+  TOOLTIP_CONTENT: {
+    fulfilmentPeriod: {
+      title: "Fulfilment period",
+      description:
+        "Fulfilment period refers to the length of time between customers making a payment and receiving a product or service.",
+    },
+    imediateFulfilment: {
+      title: "Immediate fulfilment",
+      description:
+        "Customers receive the product or service upon payment e.g., food establishments, retail, etc.",
+    },
+    fulfilmentOver: {
+      title: "Fulfilment over a period of time",
+      description:
+        "Customers receive a product or service spread out over a period of time after payment e.g., subscriptions, spa packages, etc.",
+    },
+  },
+  LIST_CHECKBOX_AGREE_POLICY: {
+    description:
+      "Before submitting your application, please ensure that you read and understand the following:",
+    listCheckbox: [
+      {
+        label: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+        value: "policy1",
+        checked: false,
+      },
+      {
+        label: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
+        value: "policy2",
+        checked: false,
+      },
+      {
+        label: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+        value: "policy3",
+        checked: false,
+      },
+    ],
+  },
+  LIST_CHECKBOX_WHERE_WILL_YOUR_PRODUCTS_COME_FROM: {
+    description: "How will your products be delivered?",
+    listRadio: [
+      {
+        text: "Within Singapore",
+        check: false,
+      },
+      {
+        text: "Out of Singapore",
+        check: false,
+      },
+    ],
+  },
+  LIST_RADIO_HOW_WILL_YOUR_PRODUCTS_BE_DELIVERED: {
+    description: "How will your products be delivered?",
+    listRadio: [
+      {
+        text: "Delivered by my supplier",
+        checked: false,
+      },
+      {
+        text: "Delivered by my business (after receipt from supplier)",
+        checked: false,
+      },
+    ],
+  },
+
+  LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA:
+    "Payment options (Includes Mastercard and Visa)",
+  LABEL_SERVICE: "Service",
+  LABEL_COMPANY_AND_CONTACT_INFORMATION: "Company and contact information",
+  LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE:
+    "Transaction and card acceptance type",
+  LABEL_BUSINESS_DETAILS: "Business details",
+  LABEL_PRODUCTS_AND_SERVICES: "Products and services",
+  LABEL_REVIEW_AND_SUBMIT: "Review and submit",
+  LABEL_MODE: "Mode",
+  LABEL_REGISTERED_ENTITY_NAME: "Registered entity name",
+  LABEL_COMPANY_TYPE: "Company type",
+  LABEL_UNIQUE_ENTITY_NUMBER: "Unique Entity Number (UEN)",
+  LABEL_SALUTATION: "Salutation",
+  LABEL_NAME: "Name",
+  LABEL_EMAIL: "Email",
+  LABEL_OKAY: "Okay",
+  LABEL_CANCEL: "Cancel",
+  LABEL_DESIGNATION: "Designation",
+  LABEL_CONTACT_NUMBER: "Contact number",
+
+  LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS:
+    "Number of outlets with Point-of-Sales termimals",
+  LABEL_BUSINESS_READY_TO_OPERATE: "Business ready to operate",
+  LABEL_OPERATION_STARTING_PERIOD: "Operation starting period",
+  LABEL_OCBC_BUSINESS_ACCOUNT: "OCBC business account",
+  LABEL_CASHLESS_PAYMENT_METHOD: "Cashless payment method(s)",
+  LABEL_ECOMMERCE: "eCommerce",
+
+  LABEL_EXISTING_WEBSITE: "Existing website",
+  LABEL_WEBSITE_URL: "Website’s URL",
+  LABEL_WEBSITE_LIVE_DATE: "Website live date",
+  LABEL_PLACE_ORDER_THROUGH_WEBSITE: "Place order through website",
+  LABEL_BUSINESS_OFFERINGS: "Business offerings",
+  LABEL_AVAILABLE_SPACES: "Available spaces",
+  LABEL_CARD_PAYMENT_AVAILABLE_AT_RETAIL_STORE:
+    "Card payment available at retail store",
+
+  LABEL_COMPANY_REGISTRATION: "Company registration",
+  LABEL_CONTACT_DETAILS: "Contact details",
+  LABEL_ADD_MORE_WEBSITES: "Add more websites",
+  LABEL_REMOVE: "Remove",
+  LABEL_WEBSITE: "Website",
+  LABEL_BUSINESS_OFFERING: "Business offering",
+  LABEL_FULFILMENT_INFORMATION: "Fulfilment information",
+  LABEL_SALES_FORECAST: "Sales forecast",
+  LABEL_POINT_OF_SALES_TERMINAL: "Point-of-Sales terminal",
+  LABEL_E_COMMERCE: "e-Commerce",
+  LABEL_DURATION: "Duration",
+  LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY:
+    "Percentage of products/services not fulfilled immediately",
+
+  LABEL_TYPE_OF_PRODUCT_AND_SERVICE: "Type of product and/or service",
+  LABEL_ORDER_FULFILMENT: "Order fulfilment",
+  LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION:
+    "Average amount per credit card transaction",
+  LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST: "Annual credit card sales forecast",
+  LABEL_PRODUCT_DELIVERED_FROM: "Product delivered from",
+  LABEL_DELIVERY_TIME_TO_CUSTOMERS: "Delivery time to customers",
+  LABEL_PRODUCT_DELIVERY: "Product delivery",
+
+  CONTINUE_LATER_DIALOG: {
+    LABEL_YOU_ARE_LEAVING_THIS_APPLICATION: "You are leaving this application",
+    LABEL_SAVE_YOUR_PROGRESS_AND_CONTINUE_LATER:
+      "Save your progress and continue later?",
+    LABEL_YES_SAVE_APPLICATION: "Yes, save application",
+    LABEL_LEAVE_ANYWAY: "Leave anyway",
+    REVIEW_AND_SAVE: {
+      title: "Continue with your application later",
+      description:
+        "This will save and close your application. We will send the saved application to the details below.",
+    },
+  },
+
+  LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES:
+    {
+      description:
+        "How quickly does your business fulfil these products and/or services?",
+      listRadio: [
+        {
+          label: "Immediate fulfillment",
+          value: "immediate_fulfillment",
+          checked: true,
+        },
+        {
+          label: "Fulfillment over a period of time",
+          value: "fulfillment-over-a-period-of-time",
+          checked: false,
+        },
+      ],
+    },
+  LIST_DROPDOWN_APPROXIMATE_DELIVERY_TIME_TO_CUSTOMERS: [
+    {
+      name: "Within a week",
+      value: "within-a-week",
+    },
+    {
+      name: "Within a month",
+      value: "within-a-month",
+    },
+    {
+      name: "Within 3 months",
+      value: "within-3-months",
+    },
+    {
+      name: "More than 3 months",
+      value: "more-than-3-months",
+    },
+  ],
+  LIST_PLEASE_INDICATE_DURATION: {
+    description: "Please indicate duration",
+    listDropdown: [
+      {
+        name: "Within a week",
+        value: "within-a-week",
+      },
+      {
+        name: "Within a month",
+        value: "within-a-month",
+      },
+      {
+        name: "Within 3 months",
+        value: "within-3-months",
+      },
+      {
+        name: "More than 3 months",
+        value: "more-than-3-months",
+      },
+    ],
+  },
+  PLEASE_SELECT_LABEL: "Please select",
+  PERCENT_CHARACTERS: "%",
+  LIST_RADIO_YES_NO: [
+    {
+      label: "Yes",
+      value: "Yes",
+      checked: true,
+    },
+    {
+      label: "No",
+      value: "No",
+      checked: false,
+    },
+  ],
+  LIST_SALUTATION: [
+    {
+      name: "MDM",
+      value: "mdm",
+    },
+    {
+      name: "Mr",
+      value: "mr",
+    },
+    {
+      name: "Mrs",
+      value: "mrs",
+    },
+    {
+      name: "Ms",
+      value: "ms",
+    },
+  ],
+  LIST_COMPANY_TYPE: [
+    {
+      name: "Private Limited",
+      value: "privateLimited",
+    },
+    {
+      name: "Sole Proprietorship",
+      value: "soleProprietorship",
+    },
+    {
+      name: "Partnership Proprietor Limited",
+      value: "partnershipProprietorLimited",
+    },
+    {
+      name: "Limited Liability Proprietary",
+      value: "limitedLiabilityProprietary",
+    },
+    {
+      name: "Public Limited",
+      value: "publicLimited",
+    },
+    {
+      name: "Non-Profit Organization",
+      value: "nonProfitOrganization",
+    },
+    {
+      name: "Other",
+      value: "other",
+    },
+  ],
+  LIST_STEP: {
+    companyAndContactInformation: {
+      id: "company-and-contact-information",
+      numerical: "0",
+      text: "Company and contact information",
+      check: false,
+      status: true,
+      data: {
+        id: "company-and-contact-information",
+        numerical: "0",
+        text: "Company and contact information",
+        check: false,
+        status: true,
+      },
+      section: {
+        companyRegistration: {
+          title: "Company registration",
+          description:
+            "Please enter your registered entity name and Unique Entity Number (UEN).",
+          inputFields: {
+            registeredEntityName: {
+              label: "Registered entity name",
+              helperText: "",
+              requiredText: "",
+            },
+            uniqueEntityNumber: {
+              label: "Unique Entity Number (UEN)",
+              helperText: "Please enter a valid UEN",
+              requiredText: "",
+            },
+            companyType: {
+              label: "Company type",
+              helperText: "",
+              requiredText: "",
+            },
+          },
+        },
+        contactDetails: {
+          title: "Contact details",
+          description:
+            "Our Relationship Manager will reach out to you with these details.",
+          inputFields: {
+            salutation: {
+              label: "Salutation",
+              helperText: "",
+              requiredText: "",
+            },
+            name: {
+              label: "Name",
+              helperText: "",
+              requiredText: "",
+            },
+            designation: {
+              label: "Designation",
+              helperText: "",
+              requiredText: "",
+            },
+            email: {
+              label: "Email",
+              helperText: "Please enter a valid email address",
+              requiredText: "",
+            },
+            contactNumber: {
+              label: "Contact number",
+              helperText: "Please enter a valid contact number",
+              requiredText: "",
+            },
+          },
+        },
+      },
+    },
+    transactionAndCardAcceptanceType: {
+      id: "transaction-and-card-acceptance-type",
+      numerical: "1",
+      text: "Transaction and card acceptance type",
+      check: false,
+      status: true,
+      data: {
+        id: "transaction-and-card-acceptance-type",
+        numerical: "1",
+        text: "Transaction and card acceptance type",
+        check: false,
+        status: true,
+      },
+      section: {
+        whichServiceAreYouApplyingFor: {
+          title: "Which service are you applying for?",
+          description:
+            "Both services automatically come with Mastercard and Visa. You may choose other card acceptance options.",
+          data_list_checkbox: [
+            {
+              label: "Point-of-Sales terminal",
+              value: "point-of-sales",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your Point-of-Sales terminal",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: true,
+                    value: "pos-visa",
+                    disabled: true,
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: true,
+                    value: "pos-mastercard",
+                    disabled: true,
+                  },
+                  {
+                    label: "UnionPay",
+                    value: "pos-unionPay",
+                  },
+                  {
+                    label: "JCB",
+                    value: "pos-jcb",
+                  },
+                  {
+                    label: "WeChat Pay",
+                    value: "pos-wechat-pay",
+                  },
+                  {
+                    label: "AliPay",
+                    value: "pos-alipay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    value: "pos-ocbc-ipp",
+                  },
+                  {
+                    label: "Diners Club",
+                    value: "pos-dinners-club",
+                  },
+                  {
+                    label: "AMEX",
+                    value: "pos-amex",
+                  },
+                  {
+                    label: "Paynow",
+                    value: "pos-paynow",
+                  },
+                ],
+              },
+            },
+            {
+              label: "e-Commerce",
+              value: "e-commerce",
+              checked: false,
+              expandedListCheckbox: {
+                description:
+                  "Please select the payment options for your e-Commerce platform",
+                listCheckbox: [
+                  {
+                    label: "Visa",
+                    checked: true,
+                    value: "ecom-visa",
+                    disabled: true,
+                  },
+                  {
+                    label: "Mastercard",
+                    checked: true,
+                    value: "ecom-mastercard",
+                    disabled: true,
+                  },
+                  {
+                    label: "JCB",
+                    value: "ecom-jcb",
+                  },
+                  {
+                    label: "UnionPay",
+                    value: "ecom-union-pay",
+                  },
+                  {
+                    label: "OCBC Instalment Payment Plan (IPP)",
+                    value: "ecom-ocbc-ipp",
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+    },
+    businessDetails: {
+      id: "business-details",
+      numerical: "2",
+      text: "Business details",
+      check: false,
+      status: true,
+      data: {
+        id: "business-details",
+        numerical: "2",
+        text: "Business details",
+        check: false,
+        status: true,
+      },
+      forms: {
+        sections: {
+          businessInfomation: {
+            title: "Point-of-Sales terminal",
+            subTitle: "Business information",
+            listField: {
+              listRadio: [
+                {
+                  description: "Is your business ready for operations?",
+                },
+                {
+                  description:
+                    "Do you currently have an OCBC business account?",
+                },
+              ],
+              textField: {
+                description:
+                  "At how many outlets will you deploy Point-of-Sales terminals?",
+                label: "Number of outlets",
+                helperText: "Enter numbers only",
+                requiredText: "Enter numbers only",
+              },
+              dropdownField: {
+                description:
+                  "Please indicate when your business will start operations",
+                placeholder: "Operations start date",
+                helperText: "",
+                requiredText: "",
+                list: [
+                  {
+                    name: "Within 2 weeks",
+                    value: "within-2-week",
+                  },
+                  {
+                    name: "Within 3 months",
+                    value: "within-3-months",
+                  },
+                  {
+                    name: "After 3 months",
+                    value: "after-3-months",
+                  },
+                ],
+              },
+            },
+          },
+          websiteInfomation: {
+            title: "e-Commerce",
+            subTitle: "Website information",
+            listField: {
+              listRadioExistingWebsite: {
+                description: "Do you have an existing website?",
+              },
+              listRadioPlaceOrderThroughWebsite: {
+                description: "Can customers place orders through your website?",
+              },
+              dropdownField: {
+                description: "Please indicate the live date of your website",
+                placeholder: "Website live date",
+                helperText: "",
+                requiredText: "",
+                list: [
+                  {
+                    name: "Within 2 weeks",
+                    value: "within-2-week",
+                  },
+                  {
+                    name: "Within 3 months",
+                    value: "within-3-months",
+                  },
+                  {
+                    name: "After 3 months",
+                    value: "after-3-months",
+                  },
+                ],
+              },
+              textField: {
+                description: "Your website’s URL",
+                label: "Website URL",
+                helperText: "Please enter a valid URL",
+                inputValue: "",
+              },
+            },
+          },
+          otherInfomation: {
+            title: "Other information",
+            sections: {
+              listCheckboxBusinessOfferings: {
+                description: "What is your business offering?",
+                list: [
+                  {
+                    label: "Selling products",
+                    value: "sellingProducts",
+                    checked: false,
+                  },
+                  {
+                    label: "Providing services",
+                    value: "providingServices",
+                    checked: false,
+                  },
+                ],
+              },
+              listCheckboxAvailableSpaces: {
+                description: "Do you currently have any of the following?",
+                list: [
+                  {
+                    label: "Office",
+                    value: "office",
+                    checked: false,
+                  },
+                  {
+                    label: "Retail store",
+                    value: "retailStore",
+                    checked: false,
+                  },
+                  {
+                    label: "Warehouse",
+                    value: "warehouse",
+                    checked: false,
+                  },
+                ],
+              },
+              listRadio: {
+                description: "Does your retail store accept card payments?",
+              },
+            },
+          },
+        },
+      },
+    },
+    productsAndService: {
+      id: "products-and-services",
+      numerical: "3",
+      text: "Products and services",
+      check: false,
+      status: true,
+      data: {
+        id: "products-and-services",
+        numerical: "3",
+        text: "Products and services",
+        check: false,
+        status: true,
+      },
+      pointOfSalesForm: {
+        title: "Point-of-Sales terminal",
+        businessOffering: {
+          title: "Business offering",
+          description:
+            "What products and/or services is your business offering?",
+          textField: {
+            keyName: "typeOfProductAndService",
+            label: "Business offering",
+            helperText: "Cannot exceed 180 characters",
+            helperTextGuide:
+              "E.g. Bistro, café, workshops, salon, clinic, etc.",
+          },
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          listRadio: {
+            description:
+              "How quickly does your business fulfil these products and/or services?",
+            list: [
+              {
+                label: "Immediate fulfillment",
+                value: "Immediate fulfillment",
+                checked: true,
+              },
+              {
+                label: "Fulfillment over a period of time",
+                value: "Fulfillment over a period of time",
+                checked: false,
+              },
+            ],
+          },
+          listDropdown: {
+            label: "Duration",
+            description: "Please indicate duration",
+            list: [
+              {
+                name: "Within a week",
+                value: "within-a-week",
+              },
+              {
+                name: "Within a month",
+                value: "within-a-month",
+              },
+              {
+                name: "Within 3 months",
+                value: "within-3-months",
+              },
+              {
+                name: "More than 3 months",
+                value: "more-than-3-months",
+              },
+            ],
+          },
+          textField: {
+            description:
+              "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
+          },
+        },
+        salesForecast: {
+          title: "Sales forecast",
+          description:
+            "Based on your products and/or services, what is your sales forecast?",
+          listTextField: [
+            {
+              keyName: "averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+            {
+              keyName: "annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+          ],
+        },
+      },
+      ecommerceForm: {
+        title: "e-Commerce",
+        businessOffering: {
+          title: "Business offering",
+          description:
+            "What products and/or services is your business offering?",
+          textField: {
+            keyName: "typeOfProductAndService",
+            label: "Business offering",
+            helperText: "Cannot exceed 180 characters",
+            helperTextGuide:
+              "E.g. Bistro, café, workshops, salon, clinic, etc.",
+          },
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          textField: {
+            description:
+              "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
+          },
+          listRadio: {
+            description:
+              "How quickly does your business fulfil these products and/or services?",
+            list: [
+              {
+                label: "Immediate fulfillment",
+                value: "Immediate fulfillment",
+                checked: true,
+              },
+              {
+                label: "Fulfillment over a period of time",
+                value: "Fulfillment over a period of time",
+                checked: false,
+              },
+            ],
+          },
+          listCheckbox: {
+            description: "Where will your products come from?",
+            list: [
+              {
+                label: "Within Singapore",
+                value: "withinSingapore",
+                checked: false,
+              },
+              {
+                label: "Out of Singapore",
+                value: "outOfSingapore",
+                checked: false,
+              },
+            ],
+          },
+          listDropdown: {
+            description: "Approximate delivery time to customers",
+            placeholder: "Delivery time",
+            label: "Duration",
+            list: [
+              {
+                name: "Within a week",
+                value: "within-a-week",
+              },
+              {
+                name: "Within a month",
+                value: "within-a-month",
+              },
+              {
+                name: "Within 3 months",
+                value: "within-3-months",
+              },
+              {
+                name: "More than 3 months",
+                value: "more-than-3-months",
+              },
+            ],
+          },
+          listRadioSecondary: {
+            description: "How will your products be delivered?",
+            list: [
+              {
+                label: "Delivered by my supplier",
+                option: "By supplier",
+                value: "By supplier",
+                checked: true,
+              },
+              {
+                label: "Delivered by my business (after receipt from supplier)",
+                option: "By my business",
+                value: "By my business",
+                checked: false,
+              },
+            ],
+          },
+        },
+        salesForecast: {
+          title: "Sales forecast",
+          description:
+            "Based on your products and/or services, what is your sales forecast?",
+          listTextField: [
+            {
+              keyName: "averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+            {
+              keyName: "annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+          ],
+        },
+      },
+    },
+    reviewAndSubmit: {
+      id: "review-and-submit",
+      numerical: "4",
+      text: "Review and submit",
+      check: false,
+      status: true,
+      data: {
+        id: "review-and-submit",
+        numerical: "4",
+        text: "Review and submit",
+        check: false,
+        status: true,
       },
     },
   },
 };
 
-export const APEX_APP_ID_REPRICING_LENGTHENING_PROD =
-  "PROD-193200032W-OCBC-MORTGAGEREPRICE";
-export const SECRET_REPRICING_PROD = "k7siyudd7Mwn19cWBwUxQRMZ97uvdt1S";
-
-export const APEX_APP_ID_NONE_REPRICING_PROD =
-  "PROD-193200032W-OCBC-MORTGAGEPREPAYMENT";
-export const SECRET_PREPAYMENT_PROD = "p207G8uu5gEt0D3FJMFoiOrzl09AjH8e";
 export const ERROR = "error";
 
-export const TITLE_PAGE = "Cashless Payment Application";
+export const TITLE_PAGE = "Cashless Payments Application";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
+export const CONTINUE_LATER = "Continue later";
+
+export const TITLE_LOGIN = "OCBC Cashless Payments";
+export const WElCOME_LOGIN = "Welcome!";
 
 export const URL_SINGPASS_FLOW = {
   checkInformation: "/sing-pass-form/check-information",
@@ -66,12 +935,14 @@ export const URL_SINGPASS_FLOW = {
 };
 
 export const URL_MANUAL_FLOW = {
-  personalInformation: "/manual-form/personal-information",
-  propertyInformation: "/manual-form/property-information",
-  accountInformation: "/manual-form/account-information",
-  repricingRequest: "/manual-form/repricing-request",
-  nonRepricingRequest: "/manual-form/non-repricing-request",
-  review: "/manual-form/review",
+  contactInformation: "/manual-form/contact-information",
+  servicesApplied: "/manual-form/services-applied",
+  businessOperation: "/manual-formbusiness-operation",
+  productsServices: "/manual-form/products-services",
+  feeRates: "/manual-form/fee-rates",
+  sensitiveData: "/manual-form/sensitive-data",
+  beneficialOwnership: "/manual-form/beneficial-ownership",
+  supplementaryDocument: "/manual-form/supplement-document",
 };
 export const URL_PERSONAL_BORROWER_MANUAL =
   "/manual-form/borrower/personal-information";
@@ -95,6 +966,7 @@ export const LIST_DATA_INFORMATION = [
   "Lengthening of loan tenure",
 ];
 export const SINGAPORE = "Singapore";
+
 export const PERSONAL_INFORMATION = "personal-information";
 export const REPRICING_SLUG = "repricing-request";
 export const ERROR_OTP_MESSAGE =
@@ -124,8 +996,16 @@ export const UPLOAD_FILE_PASSPORT = "Passport";
 export const PLEASE_UPLOAD_A_DOCUMENT = "Please upload a document";
 export const YOU_CAN_UPLOAD_UP_TO_TWO_DOCUMENTS =
   "You can upload up to 2 documents";
-export const CONTACT_INFORMATION = "Contact information";
 export const NO_UPLOAD_DOCUMENT = "No documents required for this request";
+
+export const CONTACT_INFORMATION = "contact-information";
+export const SERVICES_APPLIED = "services-applied";
+export const BUSINESS_OPERATION = "business-operation";
+export const PRODUCTS_SERVICES = "products-services";
+export const FEE_RATES = "fee-rates";
+export const SENSITIVE_DATA = "sensitive-data";
+export const BENEFICIAL_OWNERSHIP = "benefical-ownership";
+export const SUPPLEMENTARY_DOCUMENT = "supplementary-document";
 
 export const ERROR_DETAIL_ADDRESS = {
   ErrorCode: "0120",
@@ -134,7 +1014,7 @@ export const ERROR_DETAIL_ADDRESS = {
 
 export const DATA_CARD_CHECKBOX = [
   {
-    label: 'Credit/Debit cards',
+    label: "Credit/Debit cards",
     description: "This Application will take about you 10 minutes",
     value: "creditcards",
     checked: false,
@@ -150,6 +1030,23 @@ export const DATA_CARD_CHECKBOX = [
     checked: false,
   },
 ];
+
+export const DATA_CARD_CHECKBOX_ACCEPTANCE1 = [
+  {
+    label: "Point-of-Sales terminal",
+    value: "point-of-sales-terminal",
+    checked: false,
+  },
+];
+
+export const DATA_CARD_CHECKBOX_ACCEPTANCE2 = [
+  {
+    label: "e-Commerce",
+    value: "ecommerce",
+    checked: false,
+  },
+];
+
 export const PERSONAL_INFORMATION_SINGPASS = {
   emailAddress: "iamtracy@gmail.com",
   countryPhoneNumber: "Singapore",
@@ -527,34 +1424,62 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
   {
     id: "personal-information",
     numerical: "0",
-    text: "Personal information",
+    text: "ACRA and contact information",
     check: false,
     status: true,
   },
   {
     id: "property-information",
     numerical: "1",
-    text: "Mortgaged property address",
+    text: "Services applied",
     check: false,
     status: true,
   },
   {
     id: "account-information",
     numerical: "2",
-    text: "Loan account information",
+    text: "Business operation details",
     check: false,
     status: true,
   },
   {
     id: "non-repricing-request",
     numerical: "3",
-    text: "Non-repricing requests",
+    text: "Product and services",
     check: false,
     status: true,
   },
   {
     id: "review",
     numerical: "4",
+    text: "Fees and rates",
+    check: false,
+    status: true,
+  },
+  {
+    id: "review",
+    numerical: "5",
+    text: "Sensitive data",
+    check: false,
+    status: true,
+  },
+  {
+    id: "review",
+    numerical: "6",
+    text: "Benefit ownership of company",
+    check: false,
+    status: true,
+  },
+  {
+    id: "review",
+    numerical: "7",
+    text: "Supplement documents",
+    check: false,
+    status: true,
+  },
+  {
+    id: "review",
+    numerical: "8",
     text: "Review and submit",
     check: false,
     status: true,
@@ -650,6 +1575,11 @@ export const DATA_TABS_REP_NON_REPRICING_MANUAL_SELECTED = [
     status: true,
   },
 ];
+
+export const NEXT = "Next";
+export const REVIEW = "Review";
+export const SUBMIT = "Submit";
+export const START = "Start";
 
 export const LIST_COUNTRIES = [
   {
@@ -1645,9 +2575,87 @@ export const LIST_CHECKBOX_YES_NO = [
   },
 ];
 
-export const LIST_CHECKBOX_ACCEPT = [
+export const LIST_POINTS = [
   {
-    text: "",
+    text: "Union Pay",
+    check: false,
+  },
+  {
+    text: "JCB",
+    check: false,
+  },
+  {
+    text: "WeChat Pay",
+    check: false,
+  },
+  {
+    text: "Alipay",
+    check: false,
+  },
+  {
+    text: "OCBC Instalment Payment Plan (IPP)",
+    check: false,
+  },
+  {
+    text: "AMEX",
+    check: false,
+  },
+  {
+    text: "Diners Club",
+    check: false,
+  },
+];
+
+export const LIST_ECOMMERCE = [
+  {
+    text: "UnionPay",
+    check: false,
+  },
+  {
+    text: "JCB",
+    check: false,
+  },
+  {
+    text: "OCBC Instalment Payment Plan (IPP)",
+    check: false,
+  },
+];
+
+export const LIST_REPAYMENT_PERIODS = [
+  {
+    text: "3 months",
+    check: false,
+  },
+  {
+    text: "6 months",
+    check: false,
+  },
+  {
+    text: "12 months",
+    check: false,
+  },
+  {
+    text: "18 months",
+    check: false,
+  },
+  {
+    text: "24 months",
+    check: false,
+  },
+  {
+    text: "36 months",
+    check: false,
+  },
+  {
+    text: "48 months",
+    check: false,
+  },
+  {
+    text: "50 months",
+    check: false,
+  },
+  {
+    text: "60 months",
     check: false,
   },
 ];
@@ -1689,14 +2697,14 @@ export const LIST_TERM_LOAN_YES_NO = [
   },
 ];
 
-export const LIST_RADIO_PREPAYMENT_INSTRUCTIONS = [
+export const LIST_RADIO_QUESTION1 = [
   {
-    text: "I agree to deduct the full redemption amount from the OCBC account used for my monthly instalments.",
+    text: "Yes",
     checked: false,
     disable: false,
   },
   {
-    text: "I will arrange for my appointed law firm to inform the Bank regarding the mode of settlement, including the use of CPF funds if relevant.",
+    text: "No",
     checked: false,
     disable: false,
   },
@@ -2295,386 +3303,144 @@ export const DOCUMENT_UPLOAD_UI = [
     label: "Passport",
   },
   {
-    key: "",
-    label: "IRAS NOA",
+    key: "SZ",
+    value: "Swaziland",
+  },
+  {
+    key: "SE",
+    value: "Sweden",
+  },
+  {
+    key: "CH",
+    value: "Switzerland",
+  },
+  {
+    key: "SY",
+    value: "Syrian Arab Republic",
+  },
+  {
+    key: "TW",
+    value: "Taiwan, Province of China",
+  },
+  {
+    key: "TJ",
+    value: "Tajikistan",
+  },
+  {
+    key: "TZ",
+    value: "Tanzania, United Republic of",
+  },
+  {
+    key: "TH",
+    value: "Thailand",
+  },
+  {
+    key: "TL",
+    value: "Timor-leste",
+  },
+  {
+    key: "TG",
+    value: "Togo",
+  },
+  {
+    key: "TK",
+    value: "Tokelau",
+  },
+  {
+    key: "TO",
+    value: "Tonga",
+  },
+  {
+    key: "TT",
+    value: "Trinidad and Tobago",
+  },
+  {
+    key: "TN",
+    value: "Tunisia",
+  },
+  {
+    key: "TR",
+    value: "Turkey",
+  },
+  {
+    key: "TM",
+    value: "Turkmenistan",
+  },
+  {
+    key: "TC",
+    value: "Turks and Caicos Islands",
+  },
+  {
+    key: "TV",
+    value: "Tuvalu",
+  },
+  {
+    key: "UG",
+    value: "Uganda",
+  },
+  {
+    key: "UA",
+    value: "Ukraine",
+  },
+  {
+    key: "AE",
+    value: "United Arab Emirates",
+  },
+  {
+    key: "UM",
+    value: "United States Minor Outlying Islands",
+  },
+  {
+    key: "UY",
+    value: "Uruguay",
+  },
+  {
+    key: "UZ",
+    value: "Uzbekistan",
+  },
+  {
+    key: "VU",
+    value: "Vanuatu",
+  },
+  {
+    key: "VE",
+    value: "Venezuela",
+  },
+  {
+    key: "VN",
+    value: "Viet Nam",
+  },
+  {
+    key: "VG",
+    value: "Virgin Islands, British",
+  },
+  {
+    key: "VI",
+    value: "Virgin Islands, U.S.",
   },
   {
     key: "",
-    label: "CPF Property Withdrawal",
+    value: "Wake Island",
   },
   {
-    key: "",
-    label: "HDB infoweb",
+    key: "WF",
+    value: "Wallis and Futuna",
   },
   {
-    key: "",
-    label: "Payslip",
+    key: "EH",
+    value: "Western Sahara",
   },
   {
-    key: "",
-    label: "CPF contribution",
-  },
-];
-export const LIST_DATA_UPLOAD = [
-  "IRAS Property Dashboard page obtained via",
-  "NRIC",
-  "Utilities bill dated within past 3 months showing your name and residential address",
-  "Past 12 months’ CPF contribution history",
-  "IRAS Notice of Assessment",
-  "CPF Property Withdrawal",
-  "HDB infoweb printout – Financial Info",
-  "Payslip",
-  "Passport",
-  "Past 3 months’ payslips",
-  "CPF Property Withdrawal Statement",
-];
-
-export const LIST_DATA_LABEL_UPLOAD = [
-  "Upload IRAS Property Dashboard page  ",
-  "Upload Front and back of NRIC",
-  "Upload Utilities bill dated within past 3 months showing your name and residential address",
-  "Upload Employer CPF contribution history (past 12 months)",
-  "Upload IRAS Notice of Assessment",
-  "Upload CPF Property Withdrawal",
-  "Upload HDB infoweb printout – Financial Info",
-  "Upload Payslip",
-  "Upload Passport",
-  "Upload Past 3 months’ payslips",
-  "Upload CPF Property Withdrawal Statement",
-];
-
-export const LIST_DATA_RENAMING_FILES = [
-  "IRAS Property Tax",
-  "NRIC",
-  "Utilities bill",
-  "CPF contribution",
-  "IRAS NOA",
-  "CPF Property Withdrawal",
-  "HDB infoweb",
-  "Payslip",
-  "Passport",
-  "Payslip",
-  "CPF Property Withdrawal",
-];
-
-export const LIST_DATA_LABEL_SHOW = [
-  "IRAS MyTax Portal Property Dashboard screenshot",
-  "Front and back of NRIC",
-  "Utilities bill dated within past 3 months showing your name and residential address",
-  "Employer CPF contribution history (past 12 months)",
-  "IRAS Notice of Assessment",
-  "CPF Property Withdrawal",
-  "HDB infoweb printout – Financial Info",
-  "Payslip",
-  "Passport",
-  "Past 3 months’ payslips",
-  "CPF Property Withdrawal Statement",
-];
-
-export const LIST_DOCUMENT_TENURE_2_INVEST_SG_NO_TERM = [
-  {
-    label: "Past 12 months’ CPF contribution history",
-    link: "",
-    href: "",
-    popupName: "CPF contributions",
+    key: "YE",
+    value: "Yemen",
   },
   {
-    label: "IRAS Notice of Assessment",
-    link: "",
-    href: "",
-    popupName: "NOA",
+    key: "ZM",
+    value: "Zambia",
   },
   {
-    label: "HDB infoweb printout – Financial Info",
-    link: "",
-    href: "",
-    popupName: "HDB",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_NONE_SG_NO_TERM = [
-  {
-    label: "IRAS Property Dashboard page obtained via",
-    link: "IRAS myTax portal",
-    href: "",
-    popupName: "IRAS",
-  },
-  {
-    label:
-      "Utilities bill dated within past 3 months showing your name and residential address",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_SG_HAVE_TERM = [
-  // {
-  //   label: 'IRAS Property Dashboard page obtained via',
-  //   link: 'IRAS myTax portal',
-  //   href: '',
-  //   popupName: 'IRAS'
-  // },
-  // {
-  //   label: 'NRIC',
-  //   link: '',
-  //   href: '',
-  //   popupName: ''
-  // },
-  // {
-  //   label: 'Past 12 months’ CPF contribution history',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'CPF contributions'
-  // },
-  // {
-  //   label: 'IRAS Notice of Assessment',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'NOA'
-  // },
-  {
-    label: "CPF Property Withdrawal",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "HDB infoweb printout – Financial Info",
-    link: "",
-    href: "",
-    popupName: "HDB",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_SG_HAVE_TERM_REPRICING_AND_NO_REPRICING_SG =
-  [
-    {
-      label: "CPF Property Withdrawal",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-    {
-      label: "HDB infoweb printout – Financial Info",
-      link: "",
-      href: "",
-      popupName: "HDB",
-    },
-    {
-      label: "NRIC",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-  ];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_SG_HAVE_TERM_REPRICING_AND_NO_REPRICING_NOT_SG =
-  [
-    {
-      label: "CPF Property Withdrawal",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-    {
-      label: "HDB infoweb printout – Financial Info",
-      link: "",
-      href: "",
-      popupName: "HDB",
-    },
-    {
-      label: "Passport",
-      link: "",
-      href: "",
-      popupName: "",
-    },
-  ];
-
-export const LIST_DOCUMENT_TENURE_2_OWNER_NONE_SG_HAVE_TERM = [
-  {
-    label: "IRAS Property Dashboard page obtained via",
-    link: "IRAS myTax portal",
-    href: "",
-    popupName: "IRAS",
-  },
-  {
-    label:
-      "Utilities bill dated within past 3 months showing your name and residential address",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "Payslip",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "IRAS Notice of Assessment",
-    link: "",
-    href: "",
-    popupName: "NOA",
-  },
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_INVEST_NONE_SG_HAVE_TERM = [
-  // {
-  //   label: 'Past 12 months’ CPF contribution history',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'CPF contributions'
-  // },
-  // {
-  //   label: 'IRAS Notice of Assessment',
-  //   link: '',
-  //   href: '',
-  //   popupName: 'NOA',
-  // },
-  {
-    label: "CPF Property Withdrawal Statement",
-    link: "",
-    href: "",
-    popupName: "CPF prop",
-  },
-  {
-    label: "HDB infoweb printout – Financial Info",
-    link: "",
-    href: "",
-    popupName: "HDB",
-  },
-];
-
-export const LIST_DOCUMENT_NON_REPRICING_SG = [
-  {
-    label: "NRIC",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_NON_REPRICING_NONE_SG = [
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_DOCUMENT_TENURE_2_INVEST_NONE_SG_BOTH_TERM = [
-  {
-    label: "Past 3 months’ payslips",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-  {
-    label: "IRAS Notice of Assessment",
-    link: "",
-    href: "",
-    popupName: "NOA",
-  },
-  {
-    label: "Passport",
-    link: "",
-    href: "",
-    popupName: "",
-  },
-];
-
-export const LIST_NATIONAL = [
-  {
-    key: "Singapore citizen/PR",
-    value: "Singapore citizen/PR",
-  },
-  {
-    key: "Foreigner",
-    value: "Foreigner",
-  },
-];
-
-export const LIST_TERM_LOAN = [
-  {
-    key: "do not have a term loan",
-    value: "do not have a term loan",
-  },
-  {
-    key: "have a term loan",
-    value: "have a term loan",
-  },
-];
-
-export const DATA_DOCUMENT = {
-  documentYouNeed: `Documents you’ll need if you are a`,
-  and: "and",
-  forYourMortgaged: "for your mortgaged property.",
-};
-
-export const NEXT = "Next";
-export const REVIEW = "Review";
-export const SUBMIT = "Submit";
-export const APPLY_WITH_SINGPASS = "Apply with Singpass";
-export const LOGIN_WITH_OCBC_MYINFO_SIMULATOR =
-  "Login with OCBC Myinfo Simulator";
-export const LOGIN_WITH_SINGPASS = "Log in with Singpass";
-export const SPEED_UP_APPLICATION = "Speed up application?";
-export const DONT_HAVE_SINGPASS = `Do not have Singpass?`;
-export const FILL_IN_ONLINE_APPLICATION_FORM =
-  "Fill in online application form";
-export const WHAT_SERVICING_REQUEST =
-  "What request(s) would you like to make today?";
-export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
-export const REVIEW_SLUG = "review";
-export const LIST_ACCOUNT_NUMBER = [
-  {
-    name: "one",
-    value: "1",
-  },
-  {
-    name: "two",
-    value: "2",
-  },
-  {
-    name: "three",
-    value: "3",
-  },
-  {
-    name: "four",
-    value: "4",
-  },
-];
-
-export const LIST_BORROWER_NUMBER = [
-  {
-    name: "Only myself",
-    value: "Only myself",
-  },
-  {
-    name: "2 borrowers",
-    value: "2 borrowers",
-  },
-  {
-    name: "3 borrowers",
-    value: "3 borrowers",
-  },
-  {
-    name: "4 borrowers",
-    value: "4 borrowers",
+    key: "ZW",
+    value: "Zimbabwe",
   },
 ];
 
@@ -4042,15 +4808,12 @@ export const LIST_PROPERTY = ["Local", "Overseas"];
 
 export const LIST_PROPERTY_COUNTRY = ["Singapore", "Foreigner"];
 
-export const DAT_FULL_REDEMPTION_OF_ALL_LOANS = {
-  subTitleTwoMonths:
-    "Your prepayment date will be 2 months from now so that there will not be any interest-in-lieu payable. If your loan is tagged to Singapore Inter-Bank Offer Rate (SIBOR), Singapore Overnight Rate (SOR) or Cost of Funds, the prepayment date will be the next Rate Review Date (RRD) following the 2 months’ notice period. If the RRD does not fall on a working day, prepayment should be made on the preceding working day to avoid incurring any prepayment fee.",
-  subTitleThreeMonths:
-    "Your prepayment date will be 3 months from now so that there will not be any interest-in-lieu payable. If your loan is tagged to Singapore Inter-Bank Offer Rate (SIBOR), Singapore Overnight Rate (SOR) or Cost of Funds, the prepayment date will be the next Rate Review Date (RRD) following the 3 months’ notice period. If the RRD does not fall on a working day, prepayment should be made on the preceding working day to avoid incurring any prepayment fee.",
-  labelLawFirmAppointment: "Law firm appointment",
-  labelInput: "Law firm you want to appoint",
-  helperTextInput: "Provide full business name",
-  labelRadio: "Mode of settlement",
+export const OTHER_SERVICES = {
+  titleQuestions1:
+    "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+  titleQuestions2:
+    "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+  titlequestions3: "Are you interested in Mail Order /Telephone Order?",
 };
 
 export const ACCOUNT_REQUEST = ["Single", "Multiple"];

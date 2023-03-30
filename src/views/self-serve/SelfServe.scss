@@ -1,0 +1,246 @@
+@import "../../assets/style/variable.scss";
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: #575d65 !important;
+  box-shadow: 0 0 0px 1000px #fafcfc inset;
+}
+
+// focused color for input
+.MuiFilledInput-underline,
+.MuiInput-underline {
+  &::after {
+    border-bottom: 1px solid #005efd !important;
+  }
+  &.Mui-error::after {
+    border-bottom: 1px solid #ed5347 !important;
+  }
+}
+
+// focused color for input with variant='outlined'
+.MuiOutlinedInput-root {
+  .mui-focused fieldset {
+    border-bottom: 1px solid #005efd !important;
+  }
+}
+
+.MuiSelect-icon {
+  font-size: 27px !important;
+  top: unset !important;
+}
+
+#common-dialog {
+  background: #b1b8c5;
+}
+
+.MuiFormHelperText-root {
+  margin-left: 0px !important;
+  padding-top: 8px !important;
+  background-color: #ffffff;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 0 !important;
+}
+
+.form-submit {
+  background-color: rgb(247, 248, 249);
+  margin-top: 80px;
+  padding: 20px;
+  border-radius: 10px;
+  gap: 20px;
+}
+
+.self-serve-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+
+  @media (max-width: 1024px) {
+    display: block;
+  }
+
+  .step-wrapper {
+    .category-wrapper {
+      margin-bottom: 56px;
+      & > div::before {
+        background-color: #e30613;
+      }
+    }
+  }
+
+  & .MuiButtonBase-root {
+    .MuiIconButton-label {
+      color: #575d65;
+    }
+  }
+
+  & .section-wrapper {
+    background-color: transparent;
+    padding: 0px;
+    margin-bottom: 56px;
+    & .MuiGrid-container {
+      row-gap: 40px;
+      column-gap: 24px;
+    }
+
+    & .error-text {
+      color: red;
+    }
+
+    & .header-wrapper {
+      gap: 16px;
+
+      & .content-title {
+        gap: 16px;
+        align-items: baseline;
+        & .edit-link {
+          cursor: pointer;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          color: #005efd;
+        }
+      }
+    }
+
+    & .MuiFormControl-root {
+      & .MuiInputBase-root,
+      .MuiFormLabel-root {
+        color: #777e87;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        &::before {
+          border-color: #e2e7ec;
+        }
+        & input {
+          background-color: #fafcfc;
+        }
+      }
+
+      & .MuiInputBase-root {
+        background-color: #fafcfc;
+        & input,
+        .MuiSelect-root {
+          font-weight: 600;
+          font-size: 16px;
+          line-height: 24px;
+          color: #575d65;
+        }
+        #mui-component-select-areaCode {
+          padding-right: 50px;
+        }
+      }
+
+      & .MuiInput-underline::before {
+        border-color: #e2e7ec;
+      }
+    }
+
+    & .section-title {
+      margin-bottom: 16px;
+      font-weight: 700;
+      font-size: $fzH2;
+      line-height: 32px;
+      color: #363b40;
+    }
+
+    & .sub-section-title {
+      margin-bottom: 40px;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 30px;
+      color: #363b40;
+    }
+
+    & .section-description {
+      margin-bottom: 40px;
+      font-weight: 400;
+      font-size: $fzH5;
+      line-height: 28px;
+      color: #777e87;
+    }
+
+    & .sub-section-description {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      color: #777e87;
+    }
+
+    & .section-seperate {
+      height: 1px;
+      width: 100%;
+      background: #e2e7ec;
+      margin-top: 56px;
+    }
+
+    .company-type-select {
+      & .MuiInputBase-formControl {
+        height: 57px;
+        background: #fafcfc;
+      }
+    }
+  }
+
+  .formatted-numberphone-input {
+    background: #fafcfc;
+    & .MuiInputBase-root {
+      height: 34px;
+      margin-top: 0;
+    }
+
+    .MuiInputLabel-root {
+      padding-left: 8px;
+    }
+
+    & label {
+      position: relative;
+      top: 5px;
+    }
+
+    & .formatted-numberphone-select {
+      padding-left: 8px;
+      & .MuiSelect-icon {
+        border-right: 1px solid #e2e7ec;
+        width: 60px;
+      }
+      & .MuiSelect-root {
+        padding-bottom: 5px;
+      }
+    }
+
+    input {
+      padding-left: 10px;
+    }
+  }
+
+  & .percentage-input-field {
+    & .MuiInputBase-root {
+      padding-right: 8px;
+    }
+  }
+
+  & .MuiInputBase-root {
+    height: 57px;
+  }
+
+  .button-wrapper {
+    justify-content: space-between;
+    & > button {
+      border: 1px solid #3d525d;
+      max-width: 72px;
+      max-height: 52px;
+      & .MuiSvgIcon-root {
+        font-size: 25px;
+        color: #3d525d;
+      }
+    }
+  }
+}

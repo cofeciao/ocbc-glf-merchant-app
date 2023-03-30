@@ -1,0 +1,14 @@
+@import '../../../assets/style/variable.scss';
+
+.sensitive {
+  & .sensitive-category {
+    margin-bottom: 56px;
+
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+}

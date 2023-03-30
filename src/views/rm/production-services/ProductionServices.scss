@@ -1,0 +1,69 @@
+@import '../../../assets/style/variable.scss';
+
+.business-services {
+  & .business-services-category {
+    margin-bottom: 56px;
+
+    div::before {
+      background-color: #E30613
+    }
+    @media (max-width: 767px) {
+      margin-bottom: 40px;
+    }
+  }
+  & .refund-policy {
+    & .radio-group-refund {
+      flex-direction: row;
+      margin-bottom: 40px;
+      gap: 40px;
+    }
+    & .radio-group-upload-policy {
+      margin-bottom: 20px;
+    }
+  }
+  & .business-information {
+    & .title {
+      font-weight: 400;
+      margin-bottom: 22px;
+      font-size: 18px;
+      line-height: 28px;
+      color: #777E87;
+    }
+
+    & .MuiTextField-root {
+      // margin-bottom: 42px;
+      width: 100%;
+    }
+
+    & .MuiFormGroup-root {
+      margin-bottom: 30px;
+    }
+
+    & .MuiGrid-container {
+      row-gap: 0px !important;
+      // column-gap: 0px !important;
+    }
+
+    & .fulfillment-group {
+      & .MuiGrid-container {
+        column-gap: 0px !important;
+      }
+    }
+
+    & .title-fulfilment-information {
+      display: flex;
+
+      img {
+        margin-left: 8px;
+      }
+    }
+
+  }
+}
+
+.button-wrapper {
+  a {
+    text-decoration: none;
+    color: $dodgerBlue;
+  }
+}
