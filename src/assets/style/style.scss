@@ -1074,7 +1074,6 @@ body {
 // styled select phone number
 .MuiList-root { 
   & .item-selected {
-    padding-bottom: 4px !important;
     span {
       font-size: 16px;
       line-height: 30px;
@@ -1087,6 +1086,10 @@ body {
       font-weight: 400;
       color: #777E87;
     }
+  }
+  & .item-selected.MuiMenuItem-root {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   & .item-selected.Mui-selected {
