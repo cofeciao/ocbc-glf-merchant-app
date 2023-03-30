@@ -1075,8 +1075,7 @@ body {
 .MuiList-root { 
   & .item-selected {
     span {
-      padding: 6px 0px;
-      font-size: 20px;
+      font-size: 16px;
       line-height: 30px;
     }
     & .item-selected {
@@ -1087,6 +1086,10 @@ body {
       font-weight: 400;
       color: #777E87;
     }
+  }
+  & .item-selected.MuiMenuItem-root {
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   & .item-selected.Mui-selected {
