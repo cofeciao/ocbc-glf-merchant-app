@@ -72,7 +72,6 @@ const SelfServe: React.FC = () => {
     Object.values(LIST_STEP).forEach((item) => {
       dataListStep.push(item.data);
     });
-    console.log(dataListStep);
     return dataListStep;
   };
 

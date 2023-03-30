@@ -1,5 +1,5 @@
 // import modules
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -22,10 +22,26 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 const CompanyRegistration: React.FC<
   ICompanyAndContactInformation.ICompanyRegistration
 > = (props) => {
+
+  // props
   const { cx, data, register, errors, dataRedux } = props;
   const { LIST_COMPANY_TYPE } = SELF_SERVE_PAGE;
   const { registeredEntityName, uniqueEntityNumber, companyType } =
     data.inputFields;
+
+  // states
+  const [valueDefaultCompanyType, setValueDefaultCompanyType] = useState<string>("");
+
+  /**
+   * setState value default salutation
+   */
+  useEffect(() => {
+    if (dataRedux && dataRedux.salutation) {
+      setValueDefaultCompanyType(dataRedux.companyType)
+    } else {
+      setValueDefaultCompanyType(LIST_COMPANY_TYPE[0].name)
+    }
+   }, [dataRedux])
 
   return (
     <Box className={cx("company-registration-wrapper")}>
@@ -110,12 +126,17 @@ const CompanyRegistration: React.FC<
                 IconComponent={ExpandMore}
                 {...register("companyType", {
                   required: true,
+                  onChange: (event: any) => setValueDefaultCompanyType(event.target.value)
                 })}
               >
                 {_.map(LIST_COMPANY_TYPE, (item, index) => {
                   return (
-                    <MenuItem key={index} value={item.name}>
-                      {item.name}
+                    <MenuItem className={cx("item-selected")} key={index} value={item.name}>
+                      <span 
+                        className={cx(valueDefaultCompanyType === item.name ? "item-selected" : "item-unselected")}
+                      >
+                        {item.name}
+                      </span>
                     </MenuItem>
                   );
                 })}
