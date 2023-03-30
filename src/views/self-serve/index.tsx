@@ -1,6 +1,6 @@
 // import modules
 import React, { useEffect } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { Container } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { Header, FormLayout, Tabs } from "@sectionsg/orc";
@@ -10,7 +10,7 @@ import BusinessDetails from "@/views/self-serve/business-details";
 import ProductsAndServices from "@/views/self-serve/products-and-services";
 import ReviewAndSubmit from "@/views/self-serve/review-and-submit";
 import Footer from "@/components/Footer";
-import { adobeAbandon } from "@/utils/adobeTracking";
+import _ from "lodash";
 
 // import constants
 import {
@@ -18,7 +18,6 @@ import {
   LINK_EXTERNAL_PAGE,
   SELF_SERVE_PAGE,
 } from "../../utils/constants";
-import _ from "lodash";
 
 // import style
 import styles from "@/views/self-serve/SelfServe.scss";
@@ -33,7 +32,6 @@ const SelfServe: React.FC = () => {
 
   // hooks
   const history = useHistory();
-  const { slug } = useParams();
   const location = useLocation();
   const currentLocation = location.pathname.replace("self/", "");
   const pathStep = currentLocation
@@ -41,38 +39,30 @@ const SelfServe: React.FC = () => {
     .filter((item: string) => !_.isEmpty(item))[0];
 
   /**
-   * add event listener to handle page reload
+   * Add event listener to handle reload or leave page
    */
   useEffect(() => {
+    window.scrollTo(0, 0);
+    window.onload = function () {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+    };
     window.addEventListener("beforeunload", handleBeforeUnload);
+    if (history.action === "POP") {
+      window.location.href = (process.env.myinfo as any).redirectUri;
+    }
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
 
-  // /**
-  //  * Detect reload and show alert
-  //  * @param event
-  //  */
+  /**
+   * Handle before unload
+   * @param event
+   */
   const handleBeforeUnload = (event: any) => {
     event.preventDefault();
     event.returnValue = "";
   };
-
-  /**
-   * Detect reload page and start over
-   */
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    if (history.action === "POP") {
-      window.location.href = (process.env.myinfo as any).redirectUri;
-    }
-    let trackingEvent = (window as any).attachEvent || window.addEventListener;
-    let chkevent = (window as any).attachEvent
-      ? "onbeforeunload"
-      : "beforeunload";
-    trackingEvent(chkevent, adobeAbandon);
-  }, []);
 
   /**
    * Dynamic stepper
@@ -84,11 +74,6 @@ const SelfServe: React.FC = () => {
     });
     return dataListStep;
   };
-
-  // Render UI
-  if (history.action === "POP") {
-    return <></>;
-  }
 
   /**
    * Handle click into on stepper
@@ -122,41 +107,29 @@ const SelfServe: React.FC = () => {
             content={
               <>
                 {/* {CompanyAndContactInformation} */}
-                {slug === LIST_STEP.companyAndContactInformation.id && (
-                  <CompanyAndContactInformation />
-                )}
-                {currentLocation ===
-                  `/${LIST_STEP.companyAndContactInformation.id}/edit` && (
+                {pathStep === LIST_STEP.companyAndContactInformation.id && (
                   <CompanyAndContactInformation />
                 )}
 
                 {/* {TransactionAndCardAcceptanceType} */}
-                {slug === LIST_STEP.transactionAndCardAcceptanceType.id && (
-                  <TransactionAndCardAcceptanceType />
-                )}
-                {currentLocation ===
-                  `/${LIST_STEP.transactionAndCardAcceptanceType.id}/edit` && (
+                {pathStep === LIST_STEP.transactionAndCardAcceptanceType.id && (
                   <TransactionAndCardAcceptanceType />
                 )}
 
                 {/* {BusinessDetails} */}
-                {slug === LIST_STEP.businessDetails.id && <BusinessDetails />}
-                {currentLocation ===
-                  `/${LIST_STEP.businessDetails.id}/edit` && (
+                {pathStep === LIST_STEP.businessDetails.id && (
                   <BusinessDetails />
                 )}
 
                 {/* {ProductsAndServices} */}
-                {slug === LIST_STEP.productsAndService.id && (
-                  <ProductsAndServices />
-                )}
-                {currentLocation ===
-                  `/${LIST_STEP.productsAndService.id}/edit` && (
+                {pathStep === LIST_STEP.productsAndService.id && (
                   <ProductsAndServices />
                 )}
 
                 {/* {ReviewAndSubmit} */}
-                {slug === LIST_STEP.reviewAndSubmit.id && <ReviewAndSubmit />}
+                {pathStep === LIST_STEP.reviewAndSubmit.id && (
+                  <ReviewAndSubmit />
+                )}
               </>
             }
           />

@@ -72,8 +72,6 @@ const ProductsAndServices: React.FC = () => {
         orderFulfilment:
           productsAndServicesStep.pointOfSales.orderFulfilment ||
           pointOfSalesForm.fulfilmentInformation.listRadio.list[0].label,
-        typeOfProductAndService:
-          productsAndServicesStep.pointOfSales.typeOfProductAndService || "",
         averageAmountPerCreditCardTransaction:
           productsAndServicesStep.pointOfSales
             .averageAmountPerCreditCardTransaction || "",
@@ -81,28 +79,9 @@ const ProductsAndServices: React.FC = () => {
           productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast ||
           "",
       },
-      Ecom: {
-        orderFulfilment:
-          productsAndServicesStep.eCommerce.orderFulfilment ||
-          ecommerceForm.fulfilmentInformation.listRadio.list[0].label,
-        productDelivery:
-          productsAndServicesStep.eCommerce.productDelivery ||
-          ecommerceForm.fulfilmentInformation.listRadioSecondary.list[0].option,
-        typeOfProductAndService:
-          productsAndServicesStep.eCommerce.typeOfProductAndService || "",
-        deliveryTimeToCustomers:
-          productsAndServicesStep.eCommerce.deliveryTimeToCustomers || "",
-        averageAmountPerCreditCardTransaction:
-          productsAndServicesStep.eCommerce
-            .averageAmountPerCreditCardTransaction || "",
-        annualCreditCardSalesForecast:
-          productsAndServicesStep.eCommerce.annualCreditCardSalesForecast || "",
-        productDeliveredFrom:
-          productsAndServicesStep.eCommerce.productDeliveredFrom || "",
-      },
+      Ecom: {},
     },
   });
-
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -188,7 +167,6 @@ const ProductsAndServices: React.FC = () => {
         continueLater
         backButton
         variant="next"
-
         onClickBack={() => {
           history.push(LIST_ROUTER.business_details);
         }}

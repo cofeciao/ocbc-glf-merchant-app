@@ -6,7 +6,7 @@ import ListCheckBox from "@/components/ListCheckBox";
 import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SectionWrapper from "@/views/self-serve/SectionWrapper";
 import RedirectButton from "@/views/self-serve/RedirectButton";
 import _ from "lodash";
@@ -35,7 +35,6 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
-  const { slug } = useParams();
 
   // states
   const [dataCheckbox, setDataCheckbox] = useState(
@@ -127,11 +126,7 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
         }}
         onClickNext={() => {
           // redirect
-          history.push(
-            slug === "edit"
-              ? LIST_ROUTER.review_and_submit
-              : LIST_ROUTER.business_details
-          );
+          history.push(LIST_ROUTER.business_details);
         }}
       />
     </Box>

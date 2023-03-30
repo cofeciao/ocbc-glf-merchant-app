@@ -30,12 +30,14 @@ const BusinessDetails: React.FC = () => {
     },
     LIST_RADIO_YES_NO,
   } = SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
 
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
-  const { slug } = useParams();
+
   /**
    * Handle scrolling to top on page load
    */
@@ -77,8 +79,6 @@ const BusinessDetails: React.FC = () => {
       businessAccount: LIST_RADIO_YES_NO[0].label,
       existingWebsite: LIST_RADIO_YES_NO[0].label,
       placeOrderThroughWebsite: LIST_RADIO_YES_NO[0].label,
-      businessOfferings: businessDetailsStep.businessOfferings,
-      availableSpaces: businessDetailsStep.availableSpaces,
     },
   });
 
@@ -127,11 +127,7 @@ const BusinessDetails: React.FC = () => {
         }}
         onClickNext={() => {
           // redirect
-          history.push(
-            slug === "edit"
-              ? LIST_ROUTER.review_and_submit
-              : LIST_ROUTER.products_and_services
-          );
+          history.push(LIST_ROUTER.products_and_services);
 
           // save to Redux
           dispatch(saveDataBusinessDetailsStep(getValues()));
