@@ -145,7 +145,7 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_COMPANY_REGISTRATION}
         edit={true}
         onClickEdit={() => {
-          history.push(LIST_ROUTER.company_and_contact_information);
+          history.push(`${LIST_ROUTER.company_and_contact_information}/edit`);
         }}
       >
         <CompanyAndContactInfomation data={companyAndContactInformationStep} />
@@ -157,7 +157,9 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE}
         edit={true}
         onClickEdit={() => {
-          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+          history.push(
+            `${LIST_ROUTER.transaction_and_card_acceptance_type}/edit`
+          );
         }}
       >
         <TransactionAndCardAcceptanceType
@@ -171,7 +173,7 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_BUSINESS_DETAILS}
         edit={true}
         onClickEdit={() => {
-          history.push(LIST_ROUTER.business_details);
+          history.push(`${LIST_ROUTER.business_details}/edit`);
         }}
       >
         <BusinessDetails
@@ -187,7 +189,7 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_PRODUCTS_AND_SERVICES}
         edit={true}
         onClickEdit={() => {
-          history.push(LIST_ROUTER.products_and_services);
+          history.push(`${LIST_ROUTER.products_and_services}/edit`);
         }}
       >
         <ProductsAndServices

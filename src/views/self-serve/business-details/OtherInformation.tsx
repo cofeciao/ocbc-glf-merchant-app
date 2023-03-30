@@ -28,18 +28,16 @@ const OtherInformation: React.FC<IBusinessDetails.IOtherInformation> = (
   } = sections;
   const { LIST_RADIO_YES_NO } = SELF_SERVE_PAGE;
 
-  // State
+  // classnames
+  const cx = classnames.bind(styles);
+
+  // states
   const [listDataBusinessOfferings, setListDataBusinessOfferings] = useState(
     dataRedux.businessOfferings || listCheckboxBusinessOfferings.list
   );
   const [listDataAvailableSpaces, setListDataAvailableSpaces] = useState(
     dataRedux.availableSpaces || listCheckboxAvailableSpaces.list
   );
-
-  // classnames
-  const cx = classnames.bind(styles);
-
-  // states
   const [openRadioRetailStore, setOpenRadioRetailStore] =
     useState<boolean>(false);
   const [retailStoreAcceptCardPayments, setRetailStoreAcceptCardPayments] =
@@ -172,10 +170,12 @@ const OtherInformation: React.FC<IBusinessDetails.IOtherInformation> = (
                     register={register}
                     required
                     onBlur={field.onBlur}
-                    onChange={field.onBlur}
                     getValue={(value: ICheckBox[]) => {
-                      handleDataAvailableSpaces(value);
                       setListDataAvailableSpaces(value);
+                    }}
+                    onChange={field.onChange}
+                    getValueOnChange={(value: ICheckBox[]) => {
+                      handleDataAvailableSpaces(value);
                     }}
                   />
                 </>

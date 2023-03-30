@@ -31,10 +31,12 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
+
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // State
+  // states
   const [dataCheckbox, setDataCheckbox] = useState(
     whichServiceAreYouApplyingFor.data_list_checkbox
   );
@@ -123,6 +125,7 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
           history.push(LIST_ROUTER.company_and_contact_information);
         }}
         onClickNext={() => {
+          // redirect
           history.push(LIST_ROUTER.business_details);
         }}
       />

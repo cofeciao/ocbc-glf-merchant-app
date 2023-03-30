@@ -8,7 +8,7 @@ import {
 } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import RedirectButton from "@/views/self-serve/RedirectButton";
 import BusinessDetailsForm from "./BusinessDetailsForm";
 import { useForm } from "react-hook-form";
@@ -19,6 +19,7 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 // import style
 import styles from "./BusinessDetails.scss";
 
+// render UI
 const BusinessDetails: React.FC = () => {
   const {
     LIST_STEP: {
@@ -29,7 +30,11 @@ const BusinessDetails: React.FC = () => {
     },
     LIST_RADIO_YES_NO,
   } = SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
+
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -74,8 +79,6 @@ const BusinessDetails: React.FC = () => {
       businessAccount: LIST_RADIO_YES_NO[0].label,
       existingWebsite: LIST_RADIO_YES_NO[0].label,
       placeOrderThroughWebsite: LIST_RADIO_YES_NO[0].label,
-      businessOfferings: businessDetailsStep.businessOfferings,
-      availableSpaces: businessDetailsStep.availableSpaces,
     },
   });
 
@@ -123,7 +126,10 @@ const BusinessDetails: React.FC = () => {
           history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
         }}
         onClickNext={() => {
+          // redirect
           history.push(LIST_ROUTER.products_and_services);
+
+          // save to Redux
           dispatch(saveDataBusinessDetailsStep(getValues()));
           dispatch(
             saveDataListWebsiteUrl(

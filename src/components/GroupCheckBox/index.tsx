@@ -76,7 +76,7 @@ const GroupCheckBox = (props: IGroupCheckBox) => {
                   checked: boolean
                 ) => {
                   handleCheckBox(event, checked);
-                  onChange(event);
+                  onChange(event, dataListCheckbox);
                 }}
                 onBlur={(e) => {
                   onBlur(e);
