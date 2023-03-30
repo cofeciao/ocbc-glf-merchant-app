@@ -18,13 +18,12 @@
     font-weight: 700;
     font-size: 24px;
     line-height: 32px;
-    color: #363B40;
+    color: #363b40;
   }
   & .radio-group-container {
     margin-top: 32px;
   }
 }
-
 
 .entry-dialog-wrapper {
   & .radio-group-entry-dialog {
@@ -44,7 +43,7 @@
 
       & .inactive {
         background-color: $white;
-        color: #575D65;
+        color: #575d65;
       }
       & label {
         padding: 8px 10px;
@@ -61,7 +60,26 @@
       }
     }
   }
+
   & .group-button {
     margin-bottom: 48px !important;
+  }
+}
+
+.retrieve-dialog-wrapper {
+  & .MuiFormLabel-root {
+    &.Mui-error {
+      color: #777e87;
+    }
+    color: #777e87;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    &::before {
+      border-color: #e2e7ec;
+    }
+    & input {
+      background-color: #fafcfc;
+    }
   }
 }

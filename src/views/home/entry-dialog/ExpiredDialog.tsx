@@ -1,5 +1,5 @@
 // import modules
-import React, { useState } from "react";
+import React from "react";
 import { Box, Button, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
@@ -11,23 +11,16 @@ import { HOME_PAGE } from "@/utils/constants";
 import styles from "./EntryDialog.scss";
 
 // import types
+import { IEntryDialog } from "./EntryDialog";
 
 // render UI
-const ExpiredDialog: React.FC<any> = (props) => {
-  const { onCloseDialog } = props;
+const ExpiredDialog: React.FC<IEntryDialog.IDialog> = () => {
   const {
     LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED,
     LABEL_PLEASE_RESTART_YOUR_APPLICATION,
     LABEL_START_OVER,
   } = HOME_PAGE.ENTRY_POINT;
   const cx = classnames.bind(styles);
-
-  /**
-   * Handle close dialog
-   */
-  const handleCloseDialog = () => {
-    onCloseDialog(true);
-  };
 
   /**
    * Handle after clicking the star over button
@@ -51,10 +44,7 @@ const ExpiredDialog: React.FC<any> = (props) => {
       {/* {Next Button} */}
       <Box className={cx("group-button mt-dt-40")}>
         <Box className="d-inline">
-           <Button 
-            variant="contained" 
-            onClick={handleClickNextButton}
-          >
+          <Button variant="contained" onClick={handleClickNextButton}>
             {LABEL_START_OVER}
           </Button>
         </Box>
