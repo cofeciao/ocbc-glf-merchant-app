@@ -1,0 +1,117 @@
+{
+  "_args": [
+    [
+      "@sectionsg/orc@2.0.405",
+      "/Users/techvsi/Documents/Working/ocbc-glf-merchant-app"
+    ]
+  ],
+  "_from": "@sectionsg/orc@2.0.405",
+  "_id": "@sectionsg/orc@2.0.405",
+  "_inBundle": false,
+  "_integrity": "sha1-6z6R7bwl41Vjd3eNv7LXxKcCcTg=",
+  "_location": "/@sectionsg/orc",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "@sectionsg/orc@2.0.405",
+    "name": "@sectionsg/orc",
+    "escapedName": "@sectionsg%2forc",
+    "scope": "@sectionsg",
+    "rawSpec": "2.0.405",
+    "saveSpec": null,
+    "fetchSpec": "2.0.405"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://gitlab.com/api/v4/projects/23672113/packages/npm/@sectionsg/orc/-/@sectionsg/orc-2.0.405.tgz",
+  "_spec": "2.0.405",
+  "_where": "/Users/techvsi/Documents/Working/ocbc-glf-merchant-app",
+  "author": {
+    "name": "techvsi"
+  },
+  "dependencies": {
+    "@material-ui/core": "4.10.1",
+    "@material-ui/icons": "4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@material-ui/styles": "4.10.0",
+    "@sectionsg/package-build-tool": "^1.0.6",
+    "clsx": "^1.1.1",
+    "esbuild-loader": "^2.8.0",
+    "lodash": "^4.17.15",
+    "moment": "^2.29.1",
+    "prop-types": "^15.7.2",
+    "react-card-flip": "^1.1.1",
+    "react-code-input": "^3.10.1",
+    "react-headroom": "^3.1.0",
+    "react-router-dom": "^5.3.0",
+    "react-verification-code-input": "^1.2.9",
+    "webpack-bundle-analyzer": "^4.3.0"
+  },
+  "description": "",
+  "devDependencies": {
+    "@babel/core": "7.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-arrow-functions": "^7.10.4",
+    "@babel/plugin-transform-runtime": "7.8.3",
+    "@babel/plugin-transform-template-literals": "^7.10.5",
+    "@babel/preset-env": "7.7.6",
+    "@babel/preset-react": "7.7.4",
+    "@babel/runtime": "7.8.7",
+    "@storybook/addon-actions": "^6.1.15",
+    "@storybook/addon-essentials": "^6.1.15",
+    "@storybook/addon-links": "^6.1.15",
+    "@storybook/preset-scss": "^1.0.3",
+    "@storybook/react": "^6.1.15",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "8.0.6",
+    "copy-webpack-plugin": "^6.0.3",
+    "core-js": "^3.6.5",
+    "css-loader": "^5.0.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "6.7.0",
+    "eslint-config-react-important-stuff": "2.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "3.1.1",
+    "eslint-plugin-react": "^7.20.0",
+    "file-loader": "6.0.0",
+    "mini-css-extract-plugin": "^1.3.3",
+    "node-sass": "^5.0.0",
+    "regenerator-runtime": "^0.13.7",
+    "sass-loader": "^10.1.1",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
+    "webpack": "4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-config-single-spa-react": "^1.5.0",
+    "webpack-dev-server": "^3.9.0",
+    "webpack-merge": "4.2.2",
+    "whatwg-fetch": "^3.4.1"
+  },
+  "files": [
+    "dist",
+    "lib",
+    "es"
+  ],
+  "gitHead": "4fb0e7b9df907adc69fa1761a54677f93cace204",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "name": "@sectionsg/orc",
+  "resolutions": {
+    "eventemitter3": "4.0.0"
+  },
+  "scripts": {
+    "build": "yarn compile && yarn dist NODE_OPTIONS='--max-old-space-size=4096'",
+    "build-storybook": "build-storybook",
+    "compile": "build-tool run compile",
+    "compile:scss": "build-tool run compile:scss",
+    "dist": "build-tool run dist",
+    "storybook": "start-storybook -p 6006"
+  },
+  "unpkg": "dist/orc.js",
+  "version": "2.0.405"
+}

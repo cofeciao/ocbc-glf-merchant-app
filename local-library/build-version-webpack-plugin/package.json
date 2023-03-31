@@ -1,0 +1,46 @@
+{
+  "_args": [
+    [
+      "build-version-webpack-plugin@1.0.5",
+      "/Users/techvsi/Documents/Working/ocbc-glf-merchant-app"
+    ]
+  ],
+  "_from": "build-version-webpack-plugin@1.0.5",
+  "_id": "build-version-webpack-plugin@1.0.5",
+  "_inBundle": false,
+  "_integrity": "sha512-3ht/PS9f60dIi9xb10X0uoQSXwUSmRu1Lt5PLvmSYvOJxnKwmYS3LX1A8pREN8E7MQyDThNPBM9qGVBGaD0KUg==",
+  "_location": "/build-version-webpack-plugin",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "build-version-webpack-plugin@1.0.5",
+    "name": "build-version-webpack-plugin",
+    "escapedName": "build-version-webpack-plugin",
+    "rawSpec": "1.0.5",
+    "saveSpec": null,
+    "fetchSpec": "1.0.5"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/build-version-webpack-plugin/-/build-version-webpack-plugin-1.0.5.tgz",
+  "_spec": "1.0.5",
+  "_where": "/Users/techvsi/Documents/Working/ocbc-glf-merchant-app",
+  "author": {
+    "name": "501235949@qq.com"
+  },
+  "description": "webpack plugin for version",
+  "keywords": [
+    "webpack plugin",
+    "git branch",
+    "git commit"
+  ],
+  "license": "MIT",
+  "main": "src/main.js",
+  "name": "build-version-webpack-plugin",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.5"
+}
