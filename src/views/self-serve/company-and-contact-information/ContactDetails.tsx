@@ -25,6 +25,8 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
 const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = (props) => {
+
+  // props
   const {
     cx,
     data,
@@ -41,7 +43,10 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
   const [numberPhone, setNumberPhone] = useState<string>(
     dataRedux.contactNumber || ""
   );
+
+  // states
   const [areaCode, setAreaCode] = useState<string>("+65");
+  const [valueDefaultSalutation, setValueDefaultSalutation] = useState<string>("");
 
   /**
    * Prevent user typing non-number
@@ -49,6 +54,17 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
   function handleChangeContactNumber(event: ChangeEvent<HTMLInputElement>) {
     setNumberPhone(event.target.value.replace(/\D/g, ""));
   }
+
+  /**
+   * setState value default salutation
+   */
+  useEffect(() => {
+   if (dataRedux && dataRedux.salutation) {
+      setValueDefaultSalutation(dataRedux.salutation)
+   } else {
+      setValueDefaultSalutation(LIST_SALUTATION[0].name)
+   }
+  }, [dataRedux])
 
   /**
    * contact number validation only apply for area code +65 (SG)
@@ -103,12 +119,17 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
                 }
                 {...register("salutation", {
                   required: true,
+                  onChange: (event: any) => setValueDefaultSalutation(event.target.value)
                 })}
               >
                 {_.map(LIST_SALUTATION, (item, index) => {
                   return (
-                    <MenuItem key={index} value={item.name}>
-                      {item.name}
+                    <MenuItem
+                      className={cx("item-selected")}
+                      key={index} 
+                      value={item.name}
+                    >
+                      <span className={cx(valueDefaultSalutation === item.name ? "item-selected" : "item-unselected")}>{item.name}</span>
                     </MenuItem>
                   );
                 })}
