@@ -1,8 +1,9 @@
 // import modules
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Typography, Button } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory, Link } from "react-router-dom";
+import Loading from "@/components/Loading";
 import _ from "lodash";
 
 // import constants
@@ -12,9 +13,12 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 import styles from "./ContinueLaterDialog.scss";
 
 // import types
+import { IContinueLaterDialog } from "./ContinueLaterDialog";
 
 // render UI
-const ReviewAndSaveDialog: React.FC<any> = (props) => {
+const ReviewAndSaveDialog: React.FC<
+  IContinueLaterDialog.IReviewAndSaveDialog
+> = (props) => {
   //props
   const { dataRedux, onCloseDialog } = props;
   const {
@@ -27,18 +31,31 @@ const ReviewAndSaveDialog: React.FC<any> = (props) => {
       REVIEW_AND_SAVE: { title, description },
     },
   } = SELF_SERVE_PAGE;
-  
+
   //data redux
   const { email, name, contactNumber } = dataRedux;
-  
+
   //classnames
   const cx = classnames.bind(styles);
-  
+
   //hooks
   const history = useHistory();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  /**
+   * Temporarily but here for dev
+   */
+  const handleSaveApplication = () => {
+    setLoading(true);
+    setTimeout(() => {
+      history.push(LIST_ROUTER.acknowledgement_saved);
+    }, 2000);
+  };
 
   return (
     <Box className={cx("form-dialog-wrapper")}>
+      {loading && <Loading />}
+
       <Box className={cx("header-dialog-wrapper")}>
         {/* {Title} */}
         <Typography className={cx("title")}>{title}</Typography>
@@ -100,7 +117,7 @@ const ReviewAndSaveDialog: React.FC<any> = (props) => {
           variant="contained"
           id={cx("yes-button")}
           onClick={() => {
-            history.push(LIST_ROUTER.acknowledgement_saved);
+            handleSaveApplication();
           }}
         >
           {LABEL_OKAY}

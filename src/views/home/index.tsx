@@ -23,8 +23,10 @@ import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
 import EntryDialog from "@/views/home/entry-dialog";
 import Captcha from "@/components/Captcha/captcha";
 
+// import images
+import CloseIcon from "@/assets/images/icon-close.svg"
+
 // import icons
-import CloseIcon from "@material-ui/icons/Close";
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 
 // import constants
@@ -54,6 +56,8 @@ const Home: React.FC = () => {
   } = HOME_PAGE;
   const cx = classnames.bind(styles);
   const history = useHistory();
+
+  // State
   const [dataCardCheckbox, setDataCardCheckbox] = useState<ICheckBox[]>(
     CASHLESS_PAYMENTS_METHODS.data_list_checkbox
   );
@@ -64,6 +68,7 @@ const Home: React.FC = () => {
   const [captchaCode, setCaptchaCode] = useState<string>("");
   const [exactCaptcha, setExactCaptcha] = useState<boolean>();
   const [inputCaptcha, setInputCaptcha] = useState<string>("");
+  const [reloadCaptchaMethod, setReloadCaptchaMethod] = useState<Function>();
 
   /**
    * Back to Card Acceptance page
@@ -127,19 +132,9 @@ const Home: React.FC = () => {
     }
   };
 
-  /**
-   * Random string for Captcha
-   * @returns
-   */
-  function handleRandomString() {
-    let result = "";
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    const charactersLength = characters.length;
-    for (let i = 0; i < 6; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    return result;
-  }
+  const reloadCaptcha = () => {
+    typeof reloadCaptchaMethod === "function" && reloadCaptchaMethod();
+  };
 
   // Render UI
   return (
@@ -150,9 +145,10 @@ const Home: React.FC = () => {
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        TransitionProps={{ style: { backgroundColor: "rgba(177, 184, 197, 0.7)" }}}
       >
         <div className={cx("icon-close")}>
-          <CloseIcon onClick={handleRollBackPage} />
+          <img src={CloseIcon} alt="icon close" onClick={handleRollBackPage} />
         </div>
         <DialogContent>
           <EntryDialog onCloseDialog={handleCloseDialog} />
@@ -220,6 +216,9 @@ const Home: React.FC = () => {
                         onGeneratedCaptcha={(captcha: string) =>
                           setCaptchaCode(captcha)
                         }
+                        methodReloadCaptcha={(callback: Function) =>
+                          setReloadCaptchaMethod(callback)
+                        }
                       />
                     </Grid>
 
@@ -256,7 +255,7 @@ const Home: React.FC = () => {
                 <Grid item xs={12}>
                   <Box
                     component="a"
-                    onClick={() => setCaptchaCode(handleRandomString())}
+                    onClick={() => reloadCaptcha()}
                     className={cx("get-another-code-button mt-16")}
                   >
                     {LABEL_GET_ANOTHER_CODE}

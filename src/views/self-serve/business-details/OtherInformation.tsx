@@ -1,21 +1,26 @@
 // import modules
 import React, { useEffect, useState } from "react";
-import { Checkbox } from "@sectionsg/orc";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 import _ from "lodash";
 import { updateDataListRadio } from "@/utils/utils";
 import GroupRadio from "@/components/GroupRadio";
+import GroupCheckBox from "@/components/GroupCheckBox";
+import { Controller } from "react-hook-form";
 
 // import style
 import styles from "./BusinessDetails.scss";
 
 // import types
+import { IBusinessDetails } from "./BusinessDetails";
+import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
 
 // render UI
-const OtherInformation: React.FC<any> = (props) => {
-  const { sections, setValue, dataRedux } = props;
+const OtherInformation: React.FC<IBusinessDetails.IOtherInformation> = (
+  props
+) => {
+  const { sections, setValue, register, dataRedux, control } = props;
   const {
     listCheckboxBusinessOfferings,
     listCheckboxAvailableSpaces,
@@ -27,6 +32,12 @@ const OtherInformation: React.FC<any> = (props) => {
   const cx = classnames.bind(styles);
 
   // states
+  const [listDataBusinessOfferings, setListDataBusinessOfferings] = useState(
+    dataRedux.businessOfferings || listCheckboxBusinessOfferings.list
+  );
+  const [listDataAvailableSpaces, setListDataAvailableSpaces] = useState(
+    dataRedux.availableSpaces || listCheckboxAvailableSpaces.list
+  );
   const [openRadioRetailStore, setOpenRadioRetailStore] =
     useState<boolean>(false);
   const [retailStoreAcceptCardPayments, setRetailStoreAcceptCardPayments] =
@@ -41,6 +52,14 @@ const OtherInformation: React.FC<any> = (props) => {
         )
       : LIST_RADIO_YES_NO
   );
+
+  /**
+   * Set value to react-hook-form
+   */
+  useEffect(() => {
+    setValue("businessOfferings", listDataBusinessOfferings);
+    setValue("availableSpaces", listDataAvailableSpaces);
+  }, [listDataBusinessOfferings, listDataAvailableSpaces]);
 
   /**
    * Check data from redux and dump data into fields
@@ -64,7 +83,7 @@ const OtherInformation: React.FC<any> = (props) => {
         listRadioRetailStore[0].value
       );
     } else {
-      setValue("cardPaymentAvailableAtRetailStore", "");
+      setValue("cardPaymentAvailableAtRetailStore", undefined);
     }
   }, [openRadioRetailStore]);
 
@@ -72,13 +91,12 @@ const OtherInformation: React.FC<any> = (props) => {
    * Handle data from availableSpaces list checkbox
    * @param value
    */
-  const handleDataAvailableSpaces = (value: any) => {
-    // set value to react-hooks-form
-    setValue("availableSpaces", value);
-
-    // handle open RetailStore radio
+  const handleDataAvailableSpaces = (value: ICheckBox[]) => {
+    // handle open RetailStore
     const found = value.findIndex(
-      (item: any) => item.name === listCheckboxAvailableSpaces.list[1].text
+      (item: any) =>
+        item.label === listCheckboxAvailableSpaces.list[1].label &&
+        item.checked === true
     );
     if (found >= 0) {
       setOpenRadioRetailStore(true);
@@ -105,14 +123,25 @@ const OtherInformation: React.FC<any> = (props) => {
           )}
 
           {/* {List Checkbox} */}
-          {!_.isEmpty(listCheckboxBusinessOfferings.list) && (
-            <Checkbox
-              isFullWidth
-              list={listCheckboxBusinessOfferings.list}
-              checkBoxClass={cx("business-offerings-checkbox")}
-              getValue={(value: any) => {
-                setValue("businessOfferings", value);
-              }}
+          {!_.isEmpty(listDataBusinessOfferings) && (
+            <Controller
+              name="businessOfferings"
+              control={control}
+              render={({ field }) => (
+                <>
+                  <GroupCheckBox
+                    name="businessOfferings"
+                    listCheckbox={listDataBusinessOfferings}
+                    register={register}
+                    required
+                    onBlur={field.onBlur}
+                    onChange={field.onBlur}
+                    getValue={(value: ICheckBox[]) => {
+                      setListDataBusinessOfferings(value);
+                    }}
+                  />
+                </>
+              )}
             />
           )}
         </Grid>
@@ -129,12 +158,28 @@ const OtherInformation: React.FC<any> = (props) => {
           )}
 
           {/* {List Checkbox} */}
-          {!_.isEmpty(listCheckboxAvailableSpaces.list) && (
-            <Checkbox
-              isFullWidth
-              list={listCheckboxAvailableSpaces.list}
-              checkBoxClass={cx("available-spaces-checkbox")}
-              getValue={handleDataAvailableSpaces}
+          {!_.isEmpty(listDataAvailableSpaces) && (
+            <Controller
+              name="availableSpaces"
+              control={control}
+              render={({ field }) => (
+                <>
+                  <GroupCheckBox
+                    name="availableSpaces"
+                    listCheckbox={listDataAvailableSpaces}
+                    register={register}
+                    required
+                    onBlur={field.onBlur}
+                    getValue={(value: ICheckBox[]) => {
+                      setListDataAvailableSpaces(value);
+                    }}
+                    onChange={field.onChange}
+                    getValueOnChange={(value: ICheckBox[]) => {
+                      handleDataAvailableSpaces(value);
+                    }}
+                  />
+                </>
+              )}
             />
           )}
         </Grid>

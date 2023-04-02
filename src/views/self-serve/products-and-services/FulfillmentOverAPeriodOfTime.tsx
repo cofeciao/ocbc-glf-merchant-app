@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -20,9 +20,10 @@ import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
+const FulfillmentOverAPeriodOfTime: React.FC<IProductsAndServices.IFulfillmentOverAPeriodOfTime> = (props) => {
   const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
   const { cx, data, register, errors, dataRedux } = props;
   const { listDropdown, textField } = data;
@@ -73,11 +74,9 @@ const FulfillmentOverAPeriodOfTime: React.FC<any> = (props) => {
                     id="select-duration"
                     IconComponent={ExpandMore}
                     defaultValue={
-                      _.has(dataRedux, "deliveryTimeToCustomers")
-                        ? dataRedux.deliveryTimeToCustomers
-                        : ""
+                      _.has(dataRedux, "duration") ? dataRedux.duration : ""
                     }
-                    {...register("POS.deliveryTimeToCustomers", {
+                    {...register("POS.duration", {
                       required: true,
                     })}
                   >

@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { forwardRef, useEffect, useImperativeHandle, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -21,10 +21,8 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 // import style
 import styles from "./ProductsAndServices.scss";
 
-// import types
-
 // render UI
-const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
+const ProductsAndServices: React.FC = () => {
   // props
   const {
     LABEL_E_COMMERCE,
@@ -57,13 +55,16 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
     (state: any) => state.form.productsAndServicesStep
   );
 
+  // React-hook-form
   const {
     register,
     unregister,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     getValues,
     setValue,
-    watch,
+    setError,
+    clearErrors,
+    control,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -71,60 +72,16 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
         orderFulfilment:
           productsAndServicesStep.pointOfSales.orderFulfilment ||
           pointOfSalesForm.fulfilmentInformation.listRadio.list[0].label,
-        typeOfProductAndService:
-          productsAndServicesStep.pointOfSales.typeOfProductAndService || "",
         averageAmountPerCreditCardTransaction:
           productsAndServicesStep.pointOfSales
             .averageAmountPerCreditCardTransaction || "",
         annualCreditCardSalesForecast:
           productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast ||
           "",
-        deliveryTimeToCustomers:
-          productsAndServicesStep.pointOfSales.deliveryTimeToCustomers,
-        percentageOfProductsNotFulfilledImmediately:
-          productsAndServicesStep.pointOfSales
-            .percentageOfProductsNotFulfilledImmediately,
       },
-      Ecom: {
-        orderFulfilment:
-          productsAndServicesStep.eCommerce.orderFulfilment ||
-          ecommerceForm.fulfilmentInformation.listRadio.list[0].label,
-        productDelivery:
-          productsAndServicesStep.eCommerce.productDelivery ||
-          ecommerceForm.fulfilmentInformation.listRadioSecondary.list[0].option,
-        typeOfProductAndService:
-          productsAndServicesStep.eCommerce.typeOfProductAndService || "",
-        deliveryTimeToCustomers:
-          productsAndServicesStep.eCommerce.deliveryTimeToCustomers || "",
-        averageAmountPerCreditCardTransaction:
-          productsAndServicesStep.eCommerce
-            .averageAmountPerCreditCardTransaction || "",
-        annualCreditCardSalesForecast:
-          productsAndServicesStep.eCommerce.annualCreditCardSalesForecast || "",
-        productDeliveredFrom:
-          productsAndServicesStep.eCommerce.productDeliveredFrom || "",
-        percentageOfProductsNotFulfilledImmediately:
-          productsAndServicesStep.eCommerce
-            .percentageOfProductsNotFulfilledImmediately,
-      },
+      Ecom: {},
     },
   });
-
-  /**
-   * handle back to page when click on stepper
-   */
-  useImperativeHandle(ref, () => ({
-    validateForm() {
-      return true
-      // if (acraAndContactInformationStep) {
-      //   if (_.isEmpty(acraAndContactInformationStep)) {
-      //     return true;
-      //   }
-      //   return handleNext();
-      // }
-      // return true;
-    },
-  }));
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -167,7 +124,10 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
           register={register}
           unregister={unregister}
           setValue={setValue}
+          setError={setError}
+          clearErrors={clearErrors}
           errors={errors}
+          control={control}
         />
       ) : (
         <Box>
@@ -194,6 +154,9 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
             unregister={unregister}
             setValue={setValue}
             errors={errors}
+            setError={setError}
+            clearErrors={clearErrors}
+            control={control}
           />
         </Box>
       )}
@@ -208,12 +171,15 @@ const ProductsAndServices: React.FC<any> = forwardRef(({}, ref) => {
           history.push(LIST_ROUTER.business_details);
         }}
         onClickNext={() => {
+          // redirect
           history.push(LIST_ROUTER.review_and_submit);
+
+          // save to Redux
           dispatch(saveDataProductsAndServicesEcom(getValues("Ecom")));
           dispatch(saveDataProductsAndServicesPOS(getValues("POS")));
         }}
       />
     </Box>
   );
-});
+};
 export default ProductsAndServices;

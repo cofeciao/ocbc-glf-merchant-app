@@ -5,8 +5,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
-// import icons
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+// import images
+import IconRadioBorder from '@/assets/images/icon-radio-border.svg';
+import IconRadioCheckedBlack from '@/assets/images/icon-radio-checked-black.svg';
 
 // import types
 import { IGroupRadios } from './GroupRadio';
@@ -38,9 +39,8 @@ const GroupRadio:React.FC<IGroupRadios.IGroupRadio> = (props) => {
                 disableFocusRipple
                 disableRipple
                 disableTouchRipple
-                checkedIcon={
-                  <CheckCircleIcon />
-                }
+                icon={<img src={IconRadioBorder} alt="icon radio border" />}
+                checkedIcon={<img src={IconRadioCheckedBlack} alt="icon radio checked black" />}
               />
             } 
             label={item.label}

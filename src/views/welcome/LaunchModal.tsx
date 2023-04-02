@@ -4,8 +4,8 @@ import classNames from "classnames/bind";
 // import types
 import { IWelcome } from "../welcome/Welcome";
 
-// import icons
-import CloseIcon from '@material-ui/icons/Close';
+// import images
+import CloseIcon from "@/assets/images/icon-close.svg"
 
 // import styles
 import styles from "./Welcome.scss";
@@ -33,8 +33,11 @@ const LaunchModal: React.FC<IWelcome.ILaunchModal> = (props) => {
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      TransitionProps={{
+        style: { backgroundColor: "rgba(177, 184, 197, 0.7)" },
+      }}  
     >
-      <div className={cx("icon-close")}><CloseIcon onClick={onClose} /></div>
+      <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={onClose} /></div>
       <DialogTitle id="alert-dialog-title">
         <Typography className={cx("title")}>Launch company's application?</Typography>
         <Typography className={cx("sub-title")}>You may use the following pages to gather information about the company.</Typography>      

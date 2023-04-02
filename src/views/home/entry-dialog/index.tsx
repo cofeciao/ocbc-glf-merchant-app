@@ -1,11 +1,11 @@
 // import modules
 import React, { useState } from "react";
-import { 
-  Box, 
-  FormControl, 
-  FormControlLabel, 
-  Radio, 
-  Grid, 
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  Grid,
   RadioGroup,
   Typography,
   Button,
@@ -17,6 +17,9 @@ import _ from "lodash";
 
 // import images
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
+import IconRadioBorder from '@/assets/images/icon-radio-border.svg';
+import IconRadioCheckedWhite from '@/assets/images/icon-radio-checked-white.svg';
+import CloseIcon from "@/assets/images/icon-close.svg";
 
 // import constant
 import { HOME_PAGE, NEXT } from "@/utils/constants";
@@ -25,16 +28,14 @@ import { HOME_PAGE, NEXT } from "@/utils/constants";
 import styles from "./EntryDialog.scss";
 
 // import icons
-import CloseIcon from '@material-ui/icons/Close';
 import RetrieveDialog from "./RetrieveDialog";
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 // import types
 import { IGroupRadios } from "@/components/GroupRadio/GroupRadio";
+import { IEntryDialog } from "./EntryDialog";
 
 // render UI
-const EntryDialog: React.FC<any> = (props) => {
-
+const EntryDialog: React.FC<IEntryDialog.IDialog> = (props) => {
   // props
   const { onCloseDialog } = props;
   const { LABEL_WHAT_ARE_YOU_HERE_FOR, LIST_RADIO_ENTRY_POINT } =
@@ -42,7 +43,7 @@ const EntryDialog: React.FC<any> = (props) => {
 
   const startUpValue = LIST_RADIO_ENTRY_POINT[0].value;
   const retrieveValue = LIST_RADIO_ENTRY_POINT[1].value;
-  
+
   // classnames
   const cx = classnames.bind(styles);
 
@@ -91,26 +92,25 @@ const EntryDialog: React.FC<any> = (props) => {
   const renderGroupRadio = () => {
     return (
       <FormControl component="fieldset" className={cx("group-radio")}>
-        <RadioGroup 
-          name="dataEntryPoint" 
-          value={valueEntryPoint} 
-          onChange={handleGetValueFromRadio} 
+        <RadioGroup
+          name="dataEntryPoint"
+          value={valueEntryPoint}
+          onChange={handleGetValueFromRadio}
         >
           {Array.isArray(LIST_RADIO_ENTRY_POINT) && LIST_RADIO_ENTRY_POINT.map((item: IGroupRadios.IRadio, index: number) => (
             <FormControlLabel
               className={cx(valueEntryPoint ===  item.value ? "active" : "inactive")}
               key={index}
-              value={item.value} 
+              value={item.value}
               control={
-                <Radio 
+                <Radio
                   disableFocusRipple
                   disableRipple
                   disableTouchRipple
-                  checkedIcon={
-                    <CheckCircleIcon />
-                  }
+                  icon={<img src={IconRadioBorder} alt="icon radio border" />}
+                  checkedIcon={<img src={IconRadioCheckedWhite} alt="icon radio checked white" />}
                 />
-              } 
+              }
               label={item.label}
             />
           ))}
@@ -140,8 +140,8 @@ const EntryDialog: React.FC<any> = (props) => {
       {/* {Next Button} */}
       <Box className={cx("group-button mt-dt-40")}>
         <Box className="d-inline">
-          <Button 
-            variant="contained" 
+          <Button
+            variant="contained"
             disabled={disabledNextButton}
             onClick={handleClickNextButton}
           >
@@ -159,7 +159,7 @@ const EntryDialog: React.FC<any> = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseRetrieveDialog} /></div>
+        <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={handleCloseRetrieveDialog} /></div>
         <DialogContent>
           <RetrieveDialog onCloseDialog={handleCloseRetrieveDialog} />
         </DialogContent>

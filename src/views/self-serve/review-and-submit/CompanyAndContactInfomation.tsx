@@ -7,9 +7,12 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
+import { IReviewAndSubmit } from "./ReviewAndSubmit";
 
 // render UI
-const CompanyAndContactInfomation: React.FC<any> = (props) => {
+const CompanyAndContactInfomation: React.FC<
+  IReviewAndSubmit.ICompanyAndContactInfomation
+> = (props) => {
   const { data } = props;
   const {
     LABEL_CONTACT_DETAILS,
@@ -65,7 +68,7 @@ const CompanyAndContactInfomation: React.FC<any> = (props) => {
         </Grid>
       </Grid>
 
-      <Box className={cx("sub-section-title")}>{LABEL_CONTACT_DETAILS}</Box>
+      <Box className={cx("sub-title-contact-detail")}>{LABEL_CONTACT_DETAILS}</Box>
 
       <Grid container className={cx("contact-details-container")}>
         <Grid item xs={12}>

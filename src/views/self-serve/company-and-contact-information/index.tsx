@@ -1,10 +1,10 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { forwardRef, useEffect, useImperativeHandle } from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
 import { Box } from "@material-ui/core";
+import { useParams, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import SectionWrapper from "../SectionWrapper";
 import CompanyRegistration from "./CompanyRegistration";
@@ -24,11 +24,8 @@ import {
 // import styles
 import styles from "./CompanyAndContactInformation.scss";
 
-// import types
-// import {ICompanyAndContactInformation} from "./CompanyAndContactInformation"
-
 // render UI
-const CompanyAndContactInformation: React.FC<any> = forwardRef(({}, ref) => {
+const CompanyAndContactInformation: React.FC = () => {
   const {
     LIST_STEP: {
       companyAndContactInformation: {
@@ -38,8 +35,11 @@ const CompanyAndContactInformation: React.FC<any> = forwardRef(({}, ref) => {
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
+
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
+  const { slug } = useParams();
 
   /**
    * Retrieves data of Company And Contact Information step from Store
@@ -48,14 +48,14 @@ const CompanyAndContactInformation: React.FC<any> = forwardRef(({}, ref) => {
     (state: any) => state.form.companyAndContactInformationStep
   );
 
-
+  // React-hook-form
   const {
     register,
     unregister,
     formState: { errors, isValid },
     setValue,
     getValues,
-    setError
+    setError,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -72,18 +72,6 @@ const CompanyAndContactInformation: React.FC<any> = forwardRef(({}, ref) => {
       areaCode: LIST_COUNTRIES_CODE[0].value,
     },
   });
-
-   /**
-   * handle back to page when click on stepper
-   */
-   useImperativeHandle(ref, () => ({
-    validateForm() {
-      if (_.isEmpty(dataCompanyAndContactInformationStep)) {
-        return true;
-      }
-      return history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
-    },
-  }));
 
   /**
    * Handle scrolling to top on page load
@@ -140,12 +128,19 @@ const CompanyAndContactInformation: React.FC<any> = forwardRef(({}, ref) => {
         disabledNextButton={!isValid}
         variant="next"
         onClickNext={() => {
-          history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+          // redirect
+          history.push(
+            slug === "edit"
+              ? LIST_ROUTER.review_and_submit
+              : LIST_ROUTER.transaction_and_card_acceptance_type
+          );
+
+          // save to Redux
           dispatch(saveDataCompanyAndContactInformationStep(getValues()));
         }}
       />
     </Box>
   );
-});
+};
 
 export default CompanyAndContactInformation;

@@ -11,9 +11,12 @@ import SalesForecastPointOfSales from "./SalesForecastPointOfSales";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const PointOfSalesForm: React.FC<any> = (props) => {
+const PointOfSalesForm: React.FC<IProductsAndServices.IForm> = (
+  props
+) => {
   const {
     cx,
     data,
@@ -25,7 +28,7 @@ const PointOfSalesForm: React.FC<any> = (props) => {
     unregister,
     setValue,
     errors,
-    clearErrors,
+    setError,
   } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
   const {
@@ -95,7 +98,6 @@ const PointOfSalesForm: React.FC<any> = (props) => {
               dataRedux={dataRedux}
               register={register}
               errors={errors}
-              clearErrors={clearErrors}
             />
           </Grid>
         </Grid>

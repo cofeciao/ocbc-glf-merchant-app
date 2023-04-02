@@ -8,23 +8,31 @@ import {
   Typography,
 } from "@material-ui/core";
 import _ from "lodash";
+
+// import contants
 import { ERROR_ICON } from "@/utils/constants";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const SalesForecastEcommerce: React.FC<any> = (props) => {
+const SalesForecastEcommerce: React.FC<
+  IProductsAndServices.ISalesForecastSection
+> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
+
+  // State
   const [openAdornmentFirst, setOpenAdornmentFirst] = useState<boolean>(false);
-  const [openAdornmentFirstSecond, setOpenAdornmentFirstSecond] = useState<boolean>(false);
+  const [openAdornmentFirstSecond, setOpenAdornmentFirstSecond] =
+    useState<boolean>(false);
   const [
     valueAverageAmountPerCreditCardTransaction,
     setValueAverageAmountPerCreditCardTransaction,
-  ] = useState<string>("");
+  ] = useState<string>(dataRedux.averageAmountPerCreditCardTransaction || "");
   const [
     valueAnnualCreditCardSalesForecast,
     setValueAnnualCreditCardSalesForecast,
-  ] = useState<string>("");
+  ] = useState<string>(dataRedux.annualCreditCardSalesForecast || "");
 
   /**
    * Check data from redux and dump data into input fields
@@ -77,6 +85,7 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
                   <TextField
                     fullWidth
                     label={textField.description}
+                    variant="filled"
                     value={
                       index === 0
                         ? valueAverageAmountPerCreditCardTransaction
@@ -110,18 +119,12 @@ const SalesForecastEcommerce: React.FC<any> = (props) => {
                       ) &&
                       true
                     }
-                    defaultValue={
-                      _.has(dataRedux, textField.keyName)
-                        ? dataRedux[textField.keyName]
-                        : ""
-                    }
                     helperText={
                       _.has(errors, "Ecom") &&
                       _.has(errors.Ecom, textField.keyName)
                         ? errors.Ecom[textField.keyName].message
                         : ""
                     }
-                    variant="filled"
                     {...register(`Ecom.${textField.keyName}`, {
                       required: true,
                       pattern: {

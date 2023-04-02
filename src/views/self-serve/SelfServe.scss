@@ -192,22 +192,27 @@ input:-webkit-autofill {
   .formatted-numberphone-input {
     background: #fafcfc;
     & .MuiInputBase-root {
-      height: unset;
+      height: 34px;
+      margin-top: 0;
     }
 
     .MuiInputLabel-root {
       padding-left: 8px;
     }
 
-    & label + .MuiInput-formControl {
-      margin-top: 19px;
+    & label {
+      position: relative;
+      top: 5px;
     }
 
     & .formatted-numberphone-select {
       padding-left: 8px;
-      .MuiSelect-icon {
+      & .MuiSelect-icon {
         border-right: 1px solid #e2e7ec;
         width: 60px;
+      }
+      & .MuiSelect-root {
+        padding-bottom: 5px;
       }
     }
 

@@ -18,39 +18,31 @@ declare namespace IServicesApplied {
 
   export interface IRepaymentPeriodsOffered {
     title?: string;
-    labelSeeMore: string;
-    labelLess: string;
-    listCheckBox: IListCheckBox[]
+    labelSeeMore?: string;
+    labelLess?: string;
+    listCheckBox: IListCheckBox[];
+    errorText?: string
+  }
+
+  export interface IDataOtherServices {
+    title?: string;
+    name?: string;
+    checked?: boolean;
+    value?: string;
+    repaymentPeriodsOffered?: IRepaymentPeriodsOffered;
   }
   interface ISectionRadios {
-    instalmentPaymentPlan: {
-      title: string;
-      name: string;
-      checked?: boolean;
-      value?: string;
-      listRadio: IRadio[];
-      repaymentPeriodsOffered: IRepaymentPeriodsOffered;
-    };
-    directCurrencyConversion: {
-      title: string;
-      name: string;
-      checked?: boolean;
-      value?: string;
-      listRadio: IRadio[];
-    };
-    mailOrder: {
-      title: string;
-      name: string;
-      checked?: boolean;
-      value?: string;
-      listRadio: IRadio[];
-    }
+    instalmentPaymentPlan: IDataOtherServices;
+    directCurrencyConversion: IDataOtherServices;
+    mailOrder: IDataOtherServices
   }
 
   export interface IOtherServices {
     cx: any;
     dataOtherServices: ISectionRadios; 
     setDataOtherService: (value: any) => void;
+    validateListCheckboxMonth: boolean;
+    setValidateListCheckboxMonth: (value: any) => void;
   }
 
 }

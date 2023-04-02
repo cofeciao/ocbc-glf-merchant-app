@@ -14,7 +14,7 @@ import { ACKNOWLEDGEMENT_PAGE } from "@/utils/constants";
 // import style
 import styles from "./Acknowledgement.scss";
 
-const Successful: React.FC<any> = () => {
+const Successful: React.FC = () => {
   const {
     LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS,
     LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION,

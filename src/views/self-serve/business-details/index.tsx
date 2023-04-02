@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { forwardRef, useEffect, useImperativeHandle } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveDataBusinessDetailsStep,
@@ -8,7 +8,7 @@ import {
 } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import RedirectButton from "@/views/self-serve/RedirectButton";
 import BusinessDetailsForm from "./BusinessDetailsForm";
 import { useForm } from "react-hook-form";
@@ -19,9 +19,8 @@ import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 // import style
 import styles from "./BusinessDetails.scss";
 
-// import types
-
-const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
+// render UI
+const BusinessDetails: React.FC = () => {
   const {
     LIST_STEP: {
       businessDetails: {
@@ -31,7 +30,11 @@ const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
     },
     LIST_RADIO_YES_NO,
   } = SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
+
+  // hooks
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -54,30 +57,18 @@ const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
   /**
    * Retrieves data of Business Details step from Store
    */
-  const listWebsiteUrl = useSelector((state: any) => state.form.listWebsiteUrl);
+  const listWebsiteUrl = useSelector(
+    (state: any) => state.form.listWebsiteUrl as Array<string>
+  );
 
-  /**
-   * handle back to page when click on stepper
-   */
-  useImperativeHandle(ref, () => ({
-    validateForm() {
-      return true
-      // if (acraAndContactInformationStep) {
-      //   if (_.isEmpty(acraAndContactInformationStep)) {
-      //     return true;
-      //   }
-      //   return handleNext();
-      // }
-      // return true;
-    },
-  }));
-
+  // React-hook-form
   const {
     register,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid },
     getValues,
     setValue,
     unregister,
+    control,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -122,6 +113,7 @@ const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
         setValue={setValue}
         dispatch={dispatch}
         listWebsiteRedux={listWebsiteUrl}
+        control={control}
       />
 
       {/* {Next Button}  */}
@@ -134,7 +126,10 @@ const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
           history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
         }}
         onClickNext={() => {
+          // redirect
           history.push(LIST_ROUTER.products_and_services);
+
+          // save to Redux
           dispatch(saveDataBusinessDetailsStep(getValues()));
           dispatch(
             saveDataListWebsiteUrl(
@@ -149,5 +144,5 @@ const BusinessDetails: React.FC<any> = forwardRef(({}, ref) => {
       />
     </Box>
   );
-});
+};
 export default BusinessDetails;

@@ -21,7 +21,7 @@ import Saved from "./Saved";
 import Footer from "@/components/Footer";
 
 // render UI
-const Acknowledgement: React.FC<any> = () => {
+const Acknowledgement: React.FC = () => {
   const cx = classnames.bind(styles);
   const { slug } = useParams<{ slug: string }>();
   const history = useHistory();

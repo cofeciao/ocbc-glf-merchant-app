@@ -15,6 +15,7 @@ import styles from "./rm.scss";
 
 // import types
 import { IRmFlow } from "./rm";
+import { SUB_TITLE_UPLOAD_IMAGE } from "@/utils/constants-rm";
 
 // render UI
 const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
@@ -120,7 +121,7 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
               <img src={IconUploadImage} alt="icon upload image"  />
               <span>{placeholder} <label>browse</label></span>
             </label>
-            <div className={cx("sub-title")}>Acceptable file types: PNG, JPG (Max 2MB)</div>
+            <div className={cx("sub-title")}>{SUB_TITLE_UPLOAD_IMAGE}</div>
           </>
         )}
       </div>

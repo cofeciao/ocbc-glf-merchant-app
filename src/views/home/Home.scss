@@ -11,6 +11,13 @@
   }
 }
 
+// focused color for input with variant='outlined'
+.MuiOutlinedInput-root {
+  .mui-focused fieldset {
+    border-bottom: 1px solid #005efd !important;
+  }
+}
+
 .home-page-wrapper {
   margin-top: 40px;
   display: flex;

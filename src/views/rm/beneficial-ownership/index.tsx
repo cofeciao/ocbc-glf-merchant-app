@@ -6,7 +6,7 @@ import {
   Category,
 } from '@sectionsg/orc';
 import { Link } from "react-router-dom";
-import { Grid, Box, TextField } from "@material-ui/core";
+import { Grid, Box, TextField, Divider } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./BeneficialOwnership.scss";
 
 // import constants
-import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { CONTINUE_LATER, STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { IBeneficialOwnership } from "./BeneficialOwnership";
@@ -109,7 +109,7 @@ const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({
             setFileImage={setFileImage}
           />
         </SectionWrapper>
-  
+        <Divider />
         {/* Section button  */}
         <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
           <Button backgroundClass="square" onClick={handlePrev}>
@@ -117,7 +117,7 @@ const BeneficialOwnership: React.FC<IBeneficialOwnership.IProps> = forwardRef(({
           </Button>
           <div>
             <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
+              <Link to="/">{CONTINUE_LATER}</Link>
             </div>
             <div className="ml-dt-30 d-inline">
               {renderButton()}

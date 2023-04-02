@@ -1,5 +1,3 @@
-import { FieldValues, RegisterOptions } from "react-hook-form";
-
 declare namespace ICompanyAndContactInformation {
   export interface FormData {
     registeredEntityName: string;

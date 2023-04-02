@@ -1,6 +1,7 @@
 import _ from "lodash";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { StyledCanvas } from "./Captcha.style";
+import { ICaptchaProps } from "./Captcha";
 import { DEFAULT } from "./utility";
 
 const {
@@ -15,7 +16,7 @@ const {
   FONT_FAMILY: DEFAULT_FONT_FAMILY,
 } = DEFAULT;
 
-const Captcha: React.FC<any> = (props) => {
+const Captcha: React.FC<ICaptchaProps> = (props) => {
   const {
     width = DEFAULT_WIDTH,
     height = DEFAULT_HEIGHT,

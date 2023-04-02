@@ -14,10 +14,13 @@ import styles from "./ContinueLaterDialog.scss";
 import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import icons
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from "@/assets/images/icon-close.svg"
+
+// import types
+import { IContinueLaterDialog } from "./ContinueLaterDialog";
 
 // render UI
-const ContinueLaterDialog: React.FC<any> = (props) => {
+const ContinueLaterDialog: React.FC<IContinueLaterDialog.IDialog> = (props) => {
   const { handleOpenContinueLaterDialog } = props;
   const {
     LABEL_YOU_ARE_LEAVING_THIS_APPLICATION,
@@ -53,13 +56,18 @@ const ContinueLaterDialog: React.FC<any> = (props) => {
   return (
     <Box className={cx("continue-later-dialog-wrapper")}>
       <Box className={cx("header-dialog-wrapper")}>
+        {/* {Title} */}
         <Typography className={cx("title")}>
           {LABEL_YOU_ARE_LEAVING_THIS_APPLICATION}
         </Typography>
+
+        {/* {Description} */}
         <Typography className={cx("description")}>
           {LABEL_SAVE_YOUR_PROGRESS_AND_CONTINUE_LATER}
         </Typography>
       </Box>
+
+      {/* {Button} */}
       <Box className={cx("group-button", "mt-dt-40", "mb-dt-56")}>
         <Button
           onClick={handleYesButton}
@@ -81,7 +89,7 @@ const ContinueLaterDialog: React.FC<any> = (props) => {
         </Box>
       </Box>
 
-      {/* {Dialog} */}
+      {/* {Review And Save Dialog} */}
       <Dialog
         open={openDialog}
         onClose={handleCloseDialog}
@@ -89,7 +97,7 @@ const ContinueLaterDialog: React.FC<any> = (props) => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <div className={cx("icon-close")}><CloseIcon onClick={handleCloseDialog} /></div>
+        <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={handleCloseDialog} /></div>
         <DialogContent>
           <ReviewAndSaveDialog
             dataRedux={dataCompanyAndContactInformationStep}

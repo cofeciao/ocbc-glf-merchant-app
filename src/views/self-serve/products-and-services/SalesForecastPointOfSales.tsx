@@ -16,32 +16,27 @@ import { ERROR_ICON } from "@/utils/constants";
 const SalesForecast: React.FC<any> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
   const [openAdornmentFirst, setOpenAdornmentFirst] = useState<boolean>(false);
-  const [openAdornmentSecond, setOpenAdornmentSecond] = useState<boolean>(false);
+  const [openAdornmentSecond, setOpenAdornmentSecond] =
+    useState<boolean>(false);
   const [
-    valueaverageAmountPerCreditCardTransaction,
-    setValueaverageAmountPerCreditCardTransaction,
-  ] = useState<string>("");
+    valueAverageAmountPerCreditCardTransaction,
+    setValueAverageAmountPerCreditCardTransaction,
+  ] = useState<string>(dataRedux.averageAmountPerCreditCardTransaction || "");
   const [
     valueAnnualCreditCardSalesForecast,
     setValueAnnualCreditCardSalesForecast,
-  ] = useState<string>("");
+  ] = useState<string>(dataRedux.annualCreditCardSalesForecast || "");
 
   /**
    * Check data from redux and dump data into input fields
    */
   useEffect(() => {
     if (_.has(dataRedux, "averageAmountPerCreditCardTransaction")) {
-      setValueaverageAmountPerCreditCardTransaction(
-        dataRedux.averageAmountPerCreditCardTransaction
-      );
-      setOpenAdornmentFirst(true)
+      setOpenAdornmentFirst(true);
     }
 
     if (_.has(dataRedux, "annualCreditCardSalesForecast")) {
-      setValueAnnualCreditCardSalesForecast(
-        dataRedux.annualCreditCardSalesForecast
-      );
-      setOpenAdornmentSecond(true)
+      setOpenAdornmentSecond(true);
     }
   }, [dataRedux]);
 
@@ -57,7 +52,7 @@ const SalesForecast: React.FC<any> = (props) => {
     const sanitizedText = event.target.value.replace(/[^0-9]/g, "");
     const formattedText = sanitizedText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     index === 0
-      ? setValueaverageAmountPerCreditCardTransaction(formattedText)
+      ? setValueAverageAmountPerCreditCardTransaction(formattedText)
       : setValueAnnualCreditCardSalesForecast(formattedText);
   };
 
@@ -82,7 +77,7 @@ const SalesForecast: React.FC<any> = (props) => {
                     fullWidth
                     value={
                       index === 0
-                        ? valueaverageAmountPerCreditCardTransaction
+                        ? valueAverageAmountPerCreditCardTransaction
                         : valueAnnualCreditCardSalesForecast
                     }
                     variant="filled"
@@ -100,7 +95,9 @@ const SalesForecast: React.FC<any> = (props) => {
                         : {}
                     }
                     onFocus={() => {
-                      index === 0 ? setOpenAdornmentFirst(true) : setOpenAdornmentSecond(true);
+                      index === 0
+                        ? setOpenAdornmentFirst(true)
+                        : setOpenAdornmentSecond(true);
                     }}
                     error={
                       _.has(errors, "POS") &&
@@ -110,16 +107,6 @@ const SalesForecast: React.FC<any> = (props) => {
                         "required"
                       ) &&
                       true
-                    }
-                    defaultValue={
-                      _.has(dataRedux, textField.keyName)
-                        ? dataRedux[textField.keyName]
-                        : ""
-                    }
-                    helperText={
-                      _.has(errors, "POS") &&
-                      _.has(errors.POS, textField.keyName) &&
-                      errors.POS[textField.keyName].message
                     }
                     {...register(`POS.${textField.keyName}`, {
                       required: true,

@@ -21,6 +21,8 @@ import { ICheckBox, IListCheckBox } from "./ListCheckBox";
 // import images
 import IconCheckbox from "@/assets/images/icon-checkbox.svg";
 import IconCheckedBox from "@/assets/images/icon-checkedbox.svg";
+import IconCheckboxBlack from "@/assets/images/icon-checkedbox-black.svg";
+import IconCheckboxBlackTransparent from "@/assets/images/icon-checkedbox-transparent.svg";
 
 // render UI
 const ListCheckbox = (props: IListCheckBox) => {
@@ -52,7 +54,6 @@ const ListCheckbox = (props: IListCheckBox) => {
    */
   const handleExpandedCheckBox = (event: any, checked: boolean) => {
     const newData: any = dataCardCheckbox.reduce((acc, item) => {
-      // Create a new object to avoid changing the original object
       const expandedListCheckbox = {
         ...item.expandedListCheckbox,
       };
@@ -109,8 +110,15 @@ const ListCheckbox = (props: IListCheckBox) => {
                           disableTouchRipple
                           disableFocusRipple
                           {...checkbox}
-                          onChange={(event: any, checked: boolean) =>
+                          onChange={(event: any, checked: boolean) => {
                             handleExpandedCheckBox(event, checked)
+                          }
+                          }
+                          icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                          checkedIcon={
+                            checkbox.disabled
+                            ? <img src={IconCheckboxBlackTransparent} alt="checkbox black transparent"/>
+                            : <img src={IconCheckboxBlack} alt="icon checkedbox black" />
                           }
                         />
                       }
@@ -156,15 +164,16 @@ const ListCheckbox = (props: IListCheckBox) => {
                 checked={item.checked}
                 value={item.value}
                 control={
-                  <Checkbox 
-                    disableFocusRipple 
-                    disableRipple 
-                    disableTouchRipple 
+                  <Checkbox
+                    disableFocusRipple
+                    disableRipple
+                    disableTouchRipple
                     icon={<img src={IconCheckbox} alt="icon checkbox" />}
                     checkedIcon={<img src={IconCheckedBox} alt="icon checkedbox" />}
                   />} // Checkbox from Material
               />
             </Grid>
+
             {/* {Expanded content} */}
             {
               item.checked &&
