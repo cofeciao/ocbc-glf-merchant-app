@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./Sensitive.scss";
 
 // import constants
-import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { CONTINUE_LATER, STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { ISensitive } from "./Sensitive";
@@ -31,23 +31,25 @@ import SensitiveData from "./SensitiveData";
 import UploadImage from "../UploadImage";
 
 const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
-  const cx = classNames.bind(styles);
+  // hooks
   const history = useHistory()
   const dispatch = useDispatch();
 
+  // classnames
+  const cx = classNames.bind(styles);
 
+  // constants
   const {
     LIST_STEP: {
+      LIST_RADIO_YES_NO,
       sensitiveData: {
         title,
         section: {
           labelUploadPCIDSSCerificate,
-          listRadio,
         }
       }
     },
   } = STEP_RM;
-
 
   // States
   const [loading, setLoading] = useState(false);
@@ -105,13 +107,13 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
 
         <SectionWrapper cx={cx} title={title}>
           <SensitiveData 
-            listRadio={listRadio} 
+            listRadio={LIST_RADIO_YES_NO} 
             valueRadio={valueRadio} 
             setValueRadio={setValueRadio} 
           />
         </SectionWrapper>
         
-        {valueRadio.compliantWithThePaymentCardIndustry === "Yes" && (
+        {valueRadio.compliantWithThePaymentCardIndustry === "yes" && (
           <SectionWrapper cx={cx} title={labelUploadPCIDSSCerificate}>
             <UploadImage onChange={(file: any) => console.log(file)} />
           </SectionWrapper>
@@ -124,7 +126,7 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
           </Button>
           <div>
             <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
+              <Link to="/">{CONTINUE_LATER}</Link>
             </div>
             <div className="ml-dt-30 d-inline">
               {renderButton()}

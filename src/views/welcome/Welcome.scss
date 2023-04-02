@@ -44,11 +44,17 @@
     align-items: center;
     justify-content: flex-end;
     p {
+      display: flex;
+      align-items: center;
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;
       color: #005EFD;
       cursor: pointer;
+
+      img {
+        margin-right: 9px;
+      }
     }
   }
 

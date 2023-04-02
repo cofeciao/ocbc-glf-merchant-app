@@ -5,6 +5,7 @@ import {
   FormControl, 
   FormControlLabel, 
   FormGroup, 
+  FormHelperText, 
   FormLabel, 
   Grid, 
   Typography 
@@ -14,20 +15,31 @@ import {
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
+// import images
+import IconCheckbox from "@/assets/images/icon-checkbox.svg";
+import IconCheckboxBlack from "@/assets/images/icon-checkedbox-black.svg";
+import IconWarning from "@/assets/images/icon-warning.svg";
+
 // import types
 import { IServicesApplied } from "./ServicesApplied";
 
+// import constants
+import { STEP_RM } from "@/utils/constants-rm";
+
 // import components
-import GroupRadio from "../GroupRadio";
+import GroupRadio from "@/components/GroupRadio";
 
 const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
   // props
   const { 
     cx, 
     dataOtherServices, 
-    setDataOtherService, 
+    setDataOtherService,
+    validateListCheckboxMonth,
+    setValidateListCheckboxMonth
   } = props;
-  
+  const { LIST_STEP: { LIST_RADIO_YES_NO } } = STEP_RM
+
   const {
     instalmentPaymentPlan, 
     directCurrencyConversion, 
@@ -37,7 +49,7 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
   const { repaymentPeriodsOffered } = instalmentPaymentPlan
 
   // States
-  const [showAll, setShowAll] = useState<boolean>(false);
+  const [showAll, setShowAll] = useState<boolean>(false);  
 
   /**
    * render UI button
@@ -48,7 +60,7 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
       <Box className={cx("checkbox-wrapper")}>
         <FormControl margin="normal" className={cx("group-checkbox")} component="fieldset">
           <FormLabel component="legend">{repaymentPeriodsOffered.title}</FormLabel>
-          <FormGroup row className={showAll ? cx("w-45") : cx("w-100")}>
+          <FormGroup row className={showAll ? cx("w-59") : cx("w-116")}>
             {repaymentPeriodsOffered.listCheckBox.slice(0, showAll ? repaymentPeriodsOffered.listCheckBox.length : 3)
               .map((value: any, key: number) => {
               return (
@@ -62,7 +74,8 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
                       disableFocusRipple
                       disableRipple
                       disableTouchRipple
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                        setValidateListCheckboxMonth(false);
                         setDataOtherService({
                           ...dataOtherServices,
                           instalmentPaymentPlan: {
@@ -81,9 +94,10 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
                                 })
                               ]
                             }
-                          }
-                        }) 
-                      } 
+                        }})}
+                      }
+                      icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                      checkedIcon={<img src={IconCheckboxBlack} alt="icon checkedbox black" />}
                     />
                   }
                 />
@@ -91,9 +105,15 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
             })}
           </FormGroup>
           {!showAll ?
-            <Typography className={cx("see-more")} onClick={() => setShowAll(true)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelSeeMore}<ExpandMoreIcon /></Typography> :
-            <Typography className={cx("see-more")} onClick={() => setShowAll(false)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelLess}<ExpandLessIcon /></Typography>  
+            <Typography className={cx("see-more", validateListCheckboxMonth && "mb-16")} onClick={() => setShowAll(true)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelSeeMore}<ExpandMoreIcon /></Typography> :
+            <Typography className={cx("see-more", validateListCheckboxMonth && "mb-16")} onClick={() => setShowAll(false)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelLess}<ExpandLessIcon /></Typography>  
           }
+          {validateListCheckboxMonth ? (
+            <FormHelperText>
+              <img src={IconWarning} alt="icon warning" />
+              {repaymentPeriodsOffered.errorText}
+            </FormHelperText>
+          ) : null}
         </FormControl>
       </Box>
     )
@@ -107,9 +127,9 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
         <Typography className={cx("title-checkbox")}>{instalmentPaymentPlan.title}</Typography>
         <GroupRadio
           cx={cx}
-          name={instalmentPaymentPlan.name}
+          name="instalmentPaymentPlan"
           value={instalmentPaymentPlan.value}
-          listRadio={instalmentPaymentPlan.listRadio}
+          listRadio={LIST_RADIO_YES_NO}
           onChange={(event) => {
             const { value } = event.target;
             setDataOtherService((preState: any) => ({
@@ -132,9 +152,9 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
         <Typography className={cx("title-checkbox")}>{directCurrencyConversion.title}</Typography>
         <GroupRadio
           cx={cx}
-          name={directCurrencyConversion.name}
+          name="directCurrencyConversion"
           value={directCurrencyConversion.value}
-          listRadio={directCurrencyConversion.listRadio}
+          listRadio={LIST_RADIO_YES_NO}
           onChange={(event) => {
             const { value } = event.target;
             setDataOtherService((preState: any) => ({
@@ -154,9 +174,9 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
         <Typography className={cx("title-checkbox")}>{mailOrder.title}</Typography>
         <GroupRadio
           cx={cx}
-          name={mailOrder.name}
+          name="mailOrder"
           value={mailOrder.value}
-          listRadio={mailOrder.listRadio}
+          listRadio={LIST_RADIO_YES_NO}
           onChange={(event) => {
             const { value } = event.target;
             setDataOtherService((preState: any) => ({

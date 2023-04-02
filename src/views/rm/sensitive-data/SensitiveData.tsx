@@ -7,7 +7,8 @@ import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
-// import constants
+// import images
+import IconInformation from "@/assets/images/icon-infomation.svg";
 
 // import style
 import styles from "./Sensitive.scss";
@@ -15,14 +16,21 @@ import styles from "./Sensitive.scss";
 // import conponents
 import ConfirmModal from "./ConfirmModal";
 import { STEP_RM } from "@/utils/constants-rm";
+import GroupRadio from "@/components/GroupRadio";
 
 // render UI
 const SensitiveData: React.FC<any> = (props) => {
+  // props
   const { listRadio, valueRadio, setValueRadio } = props;
+
+  // classnames
   const cx = classnames.bind(styles);
+
+  //hooks
   const dispatch = useDispatch();
   const history = useHistory();
 
+  // constants
   const {
     LIST_STEP: {
       sensitiveData: {
@@ -32,11 +40,11 @@ const SensitiveData: React.FC<any> = (props) => {
           labelIsTheDataProtected,
           labelPlaseIndicateYourEncryptionMethod,
           labelAreYouCompliantWithPaymentCard,
+          placeholderPlaseIndicateYourEncryptionMethod
         }
       }
     },
   } = STEP_RM;
-
 
   //States
   const [radiosCreditCard, setRadiosCreditCard] = useState<any[]>(listRadio);
@@ -45,12 +53,6 @@ const SensitiveData: React.FC<any> = (props) => {
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
   }
-  useEffect(() => {
-    if (valueRadio.compliantWithThePaymentCardIndustry === "Yes") {
-      toggleModal();
-    }
-  }, [valueRadio.compliantWithThePaymentCardIndustry])
-  
     
   return (
     <>
@@ -65,17 +67,20 @@ const SensitiveData: React.FC<any> = (props) => {
         )}
       >
         <Grid container>
+
+          {/* Do you store credit card details in your database? */}
           <Grid item xs={12}>
             <Typography className={cx("sub-section-description")}>
               {labelDoYouStoreCreditCardDetails}
             </Typography>
 
-            <Radio
+            <GroupRadio
+              cx={cx}
               name="storeCreditCard"
-              listCheckBox={radiosCreditCard}
-              radioKey={0}
               value={valueRadio.storeCreditCard}
-              getValue={(value: any) => {
+              listRadio={radiosCreditCard}
+              onChange={(event) => {
+                const { value } = event.target;
                 setValueRadio({
                   ...valueRadio,
                   storeCreditCard: value,
@@ -84,19 +89,21 @@ const SensitiveData: React.FC<any> = (props) => {
             />
           </Grid>
 
-          {valueRadio.storeCreditCard === "Yes" && (
+          {/* Is the data protected by Hierachical Storage Management? */}
+          {valueRadio.storeCreditCard === "yes" && (
             <>
               <Grid item xs={12}>
                 <Typography className={cx("sub-section-description")}>
                   {labelIsTheDataProtected}
                 </Typography>
 
-                <Radio
+                <GroupRadio
+                  cx={cx}
                   name="dataProtectedByHierachical"
-                  listCheckBox={radiosCreditCard}
-                  radioKey={0}
                   value={valueRadio.dataProtectedByHierachical}
-                  getValue={(value: any) => {
+                  listRadio={radiosCreditCard}
+                  onChange={(event) => {
+                    const { value } = event.target;
                     setValueRadio({
                       ...valueRadio,
                       dataProtectedByHierachical: value,
@@ -104,12 +111,14 @@ const SensitiveData: React.FC<any> = (props) => {
                   }}
                 />
               </Grid> 
-              {valueRadio.dataProtectedByHierachical === "No" && (
+
+              {valueRadio.dataProtectedByHierachical === "no" && (
                 <Grid item xs={6}>
+                  <Typography className={cx("sub-section-description")}>{labelPlaseIndicateYourEncryptionMethod}</Typography>
                   <TextField
                     fullWidth
                     name="one_time_setup"
-                    label={labelPlaseIndicateYourEncryptionMethod}
+                    label={placeholderPlaseIndicateYourEncryptionMethod}
                     // defaultValue={paramsFeeRates.refundable_fees}
                     placeholder=""
                     id={uuidv4()}
@@ -127,18 +136,26 @@ const SensitiveData: React.FC<any> = (props) => {
             </>
           )}
 
-          {valueRadio.storeCreditCard === "Yes" && (
+          {/* Are you compliant with the Payment Card Industry Data Security Standard (PCI DSS)? */}
+          {valueRadio.storeCreditCard === "yes" && (
             <Grid item xs={12}>
               <Typography className={cx("sub-section-description")}>
                 {labelAreYouCompliantWithPaymentCard}
+                <img 
+                  className={cx("ml-dt-10")} 
+                  src={IconInformation} 
+                  alt="icon information"
+                  onClick={toggleModal}
+                />
               </Typography>
 
-              <Radio
+              <GroupRadio
+                cx={cx}
                 name="compliantWithThePaymentCardIndustry"
-                listCheckBox={radiosCreditCard}
-                radioKey={0}
                 value={valueRadio.compliantWithThePaymentCardIndustry}
-                getValue={(value: any) => {
+                listRadio={radiosCreditCard}
+                onChange={(event) => {
+                  const { value } = event.target;
                   setValueRadio({
                     ...valueRadio,
                     compliantWithThePaymentCardIndustry: value,
@@ -147,7 +164,6 @@ const SensitiveData: React.FC<any> = (props) => {
               />
             </Grid>
           )}
-          
         </Grid>
       </Box>
     </>

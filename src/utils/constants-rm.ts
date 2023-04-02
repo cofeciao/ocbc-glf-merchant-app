@@ -3,6 +3,7 @@ export const ERROR = "error";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 export const WElCOME_LOGIN = "Welcome!"
 export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
+export const SUB_TITLE_UPLOAD_IMAGE = "Acceptable file types: xls, xlsx, csv (Max 2MB)";
 
 export const CONTACT_INFORMATION = "contact-information";
 export const COMPANY_CONTACT_INFORMATION = "company-contact-information";
@@ -1469,20 +1470,7 @@ export const RM_ACKNOWLEDGEMENT_PAGE = {
 
 // Step
 export const STEP_RM = {
-  list_salutation: [
-    {
-      name: "Mrs",
-      value: "mrs",
-    },
-    {
-      name: "Ms",
-      value: "ms",
-    },
-  ],
-
   LABEL_ADD_MORE_WEBSITES: "Add website more",
- 
-
   LIST_STEP: {
     LIST_SALUTATION: [
       {
@@ -1500,9 +1488,21 @@ export const STEP_RM = {
         value: "private_limited",
       },
     ],
+    LIST_RADIO_YES_NO: [
+      {
+        label: "Yes",
+        value: "yes",
+        checked: true,
+      },
+      {
+        label: "No",
+        value: "no",
+        checked: false,
+      },
+    ],
     welcome: {
       labelCreateNewCase: "Create new case",
-      labelNotResultFound: "Not result found",
+      labelNotResultFound: "No results found",
     },
     acraAndContactInformation: {
       id: "acra-and-contact-information",
@@ -1806,26 +1806,27 @@ export const STEP_RM = {
         otherServices: {
           title: "Other services",
           description: "",
+          listRadio: [
+            {
+              label: "Yes",
+              value: "yes",
+            },
+            {
+              label: "No",
+              value: "no",
+            },
+          ],
           sectionRadios: {
             instalmentPaymentPlan: {
               title: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
               value: "",
-              listRadio: [
-                {
-                  label: "Yes",
-                  value: "yes",
-                },
-                {
-                  label: "No",
-                  value: "no",
-                },
-              ],
               repaymentPeriodsOffered: {
                 title: "Please select repayment periods offered",
                 labelSeeMore: "Show more repayment periods",
                 labelLess: "Show less",
+                errorText: "Please make a selection",
                 listCheckBox: [
                   {
                     label: "3 months",
@@ -1880,32 +1881,12 @@ export const STEP_RM = {
               name: "directCurrencyConversion",
               checked: false,
               value: "",
-              listRadio: [
-                {
-                  label: "Yes",
-                  value: "yes",
-                },
-                {
-                  label: "No",
-                  value: "no",
-                },
-              ],
             },
             mailOrder: {
               title: "Will you be offering Mail Order/Telephone Order?",
               name: "mailOrder",
               checked: false,
               value: "",
-              listRadio: [
-                {
-                  label: "Yes",
-                  value: "yes",
-                },
-                {
-                  label: "No",
-                  value: "no",
-                },
-              ],
             },
           }
         }
@@ -2196,24 +2177,19 @@ export const STEP_RM = {
         labelDoYouStoreCreditCardDetails: "Do you store credit card details in your database?",
         labelIsTheDataProtected: "Is the data protected by Hierachical Storage Management?",
         labelPlaseIndicateYourEncryptionMethod: "Please indicate your encryption method",
+        placeholderPlaseIndicateYourEncryptionMethod: "Encryption method",
         labelAreYouCompliantWithPaymentCard: "Are you compliant with the Payment Card Industry Data Security Standard (PCI DSS)? ",
         labelUploadPCIDSSCerificate: "Upload PCI DSS certificate",
-        listRadio: [
-          {
-            text: "Yes",
-            checked: false,
-          },
-          {
-            text: "No",
-            checked: false,
-          },
-        ],
+        contentDialog: {
+          title: "Payment Card Industry Data Security Standard",
+          description: "The Payment Card Industry Data Security Standard (PCI DSS) is a set of requirements intended to ensure that all companies that process, store, or transmit credit card information maintain a secure environment.",
+        }
       }
     },
     beneficialOwner: {
       id: "beneficial-owner",
       numerical: "5",
-      title: "Beneficial Owner",
+      title: "Beneficial ownership",
       check: false,
       status: true,
       data: {
@@ -2226,7 +2202,7 @@ export const STEP_RM = {
       section: {
         beneficialOwnerOfTheCompany: {
           titleBeneficialOwnerOfTheCompany: "Beneficial owner of the company",
-          label: "Do you have an existing website?",
+          label: "Which method do you prefer?",
           labelUploadCertificateOfIncumbency: "Upload certificate of incumbency",
           labelForm: "Beneficial owner",
           labelAddAnotherBeneficialOwner: "Add another beneficial owner",
@@ -2318,7 +2294,7 @@ export const STEP_RM = {
       section: {
         merchantDiscountRate: {
           titleMerchantDiscountRate: "Merchant Discount Rate (MRD)",
-          description: "Please refer to following tables for Merchant Discount Rate (MDR) based on transcations and services selected previously.",
+          description: "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
         },
         fees: {
           titleFees: "Fees (GST inclusive)",

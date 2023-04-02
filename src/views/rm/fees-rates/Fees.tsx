@@ -31,7 +31,7 @@ const Fees: React.FC<IFeesRates.IFees> = (props) => {
             fullWidth
             name="one_time_setup"
             // defaultValue={paramsFeeRates.refundable_fees}
-            label="One time setup (to vendor)"
+            label="One time setup fee"
             id={uuidv4()}
             // label={name.label}
             variant="filled"

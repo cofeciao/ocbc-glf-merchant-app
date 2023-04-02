@@ -148,12 +148,12 @@
   & .upload-result {
     background-color: #F7F9FA;
     border-radius: 8px;
-    width: fit-content;;
+    width: 432px;
     height: 78px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
     padding: 16px;
+    position: relative;
 
     div {
       display: flex;
@@ -179,6 +179,8 @@
 
     img:last-child {
       cursor: pointer;
+      position: absolute;
+      right: 31px;
     }
   }
 

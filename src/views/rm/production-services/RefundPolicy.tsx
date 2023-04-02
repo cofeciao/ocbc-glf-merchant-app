@@ -80,7 +80,9 @@ const RefundPolicy: React.FC<IProductionServices.IRefundPolicy> = (props) => {
             
             {paramsBusinessService.upload_policy === "upload_now" && (
               <UploadImage
+                value={paramsBusinessService.image}
                 onChange={(value) => setParamsBusinessService({...paramsBusinessService, image: value})}
+                onRemove={() => setParamsBusinessService({...paramsBusinessService, image: ''})}
               />
             )}
           </>
