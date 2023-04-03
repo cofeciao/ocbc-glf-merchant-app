@@ -158,9 +158,6 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                 </Grid>
               )}
 
-              {_.has(errors.authorisedPersonDetails, "type") &&
-                _.has(errors.authorisedPersonDetails.contactNumber, "type") &&
-                _.isEqual(errors.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 {/* {Contact Number input field} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&

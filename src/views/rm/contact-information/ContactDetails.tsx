@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import {
   Box,
@@ -9,30 +9,32 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  InputAdornment,
 } from "@material-ui/core";
 import _ from "lodash";
 
 // import constant
-import {
-  ERROR_ICON,
-  LIST_COUNTRIES_CODE,
-} from "@/utils/constants";
+import { STEP_RM, ERROR_ICON, LIST_COUNTRIES_CODE } from "@/utils/constants-rm";
 
-import { STEP_RM } from "@/utils/constants-rm";
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
 const ContactDetails: React.FC<any> = (props) => {
-  const { cx, key, data, register, errors, setValue, setError, dataRedux } = props;
+  const { cx, key, data, register, errors, setValue, setError, dataRedux } =
+    props;
   const { salutation, name, designation, email, contactNumber } =
     data.inputFields;
+
+  // states
+  const [areaCode, setAreaCode] = useState<string>("+65");
 
   return (
     <Box className={cx("contact-details-wrapper")}>
       <Grid container>
-        {/* {Top full row} */}
+        {/* {Salutation select field} */}
         {_.has(salutation, "label") && (
           <Grid item xs={3}>
-            {/* {Salutation select field} */}
             <FormControl
               variant="filled"
               className={cx("company-type-select")}
@@ -45,7 +47,9 @@ const ContactDetails: React.FC<any> = (props) => {
                 fullWidth
                 labelId="salutation-select-filled-label"
                 defaultValue={
-                  _.has(dataRedux, "contactDetail.salutation") ? dataRedux.salutation : ""
+                  _.has(dataRedux, "contactDetail.salutation")
+                    ? dataRedux.salutation
+                    : ""
                 }
                 id="salutation-select-filled"
                 {...register("contactDetail.salutation", {
@@ -68,13 +72,15 @@ const ContactDetails: React.FC<any> = (props) => {
           {/* {Column left} */}
           <Grid item xs={12} md={6}>
             <Grid container>
+              {/* {Name} */}
               {_.has(name, "label") && (
                 <Grid item xs={12}>
-                  {/* {Name input field} */}
                   <TextField
                     fullWidth
                     defaultValue={
-                      _.has(dataRedux, "contactDetail.name") ? dataRedux.name : ""
+                      _.has(dataRedux, "contactDetail.name")
+                        ? dataRedux.name
+                        : ""
                     }
                     id={uuidv4()}
                     label={name.label}
@@ -86,21 +92,30 @@ const ContactDetails: React.FC<any> = (props) => {
                 </Grid>
               )}
 
-{             _.has(email, "label") && (
+              {/* {Email} */}
+              {_.has(email, "label") && (
                 <Grid item xs={12}>
-                  {/* {Email input field} */}
                   <TextField
                     fullWidth
-                    error={errors.contactDetail && errors.contactDetail.email && true}
+                    error={
+                      errors.contactDetail && errors.contactDetail.email && true
+                    }
                     defaultValue={
-                      _.has(dataRedux, "contactDetail.email") ? dataRedux.contactDetail.email : ""
+                      _.has(dataRedux, "contactDetail.email")
+                        ? dataRedux.contactDetail.email
+                        : ""
                     }
                     id={uuidv4()}
                     label={email.label}
                     key={null}
                     variant="filled"
                     helperText={
-                      errors.contactDetail && errors.contactDetail.email && `${ERROR_ICON} ${errors.contactDetail && errors.contactDetail.email.message}`
+                      errors.contactDetail &&
+                      errors.contactDetail.email &&
+                      `${ERROR_ICON} ${
+                        errors.contactDetail &&
+                        errors.contactDetail.email.message
+                      }`
                     }
                     {...register("contactDetail.email", {
                       required: email.requiredText,
@@ -120,9 +135,9 @@ const ContactDetails: React.FC<any> = (props) => {
           {/* {Column right} */}
           <Grid item xs={12} md={6}>
             <Grid container>
+              {/* {Designation} */}
               {_.has(designation, "label") && (
                 <Grid item xs={12}>
-                  {/* {Designation input field} */}
                   <TextField
                     fullWidth
                     id={uuidv4()}
@@ -140,11 +155,8 @@ const ContactDetails: React.FC<any> = (props) => {
                 </Grid>
               )}
 
-              {_.has(errors.contactDetail, "type") &&
-              _.has(errors.contactDetail.contactNumber, "type") &&
-              _.isEqual(errors.contactDetail.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
-                {/* {Contact Number input field} */}
+                {/* {Contact Number} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
                   _.has(contactNumber, "label") && (
                     <TextField
@@ -157,12 +169,18 @@ const ContactDetails: React.FC<any> = (props) => {
                       }
                       type="number"
                       error={
-                          _.has(errors, "contactDetail.contactNumber") &&
-                          !_.isEqual(errors.contactDetail.contactNumber.type, "required")
-                            ? false
-                            : _.has(errors, "contactDetail.contactNumber") &&
-                              !_.isEqual(errors.contactDetail.contactNumber.type, "required") &&
-                              true
+                        _.has(errors, "contactDetail.contactNumber") &&
+                        !_.isEqual(
+                          errors.contactDetail.contactNumber.type,
+                          "required"
+                        )
+                          ? false
+                          : _.has(errors, "contactDetail.contactNumber") &&
+                            !_.isEqual(
+                              errors.contactDetail.contactNumber.type,
+                              "required"
+                            ) &&
+                            true
                       }
                       name="numberformat"
                       className={cx("formatted-numberphone-input")}
@@ -170,10 +188,16 @@ const ContactDetails: React.FC<any> = (props) => {
                       helperText={
                         _.has(errors.contactDetail, "type") &&
                         _.has(errors.contactDetail.contactNumber, "type") &&
-                        _.isEqual(errors.contactDetail.contactNumber.type, "required")
+                        _.isEqual(
+                          errors.contactDetail.contactNumber.type,
+                          "required"
+                        )
                           ? ""
                           : _.has(errors.contactNumber, "type") &&
-                            !_.isEqual(errors.contactDetail.contactNumber.type, "required") &&
+                            !_.isEqual(
+                              errors.contactDetail.contactNumber.type,
+                              "required"
+                            ) &&
                             `${ERROR_ICON} ${errors.contactDetail.contactNumber.message}`
                       }
                       {...register("contactDetail.contactNumber", {
@@ -190,15 +214,20 @@ const ContactDetails: React.FC<any> = (props) => {
                               message: "",
                             });
                           } else {
-                            setValue("contactDetail.contactNumber", event.target.value);
+                            setValue(
+                              "contactDetail.contactNumber",
+                              event.target.value
+                            );
                           }
                         },
                       })}
                       InputProps={{
                         startAdornment: (
-                          <Box className={cx("formatted-numberphone-select")}>
-                            {/* {Phone Number select field} */}
+                          <InputAdornment position="start" className={cx("formatted-numberphone-select")}>
+                            {/* {Area Code} */}
                             <Select
+                              renderValue={(value) => value}
+                              IconComponent={ExpandMore}
                               defaultValue={
                                 _.has(dataRedux, "contactDetail.areaCode")
                                   ? dataRedux.areaCode
@@ -207,17 +236,28 @@ const ContactDetails: React.FC<any> = (props) => {
                               error={errors.AreaCode && true}
                               {...register("contactDetail.areaCode", {
                                 required: false,
+                                onChange: (
+                                  event: ChangeEvent<HTMLInputElement>
+                                ) => {
+                                  setAreaCode(event.target.value);
+                                },
                               })}
                             >
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
                                   <MenuItem key={index} value={item.value}>
-                                    {item.value}
+                                    <span
+                                      className={cx(
+                                        areaCode === item.value
+                                          ? "item-selected"
+                                          : "item-unselected"
+                                      )}
+                                    >{`${item.name} (${item.value})`}</span>
                                   </MenuItem>
                                 );
                               })}
                             </Select>
-                          </Box>
+                          </InputAdornment>
                         ),
                       }}
                     />

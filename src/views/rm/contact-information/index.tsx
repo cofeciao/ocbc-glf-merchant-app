@@ -20,8 +20,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./ContactInformation.scss";
 
 // import constants
-import { 
-  URL_MANUAL_FLOW, 
+import {
+  URL_MANUAL_FLOW,
   STEP_RM,
   WELCOME_PATH,
   NEXT,
@@ -133,8 +133,8 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
    */
     const renderButton = () => {
       return (
-        <Button 
-          backgroundClass="bgGunmetalBluegrey" 
+        <Button
+          backgroundClass="bgGunmetalBluegrey"
           onClick={handleNext}
           // disabled={!isValid || !isDirty}
         >
@@ -151,16 +151,16 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
     const renderItemInformation = (title: string, content: string | []) => {
       return (
         <div className={cx('group-item')}>
-          <Typography className={cx("title")}>{title}</Typography> 
+          <Typography className={cx("title")}>{title}</Typography>
           {Array.isArray(content) ? (
             content.map((item: IContactInformation.IDirectors, index: number) => (
               <Typography key={index} className={cx("content")}>
                 &#8226; {`${item.name} ${item.nricNumber}`}
-              </Typography> 
+              </Typography>
               ))
             ) : (
-            <Typography className={cx("content")}>{content}</Typography> 
-          )}    
+            <Typography className={cx("content")}>{content}</Typography>
+          )}
         </div>
       )
     }
@@ -187,7 +187,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
       getDataAcraDetail(arcaDetail)
     }
   }, [arcaDetail])
-    
+
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -223,7 +223,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
           </Grid>
         </SectionWrapper>
       </Box>
-      
+
       <Box className={cx('mt-dt-40', 'mb-dt-56')}>
         <SectionWrapper
           cx={cx}
@@ -231,7 +231,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
           title={contactDetail.title}
           description={contactDetail.description}
         >
-          <ContactDetails 
+          <ContactDetails
             cx={cx}
             errors={errors}
             register={register}
@@ -250,7 +250,7 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
           title={authorisedPersonDetails.title}
           description={authorisedPersonDetails.description}
         >
-          <AuthorisedPersonDetails 
+          <AuthorisedPersonDetails
             cx={cx}
             errors={errors}
             register={register}
@@ -259,9 +259,9 @@ const ContactInformation: React.FC<IContactInformation.IProps> = forwardRef(({ h
             data={authorisedPersonDetails}
             dataRedux={acraAndContactInformationStep}
           />
-        </SectionWrapper>  
+        </SectionWrapper>
       </Box>
-             
+
       {/* Section button  */}
       <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
         <Button backgroundClass="square" onClick={handlePrev}>
