@@ -2370,9 +2370,8 @@ export const STEP_RM = {
       },
       section: {
         merchantDiscountRate: {
-          titleMerchantDiscountRate: "Merchant Discount Rate (MRD)",
-          description:
-            "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
+          titleMerchantDiscountRate: "Merchant Discount Rate (MDR)",
+          description: "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
         },
         fees: {
           titleFees: "Fees (GST inclusive)",
