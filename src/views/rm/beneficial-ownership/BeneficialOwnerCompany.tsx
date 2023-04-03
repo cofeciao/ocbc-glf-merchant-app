@@ -150,6 +150,10 @@ const BeneficialOwnerCompany: React.FC<any> = (props) => {
                 beneficialOwnerImage: file
               })} 
             />
+          </Grid>
+        )}
+        {checkedRadioPreferType && (
+          <Grid item xs={12}>
             <Typography className={cx("title-upload")}>{labelUploadCertificateOfIncumbency}</Typography>
             <UploadImage 
               name="certificateIncumbencyImage"
