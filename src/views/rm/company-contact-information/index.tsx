@@ -20,8 +20,8 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./CompanyInformation.scss";
 
 // import constants
-import { 
-  URL_MANUAL_FLOW, 
+import {
+  URL_MANUAL_FLOW,
   STEP_RM,
   WELCOME_PATH,
   CONTINUE_LATER
@@ -41,7 +41,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
   const history = useHistory()
   const dispatch = useDispatch();
 
-  // get data from redux storen 
+  // get data from redux storen
   const dataAcraDetail = useSelector((state: any) => state.form.dataAcraDetail);
   const { dataDetail } = dataAcraDetail;
 
@@ -84,11 +84,11 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
       entityType: "",
       uniqueEnityNumber: "",
       natureOfBusiness: "",
-      blockNumber: 0,
+      blockNumber: "",
       streetName: "",
       unitNumber: "",
       buildingName: "",
-      postalCode: 0,
+      postalCode: "",
       directors: [
         {
           name: "",
@@ -146,8 +146,8 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
    */
     const renderButton = () => {
       return (
-        <Button 
-          backgroundClass="bgGunmetalBluegrey" 
+        <Button
+          backgroundClass="bgGunmetalBluegrey"
           onClick={handleNext}
           // disabled={!isValid || !isDirty}
         >
@@ -173,7 +173,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
       setDataArca(dataDetail);
     }
   }, [dataDetail]);
-    
+
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -195,7 +195,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
           title={companyDetails.title}
           description={companyDetails.description}
         >
-          <CompanyDetails 
+          <CompanyDetails
             cx={cx}
             errors={errors}
             register={register}
@@ -210,7 +210,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
           />
         </SectionWrapper>
       </Box>
-      
+
       <Box className={cx('mt-dt-40', 'mb-dt-56')}>
         <SectionWrapper
           cx={cx}
@@ -218,7 +218,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
           title={contactDetail.title}
           description={contactDetail.description}
         >
-          <ContactDetails 
+          <ContactDetails
             cx={cx}
             errors={errors}
             register={register}
@@ -237,7 +237,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
           title={authorisedPersonDetails.title}
           description={authorisedPersonDetails.description}
         >
-          <AuthorisedPersonDetails 
+          <AuthorisedPersonDetails
             cx={cx}
             errors={errors}
             register={register}
@@ -246,9 +246,9 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> = forwardR
             data={authorisedPersonDetails}
             dataRedux={acraAndContactInformationStep}
           />
-        </SectionWrapper>  
+        </SectionWrapper>
       </Box>
-             
+
       {/* Section button  */}
       <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
         <Button backgroundClass="square" onClick={handlePrev}>

@@ -16,12 +16,17 @@ import { useHistory } from "react-router-dom";
 // import style
 import styles from "./BusinessOperation.scss";
 import GroupRadio from "../GroupRadio";
+import { STEP_RM } from "@/utils/constants-rm";
 
 // import types
 
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
-  const { sections, listRadio, labelDoesYourRetailStoreAccpetCardPayment } = props;
+  const { sections, listRadio, labelDoesYourRetailStoreAccpetCardPayment } =
+    props;
+  const {
+    LIST_STEP: { LIST_RADIO_YES_NO },
+  } = STEP_RM;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -30,11 +35,16 @@ const OtherInformation: React.FC<any> = (props) => {
   const [key, setKey] = useState<number>(0);
   const [dataOtherinformation, setDataOtherinformation] = useState<any>({
     checkedDoesYourRetailStoreAccpetCard: true,
-    valueDoesYourRetailStoreAccpetCard: ""
+    valueDoesYourRetailStoreAccpetCard: LIST_RADIO_YES_NO[0].value,
   });
 
   return (
-    <Box display="flex" flexDirection="column" gridRowGap="40px" className={cx("other-information-wrapper")}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      gridRowGap="40px"
+      className={cx("other-information-wrapper")}
+    >
       {sections.map((section: any, index: number) => {
         return (
           <Grid key={index} container>
@@ -48,7 +58,7 @@ const OtherInformation: React.FC<any> = (props) => {
 
               {/* {List Checkbox} */}
               {section.listCheckbox && (
-                <Box display="flex" flexDirection="column"> 
+                <Box display="flex" flexDirection="column">
                   {section.listCheckbox.map((checkbox: any, index: number) => {
                     return (
                       <FormControlLabel
@@ -84,14 +94,15 @@ const OtherInformation: React.FC<any> = (props) => {
             cx={cx}
             name="doesYourRetailStoreAccpetCard"
             value={dataOtherinformation.valueDoesYourRetailStoreAccpetCard}
-            listRadio={listRadio}
+            listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
               setDataOtherinformation({
                 ...dataOtherinformation,
-                checkedDoesYourRetailStoreAccpetCard: value === "yes" ? true : false,
-                valueDoesYourRetailStoreAccpetCard: value
-              })
+                checkedDoesYourRetailStoreAccpetCard:
+                  value === "yes" ? true : false,
+                valueDoesYourRetailStoreAccpetCard: value,
+              });
             }}
           />
         </Grid>
