@@ -27,6 +27,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 
 // import images
 import Acknowledgementfailed from "@/assets/images/acknowledgement-failed.png";
+import IconCreateCaseNew from "@/assets/images/icon-create-new-case.svg";
 
 // import style
 import styles from "./Welcome.scss";
@@ -212,7 +213,7 @@ const ListCompany: React.FC = ({}) => {
               localStorage.setItem('firstStepPath', URL_MANUAL_FLOW.companyContactInformation)
             }}
           >
-            {labelCreateNewCase}
+            <img src={IconCreateCaseNew} alt="icon create case new" />{labelCreateNewCase}
           </Typography>
         </Grid>
         {currentTableData(arraySearch(data, params.keyword)).length > 0 ? (

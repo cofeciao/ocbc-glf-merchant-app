@@ -20,9 +20,18 @@ import {
   Typography
 } from "@material-ui/core";
 
+// import constants
+import { STEP_RM } from "@/utils/constants-rm";
+
 const ConfirmModal: React.FC<ISensitive.IConfirmModal> = (props) => {
+  // props
   const { open, onClose } = props;
+  
+  // classnames
   const cx = classNames.bind(styles);
+
+  // constants
+  const { LIST_STEP: { sensitiveData: { section: { contentDialog } } } } = STEP_RM;
 
   return (
     <Dialog
@@ -34,12 +43,10 @@ const ConfirmModal: React.FC<ISensitive.IConfirmModal> = (props) => {
     >
       <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={onClose} /></div>
       <DialogTitle id="alert-dialog-title">
-        <Typography className={cx("title")}>Payment Card Industry Data Security Standard</Typography>
+        <Typography className={cx("title")}>{contentDialog.title}</Typography>
       </DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-        The Payment Card Industry Data Security Standard (PCI DSS) is a set of requirements intended to ensure that all companies that process, store, or transmit credit card information maintain a secure environment.
-        </DialogContentText>
+        <DialogContentText id="alert-dialog-description">{contentDialog.description}</DialogContentText>
       </DialogContent>
       <DialogActions></DialogActions>
     </Dialog>

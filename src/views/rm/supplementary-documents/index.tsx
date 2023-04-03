@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./SupplementaryDocuments.scss";
 
 // import constants
-import { URL_MANUAL_FLOW, STEP_RM } from "@/utils/constants-rm";
+import { URL_MANUAL_FLOW, STEP_RM, CONTINUE_LATER } from "@/utils/constants-rm";
 
 //import types
 import { ISupplementaryDocuments } from "./SupplementaryDocuments";
@@ -31,11 +31,14 @@ import MultipleUploadImages from "../MultipleUploadImages";
 import { saveDataSupplementaryDocument } from "@/store/form";
 
 const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forwardRef(({  }, ref) => {
+  // classnames
   const cx = classNames.bind(styles);
+
+  // hooks
   const history = useHistory()
   const dispatch = useDispatch();
-  
 
+  // constants
   const { LIST_STEP: {
     supplementaryDocuments: {
       titleSupplementaryDocuments,
@@ -93,7 +96,7 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
         <Button 
           backgroundClass="bgGunmetalBluegrey" 
           onClick={handleNext}
-          disabled={isDisabled}
+          // disabled={isDisabled}
         >
           Next
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
@@ -215,7 +218,7 @@ const SupplementaryDocuments: React.FC<ISupplementaryDocuments.IProps> = forward
           </Button>
           <div>
             <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
+              <Link to="/">{CONTINUE_LATER}</Link>
             </div>
             <div className="ml-dt-30 d-inline">
               {renderButton()}

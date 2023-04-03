@@ -2,7 +2,7 @@
 import { Category, Button } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box } from "@material-ui/core";
+import { Box, Divider } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import SectionWrapper from "../SectionWrapper";
@@ -57,6 +57,7 @@ const ServicesApplied: React.FC<any> = (props) => {
     directCurrencyConversion: otherServices.sectionRadios.directCurrencyConversion,
     mailOrder: otherServices.sectionRadios.mailOrder,
   });
+  const [validateListCheckboxMonth, setValidateListCheckboxMonth] = useState<boolean>(false);
 
   /**
    * Retrieves data of Transaction and card acceptance type from Store
@@ -95,8 +96,17 @@ const ServicesApplied: React.FC<any> = (props) => {
    * @returns {HTML}
    */
   const handleNext = () => {
+    const isValidate = dataOtherService.instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox.some(
+      item => item.checked
+    );
+    if (dataOtherService.instalmentPaymentPlan.checked && !isValidate) {
+      setValidateListCheckboxMonth(true);
+      return;
+    }  
+    
     history.push(URL_MANUAL_FLOW.businessOperation);
     getDataOtherServices(dataOtherService)
+    setValidateListCheckboxMonth(false)
   }
 
   /**
@@ -186,9 +196,13 @@ const ServicesApplied: React.FC<any> = (props) => {
         <OtherServices 
           cx={cx} 
           dataOtherServices={dataOtherService} 
-          setDataOtherService={setDataOtherService} 
+          setDataOtherService={setDataOtherService}
+          validateListCheckboxMonth={validateListCheckboxMonth}
+          setValidateListCheckboxMonth={setValidateListCheckboxMonth}
         />
       </SectionWrapper>
+      
+      <Divider light />
 
       {/* Section button  */}
       <section className={cx('button-wrapper', 'd-flex space-between mt-dt-40')}>
