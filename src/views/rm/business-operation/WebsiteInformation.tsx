@@ -22,6 +22,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
 
   const {
     LIST_STEP: {
+      LIST_RADIO_YES_NO,
       businessOperation: {
         section: { websiteInfomation },
       },
@@ -30,11 +31,12 @@ const WebsiteInformation: React.FC<any> = (props) => {
 
   // States
   const [dataWebsiteInformation, setDataWebsiteInformation] = useState<any>({
-    checkedYouHaveExistingWebsite: websiteInfomation.checkedYouHaveExistingWebsite,
-    checkedCanCustomersPlaceOrderThroughYourWebsite: websiteInfomation.checkedCanCustomersPlaceOrderThroughYourWebsite,
-    valueYouHaveExistingWebsite: "",
-    valueCanCustomersPlaceOrderThroughYourWebsite: "",
-  })
+    checkedYouHaveExistingWebsite: LIST_RADIO_YES_NO[0].value,
+    checkedCanCustomersPlaceOrderThroughYourWebsite:
+      websiteInfomation.checkedCanCustomersPlaceOrderThroughYourWebsite,
+    valueYouHaveExistingWebsite: LIST_RADIO_YES_NO[0].value,
+    valueCanCustomersPlaceOrderThroughYourWebsite: LIST_RADIO_YES_NO[0].value,
+  });
 
   // form
   const {
@@ -46,7 +48,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      items: [{value: "url"}]
+      items: [{ value: "url" }],
     },
   });
 
@@ -58,7 +60,6 @@ const WebsiteInformation: React.FC<any> = (props) => {
   return (
     <Box className={cx("website-information-wrapper")}>
       <Grid container>
-
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
             {websiteInfomation.labelDoYouHaveAnExistingWebsite}
@@ -68,28 +69,24 @@ const WebsiteInformation: React.FC<any> = (props) => {
             cx={cx}
             name="youHaveExistingWebsite"
             value={dataWebsiteInformation.valueYouHaveExistingWebsite}
-            listRadio={listRadio}
+            listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
               setDataWebsiteInformation({
                 ...dataWebsiteInformation,
                 checkedYouHaveExistingWebsite: value === "yes" ? true : false,
-                valueYouHaveExistingWebsite: value
-              })
+                valueYouHaveExistingWebsite: value,
+              });
             }}
           />
         </Grid>
 
         {dataWebsiteInformation.checkedYouHaveExistingWebsite && (
           <Grid item xs={12}>
-            <Grid 
-              container
-              direction="column"
-              style={{ rowGap: "12px" }}
-            >
-              {fields.map((item: any, index: number) => (
+            <Grid container direction="column" style={{ rowGap: "12px" }}>
+              {fields.map((_item: any, index: number) => (
                 <Grid item xs={12} key={index}>
-                  <div className={cx('group-fields')}>
+                  <div className={cx("group-fields")}>
                     <Typography className={cx("title")}>
                       {`${websiteInfomation.labelYourWebsiteURL} ${index + 1}`}
                     </Typography>
@@ -97,8 +94,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
                       <Grid item xs={4}>
                         <TextField
                           fullWidth
-                          id={`uuidv4()`}
-                          label="e.g. www.xxx.com"
+                          label="Your website’s URL"
                           variant="filled"
                           // onBlur={(event) => {
                           //   getPersonalInformation(
@@ -108,12 +104,11 @@ const WebsiteInformation: React.FC<any> = (props) => {
                           //   );
                           // }}
                         />
-
                       </Grid>
                     </Grid>
                     {index >= 1 && (
                       <Typography
-                        className={cx('label-remove')}
+                        className={cx("label-remove")}
                         onClick={() => remove(index)}
                       >
                         Remove
@@ -123,9 +118,9 @@ const WebsiteInformation: React.FC<any> = (props) => {
                 </Grid>
               ))}
               {fields.length < 3 && (
-                <div 
+                <div
                   className={cx("add-field")}
-                  onClick={() => append({value: "url"})}
+                  onClick={() => append({ value: "url" })}
                 >
                   <img
                     src={IconPlus}
@@ -139,7 +134,6 @@ const WebsiteInformation: React.FC<any> = (props) => {
           </Grid>
         )}
 
-
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
             {websiteInfomation.labelCanCustomersPlaceOrderThroughYourWebsite}
@@ -147,15 +141,18 @@ const WebsiteInformation: React.FC<any> = (props) => {
           <GroupRadio
             cx={cx}
             name="youHaveExistingWebsite"
-            value={dataWebsiteInformation.valueCanCustomersPlaceOrderThroughYourWebsite}
-            listRadio={listRadio}
+            value={
+              dataWebsiteInformation.valueCanCustomersPlaceOrderThroughYourWebsite
+            }
+            listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
               setDataWebsiteInformation({
                 ...dataWebsiteInformation,
-                checkedCanCustomersPlaceOrderThroughYourWebsite: value === "yes" ? true : false,
-                valueCanCustomersPlaceOrderThroughYourWebsite: value
-              })
+                checkedCanCustomersPlaceOrderThroughYourWebsite:
+                  value === "yes" ? true : false,
+                valueCanCustomersPlaceOrderThroughYourWebsite: value,
+              });
             }}
           />
         </Grid>

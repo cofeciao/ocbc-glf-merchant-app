@@ -17,7 +17,10 @@ import GroupRadio from "../GroupRadio";
 
 // render UI
 const BusinessInfomation: React.FC<any> = (props) => {
-  const { listRadioIsYourBusinessReadyForOperation, listRadioYouCurrentlyHaveAnOCBC } = props;
+  const {
+    listRadioIsYourBusinessReadyForOperation,
+    listRadioYouCurrentlyHaveAnOCBC,
+  } = props;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const [key, setKey] = useState<number>(0);
@@ -25,6 +28,7 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
   const {
     LIST_STEP: {
+      LIST_RADIO_YES_NO,
       businessOperation: {
         section: { businessInformation },
       },
@@ -33,20 +37,16 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
   // States
   const [dataBusinessInformation, setDataBusinessinformation] = useState<any>({
-    checkedIsYourBusinessReadyForOperation: businessInformation.checkedIsYourBusinessReadyForOperation,
-    checkedDoYouCurrentHaveAnOCBCBusinessAccount: businessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount,
+    checkedIsYourBusinessReadyForOperation: LIST_RADIO_YES_NO[0].value,
+    checkedDoYouCurrentHaveAnOCBCBusinessAccount: LIST_RADIO_YES_NO[0].value,
     valueAtHowManyOutlet: 0,
     valueOCBCBusinessAccountNumber: "",
-    valueIsYourBusinessReadyForOperation: "",
-    valueDoYouCurrentHaveAnOCBCBusinessAccount: ""
+    valueIsYourBusinessReadyForOperation: LIST_RADIO_YES_NO[0].value,
+    valueDoYouCurrentHaveAnOCBCBusinessAccount: LIST_RADIO_YES_NO[0].value,
   });
 
   return (
-    <Box
-      className={cx(
-        "business-infomation-wrapper"
-      )}
-    >
+    <Box className={cx("business-infomation-wrapper")}>
       <Grid container>
         {/* {Is your business ready for operation?} */}
         <Grid item xs={12}>
@@ -54,20 +54,21 @@ const BusinessInfomation: React.FC<any> = (props) => {
             {businessInformation.labelIsYouBusinessReadyForOperation}
           </Typography>
 
-        <GroupRadio
-          cx={cx}
-          name="isYourBusinessReadyForOperation"
-          value={dataBusinessInformation.valueIsYourBusinessReadyForOperation}
-          listRadio={listRadioIsYourBusinessReadyForOperation}
-          onChange={(event) => {
-            const { value } = event.target;
-            setDataBusinessinformation({
-              ...dataBusinessInformation,
-              checkedIsYourBusinessReadyForOperation: value === "yes" ? true : false,
-              valueIsYourBusinessReadyForOperation: value
-            })
-          }}
-        />
+          <GroupRadio
+            cx={cx}
+            name="isYourBusinessReadyForOperation"
+            value={dataBusinessInformation.valueIsYourBusinessReadyForOperation}
+            listRadio={LIST_RADIO_YES_NO}
+            onChange={(event) => {
+              const { value } = event.target;
+              setDataBusinessinformation({
+                ...dataBusinessInformation,
+                checkedIsYourBusinessReadyForOperation:
+                  value === "yes" ? true : false,
+                valueIsYourBusinessReadyForOperation: value,
+              });
+            }}
+          />
         </Grid>
         {dataBusinessInformation.checkedIsYourBusinessReadyForOperation && (
           <Grid item xs={12}>
@@ -94,7 +95,6 @@ const BusinessInfomation: React.FC<any> = (props) => {
           </Grid>
         )}
 
-
         {/* {Do you currently have an OCBC business account?} */}
         <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
@@ -103,15 +103,18 @@ const BusinessInfomation: React.FC<any> = (props) => {
           <GroupRadio
             cx={cx}
             name="doYouCurrentHaveAnOCBCBusinessAccount"
-            value={dataBusinessInformation.valueDoYouCurrentHaveAnOCBCBusinessAccount}
-            listRadio={listRadioYouCurrentlyHaveAnOCBC}
+            value={
+              dataBusinessInformation.valueDoYouCurrentHaveAnOCBCBusinessAccount
+            }
+            listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
               setDataBusinessinformation({
                 ...dataBusinessInformation,
-                checkedDoYouCurrentHaveAnOCBCBusinessAccount: value === "yes" ? true : false,
-                valueDoYouCurrentHaveAnOCBCBusinessAccount: value
-              })
+                checkedDoYouCurrentHaveAnOCBCBusinessAccount:
+                  value === "yes" ? true : false,
+                valueDoYouCurrentHaveAnOCBCBusinessAccount: value,
+              });
             }}
           />
         </Grid>

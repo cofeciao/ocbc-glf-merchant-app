@@ -1,5 +1,19 @@
-import { Box, FormControlLabel, RadioGroup, Typography, Radio, TextField, Grid, InputAdornment, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@material-ui/core";
-import React, { useState } from "react";
+import {
+  Box,
+  FormControlLabel,
+  RadioGroup,
+  Typography,
+  Radio,
+  TextField,
+  Grid,
+  InputAdornment,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText,
+} from "@material-ui/core";
+import React, { ChangeEvent, useState } from "react";
 import { IProductionServices } from "./ProductionServices";
 import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
@@ -7,70 +21,47 @@ import _ from "lodash";
 // import icons
 import IconInformation from "@/assets/images/icon-infomation.svg";
 import { STEP_RM } from "@/utils/constants-rm";
+import GroupRadio from "@/components/GroupRadio";
 
-const FulfilmentInformation: React.FC<IProductionServices.IBusinessInformation> = (props) => {
+const FulfilmentInformation: React.FC<
+  IProductionServices.IBusinessInformation
+> = (props) => {
   const { cx, paramsBusinessService, setParamsBusinessService } = props;
-
-  const listRadio = [
-    {
-      text: "Immediate fulfillment",
-      value: "immediate_fulfillment",
-      checked: false,
-    },
-    {
-      text: "Fulfillment over a period of time",
-      value: "fulfillment_over_period",
-      checked: false,
-    },
-  ];
-
-  const listIndicateDuration = [
-    {
-      name: "Within a week",
-      value: "within_week",
-    },
-    {
-      name: "Within 2 weeks",
-      value: "within_2_weeks",
-    }
-  ]
-
+  const { LIST_RADIO_FULFILMENT_INFORMATION, LIST_INDICATE_DURATION } = STEP_RM;
   const {
     LIST_STEP: {
       productAndService: {
-        section: {
-          fulfilmentInformation,
-        }
-      }
+        section: { fulfilmentInformation },
+      },
     },
   } = STEP_RM;
 
   return (
     <Box className={cx("business-information")}>
-      <Typography className={cx('sub-section-description', 'title-fulfilment-information')}>
-        {fulfilmentInformation.label} <img src={IconInformation} alt="icon informaton" />
+      <Typography
+        className={cx(
+          "sub-section-description",
+          "title-fulfilment-information"
+        )}
+      >
+        {fulfilmentInformation.label}{" "}
+        <img src={IconInformation} alt="icon informaton" />
       </Typography>
-      <RadioGroup
-        aria-label="refund_policy" 
+      <GroupRadio
         name="refundPolicy"
-        className={cx("radio-group-fulfil")}
-        value={paramsBusinessService.quickly_bussiness}
-        onChange={(e: any) => {
-          setParamsBusinessService({...paramsBusinessService, quickly_bussiness: e.target.value })
+        isRow={false}
+        listRadio={LIST_RADIO_FULFILMENT_INFORMATION}
+        value={paramsBusinessService.quicklyBussiness}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          setParamsBusinessService({
+            ...paramsBusinessService,
+            quicklyBussiness: e.target.value,
+          });
         }}
-        >
-        {listRadio.map((item: any, index: number) => {
-          return(
-            <FormControlLabel 
-              key={index} 
-              value={item.value} 
-              control={<Radio disableFocusRipple disableRipple disableTouchRipple />} 
-              label={item.text} 
-            />
-          )
-        })}
-      </RadioGroup>
-      {paramsBusinessService.quickly_bussiness === "fulfillment_over_period" && (
+        cx={cx}
+      />
+      {paramsBusinessService.quicklyBussiness ===
+        LIST_RADIO_FULFILMENT_INFORMATION[1].value && (
         <Box className={cx("fulfillment-group")}>
           <Grid container spacing={3}>
             <Grid item xs={6}>
@@ -90,7 +81,7 @@ const FulfilmentInformation: React.FC<IProductionServices.IBusinessInformation> 
                   //   required: true,
                   // })}
                 >
-                  {_.map(listIndicateDuration, (item, index) => {
+                  {_.map(LIST_INDICATE_DURATION, (item, index) => {
                     return (
                       <MenuItem key={index} value={item.value}>
                         {item.name}
@@ -116,7 +107,9 @@ const FulfilmentInformation: React.FC<IProductionServices.IBusinessInformation> 
                 // })}
                 type="number"
                 InputProps={{
-                  endAdornment: <InputAdornment position="end">%</InputAdornment>,
+                  endAdornment: (
+                    <InputAdornment position="end">%</InputAdornment>
+                  ),
                 }}
               />
             </Grid>
@@ -124,7 +117,7 @@ const FulfilmentInformation: React.FC<IProductionServices.IBusinessInformation> 
         </Box>
       )}
     </Box>
-  )
-}
+  );
+};
 
 export default FulfilmentInformation;

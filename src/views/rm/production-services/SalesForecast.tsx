@@ -1,71 +1,132 @@
-import { Box, FormControlLabel, RadioGroup, Typography, Radio, TextField, Grid, InputAdornment, FormControl, InputLabel, Select, MenuItem, FormHelperText } from "@material-ui/core";
-import React, { useState } from "react";
-import { IProductionServices } from "./ProductionServices";
-import { v4 as uuidv4 } from "uuid";
+// import modules
+import {
+  Box,
+  Typography,
+  TextField,
+  Grid,
+  InputAdornment,
+} from "@material-ui/core";
+import React, { ChangeEvent, useState } from "react";
 import _ from "lodash";
 
 // import icons
-import IconInformation from "@/assets/images/icon-infomation.svg";
-import { STEP_RM } from "@/utils/constants-rm";
+import { ERROR_ICON, STEP_RM } from "@/utils/constants-rm";
 
+// render UI
 const SalesForecast: React.FC<any> = (props) => {
-  const { cx } = props;
-
+  const { cx, dataRedux, register, errors } = props;
   const {
     LIST_STEP: {
       productAndService: {
-        section: {
-          salesForecast,
-        }
-      }
+        section: { salesForecast },
+      },
     },
   } = STEP_RM;
 
-  return (
-    <Box className={cx("business-information")}>
-      <Typography className={cx("title")}>{salesForecast.labelBasedOnYourProducts}</Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            label={salesForecast.labelAverageAmountPerCreditCardTransaction}
-            // defaultValue={paramsBusinessService.average_amount}
-            // defaultValue={
-            //   _.has(dataRedux, "contact_detail.name") ? dataRedux.name : ""
-            // }
-            // id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // {...register("contact_detail.name", {
-            //   required: true,
-            // })}
-            type="number"
-            InputProps={{
-              startAdornment: <InputAdornment position="start">SGD</InputAdornment>,
-            }}
-          />
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            label={salesForecast.labelAnnualCreditCardSalesForecast}
-            // defaultValue={paramsBusinessService.annual_credit}
-            // id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // {...register("contact_detail.name", {
-            //   required: true,
-            // })}
-            type="number"
-            InputProps={{
-              startAdornment: <InputAdornment position="start">SGD</InputAdornment>,
-            }}
-          />
-        </Grid>
-      </Grid>
+  // states
+  const [openAdornmentFirst, setOpenAdornmentFirst] = useState<boolean>(false);
+  const [openAdornmentSecond, setOpenAdornmentSecond] =
+    useState<boolean>(false);
+  const [
+    valueAverageAmountPerCreditCardTransaction,
+    setValueAverageAmountPerCreditCardTransaction,
+  ] = useState<string>("");
+  const [
+    valueAnnualCreditCardSalesForecast,
+    setValueAnnualCreditCardSalesForecast,
+  ] = useState<string>("");
 
+  /**
+   * Handle numeric value from inputs
+   * @param event
+   */
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    // Change value to thousand seperator, eg: 1000000 => 1,000,000
+    const sanitizedText = event.target.value.replace(/[^0-9]/g, "");
+    const formattedText = sanitizedText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    index === 0
+      ? setValueAverageAmountPerCreditCardTransaction(formattedText)
+      : setValueAnnualCreditCardSalesForecast(formattedText);
+  };
+
+  return (
+    <Box className={cx("sales-forecast-wrapper")}>
+      {/* {Description} */}
+      <Typography className={cx("title mb-24")}>
+        {salesForecast.labelBasedOnYourProducts}
+      </Typography>
+
+      {/* {TextField} */}
+      <Grid item xs={12}>
+        <Box className={cx("text-field-group")}>
+          {_.map(salesForecast.listTextField, (textField, index: number) => {
+            return (
+              <Box key={index}>
+                <Grid item xs={12} md={6} lg={5}>
+                  <TextField
+                    fullWidth
+                    value={
+                      index === 0
+                        ? valueAverageAmountPerCreditCardTransaction
+                        : valueAnnualCreditCardSalesForecast
+                    }
+                    variant="filled"
+                    label={textField.description}
+                    InputProps={
+                      (openAdornmentFirst && index === 0) ||
+                      (openAdornmentSecond && index === 1)
+                        ? {
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                {textField.label}
+                              </InputAdornment>
+                            ),
+                          }
+                        : {}
+                    }
+                    onFocus={() => {
+                      index === 0
+                        ? setOpenAdornmentFirst(true)
+                        : setOpenAdornmentSecond(true);
+                    }}
+                    error={
+                      _.has(errors, "POS") &&
+                      _.has(errors.POS, textField.keyName) &&
+                      !_.isEqual(
+                        errors.POS[textField.keyName].type,
+                        "required"
+                      ) &&
+                      true
+                    }
+                    {...register(`POS.${textField.keyName}`, {
+                      required: true,
+                      pattern: {
+                        // eslint-disable-next-line no-useless-escape
+                        value: /^[1-9]\d{0,2}(,\d{3})*$/,
+                        message: `${ERROR_ICON} ${textField.helperText}`,
+                      },
+                      onChange: (event: ChangeEvent<HTMLInputElement>) =>
+                        handleChange(event, index),
+                      onBlur: (e: any) => {
+                        e.target.value === ""
+                          ? index === 0
+                            ? setOpenAdornmentFirst(false)
+                            : setOpenAdornmentSecond(false)
+                          : null;
+                      },
+                    })}
+                  />
+                </Grid>
+              </Box>
+            );
+          })}
+        </Box>
+      </Grid>
     </Box>
-  )
-}
+  );
+};
 
 export default SalesForecast;

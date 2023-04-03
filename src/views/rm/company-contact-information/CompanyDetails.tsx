@@ -19,18 +19,18 @@ import _ from "lodash";
 import AddIcon from '@material-ui/icons/Add';
 
 // import constants
-import { STEP_RM } from "@/utils/constants-rm";
+import { ERROR_ICON, STEP_RM } from "@/utils/constants-rm";
 
 // render UI
 const CompanyDetails: React.FC<any> = (props) => {
-  const { 
-    cx, 
-    key, 
-    data, 
-    register, 
-    errors, 
-    setValue, 
-    setError, 
+  const {
+    cx,
+    key,
+    data,
+    register,
+    errors,
+    setValue,
+    setError,
     dataRedux,
     fields,
     remove,
@@ -38,11 +38,11 @@ const CompanyDetails: React.FC<any> = (props) => {
     handleSubmit
   } = props;
 
-  const { 
-    registeredEntityName, 
-    entityType, 
-    uniqueEnityNumber, 
-    natureOfBusiness, 
+  const {
+    registeredEntityName,
+    entityType,
+    uniqueEnityNumber,
+    natureOfBusiness,
     blockNumber,
     streetName,
     unitNumber,
@@ -57,12 +57,14 @@ const CompanyDetails: React.FC<any> = (props) => {
       }
     },
   } = STEP_RM;
+  console.log(errors);
+
 
   const renderForm = (item: any, index: number) => {
     return (
       <Grid className="container-wrapper" container spacing={4} key={index}>
         <Grid item xs={12}>
-          <Typography 
+          <Typography
             className={cx("title")}
           >
             {companyDetails.titleDirectors} {index + 1} {index !== 0 && <label onClick={() => remove(index)}>Remove</label>}
@@ -84,11 +86,17 @@ const CompanyDetails: React.FC<any> = (props) => {
           <TextField
             fullWidth
             id={uuidv4()}
-            name={`directors[${index}].nricNumber`}
+            name={`director[${index}].nricNumber`}
             label="NRIC number"
             variant="filled"
-            {...register(`directors[${index}].nricNumber`, {
+            error={errors[`director[${index}].nricNumber`] && true}
+            {...register(`director[${index}].nricNumber`, {
               required: true,
+              pattern: {
+                // eslint-disable-next-line no-useless-escape
+                value: /^[S|T|F|G]\d{7}[A-Z]$/,
+                message: `${ERROR_ICON} ${item.helperText}`,
+              },
             })}
           />
         </Grid>
@@ -212,7 +220,7 @@ const CompanyDetails: React.FC<any> = (props) => {
           <Grid container>
             {_.has(blockNumber, "label") && (
               <Grid item xs={12}>
-                {/* {blockNumber input field} */}
+                {/* {Block / House number} */}
                 <TextField
                   fullWidth
                   type="number"
@@ -231,7 +239,7 @@ const CompanyDetails: React.FC<any> = (props) => {
 
             {_.has(unitNumber, "label") && (
               <Grid item xs={12}>
-              {/* {unitNumber input field} */}
+              {/* {Unit number} */}
               <TextField
                 fullWidth
                 id={uuidv4()}
@@ -271,21 +279,21 @@ const CompanyDetails: React.FC<any> = (props) => {
             )}
 
             <Grid item xs={12}>
-              <FormControlLabel 
+              <FormControlLabel
                 control={
-                  <Checkbox 
-                    name={data.mailingAndRegisteredAddressAreTheSame.name} 
+                  <Checkbox
+                    name={data.mailingAndRegisteredAddressAreTheSame.name}
                     disableTouchRipple
                     disableRipple
                     disableFocusRipple
                   />
-                } 
-                label={data.mailingAndRegisteredAddressAreTheSame.label} 
+                }
+                label={data.mailingAndRegisteredAddressAreTheSame.label}
               />
             </Grid>
           </Grid>
         </Grid>
-      
+
         {/* {Column right} */}
         <Grid item xs={12} md={6}>
           <Grid container>
@@ -329,15 +337,15 @@ const CompanyDetails: React.FC<any> = (props) => {
             )}
           </Grid>
         </Grid>
-        
+
       </Grid>
-        
+
       {/* Section directors */}
       <Typography className={cx("title")}>{data.titleDirectors}</Typography>
       {fields.map((item: any, index: number) => {
         return renderForm(item, index)
       })}
-      <Typography 
+      <Typography
         className={cx("label-add-more")}
         onClick={handleAddDirectors}
       >
