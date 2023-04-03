@@ -1,9 +1,10 @@
 export const TITLE_PAGE = "Cashless Payments Application";
 export const ERROR = "error";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
-export const WElCOME_LOGIN = "Welcome!"
+export const WElCOME_LOGIN = "Welcome!";
 export const MSG_ERR_CARD_CHECKBOX = "Please select at least one service";
-export const SUB_TITLE_UPLOAD_IMAGE = "Acceptable file types: xls, xlsx, csv (Max 2MB)";
+export const SUB_TITLE_UPLOAD_IMAGE =
+  "Acceptable file types: xls, xlsx, csv (Max 2MB)";
 
 export const CONTACT_INFORMATION = "contact-information";
 export const COMPANY_CONTACT_INFORMATION = "company-contact-information";
@@ -25,6 +26,8 @@ export const REVIEW = "Review";
 export const SUBMIT = "Submit";
 export const START = "START";
 export const CONTINUE_LATER = "Continue later";
+
+export const ERROR_ICON = "\u26A0";
 
 export const URL_MANUAL_FLOW = {
   contactInformation: "/rm/contact-information",
@@ -48,24 +51,24 @@ export const PERSONAL_INFORMATION_SINGPASS = {
 };
 
 export const OTHER_SERVICES = {
-  titleQuestions1: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
-  titleQuestions2: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
-  titlequestions3: "Are you interested in Mail Order /Telephone Order?"
+  titleQuestions1:
+    "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+  titleQuestions2:
+    "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+  titlequestions3: "Are you interested in Mail Order /Telephone Order?",
 };
 
-
-export const DATA_CARD_CHECKBOX_ACCEPTANCE1= [
+export const DATA_CARD_CHECKBOX_ACCEPTANCE1 = [
   {
-    label: 'Point-of-Sales terminal',
+    label: "Point-of-Sales terminal",
     value: "point-of-sales-terminal",
     checked: false,
   },
 ];
 
-
-export const DATA_CARD_CHECKBOX_ACCEPTANCE2= [
+export const DATA_CARD_CHECKBOX_ACCEPTANCE2 = [
   {
-    label: 'e-Commerce',
+    label: "e-Commerce",
     value: "ecommerce",
     checked: false,
   },
@@ -76,16 +79,15 @@ export const LIST_ECOMMERCE = [
     text: "UnionPay",
     check: false,
   },
-   {
+  {
     text: "JCB",
     check: false,
-   },
-   {
+  },
+  {
     text: "OCBC Instalment Payment Plan (IPP)",
     check: false,
   },
 ];
-
 
 export const LIST_POINTS = [
   {
@@ -103,7 +105,7 @@ export const LIST_POINTS = [
   {
     text: "Alipay",
     check: false,
-  },  
+  },
   {
     text: "OCBC Instalment Payment Plan (IPP)",
     check: false,
@@ -139,7 +141,6 @@ export const LIST_RADIO_QUESTION1 = [
     disable: false,
   },
 ];
-
 
 export const LIST_REPAYMENT_PERIODS = [
   {
@@ -1464,13 +1465,42 @@ export const DATA_TABS_NON_REPRICING_MANUAL_SELECTED = [
 export const RM_ACKNOWLEDGEMENT_PAGE = {
   TITLE_SUCCESSFUL: "Great, we have received your application!",
   TITLE_FAIL: "We are unable to submit the application at the moment",
-  SUB_TITLE_FAIL: "Try again later"
+  SUB_TITLE_FAIL: "Try again later",
 };
-
 
 // Step
 export const STEP_RM = {
   LABEL_ADD_MORE_WEBSITES: "Add website more",
+  LIST_RADIO_FULFILMENT_INFORMATION: [
+    {
+      label: "Immediate fulfillment",
+      value: "Immediate fulfillment",
+      checked: true,
+    },
+    {
+      label: "Fulfillment over a period of time",
+      value: "Fulfillment over a period of time",
+      checked: false,
+    },
+  ],
+  LIST_INDICATE_DURATION: [
+    {
+      name: "Within a week",
+      value: "within-a-week",
+    },
+    {
+      name: "Within a month",
+      value: "within-a-month",
+    },
+    {
+      name: "Within 3 months",
+      value: "within-3-months",
+    },
+    {
+      name: "More than 3 months",
+      value: "more-than-3-months",
+    },
+  ],
   LIST_STEP: {
     LIST_SALUTATION: [
       {
@@ -1485,7 +1515,31 @@ export const STEP_RM = {
     LIST_ENTITY_TYPE: [
       {
         name: "Private Limited",
-        value: "private_limited",
+        value: "privateLimited",
+      },
+      {
+        name: "Sole Proprietorship",
+        value: "soleProprietorship",
+      },
+      {
+        name: "Partnership Proprietor Limited",
+        value: "partnershipProprietorLimited",
+      },
+      {
+        name: "Limited Liability Proprietary",
+        value: "limitedLiabilityProprietary",
+      },
+      {
+        name: "Public Limited",
+        value: "publicLimited",
+      },
+      {
+        name: "Non-Profit Organization",
+        value: "nonProfitOrganization",
+      },
+      {
+        name: "Other",
+        value: "other",
       },
     ],
     LIST_RADIO_YES_NO: [
@@ -1528,17 +1582,17 @@ export const STEP_RM = {
             directors: [
               {
                 name: "Lau Aik Miang",
-                nricNumber: "S9300409F"
+                nricNumber: "S9300409F",
               },
               {
                 name: "Zunaidi Zainal Azmian",
-                nricNumber: "S9000555C"
+                nricNumber: "S9000555C",
               },
             ],
             uniqueEntityNumber: "2016347449N",
             natureOfBusiness: "Café / Restaurant",
             mailingAddress: "35 Bedok North Road #09-39 Singapore 674902",
-          }
+          },
         },
         contactDetail: {
           title: "Contact details",
@@ -1572,7 +1626,7 @@ export const STEP_RM = {
           },
         },
         authorisedPersonDetails: {
-          title:"Authorised person details",
+          title: "Authorised person details",
           description: "Please ensure that these details are accurate.",
           inputFields: {
             salutation: {
@@ -1601,7 +1655,7 @@ export const STEP_RM = {
               requiredText: "",
             },
           },
-        }
+        },
       },
     },
     companyAndContactInformation: {
@@ -1613,7 +1667,8 @@ export const STEP_RM = {
       section: {
         companyDetails: {
           title: "Company details",
-          description: "Please ensure that these details from ACRA are updated.",
+          description:
+            "Please ensure that these details from ACRA are updated.",
           titleRegisteredAddress: "Registered address",
           titleDirectors: "Directors",
           labelAddMoreDirectors: "Add more directors",
@@ -1666,7 +1721,7 @@ export const STEP_RM = {
           },
           mailingAndRegisteredAddressAreTheSame: {
             label: "Mailing and Registered address are the same",
-            name: "mailingAndRegisteredAddressAreTheSame"
+            name: "mailingAndRegisteredAddressAreTheSame",
           },
           inputFieldsDirectors: {
             name: {
@@ -1681,17 +1736,17 @@ export const STEP_RM = {
               helperText: "",
               requiredText: "",
             },
-          }
+          },
         },
         contactDetails: {
           title: "Contact details",
-          description: "Please ensure that these details are accurate."
+          description: "Please ensure that these details are accurate.",
         },
         authorisedPersonDetails: {
           title: "Authorised person details",
-          description: "Please ensure that these details are accurate."
+          description: "Please ensure that these details are accurate.",
         },
-      }
+      },
     },
     servicesApplied: {
       id: "services_applied",
@@ -1709,7 +1764,8 @@ export const STEP_RM = {
       section: {
         transactionAndCardAcceptanceType: {
           title: "Transaction and card acceptance type",
-          description: "Both services automatically come with Mastercard and Visa.",
+          description:
+            "Both services automatically come with Mastercard and Visa.",
           dataListCheckbox: [
             {
               label: "Point-of-Sales terminal",
@@ -1818,7 +1874,8 @@ export const STEP_RM = {
           ],
           sectionRadios: {
             instalmentPaymentPlan: {
-              title: "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
+              title:
+                "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
               value: "",
@@ -1873,11 +1930,12 @@ export const STEP_RM = {
                     checked: false,
                     value: "60_months",
                   },
-                ]
-              }
+                ],
+              },
             },
             directCurrencyConversion: {
-              title: "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
+              title:
+                "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
               name: "directCurrencyConversion",
               checked: false,
               value: "",
@@ -1888,8 +1946,8 @@ export const STEP_RM = {
               checked: false,
               value: "",
             },
-          }
-        }
+          },
+        },
       },
     },
     businessOperation: {
@@ -1908,9 +1966,12 @@ export const STEP_RM = {
       section: {
         businessInformation: {
           titleBusinessInformation: "Business information",
-          labelIsYouBusinessReadyForOperation: "Is your business ready for operation?",
-          labelAtHowManyOutletWillYouDeplay: "At how many outlets will you deploy Point-of-Sales terminals?",
-          labelDoYouCurrentHaveAnOCBCBusinessAccount: "Do you currently have an OCBC business account?",
+          labelIsYouBusinessReadyForOperation:
+            "Is your business ready for operation?",
+          labelAtHowManyOutletWillYouDeplay:
+            "At how many outlets will you deploy Point-of-Sales terminals?",
+          labelDoYouCurrentHaveAnOCBCBusinessAccount:
+            "Do you currently have an OCBC business account?",
           checkedIsYourBusinessReadyForOperation: false,
           checkedDoYouCurrentHaveAnOCBCBusinessAccount: false,
           listRadioIsYourBusinessReadyForOperation: [
@@ -1946,7 +2007,8 @@ export const STEP_RM = {
           labelDoYouHaveAnExistingWebsite: "Do you have an existing website?",
           labelYourWebsiteURL: "Website",
           labelAddMoreWebsite: "Add more website",
-          labelCanCustomersPlaceOrderThroughYourWebsite: "Can customers place orders through your website?",
+          labelCanCustomersPlaceOrderThroughYourWebsite:
+            "Can customers place orders through your website?",
           checkedYouHaveExistingWebsite: false,
           checkedCanCustomersPlaceOrderThroughYourWebsite: false,
           listRadio: [
@@ -1968,8 +2030,10 @@ export const STEP_RM = {
         },
         otherInfomation: {
           titleOtherInformation: "Other information",
-          labelIsYourBusinessReadyForOperation: "Is your business ready for operation?",
-          labelDoesYourRetailStoreAccpetCardPayment: "Does your retail store accept card payments?",
+          labelIsYourBusinessReadyForOperation:
+            "Is your business ready for operation?",
+          labelDoesYourRetailStoreAccpetCardPayment:
+            "Does your retail store accept card payments?",
           sections: [
             {
               listCheckboxDescription: "Is your business ready for operation?",
@@ -2018,14 +2082,17 @@ export const STEP_RM = {
         },
         outletDetails: {
           titleOutletDetail: "Outlet details",
-          description: "We require the address of each outlet. You can choose to fill in the information here or upload a list.",
+          description:
+            "We require the address of each outlet. You can choose to fill in the information here or upload a list.",
           checkedOutlet: true,
           checkedExistingWebsite: false,
           labelAddAnOutlet: "Add an outlet",
           labelRemove: "Remove",
           labelListRadioMethodDoYouPrefer: "Which method do you prefer?",
-          labelListOutletBeUsingTheBank: "Will this outlet be using the bank account indicated above?",
-          labelPleaseIndicateTheBankLinkedToYourBusiness: "Please indicate the bank linked to your business",
+          labelListOutletBeUsingTheBank:
+            "Will this outlet be using the bank account indicated above?",
+          labelPleaseIndicateTheBankLinkedToYourBusiness:
+            "Please indicate the bank linked to your business",
           labelBankName: "Bank Name",
           listRadio: [
             {
@@ -2109,8 +2176,8 @@ export const STEP_RM = {
               helperText: "",
               requiredText: "",
             },
-          }
-        }
+          },
+        },
       },
     },
     productAndService: {
@@ -2130,18 +2197,22 @@ export const STEP_RM = {
         businessOffering: {
           title: "Business offering",
           label: "What products and/or services is your business offering?",
-          note: "E.g. Bistro, café, workshops, salon, clinic, etc."
+          note: "E.g. Bistro, café, workshops, salon, clinic, etc.",
         },
         fulfilmentInformation: {
           title: "Fulfilment information",
-          label: "How quickly does your business fulfil these products and/or services?",
+          label:
+            "How quickly does your business fulfil these products and/or services?",
           labelSelect: "Please indicate duration",
-          labelTextField: "Percentage of products/services not fulfilled immediately",
+          labelTextField:
+            "Percentage of products/services not fulfilled immediately",
         },
         salesForecast: {
           title: "Sales forecast",
-          labelBasedOnYourProducts: "Based on your products and/or services, what is your sales forecast?",
-          labelAverageAmountPerCreditCardTransaction: "Average amount per credit card transaction",
+          labelBasedOnYourProducts:
+            "Based on your products and/or services, what is your sales forecast?",
+          labelAverageAmountPerCreditCardTransaction:
+            "Average amount per credit card transaction",
           labelAnnualCreditCardSalesForecast: "Annual credit card sales",
         },
         refundPolicy: {
@@ -2157,8 +2228,8 @@ export const STEP_RM = {
               checked: false,
             },
           ],
-        }
-      }
+        },
+      },
     },
     sensitiveData: {
       id: "sensitive-data",
@@ -2174,17 +2245,22 @@ export const STEP_RM = {
         status: true,
       },
       section: {
-        labelDoYouStoreCreditCardDetails: "Do you store credit card details in your database?",
-        labelIsTheDataProtected: "Is the data protected by Hierachical Storage Management?",
-        labelPlaseIndicateYourEncryptionMethod: "Please indicate your encryption method",
+        labelDoYouStoreCreditCardDetails:
+          "Do you store credit card details in your database?",
+        labelIsTheDataProtected:
+          "Is the data protected by Hierachical Storage Management?",
+        labelPlaseIndicateYourEncryptionMethod:
+          "Please indicate your encryption method",
         placeholderPlaseIndicateYourEncryptionMethod: "Encryption method",
-        labelAreYouCompliantWithPaymentCard: "Are you compliant with the Payment Card Industry Data Security Standard (PCI DSS)? ",
+        labelAreYouCompliantWithPaymentCard:
+          "Are you compliant with the Payment Card Industry Data Security Standard (PCI DSS)? ",
         labelUploadPCIDSSCerificate: "Upload PCI DSS certificate",
         contentDialog: {
           title: "Payment Card Industry Data Security Standard",
-          description: "The Payment Card Industry Data Security Standard (PCI DSS) is a set of requirements intended to ensure that all companies that process, store, or transmit credit card information maintain a secure environment.",
-        }
-      }
+          description:
+            "The Payment Card Industry Data Security Standard (PCI DSS) is a set of requirements intended to ensure that all companies that process, store, or transmit credit card information maintain a secure environment.",
+        },
+      },
     },
     beneficialOwner: {
       id: "beneficial-owner",
@@ -2203,7 +2279,8 @@ export const STEP_RM = {
         beneficialOwnerOfTheCompany: {
           titleBeneficialOwnerOfTheCompany: "Beneficial owner of the company",
           label: "Which method do you prefer?",
-          labelUploadCertificateOfIncumbency: "Upload certificate of incumbency",
+          labelUploadCertificateOfIncumbency:
+            "Upload certificate of incumbency",
           labelForm: "Beneficial owner",
           labelAddAnotherBeneficialOwner: "Add another beneficial owner",
           inputFields: {
@@ -2275,8 +2352,8 @@ export const STEP_RM = {
               checked: false,
             },
           ],
-        }
-      }
+        },
+      },
     },
     feesAndRates: {
       id: "sensitive-data",
@@ -2294,21 +2371,23 @@ export const STEP_RM = {
       section: {
         merchantDiscountRate: {
           titleMerchantDiscountRate: "Merchant Discount Rate (MRD)",
-          description: "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
+          description:
+            "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
         },
         fees: {
           titleFees: "Fees (GST inclusive)",
         },
         refundabltFees: {
-          titleRefundableFees: "Refundable fees (if applicable)"
-        }
-      }
+          titleRefundableFees: "Refundable fees (if applicable)",
+        },
+      },
     },
     feeAuthorisation: {
       id: "fee-authorisation",
       numerical: "7",
       title: "Fee authorization",
-      description: "Based on your selected payment method, we will deduct the annual fee one month after your application has been approved. We will not make any deduction if your application is unsuccessful.",
+      description:
+        "Based on your selected payment method, we will deduct the annual fee one month after your application has been approved. We will not make any deduction if your application is unsuccessful.",
       check: false,
       status: true,
       section: {
@@ -2339,8 +2418,8 @@ export const STEP_RM = {
           },
           decriptionForOtherFees: {
             title: "Description for other fees",
-            value: "Misc fees"
-          }
+            value: "Misc fees",
+          },
         },
         paymentForTheFirstYear: {
           label: "How will you make your payment for the first year?",
@@ -2360,7 +2439,7 @@ export const STEP_RM = {
               label: "GIRO from another bank",
               description: "",
               value: "giroFromAnotherBank",
-            }
+            },
           ],
           listBankName: [
             {
@@ -2371,7 +2450,7 @@ export const STEP_RM = {
               label: "OCBC bank 2",
               value: "ocbc_bank_2",
             },
-          ]
+          ],
         },
         paymentForSubsequentYears: {
           label: "How will you make your payment for subsequent years?",
@@ -2407,13 +2486,14 @@ export const STEP_RM = {
               name: "OCBC bank 2",
               value: "ocbc_bank_2",
             },
-          ]
+          ],
         },
         applicationConfirmation: {
-          title: "Before submitting your application, please ensure that you read and understand the following:",
+          title:
+            "Before submitting your application, please ensure that you read and understand the following:",
           decription: `We agree to the terms and conditions of the above letter issued by OCBC Bank in relation to the OCBC Bank Visa and MasterCard Merchant Programme (the "Programme"). We acknowledge that delivery to OCBC Bank of the OCBC Bank Visa and MasterCard Merchant Agreement signed by us does not constitute an agreement by OCBC Bank to accept our application to participate in the Programme as their Merchant until (a) our application to participate in the Programme as their Merchant has been approved by OCBC Bank at its absolute discretion and informed to us in writing and (b) OCBC Bank has executed the OCBC Bank Visa and MasterCard Merchant Agreement and such other documents as OCBC Bank deems appropriate. We acknowledge that our application to participate in the Programme as a Merchant is subject to the conditions set out in (a) and (b) above.`,
-        }
-      }
+        },
+      },
     },
     supplementaryDocuments: {
       titleSupplementaryDocuments: "Supplementary documents",
@@ -2426,11 +2506,13 @@ export const STEP_RM = {
         name: "tenacyDocumentOrSiteVisitPhotos",
       },
       copyOfBankStatement: {
-        titleCopyOfBankStatement: "Copy of bank statement (if applicable for non-OCBC corporate account)",
+        titleCopyOfBankStatement:
+          "Copy of bank statement (if applicable for non-OCBC corporate account)",
         name: "copyOfBankStatement",
       },
       anyOtherSupportingDocuments: {
-        titleAnyOtherSupportingDocuments: "Any other supporting documents (if applicable)",
+        titleAnyOtherSupportingDocuments:
+          "Any other supporting documents (if applicable)",
         name: "anyOtherSupportingDocuments",
       },
     },
@@ -2450,19 +2532,22 @@ export const STEP_RM = {
       section: {
         cashlessPaymentMethod: {
           titleCashlesPaymentMethod: "Cashless payment method(s)",
-          titleMode: "Mode"
+          titleMode: "Mode",
         },
         transactionAndCardAcceptanceType: {
-          titleTransactionAndCardAcceptanceType: "Transaction and card acceptance type",
+          titleTransactionAndCardAcceptanceType:
+            "Transaction and card acceptance type",
           titleService: "Service",
           titlePaymentOptions: "Payment options",
           otherServices: {
             titleOtherServices: "Other services",
-            titleInstalmentPaymentPlan: "Instalment Payment Plan (IPP) for OCBC credit cards",
+            titleInstalmentPaymentPlan:
+              "Instalment Payment Plan (IPP) for OCBC credit cards",
             titleRepaymentPeriodsOffered: "Repayment periods offered",
-            titleDirectCurrencyConversion: "Direct Currency Conversion (DCC) for Visa/Mastercard",
-            titleMailOrder: "Mail Order/Telephone Order"
-          }
+            titleDirectCurrencyConversion:
+              "Direct Currency Conversion (DCC) for Visa/Mastercard",
+            titleMailOrder: "Mail Order/Telephone Order",
+          },
         },
         feeAndRates: {
           titleFeeAndRates: "Fee and rates",
@@ -2475,16 +2560,16 @@ export const STEP_RM = {
             titlePerInternationalTransaction: "Per international transaction",
             titleTokenisation: "Tokenisation",
             titleOtherFees: "Other fees",
-            titleDescriptionForOtherFees: "Description for other fees"
+            titleDescriptionForOtherFees: "Description for other fees",
           },
           refundableFees: {
             titleRefundableFees: "Refundable Fees",
-          }
+          },
         },
         feeAuthorisation: {
           titleFeeAuthorisation: "Fee authorisation",
           titleFirstYearPayment: "First year payment",
-          titleSubsequentYearsPayment: "Subsequent years payment"
+          titleSubsequentYearsPayment: "Subsequent years payment",
         },
         companyRegistration: {
           titleCompanyRegistration: "Company registration",
@@ -2501,7 +2586,7 @@ export const STEP_RM = {
             titleName: "Name",
             titleDesignation: "Designation",
             titleEmail: "Email",
-            titleContactNumber: "Contact number"
+            titleContactNumber: "Contact number",
           },
           authorisedPersonDetails: {
             titleAuthorisedPersonDetails: "Authorised person details",
@@ -2509,12 +2594,13 @@ export const STEP_RM = {
             titleName: "Name",
             titleDesignation: "Designation",
             titleEmail: "Email",
-            titleContactNumber: "Contact number"
-          }
+            titleContactNumber: "Contact number",
+          },
         },
         businessOperationDetails: {
           titleBusinessOperationDetails: "Business operation details",
-          titleNumberOfOutlets: "Number of outlets with Point-of-Sales termimals",
+          titleNumberOfOutlets:
+            "Number of outlets with Point-of-Sales termimals",
           titleBusinessReadyToOperate: "Business ready to operate",
           titleOCBCBusinessAccount: "OCBC business account",
           titleOCBCCusinessAccountNumber: "OCBC business account number",
@@ -2529,27 +2615,31 @@ export const STEP_RM = {
             titlePostalCode: "Postal Code",
             titleBlockNumber: "Block / House number",
             titleStreetName: "Street name",
-            titleUnitNumber: "Unit number (if applicable)"
-          }
+            titleUnitNumber: "Unit number (if applicable)",
+          },
         },
         productsAndServices: {
           titleProductAndServices: "Product and services",
           titleTypeOfProduct: "Type of product and/or service",
-          titleOrderFulfilment:"Order fulfilment",
-          titleAverageAmountPerCreditCardTransaction:"Average amount per credit card transaction",
-          titleAnnualCreditCardSalesForecast: "Annual credit card sales forecast",
+          titleOrderFulfilment: "Order fulfilment",
+          titleAverageAmountPerCreditCardTransaction:
+            "Average amount per credit card transaction",
+          titleAnnualCreditCardSalesForecast:
+            "Annual credit card sales forecast",
           refundPolicy: {
             titleRefundPolicy: "Refund Policy",
-            titleCopyOfRefundPolicy:"Copy of refund policy"
-          }
+            titleCopyOfRefundPolicy: "Copy of refund policy",
+          },
         },
         sensitiveData: {
           titleSensitiveData: "Sensitive data",
           titleStoreCreditCard: "Store credit card in database",
-          titleDataProtectedByHierachical: "Data protected by Hierachical Storage Management",
+          titleDataProtectedByHierachical:
+            "Data protected by Hierachical Storage Management",
           titleEncryptionMothod: "Encryption method",
-          titleCompliantWithThePaymentCard: "Compliant with the Payment Card Industry Data Security Standard (PCI DSS)",
-          titlePCIDSSCertificate: "PCI DSS certificate"
+          titleCompliantWithThePaymentCard:
+            "Compliant with the Payment Card Industry Data Security Standard (PCI DSS)",
+          titlePCIDSSCertificate: "PCI DSS certificate",
         },
         beneficailOwnership: {
           titleBeneficialOwnership: "Beneficial ownership",
@@ -2566,9 +2656,9 @@ export const STEP_RM = {
           titleAuthorisedSignatory: "Authorised signatory’s NRIC or passport",
           titleTenancyDocument: "Tenancy document or site visit photos",
           titleCopyOfBankStatement: "Copy of bank statement",
-          titleAnyOtherSupportingDocuments: "Any other supporting documents"
-        }
-      }
+          titleAnyOtherSupportingDocuments: "Any other supporting documents",
+        },
+      },
     },
     declaration: {
       id: "declaration",
@@ -2586,45 +2676,53 @@ export const STEP_RM = {
       section: {
         reviewTheFollowing: {
           title: "Please review the following:",
-          listCheckboxReviewTheFollowing:[
+          listCheckboxReviewTheFollowing: [
             {
-              label: "I/We authorise OCBC to deduct the annual fees from my account",
+              label:
+                "I/We authorise OCBC to deduct the annual fees from my account",
               value: "authoriseOCBC",
             },
             {
               label: "I/We declare that I/we have read the schedules.pdf",
-              value: "schedules"
+              value: "schedules",
             },
             {
-              label: "I/We declare that I/we have read the settlement frequency.pdf ",
-              value: "settlement"
+              label:
+                "I/We declare that I/we have read the settlement frequency.pdf ",
+              value: "settlement",
             },
             {
-              label: "I/We declare that I/we have read the immediate fulfilment.pdf",
-              value: "immediate"
+              label:
+                "I/We declare that I/we have read the immediate fulfilment.pdf",
+              value: "immediate",
             },
             {
-              label: "I/We declare that I/we have read the merchant agreement.pdf",
-              value: "merchant"
-            }
-          ]
+              label:
+                "I/We declare that I/we have read the merchant agreement.pdf",
+              value: "merchant",
+            },
+          ],
         },
         provision: {
-          title: "Before submitting your application, please ensure that you read the following:",
+          title:
+            "Before submitting your application, please ensure that you read the following:",
           listCheckboxProvision: [
             {
-              label: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+              label:
+                "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
               value: "declareInformation",
             },
             {
-              label: "I/We hereby authorise you and give you consent to conduct credit checks on me/the Company, including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore, and to obtain and verify and/or to disclose any information from or to any party or source as you may from time to time deem fit at your own discretion and without any liability or notice to me/us.",
-              value: "authorise"
+              label:
+                "I/We hereby authorise you and give you consent to conduct credit checks on me/the Company, including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore, and to obtain and verify and/or to disclose any information from or to any party or source as you may from time to time deem fit at your own discretion and without any liability or notice to me/us.",
+              value: "authorise",
             },
             {
-              label: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
-              value: "declareConfirm"
+              label:
+                "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+              value: "declareConfirm",
             },
-          ]
+          ],
         },
         signature: {
           title: "How would you like to capture your signature?",
@@ -2640,8 +2738,8 @@ export const STEP_RM = {
               checked: false,
             },
           ],
-        }
-      }
-    }
+        },
+      },
+    },
   },
 };
