@@ -1504,6 +1504,14 @@ export const STEP_RM = {
   LIST_STEP: {
     LIST_SALUTATION: [
       {
+        name: "MDM",
+        value: "mdm",
+      },
+      {
+        name: "Mr",
+        value: "mr",
+      },
+      {
         name: "Mrs",
         value: "mrs",
       },
@@ -2742,3 +2750,4 @@ export const STEP_RM = {
     },
   },
 };
+
