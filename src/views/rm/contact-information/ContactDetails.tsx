@@ -45,6 +45,7 @@ const ContactDetails: React.FC<any> = (props) => {
               </InputLabel>
               <Select
                 fullWidth
+                IconComponent={ExpandMore}
                 labelId="salutation-select-filled-label"
                 defaultValue={
                   _.has(dataRedux, "contactDetail.salutation")
@@ -97,33 +98,31 @@ const ContactDetails: React.FC<any> = (props) => {
                 <Grid item xs={12}>
                   <TextField
                     fullWidth
-                    error={
-                      errors.contactDetail && errors.contactDetail.email && true
-                    }
-                    defaultValue={
-                      _.has(dataRedux, "contactDetail.email")
-                        ? dataRedux.contactDetail.email
-                        : ""
-                    }
-                    id={uuidv4()}
                     label={email.label}
                     key={null}
                     variant="filled"
+                    error={
+                      _.has(errors, "contactDetail") &&
+                      _.has(errors.contactDetail, "email") &&
+                      _.has(errors.contactDetail.email, "type") &&
+                      !_.isEqual(errors.contactDetail.email.type, "required") &&
+                      true
+                    }
+                    defaultValue={
+                      _.has(dataRedux, "email") ? dataRedux.email : ""
+                    }
                     helperText={
-                      errors.contactDetail &&
-                      errors.contactDetail.email &&
-                      `${ERROR_ICON} ${
-                        errors.contactDetail &&
-                        errors.contactDetail.email.message
-                      }`
+                      _.has(errors, "contactDetail") &&
+                      _.has(errors.contactDetail, "email") &&
+                      errors.contactDetail.email.message
                     }
                     {...register("contactDetail.email", {
-                      required: email.requiredText,
+                      required: true,
                       pattern: {
                         // eslint-disable-next-line no-useless-escape
                         value:
                           /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        message: email.helperText,
+                        message: `${ERROR_ICON} ${email.helperText}`,
                       },
                     })}
                   />
@@ -223,7 +222,10 @@ const ContactDetails: React.FC<any> = (props) => {
                       })}
                       InputProps={{
                         startAdornment: (
-                          <InputAdornment position="start" className={cx("formatted-numberphone-select")}>
+                          <InputAdornment
+                            position="start"
+                            className={cx("formatted-numberphone-select")}
+                          >
                             {/* {Area Code} */}
                             <Select
                               renderValue={(value) => value}
