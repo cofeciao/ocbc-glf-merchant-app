@@ -46,6 +46,7 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
               </InputLabel>
               <Select
                 fullWidth
+                IconComponent={ExpandMore}
                 labelId="salutation-select-filled-label"
                 defaultValue={
                   _.has(dataRedux, "authorisedPersonDetails.salutation")
@@ -98,35 +99,37 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                   {/* {Email input field} */}
                   <TextField
                     fullWidth
-                    error={
-                      errors.authorisedPersonDetails &&
-                      errors.authorisedPersonDetails.email &&
-                      true
-                    }
-                    defaultValue={
-                      _.has(dataRedux, "authorisedPersonDetails.email")
-                        ? dataRedux.authorisedPersonDetails.email
-                        : ""
-                    }
-                    id={uuidv4()}
                     label={email.label}
                     key={null}
                     variant="filled"
+                    error={
+                      _.has(errors, "authorisedPersonDetails") &&
+                      _.has(errors.authorisedPersonDetails, "email") &&
+                      _.has(errors.authorisedPersonDetails.email, "type") &&
+                      !_.isEqual(
+                        errors.authorisedPersonDetails.email.type,
+                        "required"
+                      ) &&
+                      true
+                    }
+                    defaultValue={
+                      _.has(dataRedux, "authorisedPersonDetails") &&
+                      _.has(dataRedux.authorisedPersonDetails, "email")
+                        ? dataRedux.authorisedPersonDetails.email
+                        : ""
+                    }
                     helperText={
-                      errors.authorisedPersonDetails &&
-                      errors.authorisedPersonDetails.email &&
-                      `${ERROR_ICON} ${
-                        errors.authorisedPersonDetails &&
-                        errors.authorisedPersonDetails.email.message
-                      }`
+                      _.has(errors, "authorisedPersonDetails") &&
+                      _.has(errors.authorisedPersonDetails, "email") &&
+                      errors.authorisedPersonDetails.email.message
                     }
                     {...register("authorisedPersonDetails.email", {
-                      required: email.requiredText,
+                      required: true,
                       pattern: {
                         // eslint-disable-next-line no-useless-escape
                         value:
                           /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                        message: email.helperText,
+                        message: `${ERROR_ICON} ${email.helperText}`,
                       },
                     })}
                   />
@@ -159,7 +162,7 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
               )}
 
               <Grid item lg={12} md={12} sm={12} xs={12}>
-                {/* {Contact Number input field} */}
+                {/* {Contact Number} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
                   _.has(contactNumber, "label") && (
                     <TextField
@@ -242,7 +245,7 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                       InputProps={{
                         startAdornment: (
                           <Box className={cx("formatted-numberphone-select")}>
-                            {/* {Phone Number select field} */}
+                            {/* {Area Code} */}
                             <Select
                               renderValue={(value) => value}
                               IconComponent={ExpandMore}

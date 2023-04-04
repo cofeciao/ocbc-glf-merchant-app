@@ -1678,6 +1678,7 @@ export const STEP_RM = {
           description:
             "Please ensure that these details from ACRA are updated.",
           titleRegisteredAddress: "Registered address",
+          titleDirector: "Director",
           titleDirectors: "Directors",
           labelAddMoreDirectors: "Add more directors",
           inputFields: {
@@ -1724,6 +1725,12 @@ export const STEP_RM = {
             postalCode: {
               label: "Postal code",
               helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+            directors: {
+              labelName: "Name",
+              labelNRICNumber: "NRIC number",
+              helperText: "Please enter a valid NRIC number",
               requiredText: "",
             },
           },
@@ -2042,51 +2049,46 @@ export const STEP_RM = {
             "Is your business ready for operation?",
           labelDoesYourRetailStoreAccpetCardPayment:
             "Does your retail store accept card payments?",
-          sections: [
-            {
-              listCheckboxDescription: "Is your business ready for operation?",
-              listCheckbox: [
+          sections: {
+            listCheckboxBusinessOfferings: {
+              description: "What is your business offering?",
+              list: [
                 {
                   label: "Selling products",
+                  value: "sellingProducts",
                   checked: false,
                 },
                 {
                   label: "Providing services",
+                  value: "providingServices",
                   checked: false,
                 },
               ],
             },
-            {
-              listCheckboxDescription:
-                "Do you currently have any of the following?",
-              listCheckbox: [
+            listCheckboxAvailableSpaces: {
+              description: "Do you currently have any of the following?",
+              list: [
                 {
                   label: "Office",
+                  value: "office",
                   checked: false,
                 },
                 {
                   label: "Retail store",
+                  value: "retailStore",
                   checked: false,
                 },
                 {
                   label: "Warehouse",
+                  value: "warehouse",
                   checked: false,
                 },
               ],
             },
-          ],
-          listRadio: [
-            {
-              label: "Yes",
-              value: "yes",
-              checked: false,
+            listRadio: {
+              description: "Does your retail store accept card payments?",
             },
-            {
-              label: "No",
-              value: "no",
-              checked: false,
-            },
-          ],
+          },
         },
         outletDetails: {
           titleOutletDetail: "Outlet details",
@@ -2222,6 +2224,20 @@ export const STEP_RM = {
           labelAverageAmountPerCreditCardTransaction:
             "Average amount per credit card transaction",
           labelAnnualCreditCardSalesForecast: "Annual credit card sales",
+          listTextField: [
+            {
+              keyName: "averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+            {
+              keyName: "annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+          ],
         },
         refundPolicy: {
           title: "Refund policy",
@@ -2379,7 +2395,8 @@ export const STEP_RM = {
       section: {
         merchantDiscountRate: {
           titleMerchantDiscountRate: "Merchant Discount Rate (MDR)",
-          description: "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
+          description:
+            "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
         },
         fees: {
           titleFees: "Fees (GST inclusive)",
@@ -2750,4 +2767,3 @@ export const STEP_RM = {
     },
   },
 };
-
