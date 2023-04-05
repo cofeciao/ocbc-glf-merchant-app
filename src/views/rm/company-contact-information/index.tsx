@@ -75,6 +75,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> =
     // form datas
     const {
       register,
+      unregister,
       formState: { errors, isValid, isDirty },
       setValue,
       setError,
@@ -196,6 +197,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> =
                 cx={cx}
                 errors={errors}
                 register={register}
+                unregister={unregister}
                 setValue={setValue}
                 setError={setError}
                 data={contactDetail}
@@ -215,6 +217,7 @@ const CompanyContactInformation: React.FC<IContactInformation.IProps> =
                 cx={cx}
                 errors={errors}
                 register={register}
+                unregister={unregister}
                 setValue={setValue}
                 setError={setError}
                 data={authorisedPersonDetails}
