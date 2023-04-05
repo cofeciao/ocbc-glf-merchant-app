@@ -9,6 +9,7 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
+  InputAdornment,
 } from "@material-ui/core";
 import _ from "lodash";
 
@@ -34,10 +35,9 @@ const ContactDetails: React.FC<any> = (props) => {
   return (
     <Box className={cx("contact-details-wrapper")}>
       <Grid container>
-        {/* {Top full row} */}
+        {/* {Salutation} */}
         {_.has(salutation, "label") && (
           <Grid item xs={3}>
-            {/* {Salutation select field} */}
             <FormControl
               variant="filled"
               className={cx("company-type-select")}
@@ -76,9 +76,9 @@ const ContactDetails: React.FC<any> = (props) => {
           {/* {Column left} */}
           <Grid item xs={12} md={6}>
             <Grid container>
+              {/* {Name} */}
               {_.has(name, "label") && (
                 <Grid item xs={12}>
-                  {/* {Name input field} */}
                   <TextField
                     fullWidth
                     defaultValue={
@@ -96,9 +96,9 @@ const ContactDetails: React.FC<any> = (props) => {
                 </Grid>
               )}
 
+              {/* {Email} */}
               {_.has(email, "label") && (
                 <Grid item xs={12}>
-                  {/* {Email input field} */}
                   <TextField
                     fullWidth
                     label={email.label}
@@ -159,16 +159,14 @@ const ContactDetails: React.FC<any> = (props) => {
                 </Grid>
               )}
 
-              {_.has(errors.contactDetail, "type") &&
-                _.has(errors.contactDetail.contactNumber, "type") &&
-                _.isEqual(errors.contactDetail.contactNumber.type, "required")}
               <Grid item lg={12} md={12} sm={12} xs={12}>
-                {/* {Contact Number input field} */}
+                {/* {Contact Number} */}
                 {!_.isEmpty(LIST_COUNTRIES_CODE) &&
                   _.has(contactNumber, "label") && (
                     <TextField
                       key={key}
                       fullWidth
+                      className={cx("formatted-numberphone-input")}
                       defaultValue={
                         _.has(dataRedux, "contactDetail.contactNumber")
                           ? dataRedux.contactNumber
@@ -190,7 +188,6 @@ const ContactDetails: React.FC<any> = (props) => {
                             true
                       }
                       name="numberformat"
-                      className={cx("formatted-numberphone-input")}
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactDetail, "type") &&
@@ -230,19 +227,40 @@ const ContactDetails: React.FC<any> = (props) => {
                       })}
                       InputProps={{
                         startAdornment: (
-                          <Box className={cx("formatted-numberphone-select")}>
-                            {/* {Phone Number select field} */}
+                          <InputAdornment
+                            position="start"
+                            component="div"
+                            className={cx("formatted-numberphone-select")}
+                          >
+                            {/* {Phone Number adorment} */}
                             <Select
                               renderValue={(value) => value}
                               IconComponent={ExpandMore}
                               defaultValue={
-                                _.has(dataRedux, "contactDetail.areaCode")
+                                _.has(dataRedux, "areaCode")
                                   ? dataRedux.areaCode
                                   : LIST_COUNTRIES_CODE[0].value
                               }
-                              error={errors.AreaCode && true}
-                              {...register("contactDetail.areaCode", {
-                                required: false,
+                              MenuProps={{
+                                getContentAnchorEl: null,
+                                anchorOrigin: {
+                                  vertical: "bottom",
+                                  horizontal: "left",
+                                },
+                                transformOrigin: {
+                                  vertical: "top",
+                                  horizontal: "left",
+                                },
+                                PaperProps: {
+                                  style: {
+                                    maxHeight: 200,
+                                    width: 250,
+                                    overflowY: "auto",
+                                  },
+                                },
+                              }}
+                              {...register("areaCode", {
+                                required: true,
                                 onChange: (
                                   event: ChangeEvent<HTMLInputElement>
                                 ) => {
@@ -252,7 +270,11 @@ const ContactDetails: React.FC<any> = (props) => {
                             >
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
-                                  <MenuItem key={index} value={item.value}>
+                                  <MenuItem
+                                    className={cx("item-selected")}
+                                    key={index}
+                                    value={item.value}
+                                  >
                                     <span
                                       className={cx(
                                         areaCode === item.value
@@ -264,7 +286,7 @@ const ContactDetails: React.FC<any> = (props) => {
                                 );
                               })}
                             </Select>
-                          </Box>
+                          </InputAdornment>
                         ),
                       }}
                     />

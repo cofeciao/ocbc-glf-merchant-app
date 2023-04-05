@@ -26,6 +26,7 @@ export const REVIEW = "Review";
 export const SUBMIT = "Submit";
 export const START = "START";
 export const CONTINUE_LATER = "Continue later";
+export const REMOVE = "Remove";
 
 export const ERROR_ICON = "\u26A0";
 
@@ -1501,6 +1502,20 @@ export const STEP_RM = {
       value: "more-than-3-months",
     },
   ],
+  LIST_OPERATIONS_START_DATE: [
+    {
+      name: "Within 2 weeks",
+      value: "within-2-week",
+    },
+    {
+      name: "Within 3 months",
+      value: "within-3-months",
+    },
+    {
+      name: "After 3 months",
+      value: "after-3-months",
+    },
+  ],
   LIST_STEP: {
     LIST_SALUTATION: [
       {
@@ -1692,7 +1707,7 @@ export const STEP_RM = {
               helperText: "Please enter a valid entity type",
               requiredText: "",
             },
-            uniqueEnityNumber: {
+            uniqueEntityNumber: {
               label: "Unique Entity Number (UEN)",
               helperText: "Please enter a valid unique entity number",
               requiredText: "",
@@ -1987,6 +2002,13 @@ export const STEP_RM = {
             "At how many outlets will you deploy Point-of-Sales terminals?",
           labelDoYouCurrentHaveAnOCBCBusinessAccount:
             "Do you currently have an OCBC business account?",
+          labelPleaseIndicateWhenYourBusinessWillStartOperations:
+            "Please indicate when your business will start operations",
+          labelOperationsStartDate: "Operations start date",
+          textFieldOcbcBusinessAccountNumber: {
+            label: "OCBC business account number",
+            helperText: ''
+          },
           checkedIsYourBusinessReadyForOperation: false,
           checkedDoYouCurrentHaveAnOCBCBusinessAccount: false,
           listRadioIsYourBusinessReadyForOperation: [
@@ -2026,18 +2048,10 @@ export const STEP_RM = {
             "Can customers place orders through your website?",
           checkedYouHaveExistingWebsite: false,
           checkedCanCustomersPlaceOrderThroughYourWebsite: false,
-          listRadio: [
-            {
-              label: "Yes",
-              value: "yes",
-              checked: false,
-            },
-            {
-              label: "No",
-              value: "no",
-              checked: false,
-            },
-          ],
+          selectField: {
+            description: "Please indicate the live date of your websiteL",
+            label: "Website live date",
+          },
           textField: {
             description: "Your website’s URL",
             label: "e.g. www.xxx.com",
@@ -2205,16 +2219,20 @@ export const STEP_RM = {
       },
       section: {
         businessOffering: {
-          title: "Business offering",
-          label: "What products and/or services is your business offering?",
-          note: "E.g. Bistro, café, workshops, salon, clinic, etc.",
+          label: "Business offering",
+          description:
+            "What products and/or services is your business offering?",
+          helperText: "Cannot exceed 180 characters",
+          egText: "E.g. Bistro, café, workshops, salon, clinic, etc.",
         },
         fulfilmentInformation: {
           title: "Fulfilment information",
-          label:
+          description:
             "How quickly does your business fulfil these products and/or services?",
-          labelSelect: "Please indicate duration",
-          labelTextField:
+          labelSelect: "Duration",
+          descriptionSelect: "Please indicate duration",
+          labelTextField: "Percentage",
+          descriptionTextField:
             "Percentage of products/services not fulfilled immediately",
         },
         salesForecast: {

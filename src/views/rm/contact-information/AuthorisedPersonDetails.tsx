@@ -248,23 +248,20 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                         startAdornment: (
                           <InputAdornment
                             position="start"
+                            component="div"
                             className={cx("formatted-numberphone-select")}
                           >
-                            {/* {Area Code} */}
+                            {/* {Phone Number adorment} */}
                             <Select
                               renderValue={(value) => value}
                               IconComponent={ExpandMore}
                               defaultValue={
-                                _.has(
-                                  dataRedux,
-                                  "authorisedPersonDetails.areaCode"
-                                )
-                                  ? dataRedux.authorisedPersonDetails.areaCode
+                                _.has(dataRedux, "areaCode")
+                                  ? dataRedux.areaCode
                                   : LIST_COUNTRIES_CODE[0].value
                               }
-                              error={errors.AreaCode && true}
-                              {...register("authorisedPersonDetails.areaCode", {
-                                required: false,
+                              {...register("areaCode", {
+                                required: true,
                                 onChange: (
                                   event: ChangeEvent<HTMLInputElement>
                                 ) => {
@@ -274,14 +271,12 @@ const AuthorisedPersonDetails: React.FC<any> = (props) => {
                             >
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
-                                  <MenuItem key={index} value={item.value}>
-                                    <span
-                                      className={cx(
-                                        areaCode === item.value
-                                          ? "item-selected"
-                                          : "item-unselected"
-                                      )}
-                                    >{`${item.name} (${item.value})`}</span>
+                                  <MenuItem
+                                    className={cx("item-selected")}
+                                    key={index}
+                                    value={item.value}
+                                  >
+                                    <span className={cx(areaCode === item.value ? "item-selected" : "item-unselected")}>{`${item.name} (${item.value})`}</span>
                                   </MenuItem>
                                 );
                               })}

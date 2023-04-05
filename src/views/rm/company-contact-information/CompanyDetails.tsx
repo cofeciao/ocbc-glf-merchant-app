@@ -41,7 +41,7 @@ const CompanyDetails: React.FC<any> = (props) => {
   const {
     registeredEntityName,
     entityType,
-    uniqueEnityNumber,
+    uniqueEntityNumber,
     natureOfBusiness,
     blockNumber,
     streetName,
@@ -144,19 +144,34 @@ const CompanyDetails: React.FC<any> = (props) => {
             )}
 
             {/* {Unique Enity Number} */}
-            {_.has(uniqueEnityNumber, "label") && (
+            {_.has(uniqueEntityNumber, "label") && (
               <Grid item xs={12}>
                 <TextField
                   fullWidth
+                  label={uniqueEntityNumber.label}
+                  variant="filled"
                   defaultValue={
-                    _.has(dataRedux, "uniqueEnityNumber")
-                      ? dataRedux.uniqueEnityNumber
+                    _.has(dataRedux, "uniqueEntityNumber")
+                      ? dataRedux.uniqueEntityNumber
                       : ""
                   }
-                  label={uniqueEnityNumber.label}
-                  variant="filled"
-                  {...register("uniqueEnityNumber", {
+                  error={
+                    _.has(errors, "uniqueEntityNumber") &&
+                    _.has(errors.uniqueEntityNumber, "type") &&
+                    !_.isEqual(errors.uniqueEntityNumber.type, "required") &&
+                    true
+                  }
+                  helperText={
+                    _.has(errors, "uniqueEntityNumber") &&
+                    errors.uniqueEntityNumber.message
+                  }
+                  {...register("uniqueEntityNumber", {
                     required: true,
+                    pattern: {
+                      // eslint-disable-next-line no-useless-escape
+                      value: /^[A-Za-z0-9]{9}[A-Za-z0-9]{1}$|^[A-Za-z0-9]{10}$/,
+                      message: `${ERROR_ICON} ${uniqueEntityNumber.helperText}`,
+                    },
                   })}
                 />
               </Grid>
@@ -237,9 +252,9 @@ const CompanyDetails: React.FC<any> = (props) => {
         {/* {Column Left} */}
         <Grid item xs={12} md={6}>
           <Grid container>
+            {/* {Block / House number} */}
             {_.has(blockNumber, "label") && (
               <Grid item xs={12}>
-                {/* {Block / House number} */}
                 <TextField
                   fullWidth
                   type="number"
@@ -255,9 +270,9 @@ const CompanyDetails: React.FC<any> = (props) => {
               </Grid>
             )}
 
+            {/* {Unit number} */}
             {_.has(unitNumber, "label") && (
               <Grid item xs={12}>
-                {/* {Unit number} */}
                 <TextField
                   fullWidth
                   defaultValue={

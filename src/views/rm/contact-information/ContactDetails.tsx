@@ -161,6 +161,8 @@ const ContactDetails: React.FC<any> = (props) => {
                     <TextField
                       key={key}
                       fullWidth
+                      name="numberformat"
+                      className={cx("formatted-numberphone-input")}
                       defaultValue={
                         _.has(dataRedux, "contactDetail.contactNumber")
                           ? dataRedux.contactNumber
@@ -181,8 +183,6 @@ const ContactDetails: React.FC<any> = (props) => {
                             ) &&
                             true
                       }
-                      name="numberformat"
-                      className={cx("formatted-numberphone-input")}
                       label={contactNumber.label}
                       helperText={
                         _.has(errors.contactDetail, "type") &&
@@ -224,20 +224,20 @@ const ContactDetails: React.FC<any> = (props) => {
                         startAdornment: (
                           <InputAdornment
                             position="start"
+                            component="div"
                             className={cx("formatted-numberphone-select")}
                           >
-                            {/* {Area Code} */}
+                            {/* {Phone Number adorment} */}
                             <Select
                               renderValue={(value) => value}
                               IconComponent={ExpandMore}
                               defaultValue={
-                                _.has(dataRedux, "contactDetail.areaCode")
+                                _.has(dataRedux, "areaCode")
                                   ? dataRedux.areaCode
                                   : LIST_COUNTRIES_CODE[0].value
                               }
-                              error={errors.AreaCode && true}
-                              {...register("contactDetail.areaCode", {
-                                required: false,
+                              {...register("areaCode", {
+                                required: true,
                                 onChange: (
                                   event: ChangeEvent<HTMLInputElement>
                                 ) => {
@@ -247,7 +247,11 @@ const ContactDetails: React.FC<any> = (props) => {
                             >
                               {_.map(LIST_COUNTRIES_CODE, (item, index) => {
                                 return (
-                                  <MenuItem key={index} value={item.value}>
+                                  <MenuItem
+                                    className={cx("item-selected")}
+                                    key={index}
+                                    value={item.value}
+                                  >
                                     <span
                                       className={cx(
                                         areaCode === item.value

@@ -1,31 +1,29 @@
+// import modules
 import classNames from "classnames";
 import React, { forwardRef, useEffect, useState } from "react";
 import { Loading, Button, Category } from "@sectionsg/orc";
-import { Link } from "react-router-dom";
-import { Grid, Box } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-
-//import icon
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-
-// import style
-import styles from "./ProductionServices.scss";
-
-// import constants
-import { URL_MANUAL_FLOW, STEP_RM } from "@/utils/constants-rm";
-
-//import types
-import { IProductionServices } from "./ProductionServices";
-
-//import components
+import { useDispatch } from "react-redux";
 import SectionWrapper from "../SectionWrapper";
-import BusinessInformation from "./BusinessInformation";
+import BusinessInformation from "./BusinessOffering";
 import RefundPolicy from "./RefundPolicy";
 import SalesForecast from "./SalesForecast";
 import FulfilmentInformation from "./FulfilmentInformation";
+import RedirectButton from "../RedirectButton";
+
+//import icons
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+
+// import styles
+import styles from "./ProductionServices.scss";
+
+// import constants
+import { URL_MANUAL_FLOW, STEP_RM, WELCOME_PATH } from "@/utils/constants-rm";
+
+//import types
+import { IProductionServices } from "./ProductionServices";
 
 const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(
   ({}, ref) => {
@@ -51,8 +49,6 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(
     // States
     const [loading, setLoading] = useState(false);
     const [paramsBusinessService, setParamsBusinessService] = useState<any>({
-      bussinessOffering:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum pellentesque aliquet dolor, sit amet euismod purus scelerisque id. Donec quam metus, pulvinar nec nibh at, interdum fermentum nisl.",
       quicklyBussiness: LIST_RADIO_FULFILMENT_INFORMATION[0].value,
       averageAmount: "",
       annualCredit: "",
@@ -62,6 +58,15 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(
       uploadPolicy: "",
       image: "",
     });
+
+    /**
+     * Handle scrolling to top on page load
+     */
+    useEffect(() => {
+      if (typeof window !== "undefined") {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }, []);
 
     // React-hook-form
     const {
@@ -137,11 +142,13 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(
             <Category class="title">{title}</Category>
           </div>
 
-          <SectionWrapper cx={cx} title={businessOffering.title}>
+          <SectionWrapper cx={cx} title={businessOffering.label}>
             <BusinessInformation
               cx={cx}
               paramsBusinessService={paramsBusinessService}
               setParamsBusinessService={setParamsBusinessService}
+              register={register}
+              errors={errors}
             />
           </SectionWrapper>
 
@@ -150,6 +157,8 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(
               cx={cx}
               paramsBusinessService={paramsBusinessService}
               setParamsBusinessService={setParamsBusinessService}
+              register={register}
+              errors={errors}
             />
           </SectionWrapper>
 
@@ -173,20 +182,23 @@ const ProductionServices: React.FC<IProductionServices.IProps> = forwardRef(
             />
           </SectionWrapper>
 
-          {/* Section button  */}
-          <section
-            className={cx("button-wrapper", "d-flex space-between mt-dt-40")}
-          >
-            <Button backgroundClass="square" onClick={handlePrev}>
-              <ArrowBackIcon className={cx("arrow")} />
-            </Button>
-            <div>
-              <div className={cx("d-inline")}>
-                <Link to="/">Continue later</Link>
-              </div>
-              <div className="ml-dt-30 d-inline">{renderButton()}</div>
-            </div>
-          </section>
+          {/* {Redirect Button} */}
+          <RedirectButton
+            // disabledNextButton={!isValid}
+            continueLater
+            backButton
+            variant="next"
+            onClickBack={() => {
+              history.push(URL_MANUAL_FLOW.businessOperation);
+              s;
+            }}
+            onClickNext={() => {
+              history.push(URL_MANUAL_FLOW.sensitiveData);
+            }}
+            onClickContinue={() => {
+              history.push(WELCOME_PATH);
+            }}
+          />
         </Box>
       </React.Fragment>
     );
