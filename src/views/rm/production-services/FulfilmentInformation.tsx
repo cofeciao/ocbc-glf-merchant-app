@@ -1,9 +1,7 @@
+// import modules
 import {
   Box,
-  FormControlLabel,
-  RadioGroup,
   Typography,
-  Radio,
   TextField,
   Grid,
   InputAdornment,
@@ -11,22 +9,29 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  FormHelperText,
 } from "@material-ui/core";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 import { IProductionServices } from "./ProductionServices";
-import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
+import GroupRadio from "@/components/GroupRadio";
+import TooltipDialog from "@/views/self-serve/products-and-services/TooltipDialog";
 
 // import icons
-import IconInformation from "@/assets/images/icon-infomation.svg";
-import { STEP_RM } from "@/utils/constants-rm";
-import GroupRadio from "@/components/GroupRadio";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
-const FulfilmentInformation: React.FC<
-  IProductionServices.IBusinessInformation
-> = (props) => {
-  const { cx, paramsBusinessService, setParamsBusinessService } = props;
+// import contants
+import { STEP_RM } from "@/utils/constants-rm";
+
+const FulfilmentInformation: React.FC<IProductionServices.IBusinessOffering> = (
+  props
+) => {
+  const {
+    cx,
+    paramsBusinessService,
+    setParamsBusinessService,
+    dataRedux,
+    register,
+  } = props;
   const { LIST_RADIO_FULFILMENT_INFORMATION, LIST_INDICATE_DURATION } = STEP_RM;
   const {
     LIST_STEP: {
@@ -38,15 +43,19 @@ const FulfilmentInformation: React.FC<
 
   return (
     <Box className={cx("business-information")}>
+      {/* {Description} */}
       <Typography
+        component="div"
         className={cx(
           "sub-section-description",
           "title-fulfilment-information"
         )}
       >
-        {fulfilmentInformation.label}{" "}
-        <img src={IconInformation} alt="icon informaton" />
+        {fulfilmentInformation.description}
+        <TooltipDialog />
       </Typography>
+
+      {/* {GroupRadio} */}
       <GroupRadio
         name="refundPolicy"
         isRow={false}
@@ -60,58 +69,90 @@ const FulfilmentInformation: React.FC<
         }}
         cx={cx}
       />
+
+      {/* {Options} */}
       {paramsBusinessService.quicklyBussiness ===
         LIST_RADIO_FULFILMENT_INFORMATION[1].value && (
         <Box className={cx("fulfillment-group")}>
           <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <FormControl
-                variant="filled"
-                className={cx("company-type-select")}
-                fullWidth
+            {/* {Please indicate duration} */}
+            <Grid item xs={12}>
+              {/* {Description} */}
+              <Typography
+                className={
+                  cx("sub-section-description")
+                }
               >
-                <InputLabel>{fulfilmentInformation.labelSelect}</InputLabel>
-                <Select
+                {fulfilmentInformation.descriptionSelect}
+              </Typography>
+
+              {/* {Select} */}
+              <Grid item xs={5}>
+                <FormControl
+                  variant="filled"
+                  className={cx("company-type-select")}
                   fullWidth
-                  placeholder="Please indicate duration"
-                  // defaultValue={
-                  //   _.has(dataRedux, "authorised_person_details.salutation") ? dataRedux.authorised_person_details.salutation : ""
-                  // }
-                  // {...register("authorised_person_details.salutation", {
-                  //   required: true,
-                  // })}
                 >
-                  {_.map(LIST_INDICATE_DURATION, (item, index) => {
-                    return (
-                      <MenuItem key={index} value={item.value}>
-                        {item.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              </FormControl>
+                  <InputLabel>{fulfilmentInformation.labelSelect}</InputLabel>
+                  <Select
+                    fullWidth
+                    IconComponent={ExpandMore}
+                    placeholder={fulfilmentInformation.labelSelect}
+                    defaultValue={
+                      _.has(dataRedux, "duration")
+                        ? dataRedux.authorised_person_details.salutation
+                        : ""
+                    }
+                    {...register("duration", {
+                      required: true,
+                    })}
+                  >
+                    {_.map(LIST_INDICATE_DURATION, (item, index) => {
+                      return (
+                        <MenuItem key={index} value={item.value}>
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
+              </Grid>
             </Grid>
-            <Grid item xs={6}>
-              <TextField
-                className={cx("textfield-percentage")}
-                fullWidth
-                label={fulfilmentInformation.labelTextField}
-                // defaultValue={
-                //   _.has(dataRedux, "contact_detail.name") ? dataRedux.name : ""
-                // }
-                id={uuidv4()}
-                // label={name.label}
-                variant="filled"
-                // {...register("contact_detail.name", {
-                //   required: true,
-                // })}
-                type="number"
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">%</InputAdornment>
-                  ),
-                }}
-              />
+
+            {/* {Percentage of products/services not fulfilled immediately} */}
+            <Grid item xs={12}>
+              {/* {Description} */}
+              <Typography
+                className={
+                  cx("sub-section-description")
+                }
+              >
+                {fulfilmentInformation.descriptionTextField}
+              </Typography>
+
+              {/* {TextField} */}
+              <Grid item xs={5}>
+                <TextField
+                  className={cx("textfield-percentage")}
+                  fullWidth
+                  label={fulfilmentInformation.labelTextField}
+                  defaultValue={
+                    _.has(dataRedux, "percentageOfProductsNotFulfilledImmediately")
+                      ? dataRedux.name
+                      : ""
+                  }
+                  variant="filled"
+                  {...register("percentageOfProductsNotFulfilledImmediately", {
+                    required: true,
+                  })}
+                  type="number"
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">%</InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Box>

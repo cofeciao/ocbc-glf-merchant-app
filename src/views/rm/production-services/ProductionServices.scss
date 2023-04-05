@@ -1,5 +1,16 @@
 @import "../../../assets/style/variable.scss";
 
+.MuiFormHelperText-root {
+  color: rgba(0, 0, 0, 0.54);
+  margin-left: 0px !important;
+  padding-top: 8px !important;
+  background-color: #ffffff;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  margin-top: 0 !important;
+}
+
 .business-services {
   & .business-services-category {
     margin-bottom: 56px;
@@ -72,5 +83,35 @@
   a {
     text-decoration: none;
     color: $dodgerBlue;
+  }
+}
+.business-offering-wrapper {
+  #counter {
+    padding-right: 8px;
+  }
+
+  textarea {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #575d65;
+  }
+
+  & .MuiInputBase-root {
+    height: unset;
+  }
+
+  & .MuiTextField-root {
+    overflow: hidden;
+    label {
+      width: 100%;
+    }
+  }
+
+  & .business-offering-description {
+    font-weight: 400;
+    font-size: 18px !important;
+    line-height: 28px !important;
+    color: #777e87;
   }
 }

@@ -10,7 +10,12 @@ declare namespace IBusinessOperations {
     placeholder?: string;
     name?: string;
   }
+  export interface IBusinessInfomation {
+    data: any;
+    dataRedux?: any;
+    register?: any;
+    errors?: any
+  }
 }
-
 
 export { IBusinessOperations };

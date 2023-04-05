@@ -39,6 +39,16 @@ declare namespace IRmFlow {
     label: string;
   }
 
+  export interface IRedirectButton {
+    variant: "submit" | "next" | "start";
+    continueLater?: boolean;
+    backButton?: boolean;
+    onClickNext: () => void;
+    onClickBack?: () => void;
+    onClickContinue?: () => void;
+    disabledNextButton?: boolean;
+    isIcon?: boolean;
+  }
 }
 
 export { IRmFlow };
