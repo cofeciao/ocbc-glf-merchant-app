@@ -62,13 +62,18 @@ const FirstTable: React.FC<IFeesRates.ITableEdtiting> = (props) => {
     return (
       <TextField 
         name={`${name}-${index}`} 
-        type='text'
+        type='number'
         placeholder='-'
         defaultValue={rowValue} 
         disabled={rowValue === ''}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEditRow(index, e, name)}
         InputProps={{
           endAdornment: rowValue !== '' && <InputAdornment position="end">%</InputAdornment>,
+          inputProps: {
+            decimalSeparator: ".",
+            fixedDecimalScale: true,
+            allowNegative: false,
+          }
         }}
       />
     )
@@ -159,7 +164,7 @@ const SecondTable: React.FC<IFeesRates.ITableEdtiting> = (props) => {
     return (
       <TextField 
         name={`${name}-${index}`} 
-        type='text'
+        type='number'
         placeholder='-'
         disabled={rowValue === ''}
         defaultValue={rowValue} 

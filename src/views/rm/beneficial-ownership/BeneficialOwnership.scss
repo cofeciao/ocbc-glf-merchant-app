@@ -11,7 +11,7 @@
       margin-bottom: 40px;
     }
   }
-  & .outlet-details-wrapper{
+  & .beneficial-owner-wrapper{
     & .MuiFormGroup-root {
       flex-direction: column !important;
     }
@@ -25,7 +25,18 @@
       color: #363B40;
       margin: 16px 0px 30px 0px;
     }
+    & .MuiGrid-container {
+      & .MuiGrid-item {
+        & .MuiFormControl-root {
+          & .MuiFormGroup-row {
+            margin-top: 0px;
+            gap: 0px;
+          }
+        }
+      }
+    }
   }
+
 
   & .add-outlet {
     font-weight: 400;

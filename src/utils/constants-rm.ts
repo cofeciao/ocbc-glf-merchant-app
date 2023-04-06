@@ -2350,12 +2350,12 @@ export const STEP_RM = {
           },
           listRadio: [
             {
-              text: "Fill in here",
+              label: "Fill in here",
               value: "fill_in_here",
               checked: false,
             },
             {
-              text: "Upload a list",
+              label: "Upload a list",
               value: "upload_a_list",
               checked: false,
             },

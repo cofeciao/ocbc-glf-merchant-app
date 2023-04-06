@@ -4,6 +4,9 @@ import { Box, Grid, Typography } from "@material-ui/core";
 // import types
 import { IReviewSubmit } from "./ReviewSubmit";
 
+// redux
+import { useSelector } from "react-redux";
+
 const SensitiveData: React.FC<IReviewSubmit.ISensitiveData> = (props) => {
   const { cx, titles, data } = props;
   const {
@@ -27,14 +30,42 @@ const SensitiveData: React.FC<IReviewSubmit.ISensitiveData> = (props) => {
     )
   }
 
+  /**
+    * Retrieves data of Sensitive section from Store
+  */
+  const sensitiveData = useSelector(
+    (state: any) => state.form.sensitiveStep
+  );
+
+  /**
+    * Handle render value
+  */
+  const renderValue = (value: string) => {
+    if (!value) return '';
+    
+    if (value === 'yes') {
+      return "Yes";
+    } else {
+      return "No";
+    }
+  }
+
+  /**
+    * Handle render name file
+  */
+  const renderFileName = (file: any) => {
+    if(!file) return null;
+    return `${file.name} ${file.size} KB`
+  }
+
   return (
     <Box className={cx("sensitive-data")}>
       <Grid container spacing={5}>
-        <Grid item xs={12}>{renderContent(titleStoreCreditCard, data && data.storeCreditCardInDatabase ? "Yes" : "No")}</Grid>
-        <Grid item xs={6}>{renderContent(titleDataProtectedByHierachical, data && data.dataProtectedByHierachicalStorageManagment ? "Yes" : "No")}</Grid>
-        <Grid item xs={6}>{renderContent(titleEncryptionMothod, data && data.encryptionMethod)}</Grid>
-        <Grid item xs={12}>{renderContent(titleCompliantWithThePaymentCard, data && data.compliantWithThePayment ? "Yes" : "No")}</Grid>
-        <Grid item xs={6}>{renderContent(titlePCIDSSCertificate, data && data.pciDSSCertificate)}</Grid>
+        <Grid item xs={12}>{renderContent(titleStoreCreditCard, renderValue(sensitiveData && sensitiveData.storeCreditCard))}</Grid>
+        <Grid item xs={6}>{renderContent(titleDataProtectedByHierachical, renderValue(sensitiveData && sensitiveData.dataProtectedByHierachical))}</Grid>
+        <Grid item xs={6}>{renderContent(titleEncryptionMothod, sensitiveData && sensitiveData.encryptionMethod)}</Grid>
+        <Grid item xs={12}>{renderContent(titleCompliantWithThePaymentCard, renderValue(sensitiveData && sensitiveData.compliantWithThePaymentCardIndustry))}</Grid>
+        <Grid item xs={6}>{renderContent(titlePCIDSSCertificate, renderFileName(sensitiveData && sensitiveData.certificate))}</Grid>
       </Grid>
     </Box>
   )
