@@ -23,20 +23,21 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import styles from "./BusinessOperation.scss";
 
 // import contants
-import { REMOVE, STEP_RM } from "@/utils/constants-rm";
+import { ERROR_ICON, REMOVE, STEP_RM } from "@/utils/constants-rm";
 
 // import types
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
-  const { data, register, control, dataRedux } = props;
+  const { data, register, errors, control, dataRedux } = props;
   const {
     selectField,
     checkedCanCustomersPlaceOrderThroughYourWebsite,
     labelCanCustomersPlaceOrderThroughYourWebsite,
     labelDoYouHaveAnExistingWebsite,
     labelAddMoreWebsite,
-    labelYourWebsiteURL,
+    labelWebsite,
+    textFieldYourWebsiteURL,
   } = data;
   const cx = classnames.bind(styles);
   const {
@@ -135,7 +136,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
                   <div className={cx("group-fields")}>
                     {/* {Title} */}
                     <Typography className={cx("title")}>
-                      {`${labelYourWebsiteURL} ${index + 1}`}
+                      {`${labelWebsite} ${index + 1}`}
                     </Typography>
 
                     {/* {TextField} */}
@@ -143,8 +144,28 @@ const WebsiteInformation: React.FC<any> = (props) => {
                       <Grid item xs={4}>
                         <TextField
                           fullWidth
-                          label="Your website’s URL"
+                          label={textFieldYourWebsiteURL.label}
                           variant="filled"
+                          error={
+                            _.has(errors, `yourWebsiteURL${index}.type`) &&
+                            !_.isEqual(
+                              errors[`yourWebsiteURL${index}`].type,
+                              "required"
+                            ) &&
+                            true
+                          }
+                          helperText={
+                            _.has(errors, `yourWebsiteURL${index}.type`) &&
+                            errors[`yourWebsiteURL${index}`].message
+                          }
+                          {...register(`yourWebsiteURL${index}`, {
+                            required: true,
+                            pattern: {
+                              value:
+                                /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i,
+                              message: `${ERROR_ICON} ${textFieldYourWebsiteURL.helperText}`,
+                            },
+                          })}
                         />
                       </Grid>
                     </Grid>

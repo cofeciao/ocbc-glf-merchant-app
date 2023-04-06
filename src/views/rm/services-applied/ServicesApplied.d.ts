@@ -25,7 +25,7 @@ declare namespace IServicesApplied {
   }
 
   export interface IDataOtherServices {
-    title?: string;
+    description?: string;
     name?: string;
     checked?: boolean;
     value?: string;
@@ -39,7 +39,7 @@ declare namespace IServicesApplied {
 
   export interface IOtherServices {
     cx: any;
-    dataOtherServices: ISectionRadios; 
+    dataOtherService: ISectionRadios;
     setDataOtherService: (value: any) => void;
     validateListCheckboxMonth: boolean;
     setValidateListCheckboxMonth: (value: any) => void;

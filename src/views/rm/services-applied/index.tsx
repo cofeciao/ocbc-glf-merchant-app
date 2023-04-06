@@ -12,11 +12,7 @@ import OtherServices from "./OtherServices";
 import RedirectButton from "../RedirectButton";
 
 // import constants
-import {
-  STEP_RM,
-  URL_MANUAL_FLOW,
-  WELCOME_PATH,
-} from "@/utils/constants-rm";
+import { STEP_RM, URL_MANUAL_FLOW, WELCOME_PATH } from "@/utils/constants-rm";
 
 // import styles
 import styles from "./ServicesApplied.scss";
@@ -34,6 +30,7 @@ import {
 const ServicesApplied: React.FC<any> = (props) => {
   const {
     LIST_STEP: {
+      LIST_RADIO_YES_NO,
       servicesApplied: {
         text,
         section: { transactionAndCardAcceptanceType, otherServices },
@@ -48,7 +45,7 @@ const ServicesApplied: React.FC<any> = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // States
+  // states
   const [key, setKey] = useState<number>(0);
   const [dataCheckbox, setDataCheckbox] = useState(
     transactionAndCardAcceptanceType.dataListCheckbox
@@ -62,6 +59,7 @@ const ServicesApplied: React.FC<any> = (props) => {
     });
   const [validateListCheckboxMonth, setValidateListCheckboxMonth] =
     useState<boolean>(false);
+  const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
   /**
    * Handle scrolling to top on page load
@@ -75,7 +73,7 @@ const ServicesApplied: React.FC<any> = (props) => {
   /**
    * Retrieves data of Transaction and card acceptance type from Store
    */
-  const dataTransactionAndCardAcceptanceTypeStore = useSelector(
+  const optionSelected = useSelector(
     (state: any) =>
       state.form.servicesAppliedStep.transactionAndCardAcceptanceTypeStep
   );
@@ -102,18 +100,23 @@ const ServicesApplied: React.FC<any> = (props) => {
   const getDataOtherServices = (datas: IServicesApplied.ISectionRadios) => {
     dispatch(saveDataOtherServicesApplied(datas));
   };
-
   /**
    * Handle update state when dataListCheckbox updated from store
    */
   useEffect(() => {
-    if (
-      dataTransactionAndCardAcceptanceTypeStore &&
-      !!dataTransactionAndCardAcceptanceTypeStore.length
-    ) {
-      setDataCheckbox(dataTransactionAndCardAcceptanceTypeStore);
+    if (optionSelected && !!optionSelected.length) {
+      setDataCheckbox(optionSelected);
+
+      // find selected item to enable the next button
+      const findSelected = _.find(
+        optionSelected,
+        (item) => item.checked === true
+      );
+      findSelected === undefined
+        ? setDisabledButton(true)
+        : setDisabledButton(false);
     }
-  }, [dataTransactionAndCardAcceptanceTypeStore]);
+  }, [optionSelected]);
 
   /**
    * Handle update state when dataRadio updated from store
@@ -166,7 +169,7 @@ const ServicesApplied: React.FC<any> = (props) => {
       <SectionWrapper cx={cx} title={otherServices.title}>
         <OtherServices
           cx={cx}
-          dataOtherServices={dataOtherService}
+          dataOtherService={dataOtherService}
           setDataOtherService={setDataOtherService}
           validateListCheckboxMonth={validateListCheckboxMonth}
           setValidateListCheckboxMonth={setValidateListCheckboxMonth}
@@ -177,7 +180,7 @@ const ServicesApplied: React.FC<any> = (props) => {
 
       {/* Section button  */}
       <RedirectButton
-        // disabledNextButton={!isValid}
+        disabledNextButton={disabledButton}
         continueLater
         backButton
         variant="next"

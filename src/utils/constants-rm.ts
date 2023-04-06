@@ -1904,11 +1904,11 @@ export const STEP_RM = {
           ],
           sectionRadios: {
             instalmentPaymentPlan: {
-              title:
+              description:
                 "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
-              value: "",
+              value: "no",
               repaymentPeriodsOffered: {
                 title: "Please select repayment periods offered",
                 labelSeeMore: "Show more repayment periods",
@@ -1964,17 +1964,17 @@ export const STEP_RM = {
               },
             },
             directCurrencyConversion: {
-              title:
+              description:
                 "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
               name: "directCurrencyConversion",
               checked: false,
-              value: "",
+              value: "no",
             },
             mailOrder: {
-              title: "Will you be offering Mail Order/Telephone Order?",
+              description: "Will you be offering Mail Order/Telephone Order?",
               name: "mailOrder",
               checked: false,
-              value: "",
+              value: "no",
             },
           },
         },
@@ -2005,9 +2005,10 @@ export const STEP_RM = {
           labelPleaseIndicateWhenYourBusinessWillStartOperations:
             "Please indicate when your business will start operations",
           labelOperationsStartDate: "Operations start date",
+          labelNumberOfOutlets: "Number of outlets",
           textFieldOcbcBusinessAccountNumber: {
             label: "OCBC business account number",
-            helperText: ''
+            helperText: "",
           },
           checkedIsYourBusinessReadyForOperation: false,
           checkedDoYouCurrentHaveAnOCBCBusinessAccount: false,
@@ -2042,7 +2043,7 @@ export const STEP_RM = {
           titleWebsiteInfomation: "Website information",
           listRadioDescription: "Is your business ready for operation?",
           labelDoYouHaveAnExistingWebsite: "Do you have an existing website?",
-          labelYourWebsiteURL: "Website",
+          labelWebsite: "Website",
           labelAddMoreWebsite: "Add more website",
           labelCanCustomersPlaceOrderThroughYourWebsite:
             "Can customers place orders through your website?",
@@ -2052,9 +2053,9 @@ export const STEP_RM = {
             description: "Please indicate the live date of your websiteL",
             label: "Website live date",
           },
-          textField: {
-            description: "Your website’s URL",
-            label: "e.g. www.xxx.com",
+          textFieldYourWebsiteURL: {
+            label: "Your website’s URL",
+            helperText: "Please enter a valid URL",
           },
         },
         otherInfomation: {

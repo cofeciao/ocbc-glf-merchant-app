@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -38,10 +38,6 @@ const BusinessOperation: React.FC<any> = () => {
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [dataCheckbox, setDataCheckbox] = useState(
-    STEP_RM.LIST_STEP.servicesApplied.section.transactionAndCardAcceptanceType
-      .dataListCheckbox
-  );
 
   // react-hook-form
   const {
@@ -65,21 +61,15 @@ const BusinessOperation: React.FC<any> = () => {
   }, []);
 
   /**
-   *
-   * Retrieves data from Store
+   * Retrieves data of step Transaction And Card Acceptance Type from Store
+   * return: "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
    */
-  const dataListCheckbox = useSelector(
-    (state: any) => state.form.dataListCheckbox
+  const optionSelected = useSelector((state: any) =>
+    state.form.servicesAppliedStep.transactionAndCardAcceptanceTypeStep
+      .map((item: any) => (item.checked === true ? item.value : ""))
+      .filter((item: string) => item !== "")
+      .join("-")
   );
-
-  /**
-   * Handle disable next button
-   */
-  useEffect(() => {
-    if (dataListCheckbox) {
-      setDataCheckbox(dataListCheckbox);
-    }
-  }, [dataListCheckbox]);
 
   // render UI
   return (
@@ -95,6 +85,7 @@ const BusinessOperation: React.FC<any> = () => {
         title={businessInformation.titleBusinessInformation}
       >
         <BusinessInfomation
+          optionSelected={optionSelected}
           data={businessInformation}
           register={register}
           errors={errors}
@@ -115,7 +106,6 @@ const BusinessOperation: React.FC<any> = () => {
       <SectionWrapper cx={cx} title={otherInfomation.titleOtherInformation}>
         <OtherInformation
           sections={otherInfomation.sections}
-          listRadio={otherInfomation.list}
           labelDoesYourRetailStoreAccpetCardPayment={
             otherInfomation.labelDoesYourRetailStoreAccpetCardPayment
           }
@@ -123,13 +113,15 @@ const BusinessOperation: React.FC<any> = () => {
       </SectionWrapper>
 
       {/* {Section Outlet Details} */}
-      <SectionWrapper
-        cx={cx}
-        title={outletDetails.titleOutletDetail}
-        description={outletDetails.description}
-      >
-        <OutletDetails listRadio={outletDetails.listRadio} />
-      </SectionWrapper>
+      {optionSelected !== "e-commerce" && (
+        <SectionWrapper
+          cx={cx}
+          title={outletDetails.titleOutletDetail}
+          description={outletDetails.description}
+        >
+          <OutletDetails listRadio={outletDetails.listRadio} />
+        </SectionWrapper>
+      )}
 
       {/* {Redirect Button} */}
       <RedirectButton
