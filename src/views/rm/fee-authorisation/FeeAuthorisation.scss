@@ -20,6 +20,15 @@
   & .MuiSelect-selectMenu {
     height: 0px;
   }
+  
+  & .active {
+    background-color: #567180;
+  }
+
+  & .inactive {
+    background-color: $white;
+    color: #575d65;
+  }
 
   & .application-confirmation-container {
     & .title {
@@ -73,6 +82,14 @@
       }
 
       
+    }
+    & .active {
+      & .label {
+        color: $white;
+      }
+      & .sub-title {
+        color: $white;
+      }
     }
   }
   & .indicate-the-bank-name-form {

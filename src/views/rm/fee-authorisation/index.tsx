@@ -16,6 +16,10 @@ import { v4 as uuidv4 } from "uuid";
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
+// import images
+import IconRadioBorder from '@/assets/images/icon-radio-border.svg';
+import IconRadioCheckedWhite from '@/assets/images/icon-radio-checked-white.svg';
+
 // import style
 import styles from "./FeeAuthorisation.scss";
 
@@ -188,8 +192,17 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
               datas.listRadio.map((item: any, index: number) => (
                 <FormControlLabel 
                   key={index} 
-                  value={item.value} 
-                  control={<Radio disableFocusRipple disableRipple disableTouchRipple />} 
+                  value={item.value}
+                  className={cx(paramsFeeAuthorisation[typeListRadio].valueRadio ===  item.value ? "active" : "inactive")}
+                  control={
+                    <Radio 
+                      disableFocusRipple 
+                      disableRipple 
+                      disableTouchRipple 
+                      icon={<img src={IconRadioBorder} alt="icon radio border" />}
+                      checkedIcon={<img src={IconRadioCheckedWhite} alt="icon radio checked white" />}
+                    />
+                  } 
                   label={
                     <>
                       <span className={cx("label")}>{item.label}</span>

@@ -37,6 +37,7 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
   useEffect(() => {
     if (defaultImage) {
       setBase64(defaultImage);
+      setInforFile(defaultImage);
     }
   }, [defaultImage]);
 
@@ -50,12 +51,11 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
     if (!e.target.files) return;
     const file = e.target.files[0];
     setInforFile({
-      nameFile: file.name,
+      name: file.name,
       type: file.type,
       size: `${Math.round(
         file.size / 1000,
       )} KB`
-
     })
     file && onChange(file);
     const reader = new FileReader();
@@ -102,7 +102,7 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
             <div className={cx("upload-result")}>
               <img src={IconImage} alt="icon image"/>
               <div>
-                <label className={cx("file-name")}>{infoFile.nameFile}</label>
+                <label className={cx("file-name")}>{infoFile.name}</label>
                 <label className={cx("file-size")}>{infoFile.size}</label>
               </div>
               <img 
