@@ -30,14 +30,15 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
   props
 ) => {
-  const { data, register, dataRedux } = props;
+  const { data, register, dataRedux, optionSelected } = props;
   const {
     labelPleaseIndicateWhenYourBusinessWillStartOperations,
     labelOperationsStartDate,
     labelIsYouBusinessReadyForOperation,
-    checkedIsYourBusinessReadyForOperation,
+    labelNumberOfOutlets,
     labelAtHowManyOutletWillYouDeplay,
     labelDoYouCurrentHaveAnOCBCBusinessAccount,
+    textFieldOcbcBusinessAccountNumber,
   } = data;
   const cx = classnames.bind(styles);
   const {
@@ -83,29 +84,6 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
           />
         </Grid>
 
-        {/* {At how many outlets will you deploy Point-of-Sales terminals?} */}
-        {dataBusinessInformation.checkedIsYourBusinessReadyForOperation && (
-          <Grid item xs={12}>
-            {/* {Description} */}
-            <Typography className={cx("sub-section-description")}>
-              {labelAtHowManyOutletWillYouDeplay}
-            </Typography>
-
-            {/* {TextField} */}
-            <Grid item xs={6}>
-              <TextField
-                fullWidth
-                label="Number of outlets"
-                variant="filled"
-                type="number"
-                {...register(`duration`, {
-                  required: true,
-                })}
-              />
-            </Grid>
-          </Grid>
-        )}
-
         {/* {Please indicate when your business will start operations} */}
         {!dataBusinessInformation.checkedIsYourBusinessReadyForOperation && (
           <Grid item xs={12}>
@@ -138,6 +116,29 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
                   })}
                 </Select>
               </FormControl>
+            </Grid>
+          </Grid>
+        )}
+
+        {/* {At how many outlets will you deploy Point-of-Sales terminals?} */}
+        {optionSelected !== "e-commerce" && (
+          <Grid item xs={12}>
+            {/* {Description} */}
+            <Typography className={cx("sub-section-description")}>
+              {labelAtHowManyOutletWillYouDeplay}
+            </Typography>
+
+            {/* {TextField} */}
+            <Grid item xs={6}>
+              <TextField
+                fullWidth
+                label={labelNumberOfOutlets}
+                variant="filled"
+                type="number"
+                {...register(`duration`, {
+                  required: true,
+                })}
+              />
             </Grid>
           </Grid>
         )}
@@ -175,7 +176,7 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                label="OCBC business account number"
+                label={textFieldOcbcBusinessAccountNumber.label}
                 variant="filled"
                 {...register(`ocbcBusinessAccountNumber`, {
                   required: true,

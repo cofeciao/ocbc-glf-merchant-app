@@ -1,8 +1,5 @@
 // import modules
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
-import { Radio } from "@sectionsg/orc";
-
 import {
   Box,
   Grid,
@@ -18,20 +15,20 @@ import { STEP_RM } from "@/utils/constants-rm";
 
 // import icons
 import AddIcon from '@material-ui/icons/Add';
-import GroupRadio from "../GroupRadio";
+import GroupRadio from "@/components/GroupRadio";
 
 // render UI
 const OutletForm: React.FC<any> = (props) => {
-  const { 
-    cx, 
-    key, 
-    data, 
-    register, 
-    errors, 
-    setValue, 
-    setError, 
-    remove, 
-    handleAddOutlet, 
+  const {
+    cx,
+    key,
+    data,
+    register,
+    errors,
+    setValue,
+    setError,
+    remove,
+    handleAddOutlet,
     setDataForm,
     dataSectionOutletDetail,
     setDataSectionOutletDetail,
@@ -46,14 +43,14 @@ const OutletForm: React.FC<any> = (props) => {
       }
     }
   }} = STEP_RM
-  
+
   const renderForm = (val: any, index: number, idForm: string) => {
-    const { 
-      businessName, 
-      blockNumber, 
-      streetName, 
-      unitNumber, 
-      buildingName, 
+    const {
+      businessName,
+      blockNumber,
+      streetName,
+      unitNumber,
+      buildingName,
       postalCode,
     } = val.inputFields;
 
@@ -66,13 +63,11 @@ const OutletForm: React.FC<any> = (props) => {
       console.log(values)
     }
 
-    console.log(dataSectionOutletDetail.checkedOutlet)
-
     return (
       <form onSubmit={handleSubmit(onSubmit)}>
         <Grid className="container-wrapper" container spacing={4} key={index}>
           <Grid item xs={12}>
-            <Typography 
+            <Typography
               className={cx("title")}
             >
               Outlet {index + 1} {index !== 0 && <label onClick={() => remove(index)}>{outletDetails.labelRemove}</label>}
@@ -82,7 +77,6 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               name={`businessName[${index}].businessName`}
-              id={uuidv4()}
               label={businessName.label}
               variant="filled"
               {...register("businessName", {
@@ -94,7 +88,6 @@ const OutletForm: React.FC<any> = (props) => {
           <Grid item xs={6}>
             <TextField
               fullWidth
-              id={uuidv4()}
               name={`blockNumber[${index}].blockNumber`}
               label={blockNumber.label}
               variant="filled"
@@ -106,7 +99,6 @@ const OutletForm: React.FC<any> = (props) => {
           <Grid item xs={6}>
             <TextField
               fullWidth
-              id={uuidv4()}
               label={streetName.label}
               name={`streetName[${index}].streetName`}
               variant="filled"
@@ -118,7 +110,6 @@ const OutletForm: React.FC<any> = (props) => {
           <Grid item xs={6}>
             <TextField
               fullWidth
-              id={uuidv4()}
               label={unitNumber.label}
               name={`unitNumber[${index}].unitNumber`}
               variant="filled"
@@ -130,7 +121,6 @@ const OutletForm: React.FC<any> = (props) => {
           <Grid item xs={6}>
             <TextField
               fullWidth
-              id={uuidv4()}
               label={buildingName.label}
               name={`buildingName[${index}].buildingName`}
               variant="filled"
@@ -142,7 +132,6 @@ const OutletForm: React.FC<any> = (props) => {
           <Grid item xs={6}>
             <TextField
               fullWidth
-              id={uuidv4()}
               label={postalCode.label}
               name={`postalCode[${index}].postalCode`}
               variant="filled"
@@ -165,7 +154,7 @@ const OutletForm: React.FC<any> = (props) => {
                 setDataSectionOutletDetail ({
                   ...dataSectionOutletDetail,
                   checkedOutlet: value
-                })  
+                })
               }}
             />
           </Grid>
@@ -206,7 +195,6 @@ const OutletForm: React.FC<any> = (props) => {
               <Grid item xs={3}>
                 <TextField
                   fullWidth
-                  id={uuidv4()}
                   type="password"
                   label={branchCode.label}
                   variant="filled"
@@ -218,7 +206,6 @@ const OutletForm: React.FC<any> = (props) => {
               <Grid item xs={3}>
                 <TextField
                   fullWidth
-                  id={uuidv4()}
                   label={accountNumber.label}
                   variant="filled"
                   {...register("accountNumber", {
@@ -238,8 +225,8 @@ const OutletForm: React.FC<any> = (props) => {
       {data.map((item: any, index: number) => {
         return renderForm(item, index, item.id)
       })}
-      <Typography 
-        className={cx("add-outlet")} 
+      <Typography
+        className={cx("add-outlet")}
         onClick={handleAddOutlet}
       >
         <AddIcon fontSize="small"/> {outletDetails.labelAddAnOutlet}
