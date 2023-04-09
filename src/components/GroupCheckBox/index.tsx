@@ -10,7 +10,7 @@ import styles from "./GroupCheckBox.scss";
 // import types
 import { ICheckBox, IGroupCheckBox } from "./GroupCheckBox";
 
-// import icons
+// import images
 import IconCheckbox from "@/assets/images/icon-checkbox.svg";
 import IconCheckboxBlack from "@/assets/images/icon-checkedbox-black.svg";
 import IconCheckboxBlackTransparent from "@/assets/images/icon-checkedbox-transparent.svg";

@@ -83,6 +83,7 @@
     "@material-ui/styles": "4.10.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@sectionsg/orc": "file:local-library/@sectionsg/orc",
+    "@sectionsg/package-build-tool": "file:local-library/@sectionsg/package-build-tool",
     "axios": "^0.27.2",
     "babel-plugin-root-import": "^6.6.0",
     "build-version-webpack-plugin": "file:local-library/build-version-webpack-plugin",

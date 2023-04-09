@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./FeesRates.scss";
 
 // import constants
-import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { CONTINUE_LATER, STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { IFeesRates } from "./FeesRates";
@@ -31,10 +31,15 @@ import Fees from "./Fees";
 import MerchantDiscountRate from "./MerchantDiscountRate";
 
 const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
+
+  // classnames
   const cx = classNames.bind(styles);
+
+  // hooks
   const history = useHistory()
   const dispatch = useDispatch();
 
+  // constant
   const {
     LIST_STEP: {
       feesAndRates: {
@@ -55,7 +60,7 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
     },
   } = STEP_RM;
 
-  // States
+  // states
   const [loading, setLoading] = useState(false);
   const [paramsFeeRates, setParamsFeeRates] = useState<any>({
     refundable_fees: ""
@@ -111,7 +116,7 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
           title={titleMerchantDiscountRate} 
           description={description}
           isEdit 
-          path="/rm/contact-information" 
+          path="/rm/services-applied" 
         >
           <MerchantDiscountRate cx={cx} />
         </SectionWrapper>
@@ -147,7 +152,7 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
           </Button>
           <div>
             <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
+              <Link to="/">{CONTINUE_LATER}</Link>
             </div>
             <div className="ml-dt-30 d-inline">
               {renderButton()}

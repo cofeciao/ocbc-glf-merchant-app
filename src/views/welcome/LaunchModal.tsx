@@ -33,6 +33,9 @@ const LaunchModal: React.FC<IWelcome.ILaunchModal> = (props) => {
       onClose={onClose}
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
+      TransitionProps={{
+        style: { backgroundColor: "rgba(177, 184, 197, 0.7)" },
+      }}  
     >
       <div className={cx("icon-close")}><img src={CloseIcon} alt="icon close" onClick={onClose} /></div>
       <DialogTitle id="alert-dialog-title">

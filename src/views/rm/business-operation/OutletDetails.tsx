@@ -1,6 +1,6 @@
 // import modules
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
@@ -13,15 +13,13 @@ import styles from "./BusinessOperation.scss";
 // import Component
 import OutletForm from "./OutletForm";
 import UploadImage from "../UploadImage";
-import GroupRadio from "../GroupRadio";
+import GroupRadio from "@/components/GroupRadio";
 
 // render UI
 const OutletDetails: React.FC<any> = (props) => {
   const { listRadio } = props;
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  
+
   const {
     LIST_STEP: {
       businessOperation: {
@@ -29,16 +27,19 @@ const OutletDetails: React.FC<any> = (props) => {
       },
     },
   } = STEP_RM;
-  
+
   // States
-  const [dataSectionOutletDetail, setDataSectionOutletDetail] = useState<any>({});
-  const [checkedRadioPreferType, setCheckedRadioPreferType] = useState<string>('')
+  const [dataSectionOutletDetail, setDataSectionOutletDetail] = useState<any>(
+    {}
+  );
+  const [checkedRadioPreferType, setCheckedRadioPreferType] =
+    useState<string>("");
   const [dataForm, setDataForm] = useState<any>({
     inputFields: outletDetails.inputFields,
     listRadioOutlet: outletDetails.listRadioOutlet,
-    inputFieldsIndicateBank: outletDetails.inputFieldsIndicateBank
+    inputFieldsIndicateBank: outletDetails.inputFieldsIndicateBank,
   });
-   const [fileImage, setFileImage] = useState<any>({});
+  const [fileImage, setFileImage] = useState<any>({});
 
   // form
   const {
@@ -47,11 +48,11 @@ const OutletDetails: React.FC<any> = (props) => {
     setValue,
     setError,
     control,
-    handleSubmit
+    handleSubmit,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      items: [dataForm]
+      items: [dataForm],
     },
   });
 
@@ -61,24 +62,26 @@ const OutletDetails: React.FC<any> = (props) => {
   });
 
   const handleAddOutlet = () => {
-    append(dataForm)
+    append(dataForm);
   };
-  
+
   useEffect(() => {
     if (outletDetails) {
-      setDataSectionOutletDetail(outletDetails) 
+      setDataSectionOutletDetail(outletDetails);
     }
-  }, [outletDetails])
-  
+  }, [outletDetails]);
+
   return (
     <Box className={cx("outlet-details-wrapper")}>
       <Grid container>
         {/* {Which method do you prefer?} */}
         <Grid item xs={12}>
+          {/* {Description} */}
           <Typography className={cx("sub-section-description")}>
             {outletDetails.labelListRadioMethodDoYouPrefer}
           </Typography>
 
+          {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
             name="methodDoYouPrefer"
@@ -87,12 +90,13 @@ const OutletDetails: React.FC<any> = (props) => {
             isRow={false}
             onChange={(event) => {
               const { value } = event.target;
-              setCheckedRadioPreferType(value)
+              setCheckedRadioPreferType(value);
             }}
           />
         </Grid>
-        {checkedRadioPreferType === 'fill_in_here' && (
-          <OutletForm 
+
+        {checkedRadioPreferType === "fill_in_here" && (
+          <OutletForm
             cx={cx}
             errors={errors}
             register={register}
@@ -107,12 +111,12 @@ const OutletDetails: React.FC<any> = (props) => {
             handleSubmit={handleSubmit}
           />
         )}
-        {checkedRadioPreferType === 'upload_a_list' && (
+        {checkedRadioPreferType === "upload_a_list" && (
           <Grid item xs={12}>
             <UploadImage
               value={fileImage}
-              onRemove={() =>setFileImage({})}  
-              onChange={(file: any) => setFileImage(file)} 
+              onRemove={() => setFileImage({})}
+              onChange={(file: any) => setFileImage(file)}
             />
           </Grid>
         )}

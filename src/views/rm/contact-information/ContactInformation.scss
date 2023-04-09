@@ -9,24 +9,7 @@
       margin-bottom: 40px;
     }
   }
-
-  & .contact-details-wrapper {
-    & .formatted-numberphone-input {
-      background: #fafcfc;
-      .MuiInputLabel-root {
-        padding-left: 8px;
-      }
-      & .formatted-numberphone-select {
-        padding-left: 8px;
-        .MuiSelect-icon {
-          border-right: 1px solid #e2e7ec;
-        }
-      }
-      input {
-        padding-left: 10px;
-      }
-    }
-  }
+  
   & .contact-details-acra-details {
     & .MuiGrid-container {
       row-gap: 0px !important;

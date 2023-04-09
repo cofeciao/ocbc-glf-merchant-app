@@ -1,7 +1,32 @@
 @import "../../assets/style/variable.scss";
 
+// focused color for input
+.MuiFilledInput-underline,
+.MuiInput-underline {
+  &::after {
+    border-bottom: 1px solid #005efd !important;
+  }
+  &.Mui-error::after {
+    border-bottom: 1px solid #ed5347 !important;
+  }
+}
+
+.MuiFilledInput-input {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #575d65;
+}
+
 .container {
   & .rm-wrapper {
+    & #continue-later {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      color: #005efd;
+    }
+
     & .section-wrapper {
       background-color: transparent;
       padding: 0px;
@@ -10,11 +35,11 @@
         row-gap: 40px;
         column-gap: 24px;
       }
-  
+
       & .error-text {
         color: red;
       }
-  
+
       & .MuiFormControl-root {
         & .MuiInputBase-root,
         .MuiFormLabel-root {
@@ -45,10 +70,13 @@
           font-weight: 400;
           font-size: 12px;
           line-height: 16px;
-          color: #ed5347;
+          color: #777e87;
+          &.Mui-error {
+            color: #ed5347;
+          }
         }
       }
-  
+
       .header-wrapper {
         margin-bottom: 40px;
         & .section-title {
@@ -65,12 +93,12 @@
             font-weight: 400;
             font-size: 16px;
             line-height: 24px;
-            color: #005EFD;
+            color: #005efd;
             padding: 6px 0px 0px 16px;
             text-decoration: none;
           }
         }
-  
+
         & .section-description {
           margin-bottom: 40px;
           font-weight: 400;
@@ -79,25 +107,24 @@
           color: #777e87;
         }
       }
-  
+
       & .sub-section-description {
         font-weight: 400;
         font-size: 18px;
-        line-height: 20px;
+        line-height: 28px;
         color: #777e87;
         margin-bottom: 16px;
-
         display: flex;
         align-items: center;
       }
-  
+
       & .section-seperate {
         height: 1px;
         width: 100%;
         background: #e2e7ec;
         margin-top: 56px;
       }
-  
+
       .company-type-select {
         & .MuiInputBase-formControl {
           height: 57px;
@@ -112,7 +139,7 @@
       line-height: 32px;
       color: #363b40;
     }
-  
+
     & .section-description {
       margin-bottom: 40px;
       font-weight: 400;
@@ -124,7 +151,7 @@
   & .upload-first {
     padding: 30px;
     margin-bottom: 10px;
-    border: 1px dashed #8E8F8E;
+    border: 1px dashed #8e8f8e;
     border-radius: 4px;
     cursor: pointer;
     flex-direction: column;
@@ -137,23 +164,23 @@
       font-weight: 400;
       font-size: 14px;
       line-height: 20px;
-      color: #363B40;
+      color: #363b40;
 
       label {
-        color: #005EFD;
+        color: #005efd;
       }
     }
   }
 
   & .upload-result {
-    background-color: #F7F9FA;
+    background-color: #f7f9fa;
     border-radius: 8px;
-    width: fit-content;;
+    width: 432px;
     height: 78px;
     display: flex;
     align-items: center;
-    justify-content: space-around;
     padding: 16px;
+    position: relative;
 
     div {
       display: flex;
@@ -179,6 +206,8 @@
 
     img:last-child {
       cursor: pointer;
+      position: absolute;
+      right: 31px;
     }
   }
 
@@ -186,7 +215,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 16px;
-    color: #777E87;
+    color: #777e87;
   }
 
   // Styled group radio component
@@ -195,7 +224,7 @@
       font-weight: 600;
       font-size: 16px;
       line-height: 24px;
-      color: #575D65;
+      color: #575d65;
     }
     & .MuiFormGroup-row {
       margin-top: 10px;

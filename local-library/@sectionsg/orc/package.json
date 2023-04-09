@@ -36,7 +36,6 @@
     "@material-ui/icons": "4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.58",
     "@material-ui/styles": "4.10.0",
-    "@sectionsg/package-build-tool": "^1.0.6",
     "clsx": "^1.1.1",
     "esbuild-loader": "^2.8.0",
     "lodash": "^4.17.15",

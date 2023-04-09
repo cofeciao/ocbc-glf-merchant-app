@@ -3,7 +3,7 @@
 .servicer-applied-wrapper {
   & .title-checkbox {
     font-weight: 400;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 20px;
     color: #777E87;
   }
@@ -16,6 +16,7 @@
       margin-bottom: 40px;
     }
   }
+
   & .checkbox-wrapper {
     & .MuiCheckbox-root {
       color: #3D525D !important;
@@ -30,19 +31,19 @@
         color: $tundora;
       }
 
-      .w-45 {
-        width: 45%;
+      .w-59 {
+        width: 59%;
       }
-      .w-100 {
-        width: 100%;
+      .w-116 {
+        width: 116%;
       }
       
       & .MuiFormGroup-root {
-        margin: 18px 0px 18px 0px;
+        margin: 18px 0px 7px 0px;
         justify-content: space-between;
         
         & .MuiFormControlLabel-root {
-          margin-right: 40px;
+          margin-right: 70px;
         }
   
         & .MuiFormControlLabel-label {
@@ -64,6 +65,14 @@
 
         svg {
           margin-left: 10px;
+        }
+      }
+
+      & .MuiFormHelperText-root {
+        display: flex;
+
+        img {
+          margin-right: 5px;
         }
       }
     }

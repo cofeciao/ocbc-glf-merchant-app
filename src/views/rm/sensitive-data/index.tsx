@@ -20,7 +20,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import styles from "./Sensitive.scss";
 
 // import constants
-import { STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
+import { CONTINUE_LATER, STEP_RM, URL_MANUAL_FLOW } from "@/utils/constants-rm";
 
 //import types
 import { ISensitive } from "./Sensitive";
@@ -29,34 +29,38 @@ import { ISensitive } from "./Sensitive";
 import SectionWrapper from "../SectionWrapper";
 import SensitiveData from "./SensitiveData";
 import UploadImage from "../UploadImage";
+import { saveDataSensitive } from "@/store/form";
 
 const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
-  const cx = classNames.bind(styles);
+  // hooks
   const history = useHistory()
   const dispatch = useDispatch();
 
+  // classnames
+  const cx = classNames.bind(styles);
 
+  // constants
   const {
     LIST_STEP: {
+      LIST_RADIO_YES_NO,
       sensitiveData: {
         title,
         section: {
           labelUploadPCIDSSCerificate,
-          listRadio,
         }
       }
     },
   } = STEP_RM;
 
-
   // States
   const [loading, setLoading] = useState(false);
-  const [valueRadio, setValueRadio] = useState<any>({
+  const [sensitiveData, setSensitiveData] = useState<any>({
     storeCreditCard: "",
     dataProtectedByHierachical: "",
-    compliantWithThePaymentCardIndustry: ""
+    compliantWithThePaymentCardIndustry: "",
+    encryptionMethod: "",
+    certificate: null,
   }); 
-
 
   /**
    * Handle button prev
@@ -65,30 +69,56 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
     history.push(URL_MANUAL_FLOW.productsServices)
   }
 
-   /**
+  /**
    * Handle button next
    */
    const handleNext = async () => {
     history.push(URL_MANUAL_FLOW.beneficialOwnership);
+    getDataSensitiveStep(sensitiveData)
   }
 
-    /**
-   * render UI Button
-   * @returns {HTML}
+   /**
+   * Retrieves data of other service from Store
    */
-    const renderButton = () => {
-      return (
-        <Button 
-          backgroundClass="bgGunmetalBluegrey" 
-          onClick={handleNext}
-          // disabled={!isValid || !isDirty}
-        >
-          Next
-          <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
-        </Button>
-      )
-    }
+   const dataSensitiveStore = useSelector(
+    (state: any) =>
+      state.form.sensitiveStep
+  );
 
+  /**
+   * Set data from Transaction and card acceptance type section
+   * @param data
+   */
+  const getDataSensitiveStep = (datas: any) => {
+    dispatch(saveDataSensitive(datas));
+  };
+
+  /**
+ * render UI Button
+ * @returns {HTML}
+ */
+  const renderButton = () => {
+    return (
+      <Button 
+        backgroundClass="bgGunmetalBluegrey" 
+        onClick={handleNext}
+      >
+        Next
+        <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
+      </Button>
+    )
+  }
+
+  useEffect(() => {
+    if(dataSensitiveStore && 
+      dataSensitiveStore.storeCreditCard ||
+      dataSensitiveStore.dataProtectedByHierachical ||
+      dataSensitiveStore.compliantWithThePaymentCardIndustry 
+    ) {
+      setSensitiveData(dataSensitiveStore)
+    }
+  }, [dataSensitiveStore])
+  
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -105,15 +135,30 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
 
         <SectionWrapper cx={cx} title={title}>
           <SensitiveData 
-            listRadio={listRadio} 
-            valueRadio={valueRadio} 
-            setValueRadio={setValueRadio} 
+            listRadio={LIST_RADIO_YES_NO} 
+            sensitiveData={sensitiveData} 
+            setSensitiveData={setSensitiveData} 
           />
         </SectionWrapper>
         
-        {valueRadio.compliantWithThePaymentCardIndustry === "Yes" && (
+        {sensitiveData.compliantWithThePaymentCardIndustry === "yes" && (
           <SectionWrapper cx={cx} title={labelUploadPCIDSSCerificate}>
-            <UploadImage onChange={(file: any) => console.log(file)} />
+            <UploadImage 
+              value={sensitiveData.certificate}
+              defaultImage={sensitiveData.certificate}
+              onChange={(file: any) => (
+                setSensitiveData({
+                  ...sensitiveData,
+                  certificate: file
+                })
+              )}
+              onRemove={() => {
+                setSensitiveData({
+                  ...sensitiveData,
+                  certificate: null
+                })
+              }}
+            />
           </SectionWrapper>
         )}
   
@@ -124,7 +169,7 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
           </Button>
           <div>
             <div className={cx('d-inline')}>
-              <Link to="/">Continue later</Link>
+              <Link to="/">{CONTINUE_LATER}</Link>
             </div>
             <div className="ml-dt-30 d-inline">
               {renderButton()}

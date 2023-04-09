@@ -16,7 +16,7 @@ const TableEditing: React.FC<IFeesRates.ITableEdtiting> = (props) => {
     return (
       <TextField 
         name={`calories-${index}`} 
-        type='text'
+        type='number'
         placeholder='-'
         defaultValue={rowValue} 
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEditRow(index, e, name)}
