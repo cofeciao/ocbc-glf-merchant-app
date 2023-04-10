@@ -26,6 +26,7 @@ export const REVIEW = "Review";
 export const SUBMIT = "Submit";
 export const START = "START";
 export const CONTINUE_LATER = "Continue later";
+export const REMOVE = "Remove";
 
 export const ERROR_ICON = "\u26A0";
 
@@ -1501,6 +1502,20 @@ export const STEP_RM = {
       value: "more-than-3-months",
     },
   ],
+  LIST_OPERATIONS_START_DATE: [
+    {
+      name: "Within 2 weeks",
+      value: "within-2-week",
+    },
+    {
+      name: "Within 3 months",
+      value: "within-3-months",
+    },
+    {
+      name: "After 3 months",
+      value: "after-3-months",
+    },
+  ],
   LIST_STEP: {
     LIST_SALUTATION: [
       {
@@ -1678,6 +1693,7 @@ export const STEP_RM = {
           description:
             "Please ensure that these details from ACRA are updated.",
           titleRegisteredAddress: "Registered address",
+          titleDirector: "Director",
           titleDirectors: "Directors",
           labelAddMoreDirectors: "Add more directors",
           inputFields: {
@@ -1691,7 +1707,7 @@ export const STEP_RM = {
               helperText: "Please enter a valid entity type",
               requiredText: "",
             },
-            uniqueEnityNumber: {
+            uniqueEntityNumber: {
               label: "Unique Entity Number (UEN)",
               helperText: "Please enter a valid unique entity number",
               requiredText: "",
@@ -1724,6 +1740,12 @@ export const STEP_RM = {
             postalCode: {
               label: "Postal code",
               helperText: "Please enter a valid postal code",
+              requiredText: "",
+            },
+            directors: {
+              labelName: "Name",
+              labelNRICNumber: "NRIC number",
+              helperText: "Please enter a valid NRIC number",
               requiredText: "",
             },
           },
@@ -1882,7 +1904,7 @@ export const STEP_RM = {
           ],
           sectionRadios: {
             instalmentPaymentPlan: {
-              title:
+              description:
                 "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
@@ -1942,14 +1964,14 @@ export const STEP_RM = {
               },
             },
             directCurrencyConversion: {
-              title:
+              description:
                 "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
               name: "directCurrencyConversion",
               checked: false,
               value: "",
             },
             mailOrder: {
-              title: "Will you be offering Mail Order/Telephone Order?",
+              description: "Will you be offering Mail Order/Telephone Order?",
               name: "mailOrder",
               checked: false,
               value: "",
@@ -1980,6 +2002,14 @@ export const STEP_RM = {
             "At how many outlets will you deploy Point-of-Sales terminals?",
           labelDoYouCurrentHaveAnOCBCBusinessAccount:
             "Do you currently have an OCBC business account?",
+          labelPleaseIndicateWhenYourBusinessWillStartOperations:
+            "Please indicate when your business will start operations",
+          labelOperationsStartDate: "Operations start date",
+          labelNumberOfOutlets: "Number of outlets",
+          textFieldOcbcBusinessAccountNumber: {
+            label: "OCBC business account number",
+            helperText: "",
+          },
           checkedIsYourBusinessReadyForOperation: false,
           checkedDoYouCurrentHaveAnOCBCBusinessAccount: false,
           listRadioIsYourBusinessReadyForOperation: [
@@ -2013,27 +2043,19 @@ export const STEP_RM = {
           titleWebsiteInfomation: "Website information",
           listRadioDescription: "Is your business ready for operation?",
           labelDoYouHaveAnExistingWebsite: "Do you have an existing website?",
-          labelYourWebsiteURL: "Website",
+          labelWebsite: "Website",
           labelAddMoreWebsite: "Add more website",
           labelCanCustomersPlaceOrderThroughYourWebsite:
             "Can customers place orders through your website?",
           checkedYouHaveExistingWebsite: false,
           checkedCanCustomersPlaceOrderThroughYourWebsite: false,
-          listRadio: [
-            {
-              label: "Yes",
-              value: "yes",
-              checked: false,
-            },
-            {
-              label: "No",
-              value: "no",
-              checked: false,
-            },
-          ],
-          textField: {
-            description: "Your website’s URL",
-            label: "e.g. www.xxx.com",
+          selectField: {
+            description: "Please indicate the live date of your websiteL",
+            label: "Website live date",
+          },
+          textFieldYourWebsiteURL: {
+            label: "Your website’s URL",
+            helperText: "Please enter a valid URL",
           },
         },
         otherInfomation: {
@@ -2042,51 +2064,46 @@ export const STEP_RM = {
             "Is your business ready for operation?",
           labelDoesYourRetailStoreAccpetCardPayment:
             "Does your retail store accept card payments?",
-          sections: [
-            {
-              listCheckboxDescription: "Is your business ready for operation?",
-              listCheckbox: [
+          sections: {
+            listCheckboxBusinessOfferings: {
+              description: "What is your business offering?",
+              list: [
                 {
                   label: "Selling products",
+                  value: "sellingProducts",
                   checked: false,
                 },
                 {
                   label: "Providing services",
+                  value: "providingServices",
                   checked: false,
                 },
               ],
             },
-            {
-              listCheckboxDescription:
-                "Do you currently have any of the following?",
-              listCheckbox: [
+            listCheckboxAvailableSpaces: {
+              description: "Do you currently have any of the following?",
+              list: [
                 {
                   label: "Office",
+                  value: "office",
                   checked: false,
                 },
                 {
                   label: "Retail store",
+                  value: "retailStore",
                   checked: false,
                 },
                 {
                   label: "Warehouse",
+                  value: "warehouse",
                   checked: false,
                 },
               ],
             },
-          ],
-          listRadio: [
-            {
-              label: "Yes",
-              value: "yes",
-              checked: false,
+            listRadio: {
+              description: "Does your retail store accept card payments?",
             },
-            {
-              label: "No",
-              value: "no",
-              checked: false,
-            },
-          ],
+          },
         },
         outletDetails: {
           titleOutletDetail: "Outlet details",
@@ -2203,16 +2220,20 @@ export const STEP_RM = {
       },
       section: {
         businessOffering: {
-          title: "Business offering",
-          label: "What products and/or services is your business offering?",
-          note: "E.g. Bistro, café, workshops, salon, clinic, etc.",
+          label: "Business offering",
+          description:
+            "What products and/or services is your business offering?",
+          helperText: "Cannot exceed 180 characters",
+          egText: "E.g. Bistro, café, workshops, salon, clinic, etc.",
         },
         fulfilmentInformation: {
           title: "Fulfilment information",
-          label:
+          description:
             "How quickly does your business fulfil these products and/or services?",
-          labelSelect: "Please indicate duration",
-          labelTextField:
+          labelSelect: "Duration",
+          descriptionSelect: "Please indicate duration",
+          labelTextField: "Percentage",
+          descriptionTextField:
             "Percentage of products/services not fulfilled immediately",
         },
         salesForecast: {
@@ -2222,6 +2243,20 @@ export const STEP_RM = {
           labelAverageAmountPerCreditCardTransaction:
             "Average amount per credit card transaction",
           labelAnnualCreditCardSalesForecast: "Annual credit card sales",
+          listTextField: [
+            {
+              keyName: "averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+            {
+              keyName: "annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+          ],
         },
         refundPolicy: {
           title: "Refund policy",
@@ -2886,4 +2921,3 @@ export const STEP_RM = {
     },
   },
 };
-

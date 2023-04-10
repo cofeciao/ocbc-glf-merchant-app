@@ -12,20 +12,20 @@ import classNames from 'classnames/bind';
 import Footer from "@/components/Footer";
 
 // import constants
-import { 
+import {
   BENEFICIAL_OWNERSHIP,
   BUSINESS_OPERATION,
   COMPANY_CONTACT_INFORMATION,
-  CONTACT_INFORMATION, 
-  DATA_TABS_NON_REPRICING_MANUAL_SELECTED, 
-  FEE_AUTHORISATION, 
-  FEE_RATES, 
-  PRODUCTS_SERVICES, 
-  REVIEW_SUBMIT, 
-  SENSITIVE_DATA, 
-  SERVICES_APPLIED, 
-  SUPPLEMENTARY_DOCUMENT, 
-  TITLE_PAGE 
+  CONTACT_INFORMATION,
+  DATA_TABS_NON_REPRICING_MANUAL_SELECTED,
+  FEE_AUTHORISATION,
+  FEE_RATES,
+  PRODUCTS_SERVICES,
+  REVIEW_SUBMIT,
+  SENSITIVE_DATA,
+  SERVICES_APPLIED,
+  SUPPLEMENTARY_DOCUMENT,
+  TITLE_PAGE
 } from '@/utils/constants-rm';
 
 // styles
@@ -72,7 +72,7 @@ const ContainerManual = () => {
   */
   const formReduxData = useSelector((state: any) => state.form);
 
-  /** 
+  /**
   * Dynamic stepper - Singpass
   */
   const handleDetectDynamicStepper = () => {
@@ -81,7 +81,7 @@ const ContainerManual = () => {
 
   /**
  * Handle click into on stepper
- * @param {string} path - Slug for page 
+ * @param {string} path - Slug for page
  */
   const handleClick = (path: any) => {
     history.push(`/rm/${path}`);

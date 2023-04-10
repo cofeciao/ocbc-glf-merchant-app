@@ -1,57 +1,60 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
-import { Box, Grid, TextField, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import classnames from "classnames/bind";
+import { useFieldArray } from "react-hook-form";
+import GroupRadio from "@/components/GroupRadio";
+import _ from "lodash";
 
 // import icons
 import IconPlus from "@/assets/images/icon-plus.svg";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import style
 import styles from "./BusinessOperation.scss";
-import { useFieldArray, useForm } from "react-hook-form";
-import { STEP_RM } from "@/utils/constants-rm";
-import GroupRadio from "../GroupRadio";
+
+// import contants
+import { ERROR_ICON, REMOVE, STEP_RM } from "@/utils/constants-rm";
 
 // import types
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
-  const { listRadio } = props;
-  const cx = classnames.bind(styles);
-
+  const { data, register, errors, control, dataRedux } = props;
   const {
-    LIST_STEP: {
-      LIST_RADIO_YES_NO,
-      businessOperation: {
-        section: { websiteInfomation },
-      },
-    },
+    selectField,
+    checkedCanCustomersPlaceOrderThroughYourWebsite,
+    labelCanCustomersPlaceOrderThroughYourWebsite,
+    labelDoYouHaveAnExistingWebsite,
+    labelAddMoreWebsite,
+    labelWebsite,
+    textFieldYourWebsiteURL,
+  } = data;
+  const cx = classnames.bind(styles);
+  const {
+    LIST_INDICATE_DURATION,
+    LIST_STEP: { LIST_RADIO_YES_NO },
   } = STEP_RM;
 
-  // States
+  // states
   const [dataWebsiteInformation, setDataWebsiteInformation] = useState<any>({
     checkedYouHaveExistingWebsite: LIST_RADIO_YES_NO[0].value,
     checkedCanCustomersPlaceOrderThroughYourWebsite:
-      websiteInfomation.checkedCanCustomersPlaceOrderThroughYourWebsite,
+      checkedCanCustomersPlaceOrderThroughYourWebsite,
     valueYouHaveExistingWebsite: LIST_RADIO_YES_NO[0].value,
     valueCanCustomersPlaceOrderThroughYourWebsite: LIST_RADIO_YES_NO[0].value,
   });
 
-  // form
-  const {
-    register,
-    formState: { errors, isValid, isDirty },
-    setValue,
-    setError,
-    control,
-  } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      items: [{ value: "url" }],
-    },
-  });
-
+  // react-hook-form
   const { fields, append, remove } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "items", // unique name for your Field Array
@@ -60,11 +63,14 @@ const WebsiteInformation: React.FC<any> = (props) => {
   return (
     <Box className={cx("website-information-wrapper")}>
       <Grid container>
+        {/* {Is your business ready for operations?} */}
         <Grid item xs={12}>
+          {/* {Description} */}
           <Typography className={cx("sub-section-description")}>
-            {websiteInfomation.labelDoYouHaveAnExistingWebsite}
+            {labelDoYouHaveAnExistingWebsite}
           </Typography>
 
+          {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
             name="youHaveExistingWebsite"
@@ -81,28 +87,85 @@ const WebsiteInformation: React.FC<any> = (props) => {
           />
         </Grid>
 
+        {/* {Please indicate when your business will start operations} */}
+        {!dataWebsiteInformation.checkedYouHaveExistingWebsite && (
+          <Grid item xs={12}>
+            {/* {Description} */}
+            <Typography className={cx("sub-section-description")}>
+              {selectField.description}
+            </Typography>
+
+            {/* {Select} */}
+            <Grid item xs={5}>
+              <FormControl
+                variant="filled"
+                className={cx("company-type-select")}
+                fullWidth
+              >
+                <InputLabel>{selectField.label}</InputLabel>
+                <Select
+                  fullWidth
+                  IconComponent={ExpandMore}
+                  placeholder={selectField.label}
+                  defaultValue={
+                    _.has(dataRedux, "duration") ? dataRedux.duration : ""
+                  }
+                  {...register(`duration`, {
+                    required: true,
+                  })}
+                >
+                  {_.map(LIST_INDICATE_DURATION, (item, index) => {
+                    return (
+                      <MenuItem key={index} value={item.value}>
+                        {item.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        )}
+
+        {/* {Websites} */}
         {dataWebsiteInformation.checkedYouHaveExistingWebsite && (
           <Grid item xs={12}>
             <Grid container direction="column" style={{ rowGap: "12px" }}>
               {fields.map((_item: any, index: number) => (
                 <Grid item xs={12} key={index}>
                   <div className={cx("group-fields")}>
+                    {/* {Title} */}
                     <Typography className={cx("title")}>
-                      {`${websiteInfomation.labelYourWebsiteURL} ${index + 1}`}
+                      {`${labelWebsite} ${index + 1}`}
                     </Typography>
+
+                    {/* {TextField} */}
                     <Grid container>
                       <Grid item xs={4}>
                         <TextField
                           fullWidth
-                          label="Your website’s URL"
+                          label={textFieldYourWebsiteURL.label}
                           variant="filled"
-                          // onBlur={(event) => {
-                          //   getPersonalInformation(
-                          //     "RegisteredEntityName",
-                          //     event.target.value,
-                          //     ""
-                          //   );
-                          // }}
+                          error={
+                            _.has(errors, `yourWebsiteURL${index}.type`) &&
+                            !_.isEqual(
+                              errors[`yourWebsiteURL${index}`].type,
+                              "required"
+                            ) &&
+                            true
+                          }
+                          helperText={
+                            _.has(errors, `yourWebsiteURL${index}.type`) &&
+                            errors[`yourWebsiteURL${index}`].message
+                          }
+                          {...register(`yourWebsiteURL${index}`, {
+                            required: true,
+                            pattern: {
+                              value:
+                                /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i,
+                              message: `${ERROR_ICON} ${textFieldYourWebsiteURL.helperText}`,
+                            },
+                          })}
                         />
                       </Grid>
                     </Grid>
@@ -111,7 +174,7 @@ const WebsiteInformation: React.FC<any> = (props) => {
                         className={cx("label-remove")}
                         onClick={() => remove(index)}
                       >
-                        Remove
+                        {REMOVE}
                       </Typography>
                     )}
                   </div>
@@ -127,17 +190,21 @@ const WebsiteInformation: React.FC<any> = (props) => {
                     alt="icon"
                     className={cx("text-field-add-icon")}
                   />
-                  {websiteInfomation.labelAddMoreWebsite}
+                  {labelAddMoreWebsite}
                 </div>
               )}
             </Grid>
           </Grid>
         )}
 
+        {/* {Can customers place orders through your website?} */}
         <Grid item xs={12}>
+          {/* {Description} */}
           <Typography className={cx("sub-section-description")}>
-            {websiteInfomation.labelCanCustomersPlaceOrderThroughYourWebsite}
+            {labelCanCustomersPlaceOrderThroughYourWebsite}
           </Typography>
+
+          {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
             name="youHaveExistingWebsite"

@@ -10,33 +10,76 @@ import {
 } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
+import GroupRadio from "@/components/GroupRadio";
+import GroupCheckBox from "@/components/GroupCheckBox";
+import _ from "lodash";
 
 // import constants
+import { STEP_RM } from "@/utils/constants-rm";
 
 // import style
 import styles from "./BusinessOperation.scss";
-import GroupRadio from "../GroupRadio";
-import { STEP_RM } from "@/utils/constants-rm";
 
 // import types
+import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
+import { updateDataListRadio } from "@/utils/utils";
 
 // render UI
 const OtherInformation: React.FC<any> = (props) => {
-  const { sections, listRadio, labelDoesYourRetailStoreAccpetCardPayment } =
-    props;
+  const {
+    sections,
+    labelDoesYourRetailStoreAccpetCardPayment,
+    register,
+    dataRedux,
+  } = props;
   const {
     LIST_STEP: { LIST_RADIO_YES_NO },
   } = STEP_RM;
+  const {
+    listCheckboxBusinessOfferings,
+    listCheckboxAvailableSpaces,
+    listRadio,
+  } = sections;
   const cx = classnames.bind(styles);
   const dispatch = useDispatch();
   const history = useHistory();
 
   // States
-  const [key, setKey] = useState<number>(0);
-  const [dataOtherinformation, setDataOtherinformation] = useState<any>({
+  const [dataOtherinformation, setDataOtherInformation] = useState<any>({
     checkedDoesYourRetailStoreAccpetCard: true,
     valueDoesYourRetailStoreAccpetCard: LIST_RADIO_YES_NO[0].value,
+    listDataRadioRetailStore: _.has(
+      dataRedux,
+      "cardPaymentAvailableAtRetailStore"
+    )
+      ? updateDataListRadio(
+          dataRedux.cardPaymentAvailableAtRetailStore,
+          LIST_RADIO_YES_NO
+        )
+      : LIST_RADIO_YES_NO,
+    listDataCheckboxBusinessOfferings: listCheckboxBusinessOfferings.list,
+    listDataAvailableSpaces: listCheckboxAvailableSpaces.list,
   });
+  const [openRadioRetailStore, setOpenRadioRetailStore] =
+    useState<boolean>(false);
+
+  /**
+   * Handle data from availableSpaces list checkbox
+   * @param value
+   */
+  const handleDataAvailableSpaces = (value: ICheckBox[]) => {
+    // handle open RetailStore
+    const found = value.findIndex(
+      (item: any) =>
+        item.label === listCheckboxAvailableSpaces.list[1].label &&
+        item.checked === true
+    );
+    if (found >= 0) {
+      setOpenRadioRetailStore(true);
+    } else {
+      setOpenRadioRetailStore(false);
+    }
+  };
 
   return (
     <Box
@@ -45,47 +88,71 @@ const OtherInformation: React.FC<any> = (props) => {
       gridRowGap="40px"
       className={cx("other-information-wrapper")}
     >
-      {sections.map((section: any, index: number) => {
-        return (
-          <Grid key={index} container>
-            <Grid item xs={12}>
-              {/* {Description} */}
-              {section.listCheckboxDescription && (
-                <Typography className={cx("sub-section-description")}>
-                  {section.listCheckboxDescription}
-                </Typography>
-              )}
-
-              {/* {List Checkbox} */}
-              {section.listCheckbox && (
-                <Box display="flex" flexDirection="column">
-                  {section.listCheckbox.map((checkbox: any, index: number) => {
-                    return (
-                      <FormControlLabel
-                        key={index}
-                        control={
-                          <Checkbox
-                            disableTouchRipple
-                            disableRipple
-                            disableFocusRipple
-                            checked={checkbox.checked}
-                            // onChange={handleChange}
-                            name="checkedB"
-                            color="primary"
-                          />
-                        }
-                        label={checkbox.label}
-                      />
-                    );
-                  })}
-                </Box>
-              )}
-            </Grid>
-          </Grid>
-        );
-      })}
       <Grid container>
+        {/* {What is your business offering?} */}
         <Grid item xs={12}>
+          {/* {Description} */}
+          {!_.isEmpty(listCheckboxBusinessOfferings.description) &&
+            listCheckboxBusinessOfferings && (
+              <Typography className={cx("sub-section-description")}>
+                {listCheckboxBusinessOfferings.description}
+              </Typography>
+            )}
+
+          {/* {GroupCheckBox} */}
+          {_.has(sections, "listCheckboxBusinessOfferings") && (
+            <Box>
+              <GroupCheckBox
+                name="businessOfferings"
+                listCheckbox={listCheckboxBusinessOfferings.list}
+                register={register}
+                required
+                getValue={(value: ICheckBox[]) => {
+                  setDataOtherInformation({
+                    ...dataOtherinformation,
+                    listDataCheckboxBusinessOfferings: value,
+                  });
+                }}
+              />
+            </Box>
+          )}
+        </Grid>
+
+        {/* {Do you currently have any of the following?} */}
+        <Grid item xs={12}>
+          {/* {Description} */}
+          {!_.isEmpty(listCheckboxAvailableSpaces.description) &&
+            listCheckboxAvailableSpaces && (
+              <Typography className={cx("sub-section-description")}>
+                {listCheckboxAvailableSpaces.description}
+              </Typography>
+            )}
+
+          {/* {GroupCheckBox} */}
+          {_.has(sections, "listCheckboxAvailableSpaces") && (
+            <Box>
+              <GroupCheckBox
+                name="availableSpaces"
+                listCheckbox={listCheckboxAvailableSpaces.list}
+                register={register}
+                required
+                getValue={(value: ICheckBox[]) => {
+                  setDataOtherInformation({
+                    ...dataOtherinformation,
+                    listDataCheckboxAvailableSpaces: value,
+                  });
+                }}
+                getValueOnChange={(value: ICheckBox[]) => {
+                  handleDataAvailableSpaces(value);
+                }}
+              />
+            </Box>
+          )}
+        </Grid>
+      </Grid>
+
+      <Grid container>
+        {/* <Grid item xs={12}>
           <Typography className={cx("sub-section-description")}>
             {labelDoesYourRetailStoreAccpetCardPayment}
           </Typography>
@@ -97,7 +164,7 @@ const OtherInformation: React.FC<any> = (props) => {
             listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
-              setDataOtherinformation({
+              setDataOtherInformation({
                 ...dataOtherinformation,
                 checkedDoesYourRetailStoreAccpetCard:
                   value === "yes" ? true : false,
@@ -105,7 +172,38 @@ const OtherInformation: React.FC<any> = (props) => {
               });
             }}
           />
-        </Grid>
+        </Grid> */}
+
+        {/* {Does your retail store accept card payments?} */}
+        {openRadioRetailStore && (
+          <Grid item xs={12}>
+            {/* {Description} */}
+            {_.has(listRadio, "description") && (
+              <Typography className={cx("sub-section-description")}>
+                {listRadio.description}
+              </Typography>
+            )}
+
+            {/* {List Radio} */}
+            {!_.isEmpty(dataOtherinformation.listDataRadioRetailStore) && (
+              <GroupRadio
+                cx={cx}
+                name="cardPaymentAvailableAtRetailStore"
+                value={dataOtherinformation.valueDoesYourRetailStoreAccpetCard}
+                listRadio={dataOtherinformation.listDataRadioRetailStore}
+                onChange={(event) => {
+                  const { value } = event.target;
+                  setDataOtherInformation({
+                    ...dataOtherinformation,
+                    checkedDoesYourRetailStoreAccpetCard:
+                      value === "yes" ? true : false,
+                    valueDoesYourRetailStoreAccpetCard: value,
+                  });
+                }}
+              />
+            )}
+          </Grid>
+        )}
       </Grid>
     </Box>
   );

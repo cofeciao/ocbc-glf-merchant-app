@@ -7,6 +7,10 @@ declare namespace IContactInformation {
     value: string;
     error: string;
   }
+  export interface IValueData {
+    value: string;
+    error: string;
+  }
 
 }
 

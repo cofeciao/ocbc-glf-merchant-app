@@ -1,41 +1,52 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Grid, TextField, Typography } from "@material-ui/core";
+import React, { useState } from "react";
+import {
+  Box,
+  FormControl,
+  Grid,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
+import GroupRadio from "@/components/GroupRadio";
+import _ from "lodash";
 
 // import constants
-
-// import style
-import styles from "./BusinessOperation.scss";
 import { STEP_RM } from "@/utils/constants-rm";
-import GroupRadio from "../GroupRadio";
+
+// import styles
+import styles from "./BusinessOperation.scss";
 
 // import types
+import { IBusinessOperations } from "./BusinessOperation";
+
+// import icons
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // render UI
-const BusinessInfomation: React.FC<any> = (props) => {
+const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
+  props
+) => {
+  const { data, register, dataRedux, optionSelected } = props;
   const {
-    listRadioIsYourBusinessReadyForOperation,
-    listRadioYouCurrentlyHaveAnOCBC,
-  } = props;
+    labelPleaseIndicateWhenYourBusinessWillStartOperations,
+    labelOperationsStartDate,
+    labelIsYouBusinessReadyForOperation,
+    labelNumberOfOutlets,
+    labelAtHowManyOutletWillYouDeplay,
+    labelDoYouCurrentHaveAnOCBCBusinessAccount,
+    textFieldOcbcBusinessAccountNumber,
+  } = data;
   const cx = classnames.bind(styles);
-  const dispatch = useDispatch();
-  const [key, setKey] = useState<number>(0);
-  const history = useHistory();
-
   const {
-    LIST_STEP: {
-      LIST_RADIO_YES_NO,
-      businessOperation: {
-        section: { businessInformation },
-      },
-    },
+    LIST_OPERATIONS_START_DATE,
+    LIST_STEP: { LIST_RADIO_YES_NO },
   } = STEP_RM;
 
-  // States
+  // states
   const [dataBusinessInformation, setDataBusinessinformation] = useState<any>({
     checkedIsYourBusinessReadyForOperation: LIST_RADIO_YES_NO[0].value,
     checkedDoYouCurrentHaveAnOCBCBusinessAccount: LIST_RADIO_YES_NO[0].value,
@@ -50,10 +61,12 @@ const BusinessInfomation: React.FC<any> = (props) => {
       <Grid container>
         {/* {Is your business ready for operation?} */}
         <Grid item xs={12}>
+          {/* {Description} */}
           <Typography className={cx("sub-section-description")}>
-            {businessInformation.labelIsYouBusinessReadyForOperation}
+            {labelIsYouBusinessReadyForOperation}
           </Typography>
 
+          {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
             name="isYourBusinessReadyForOperation"
@@ -70,26 +83,61 @@ const BusinessInfomation: React.FC<any> = (props) => {
             }}
           />
         </Grid>
-        {dataBusinessInformation.checkedIsYourBusinessReadyForOperation && (
+
+        {/* {Please indicate when your business will start operations} */}
+        {!dataBusinessInformation.checkedIsYourBusinessReadyForOperation && (
           <Grid item xs={12}>
+            {/* {Description} */}
             <Typography className={cx("sub-section-description")}>
-              {businessInformation.labelAtHowManyOutletWillYouDeplay}
+              {labelPleaseIndicateWhenYourBusinessWillStartOperations}
             </Typography>
 
+            {/* {Select} */}
+            <Grid item xs={5}>
+              <FormControl variant="filled" fullWidth>
+                <InputLabel>{labelOperationsStartDate}</InputLabel>
+                <Select
+                  fullWidth
+                  IconComponent={ExpandMore}
+                  placeholder={labelOperationsStartDate}
+                  defaultValue={
+                    _.has(dataRedux, "duration") ? dataRedux.duration : ""
+                  }
+                  {...register(`duration`, {
+                    required: true,
+                  })}
+                >
+                  {_.map(LIST_OPERATIONS_START_DATE, (item, index) => {
+                    return (
+                      <MenuItem key={index} value={item.value}>
+                        {item.name}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        )}
+
+        {/* {At how many outlets will you deploy Point-of-Sales terminals?} */}
+        {optionSelected !== "e-commerce" && (
+          <Grid item xs={12}>
+            {/* {Description} */}
+            <Typography className={cx("sub-section-description")}>
+              {labelAtHowManyOutletWillYouDeplay}
+            </Typography>
+
+            {/* {TextField} */}
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                id={`uuidv4()`}
-                label="Number of outlets"
+                label={labelNumberOfOutlets}
                 variant="filled"
                 type="number"
-                // onBlur={(event) => {
-                //   getPersonalInformation(
-                //     "RegisteredEntityName",
-                //     event.target.value,
-                //     ""
-                //   );
-                // }}
+                {...register(`duration`, {
+                  required: true,
+                })}
               />
             </Grid>
           </Grid>
@@ -97,9 +145,12 @@ const BusinessInfomation: React.FC<any> = (props) => {
 
         {/* {Do you currently have an OCBC business account?} */}
         <Grid item xs={12}>
+          {/* {Description} */}
           <Typography className={cx("sub-section-description")}>
-            {businessInformation.labelDoYouCurrentHaveAnOCBCBusinessAccount}
+            {labelDoYouCurrentHaveAnOCBCBusinessAccount}
           </Typography>
+
+          {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
             name="doYouCurrentHaveAnOCBCBusinessAccount"
@@ -118,21 +169,18 @@ const BusinessInfomation: React.FC<any> = (props) => {
             }}
           />
         </Grid>
+
+        {/* {OCBC business account number} */}
         {dataBusinessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount && (
           <Grid item xs={12}>
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                id={`uuidv4()`}
-                label="OCBC business account number"
+                label={textFieldOcbcBusinessAccountNumber.label}
                 variant="filled"
-                // onBlur={(event) => {
-                //   getPersonalInformation(
-                //     "RegisteredEntityName",
-                //     event.target.value,
-                //     ""
-                //   );
-                // }}
+                {...register(`ocbcBusinessAccountNumber`, {
+                  required: true,
+                })}
               />
             </Grid>
           </Grid>
