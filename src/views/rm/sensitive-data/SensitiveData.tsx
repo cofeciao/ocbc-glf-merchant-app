@@ -1,10 +1,7 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid, TextField, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 // import images
@@ -26,15 +23,10 @@ const SensitiveData: React.FC<any> = (props) => {
   // classnames
   const cx = classnames.bind(styles);
 
-  //hooks
-  const dispatch = useDispatch();
-  const history = useHistory();
-
   // constants
   const {
     LIST_STEP: {
       sensitiveData: {
-        title,
         section: {
           labelDoYouStoreCreditCardDetails,
           labelIsTheDataProtected,
@@ -49,20 +41,37 @@ const SensitiveData: React.FC<any> = (props) => {
   //States
   const [radiosCreditCard, setRadiosCreditCard] = useState<any[]>(listRadio);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
-  const [valueEncryptionMethod, setValueEncryptionMethod] = useState<string>(sensitiveData.encryptionMethod);
+  const [valueEncryptionMethod, setValueEncryptionMethod] = useState<string>('');
 
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
   }
 
+  // handle value encode
+  const handleEncode = (val: string) => {
+    if (!val) {
+      return null;
+    }
+    const formattedText = "X".repeat(val.length);
+    return formattedText
+  }
+
+  // handle onChange textfield
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSensitiveData({
+      ...sensitiveData,
+      encryptionMethod: handleEncode(value),
+    });
+  };
+      
   // set value encryptionMethod to state and value encoding 
   useEffect(() => {
     if (sensitiveData && sensitiveData.encryptionMethod) {
-      const encodeEncryptionMethod = sensitiveData.encryptionMethod;
-      setValueEncryptionMethod(encodeEncryptionMethod);
+      setValueEncryptionMethod(handleEncode(sensitiveData.encryptionMethod));
     }
   }, [sensitiveData])
-    
+
   return (
     <>
       <ConfirmModal 
@@ -132,13 +141,7 @@ const SensitiveData: React.FC<any> = (props) => {
                     id={uuidv4()}
                     type="text"
                     variant="filled"
-                    onChange={(event) => {
-                      const { value } = event.target;
-                      setSensitiveData({
-                        ...sensitiveData,
-                        encryptionMethod: value,
-                      });
-                    }}
+                    onChange={handleOnChange}
                   />
                 </Grid> 
               )}

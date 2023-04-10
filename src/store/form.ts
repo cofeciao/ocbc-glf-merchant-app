@@ -20,6 +20,8 @@ const Formslice = createSlice({
     },
     sensitiveStep: {},
     beneficialOwnerShipStep: {},
+    feeAndRateStep: {},
+    feeAuthorisationStep: {},
     supplementaryDocumentStep: {
       authorisedSignatoryNRIC: [],
       tenacyDocumentOrSiteVisitPhotos: [],
@@ -89,6 +91,24 @@ const Formslice = createSlice({
      */
     saveDataBeneficialOwnership: (state, action) => {
       state.beneficialOwnerShipStep = action.payload;
+    },
+
+    /**
+     * function save data of Fee And Rates step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataFeeAndRates: (state, action) => {
+      state.feeAndRateStep = action.payload;
+    },
+
+    /**
+     * function save data of Fee Authorisation step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataFeeAuthorisation: (state, action) => {
+      state.feeAuthorisationStep = action.payload;
     },
 
     /**
@@ -169,6 +189,8 @@ export const {
   saveDataOtherServicesApplied,
   saveDataSensitive,
   saveDataBeneficialOwnership,
+  saveDataFeeAndRates,
+  saveDataFeeAuthorisation,
   saveDataSupplementaryDocument,
   saveDataCompanyAndContactInformationStep,
   saveDataAcraAndContactInformationStep,

@@ -3,7 +3,12 @@ declare namespace IFeesRates {
     ref: any
   }
   export interface IFees {
-    cx: any
+    cx: any,
+    form: {
+      setValue: any,
+      register: any,
+      watch: any
+    }
   }
   export interface IHeaderTable {
     title: string;
@@ -13,6 +18,9 @@ declare namespace IFeesRates {
 
   export interface ITableEdtiting {
     cx: any;
+    headers: any;
+    dataSource: any,
+    setDataSource: (values: any) => void;
     handleEditRow?: (indexCurrent: number, e: React.ChangeEvent<HTMLInputElement>, keyName: string) => void;
   }
 

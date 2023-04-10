@@ -6,11 +6,23 @@ import {
   Category,
 } from '@sectionsg/orc';
 import { Link } from "react-router-dom";
-import { Grid, Box, TextField, Typography, FormControl, Select, RadioGroup, FormControlLabel, Radio, InputLabel, MenuItem } from "@material-ui/core";
+import { 
+  Grid,
+  Box, 
+  TextField, 
+  Typography, 
+  FormControl, 
+  Select, 
+  RadioGroup, 
+  FormControlLabel, 
+  Radio, 
+  InputLabel, 
+  MenuItem 
+} from "@material-ui/core";
 import { useHistory } from "react-router";
-import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import _ from "lodash";
 
 //import icon
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -31,13 +43,19 @@ import { IFeeAuthorisation } from "./FeeAuthorisation";
 
 //import components
 import SectionWrapper from "../SectionWrapper";
-import _ from "lodash";
+
+// store
+import { saveDataFeeAuthorisation } from "@/store/form";
 
 const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, ref) => {
+  //classnames
   const cx = classNames.bind(styles);
+
+  // hooks
   const history = useHistory()
   const dispatch = useDispatch();
 
+  // constants
   const { LIST_STEP: {
     feeAuthorisation: {
       title,
@@ -59,40 +77,73 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
     }
   }} = STEP_RM;
 
-  // States
+  // states
   const [loading, setLoading] = useState(false);
   const [paramsFeeAuthorisation, setParamsFeeAuthorisation] = useState<any>({
     paymentForTheFirstYear: {
       valueRadio: "",
       bankName: "",
-      accountName: "",
+      accountNumber: "",
     },
     paymentForSubsequentYears: {
       valueRadio: "",
       bankName: "",
-      accountName: "",
+      accountNumber: "",
     }
   });
+
+  /**
+   * Retrieves data of Fee and Rates step from Store
+   */
+  const dataFeeAndRateStore = useSelector(
+    (state: any) => state.form.feeAndRateStep
+  );
+
+  /**
+   * Retrieves data of Fee Authorisation step from Store
+   */
+  const dataFeeAuthorisationStore = useSelector(
+    (state: any) => state.form.feeAuthorisationStep
+  );
+
+  /**
+   * Set data from Fee Authorisation
+   * @param data
+   */
+  const getDataFeeAuthorisationStep = (datas: any) => {
+    dispatch(saveDataFeeAuthorisation(datas));
+  };
 
   /**
    * Handle button prev
    */
   const handlePrev = () => {
-    history.push(URL_MANUAL_FLOW.feeRates)
+    history.push(URL_MANUAL_FLOW.feeRates);
   }
 
-   /**
+  /**
    * Handle button next
    */
    const handleNext = async () => {
+    const dataFeeAuthorisation = {
+      ...paramsFeeAuthorisation,
+      annual: dataFeeAndRateStore.annual || "",
+      oneTimeSetupFee: dataFeeAndRateStore.oneTimeSetupFee || "",
+      perDomesticTransaction: dataFeeAndRateStore.perDomesticTransaction || "",
+      perInternationTransaction: dataFeeAndRateStore.perInternationTransaction || "",
+      tokenisation: dataFeeAndRateStore.tokenisation || "",
+      otherFees: dataFeeAndRateStore.otherFees || "",
+      descriptionFees: dataFeeAndRateStore.descriptionFees || "",
+    };
     history.push(URL_MANUAL_FLOW.supplementaryDocument);
+    getDataFeeAuthorisationStep(dataFeeAuthorisation)
   }
 
-    /**
-   * render UI Button
-   * @returns {HTML}
-   */
-    const renderButton = () => {
+  /**
+  * render UI Button
+  * @returns {HTML}
+  */
+  const renderButton = () => {
       return (
         <Button 
           backgroundClass="bgGunmetalBluegrey" 
@@ -103,7 +154,7 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
           <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
         </Button>
       )
-    }
+  }
 
   /* render UI fee authorization information
   * @returns {HTML}
@@ -112,7 +163,7 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
     return (
       <div className={cx('group-item')}>
         <span className={cx('label')}>{title}</span>
-        <span className={cx('content')}>{content}</span>
+        <span className={cx('content')}>{content || ""}</span>
       </div>
     )
   }
@@ -120,7 +171,7 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
   /* render Form Indicate the bank name
   * @returns {HTML}
   */
-  const renderForm = (props: any) => {
+  const renderForm = (typeListRadio: string) => {
     return (
       <Box className={cx("indicate-the-bank-name-form")}>
         <Grid container spacing={3}>
@@ -137,7 +188,18 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
               </InputLabel>
               <Select
                 fullWidth
-                labelId="select-duration-label"
+                name={typeListRadio}
+                value={paramsFeeAuthorisation[typeListRadio].bankName}
+                onChange={(event: React.ChangeEvent<{value: unknown, name?: string }>) => {
+                  const { value, name } = event.target;
+                  setParamsFeeAuthorisation({
+                    ...paramsFeeAuthorisation,
+                    [name]: {
+                      ...paramsFeeAuthorisation[name],
+                      bankName: value
+                    }
+                  })
+                }}
               >
                 {_.map(paymentForSubsequentYears.listBankName, (item, index) => {
                   return (
@@ -153,11 +215,21 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
             <TextField
               fullWidth
               id={uuidv4()}
+              name={typeListRadio}
+              value={paramsFeeAuthorisation[typeListRadio].accountNumber}
+              type="number"
               label="Account number"
               variant="filled"
-              // {...register("name", {
-              //   required: true,
-              // })}
+              onChange={(event: React.ChangeEvent<{value: unknown, name?: string }>) => {
+                const { value, name } = event.target;
+                setParamsFeeAuthorisation({
+                  ...paramsFeeAuthorisation,
+                  [name]: {
+                    ...paramsFeeAuthorisation[name],
+                    accountNumber: value
+                  }
+                })
+              }}
             />
           </Grid>
         </Grid>
@@ -176,7 +248,7 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
           <RadioGroup 
             aria-label="gender" 
             name={typeListRadio} 
-            value={paramsFeeAuthorisation[typeListRadio].valueRadio} 
+            value={paramsFeeAuthorisation[typeListRadio] && paramsFeeAuthorisation[typeListRadio].valueRadio} 
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
               const { name, value } = event.target;
               setParamsFeeAuthorisation({
@@ -193,7 +265,7 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
                 <FormControlLabel 
                   key={index} 
                   value={item.value}
-                  className={cx(paramsFeeAuthorisation[typeListRadio].valueRadio ===  item.value ? "active" : "inactive")}
+                  className={cx(paramsFeeAuthorisation[typeListRadio] && paramsFeeAuthorisation[typeListRadio].valueRadio ===  item.value ? "active" : "inactive")}
                   control={
                     <Radio 
                       disableFocusRipple 
@@ -215,12 +287,24 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
             ))}
           </RadioGroup>
         </FormControl>
-        {paramsFeeAuthorisation[typeListRadio].valueRadio === "giroFromAnotherBank" &&
+        {paramsFeeAuthorisation[typeListRadio] && paramsFeeAuthorisation[typeListRadio].valueRadio === "giroFromAnotherBank" &&
         renderForm(typeListRadio)}
       </>
     )
   }
 
+  // set data from store in setState
+  useEffect(() => {
+    if (dataFeeAuthorisationStore && 
+      dataFeeAuthorisationStore.paymentForTheFirstYear && 
+      dataFeeAuthorisationStore.paymentForSubsequentYears) {
+    }
+    setParamsFeeAuthorisation({
+      paymentForTheFirstYear: dataFeeAuthorisationStore.paymentForTheFirstYear,
+      paymentForSubsequentYears: dataFeeAuthorisationStore.paymentForSubsequentYears
+    })
+  }, [setParamsFeeAuthorisation])
+  
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -242,26 +326,26 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
         >
           <Grid container spacing={3}>
             <Grid item xs={6}>
-              {renderItemInformation(annual.title, annual.value)}
+              {renderItemInformation(annual.title, dataFeeAndRateStore.annual)}
             </Grid>
             <Grid item xs={6}>
-              {renderItemInformation(oneTimeSetupFee.title, oneTimeSetupFee.value)}
+              {renderItemInformation(oneTimeSetupFee.title, dataFeeAndRateStore.oneTimeSetupFee)}
             </Grid>
             <Grid item xs={6}>
-              {renderItemInformation(perDomesticTransaction.title, perDomesticTransaction.value)}
+              {renderItemInformation(perDomesticTransaction.title, dataFeeAndRateStore.perDomesticTransaction)}
             </Grid>
             <Grid item xs={6}>
-              {renderItemInformation(perInternationalTransaction.title, perInternationalTransaction.value)}
+              {renderItemInformation(perInternationalTransaction.title, dataFeeAndRateStore.perInternationTransaction)}
             </Grid>
             <Grid item xs={6}>
-              {renderItemInformation(tokenisation.title, tokenisation.value)}
+              {renderItemInformation(tokenisation.title, dataFeeAndRateStore.tokenisation)}
             </Grid>
             <Grid item xs={6}></Grid>
             <Grid item xs={6}>
-              {renderItemInformation(otherFees.title, otherFees.value)}
+              {renderItemInformation(otherFees.title, dataFeeAndRateStore.otherFees)}
             </Grid>
             <Grid item xs={6}>
-              {renderItemInformation(decriptionForOtherFees.title, decriptionForOtherFees.value)}
+              {renderItemInformation(decriptionForOtherFees.title, dataFeeAndRateStore.descriptionFees)}
             </Grid>
             <Grid item xs={12}>
               {renderGroupRadio(paymentForTheFirstYear, "paymentForTheFirstYear")}
@@ -272,6 +356,7 @@ const FeeAuthorisation: React.FC<IFeeAuthorisation.IProps> = forwardRef(({  }, r
           </Grid>
         </SectionWrapper>
 
+        {/* Before submitting your application, please ensure that you read and understand the following */}
         <Box className={cx("application-confirmation-container")}>
           <Typography className={cx("title")}>{applicationConfirmation.title}</Typography>
           <span>{applicationConfirmation.decription}</span>

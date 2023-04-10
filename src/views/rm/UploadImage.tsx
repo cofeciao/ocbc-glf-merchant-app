@@ -19,6 +19,7 @@ import { SUB_TITLE_UPLOAD_IMAGE } from "@/utils/constants-rm";
 
 // render UI
 const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
+  // props
   const { 
     onChange,
     onRemove,
@@ -30,9 +31,14 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
     placeholder = "Drag and drop to upload a file, or",
     name = "image-upload",
   } = props;
+
+  // classnames
   const cx = classnames.bind(styles);
+
+  // states
   const [base64, setBase64] = useState<any>("");
   const [infoFile, setInforFile] = useState<any>({});
+  const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
     if (defaultImage) {
@@ -73,11 +79,54 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
     }
   };
 
+  // handle drag events
+  const handleDrag = function(e:any) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+  
+  // triggers when file is dropped
+  const handleDrop = function(e: any) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      if (!e.dataTransfer.files) return;
+      const file = e.dataTransfer.files[0];
+      setInforFile({
+        name: file.name,
+        type: file.type,
+        size: `${Math.round(
+          file.size / 1000,
+        )} KB`
+      })
+      file && onChange(file);
+      const reader = new FileReader();
+      reader.addEventListener(
+        "load",
+        function () {
+          // result is a base64 string
+          setBase64(reader.result as string);
+        },
+        false
+      );
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    }
+  };
+
   return (
     <>
-     <div>
+     <form onDragEnter={handleDrag}>
         <input
-          accept="image/*, .pdf"
+          accept="image/*"
           // accept=".xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx,.txt,.pdf"
           id={name}
           multiple
@@ -124,7 +173,8 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
             <div className={cx("sub-title")}>{SUB_TITLE_UPLOAD_IMAGE}</div>
           </>
         )}
-      </div>
+        { dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
+      </form>
     </>
   );
 };

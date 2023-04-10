@@ -4,11 +4,8 @@ import { Box, Grid, Typography } from "@material-ui/core";
 // import types
 import { IReviewSubmit } from "./ReviewSubmit";
 
-// redux
-import { useSelector } from "react-redux";
-
 const SensitiveData: React.FC<IReviewSubmit.ISensitiveData> = (props) => {
-  const { cx, titles, data } = props;
+  const { cx, titles, sensitiveData } = props;
   const {
     titleStoreCreditCard,
     titleDataProtectedByHierachical,
@@ -29,13 +26,6 @@ const SensitiveData: React.FC<IReviewSubmit.ISensitiveData> = (props) => {
       </>
     )
   }
-
-  /**
-    * Retrieves data of Sensitive section from Store
-  */
-  const sensitiveData = useSelector(
-    (state: any) => state.form.sensitiveStep
-  );
 
   /**
     * Handle render value

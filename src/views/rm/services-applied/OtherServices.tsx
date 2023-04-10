@@ -58,63 +58,61 @@ const OtherServices:React.FC<IServicesApplied.IOtherServices> = ( props )=> {
   const renderListCheckbox = () => {
     return (
       <Box className={cx("checkbox-wrapper")}>
-        <FormControl margin="normal" className={cx("group-checkbox")} component="fieldset">
-          <FormLabel component="legend">{repaymentPeriodsOffered.title}</FormLabel>
-          <FormGroup row className={showAll ? cx("w-59") : cx("w-116")}>
-            {repaymentPeriodsOffered.listCheckBox.slice(0, showAll ? repaymentPeriodsOffered.listCheckBox.length : 3)
-              .map((value: any, key: number) => {
-              return (
-                <FormControlLabel
-                  label={value.label}
-                  key={key}
-                  control={
-                    <Checkbox 
-                      name={value.label} 
-                      checked={value.checked} 
-                      disableFocusRipple
-                      disableRipple
-                      disableTouchRipple
-                      onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                        setValidateListCheckboxMonth(false);
-                        setDataOtherService({
-                          ...dataOtherServices,
-                          instalmentPaymentPlan: {
-                            ...instalmentPaymentPlan,
-                            repaymentPeriodsOffered: {
-                              ...dataOtherServices.instalmentPaymentPlan.repaymentPeriodsOffered,
-                              listCheckBox: [
-                                ...repaymentPeriodsOffered.listCheckBox.map((el: any) => {
-                                  if (el.value === value.value) {
-                                    return {
-                                      ...el,
-                                      checked: event.target.checked
-                                    }
+        <Typography className={cx("title-group-checkbox")}>{repaymentPeriodsOffered.title}</Typography>
+        <Box>
+          {repaymentPeriodsOffered.listCheckBox.slice(0, showAll ? repaymentPeriodsOffered.listCheckBox.length : 3)
+            .map((value: any, key: number) => {
+            return (
+              <FormControlLabel
+                label={value.label}
+                key={key}
+                control={
+                  <Checkbox 
+                    name={value.label} 
+                    checked={value.checked} 
+                    disableFocusRipple
+                    disableRipple
+                    disableTouchRipple
+                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                      setValidateListCheckboxMonth(false);
+                      setDataOtherService({
+                        ...dataOtherServices,
+                        instalmentPaymentPlan: {
+                          ...instalmentPaymentPlan,
+                          repaymentPeriodsOffered: {
+                            ...dataOtherServices.instalmentPaymentPlan.repaymentPeriodsOffered,
+                            listCheckBox: [
+                              ...repaymentPeriodsOffered.listCheckBox.map((el: any) => {
+                                if (el.value === value.value) {
+                                  return {
+                                    ...el,
+                                    checked: event.target.checked
                                   }
-                                  return el
-                                })
-                              ]
-                            }
-                        }})}
-                      }
-                      icon={<img src={IconCheckbox} alt="icon checkbox" />}
-                      checkedIcon={<img src={IconCheckboxBlack} alt="icon checkedbox black" />}
-                    />
-                  }
-                />
-              )
-            })}
-          </FormGroup>
-          {!showAll ?
-            <Typography className={cx("see-more", validateListCheckboxMonth && "mb-16")} onClick={() => setShowAll(true)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelSeeMore}<ExpandMoreIcon /></Typography> :
-            <Typography className={cx("see-more", validateListCheckboxMonth && "mb-16")} onClick={() => setShowAll(false)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelLess}<ExpandLessIcon /></Typography>  
-          }
-          {validateListCheckboxMonth ? (
-            <FormHelperText>
-              <img src={IconWarning} alt="icon warning" />
-              {repaymentPeriodsOffered.errorText}
-            </FormHelperText>
-          ) : null}
-        </FormControl>
+                                }
+                                return el
+                              })
+                            ]
+                          }
+                      }})}
+                    }
+                    icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                    checkedIcon={<img src={IconCheckboxBlack} alt="icon checkedbox black" />}
+                  />
+                }
+              />
+            )
+          })}
+        </Box>
+        {!showAll ?
+          <Typography className={cx("see-more")} onClick={() => setShowAll(true)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelSeeMore}<ExpandMoreIcon /></Typography> :
+          <Typography className={cx("see-more")} onClick={() => setShowAll(false)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelLess}<ExpandLessIcon /></Typography>  
+        }
+        {validateListCheckboxMonth ? (
+          <FormHelperText>
+            <img src={IconWarning} alt="icon warning" />
+            {repaymentPeriodsOffered.errorText}
+          </FormHelperText>
+        ) : null}
       </Box>
     )
   }

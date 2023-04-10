@@ -6,11 +6,10 @@ import {
   Category,
 } from '@sectionsg/orc';
 import { Link } from "react-router-dom";
-import { Grid, Box, TextField } from "@material-ui/core";
+import { Grid, Box, TextField, InputAdornment } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 //import icon
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
@@ -29,6 +28,7 @@ import { IFeesRates } from "./FeesRates";
 import SectionWrapper from "../SectionWrapper";
 import Fees from "./Fees";
 import MerchantDiscountRate from "./MerchantDiscountRate";
+import { saveDataFeeAndRates } from "@/store/form";
 
 const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
 
@@ -43,17 +43,21 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
   const {
     LIST_STEP: {
       feesAndRates: {
-      title,
-       section: {
+        title,
+        labelStartAdornment,
+        section: {
         merchantDiscountRate: {
           titleMerchantDiscountRate,
-          description
+          description,
+          tableAcceptanceType,
+          tableServices
         },
         fees: {
           titleFees
         },
         refundabltFees: {
-          titleRefundableFees
+          titleRefundableFees,
+          labelRefundableFees
         }
        }
       },
@@ -62,9 +66,36 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
 
   // states
   const [loading, setLoading] = useState(false);
-  const [paramsFeeRates, setParamsFeeRates] = useState<any>({
-    refundable_fees: ""
+  const [isSecurityDeposit, setIsSecurityDeposit] = useState<boolean>(false);
+  const [dataSource, setDataSource] = useState<any>({
+    tableAcceptanceType: [],
+    tableServices: [],
   });
+
+  /**
+   * Retrieves data of Fee And Rate step from Store
+   */
+  const dataFeeAndRateStore = useSelector(
+    (state: any) => state.form.feeAndRateStep
+  );
+  const { 
+    annual,
+    oneTimeSetupFee,
+    perDomesticTransaction,
+    perInternationTransaction,
+    tokenisation,
+    otherFees,
+    descriptionFees,
+    securityDeposit
+  } = dataFeeAndRateStore;
+
+  /**
+   * Set data from Fee And Rate section
+   * @param data
+   */
+  const getDataFeeAndRateStep = (datas: any) => {
+    dispatch(saveDataFeeAndRates(datas));
+  };
 
   /**
    * Handle button prev
@@ -73,30 +104,85 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
     history.push(URL_MANUAL_FLOW.beneficialOwnership)
   }
 
-   /**
-   * Handle button next
-   */
-   const handleNext = async () => {
+  /**
+  * Handle button next
+  */
+  const handleNext = async () => {
+    const dataFeeAndRates = {...dataSource, ...getValues()}
     history.push(URL_MANUAL_FLOW.feeAuthorisation);
+    getDataFeeAndRateStep(dataFeeAndRates);
   }
 
-    /**
-   * render UI Button
-   * @returns {HTML}
-   */
-    const renderButton = () => {
-      return (
-        <Button 
-          backgroundClass="bgGunmetalBluegrey" 
-          onClick={handleNext}
-          // disabled={!isValid || !isDirty}
-        >
-          Next
-          <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
-        </Button>
-      )
-    }
+  /**
+ * render UI Button
+ * @returns {HTML}
+ */
+  const renderButton = () => {
+    return (
+      <Button 
+        backgroundClass="bgGunmetalBluegrey" 
+        onClick={handleNext}
+        // disabled={!isValid || !isDirty}
+      >
+        Next
+        <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
+      </Button>
+    )
+  }
 
+  // React-hook-form
+  const {
+    register,
+    unregister,
+    formState: { errors, isValid },
+    getValues,
+    setValue,
+    setError,
+    control,
+    watch
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      annual: annual ? annual : null,
+      oneTimeSetupFee: oneTimeSetupFee ? oneTimeSetupFee : null,
+      perDomesticTransaction: perDomesticTransaction ? perDomesticTransaction : null,
+      perInternationTransaction: perInternationTransaction ? perInternationTransaction : null,
+      tokenisation: tokenisation ? tokenisation : null,
+      otherFees: otherFees ? otherFees : null,
+      descriptionFees: descriptionFees ? descriptionFees : "",
+      securityDeposit: securityDeposit ? securityDeposit : null
+    },
+  });
+
+  /**
+   * Handle numeric value from inputs
+   * @param event
+   */
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Change value to thousand seperator, eg: 1000000 => 1,000,000
+    const sanitizedText = event.target.value.replace(/[^0-9]/g, "");
+    const formattedText = sanitizedText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    setValue("securityDeposit", formattedText);
+  };
+
+  // Set data for data source table
+  useEffect(() => {
+    if (Object.keys(dataFeeAndRateStore).length > 0 && 
+    dataFeeAndRateStore.tableAcceptanceType.length > 0 && 
+    dataFeeAndRateStore.tableServices.length > 0) { // If there is data in the store, it will setState from
+      setDataSource({
+        tableAcceptanceType: dataFeeAndRateStore.tableAcceptanceType,
+        tableServices: dataFeeAndRateStore.tableServices
+      })
+    } else {  // If there is no data in the store then setState default from constants
+      setDataSource({
+        tableAcceptanceType,
+        tableServices
+      })
+    }
+  }, [setDataSource, dataFeeAndRateStore])
+  
+  
   return (
     <React.Fragment>
       {loading && <div className={cx('container-loading')}>
@@ -118,11 +204,22 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
           isEdit 
           path="/rm/services-applied" 
         >
-          <MerchantDiscountRate cx={cx} />
+          <MerchantDiscountRate 
+            cx={cx} 
+            dataSource={dataSource}
+            setDataSource={setDataSource}
+          />
         </SectionWrapper>
 
         <SectionWrapper cx={cx} title={titleFees}>
-          <Fees cx={cx} />
+          <Fees 
+            cx={cx} 
+            form={{
+              setValue, 
+              register, 
+              watch
+            }}
+          />
         </SectionWrapper>
 
         <SectionWrapper cx={cx} title={titleRefundableFees}>
@@ -130,16 +227,29 @@ const FeesRates: React.FC<IFeesRates.IProps> = forwardRef(({  }, ref) => {
             <Grid item xs={6}>
               <TextField
                 fullWidth
-                name="refundable_fees"
-                defaultValue={paramsFeeRates.refundable_fees}
-                label="Security deposit (one-time)"
-                id={uuidv4()}
-                // label={name.label}
                 variant="filled"
-                onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-                // {...register("authorised_person_details.name", {
-                //   required: true,
-                // })}
+                label={labelRefundableFees}
+                InputProps={
+                  isSecurityDeposit
+                    ? {
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            {labelStartAdornment}
+                          </InputAdornment>
+                        ),
+                      }
+                    : {}
+                }
+                onFocus={() => {setIsSecurityDeposit(true)}}
+                {...register(`securityDeposit`, {
+                  required: true,
+                  onChange: (event: React.ChangeEvent<HTMLInputElement>) => handleChange(event),
+                  onBlur: (e: any) => {
+                    e.target.value === ""
+                      ? setIsSecurityDeposit(false)
+                      : null;
+                  },
+                })}
               />
             </Grid>
           </Grid>
