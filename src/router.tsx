@@ -29,7 +29,6 @@ export default [
     component={LaunchConfirmtionPage}
     key="/rm/launch-confirmtion"
   />,
-  <Route exact path="/rm/:slug" component={ContainerManual} key="/rm/:slug" />,
 
   // Self
   <Route exact path="/self/:slug" component={SelfServe} key="/self/:slug" />,
