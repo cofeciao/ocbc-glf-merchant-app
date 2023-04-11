@@ -93,33 +93,30 @@
 }
 
 @font-face {
-  font-family: 'Arial';
-  src: url('../fonts/ArialMT.eot');
-  src: url('../fonts/ArialMT.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/ArialMT.woff2') format('woff2'),
-    url('../fonts/ArialMT.woff') format('woff'),
-    url('../fonts/ArialMT.ttf') format('truetype'),
-    url('../fonts/ArialMT.svg#ArialMT') format('svg');
+  font-family: "Arial";
+  src: url("../fonts/ArialMT.eot");
+  src: url("../fonts/ArialMT.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/ArialMT.woff2") format("woff2"),
+    url("../fonts/ArialMT.woff") format("woff"),
+    url("../fonts/ArialMT.ttf") format("truetype"),
+    url("../fonts/ArialMT.svg#ArialMT") format("svg");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Arial';
-  src: url('../fonts/Arial-BoldMT.eot');
-  src: url('../fonts/Arial-BoldMT.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/Arial-BoldMT.woff2') format('woff2'),
-    url('../fonts/Arial-BoldMT.woff') format('woff'),
-    url('../fonts/Arial-BoldMT.ttf') format('truetype'),
-    url('../fonts/Arial-BoldMT.svg#Arial-BoldMT') format('svg');
+  font-family: "Arial";
+  src: url("../fonts/Arial-BoldMT.eot");
+  src: url("../fonts/Arial-BoldMT.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/Arial-BoldMT.woff2") format("woff2"),
+    url("../fonts/Arial-BoldMT.woff") format("woff"),
+    url("../fonts/Arial-BoldMT.ttf") format("truetype"),
+    url("../fonts/Arial-BoldMT.svg#Arial-BoldMT") format("svg");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
-
-
-
 
 body {
   font-family: "OpenSans";
@@ -132,7 +129,7 @@ body {
   font-style: normal;
   position: relative;
   margin: 0 8px;
-  @media screen and (max-width: 768px){
+  @media screen and (max-width: 768px) {
     font-size: $fzH6;
     line-height: 28px;
   }
@@ -143,7 +140,6 @@ body * {
   margin: 0;
   padding: 0;
 }
-
 
 h1,
 h2 {
@@ -396,7 +392,7 @@ body {
     margin-right: 30px;
   }
 
-  @media screen and (max-width:768px) {
+  @media screen and (max-width: 768px) {
     .mr-dt-30 {
       margin-right: 10px;
     }
@@ -635,7 +631,6 @@ body {
 
   .space-between {
     justify-content: space-between;
-
   }
 
   .flex-wrap {
@@ -665,7 +660,6 @@ body {
     }
   }
 }
-
 
 //Css link
 .link_text {
@@ -718,7 +712,6 @@ body {
   }
 }
 
-
 //Css content
 .title-content {
   max-width: 960px;
@@ -765,7 +758,6 @@ body {
       margin-left: 0;
     }
   }
-
 }
 
 .btn-bg-grey,
@@ -802,7 +794,6 @@ body {
     position: relative;
     z-index: 2;
     font-family: "OpenSans";
-
   }
 }
 
@@ -812,7 +803,6 @@ body {
       background-image: linear-gradient(to right, $riverBed, $riverBed 100%);
     }
   }
-
 }
 
 .btn-bg-lipstick {
@@ -823,13 +813,13 @@ body {
   }
 
   &::before {
-    content: '';
+    content: "";
     background-image: linear-gradient(to left, $lipstick, $salmonPearl);
   }
 }
 
 //
-@media screen and (min-width: 769px) and (max-width: 1080px){
+@media screen and (min-width: 769px) and (max-width: 1080px) {
   body {
     .custom-gird-tablet-tabs {
       flex-basis: 100%;
@@ -855,7 +845,7 @@ body {
   bottom: 0;
   left: 0;
   height: 100vh;
-  background-color: rgba(255,255, 255,0.7);
+  background-color: rgba(255, 255, 255, 0.7);
   .content-loading {
     display: flex;
     align-items: center;
@@ -889,7 +879,6 @@ body {
   margin-top: 5px;
 }
 
-
 .capitalize {
   text-transform: capitalize;
 }
@@ -918,7 +907,7 @@ body {
 }
 
 .MuiFilledInput-underline:before {
-  border-color: #E2E7EC !important;
+  border-color: #e2e7ec !important;
 }
 
 .MuiTableContainer-root {
@@ -938,22 +927,22 @@ body {
 }
 
 .MuiRadio-colorSecondary.Mui-checked {
-  color: #3D525D !important;
+  color: #3d525d !important;
 }
 .MuiIconButton-colorSecondary:hover {
   background-color: transparent !important;
 }
 .MuiCheckbox-colorSecondary.Mui-checked {
-  color: #3D525D !important;
+  color: #3d525d !important;
 }
 .row-first {
-  color:$tundora !important;
+  color: $tundora !important;
   font-weight: 700 !important;
 }
 
 // styled Button
 .MuiButton-contained {
-  background-color: #3D525D !important;
+  background-color: #3d525d !important;
   border-radius: 8px !important;
   height: 52px;
   padding: 22px !important;
@@ -971,10 +960,10 @@ body {
   }
 }
 .MuiButton-contained.Mui-disabled {
-  background-color: #E2E7EC !important;
+  background-color: #e2e7ec !important;
 
   .MuiButton-label {
-    color: #B1B8C5 !important;
+    color: #b1b8c5 !important;
   }
 }
 
@@ -983,7 +972,7 @@ body {
 }
 
 .MuiButton-outlined {
-  border-color:#3D525D !important;
+  border-color: #3d525d !important;
   border-radius: 8px !important;
   height: 52px !important;
 }
@@ -994,7 +983,7 @@ body {
 }
 
 .MuiDialog-container {
-  background-color: #B1B8C5;
+  background-color: #b1b8c5;
   padding: 28px;
 
   & .MuiDialog-paper {
@@ -1007,7 +996,7 @@ body {
           font-weight: 700;
           font-size: 24px;
           line-height: 32px;
-          color: #363B40;
+          color: #363b40;
           margin-bottom: 16px;
         }
       }
@@ -1021,13 +1010,13 @@ body {
             font-weight: 400;
             font-size: 14px;
             line-height: 20px;
-            color: #777E87;
+            color: #777e87;
           }
           & .content {
             font-weight: 600;
             font-size: 16px;
             line-height: 24px;
-            color: #575D65;
+            color: #575d65;
           }
         }
       }
@@ -1048,7 +1037,7 @@ body {
         font-weight: 400;
         font-size: 18px;
         line-height: 28px;
-        color: #005EFD;
+        color: #005efd;
         cursor: pointer;
         margin-left: 24px;
       }
@@ -1067,24 +1056,24 @@ body {
 
     svg {
       cursor: pointer;
-    } 
+    }
   }
 }
 
 // styled select phone number
-.MuiList-root { 
+.MuiList-root {
   & .item-selected {
     span {
       font-size: 16px;
       line-height: 30px;
     }
     & .item-selected {
-      color: #575D65;
+      color: #575d65;
       font-weight: 600;
     }
     & .item-unselected {
       font-weight: 400;
-      color: #777E87;
+      color: #777e87;
     }
   }
   & .item-selected.MuiMenuItem-root {
@@ -1097,6 +1086,6 @@ body {
   }
 
   & .MuiListItem-button:hover {
-    background-color: #EBEFF1;
+    background-color: #ebeff1;
   }
 }
