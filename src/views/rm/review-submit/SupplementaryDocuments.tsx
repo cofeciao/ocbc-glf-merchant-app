@@ -7,20 +7,13 @@ import { useSelector } from "react-redux";
 import { STEP_RM } from "@/utils/constants-rm";
 
 const SupplementaryDocuments: React.FC<IReviewSubmit.ISupplementaryDocuments> = (props) => {
-  const { cx, titles } = props;
+  const { cx, titles, supplementaryDocumentData } = props;
   const { 
     titleAuthorisedSignatory,
     titleTenancyDocument,
     titleCopyOfBankStatement,
     titleAnyOtherSupportingDocuments,
    } = titles;
-
-  /**
-    * Retrieves data of Supplementary documents section from Store
-   */
-  const supplementaryDocumentData = useSelector(
-    (state: any) => state.form.supplementaryDocumentStep
-  );
 
   /**
    * render UI

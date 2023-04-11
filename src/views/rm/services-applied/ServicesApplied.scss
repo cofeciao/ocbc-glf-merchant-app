@@ -18,62 +18,47 @@
   }
 
   & .checkbox-wrapper {
-    & .MuiCheckbox-root {
-      color: #3D525D !important;
+    width: 66%;
+    & .MuiBox-root {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
     }
-    & .group-checkbox {
-      margin-top: 40px;
-  
-      & .MuiFormLabel-root {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        color: $tundora;
-      }
+    & .title-group-checkbox {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      color: #777E87;
+      padding: 40px 0px 16px 0px;
+    }
+    & .MuiFormControlLabel-root {
+      margin-right: 100px;
+      width: fit-content;
 
-      .w-59 {
-        width: 59%;
+      & .MuiFormControlLabel-label {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 24px;
+        color: #575D65;
+        padding-left: 10px;
       }
-      .w-116 {
-        width: 116%;
-      }
+    }
+    & .see-more {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #005EFD;
+      display: flex;
+      cursor: pointer;
+      margin: 16px 0px 10px 0px;
+
+    }
+    & .MuiFormHelperText-root {
+      display: flex;
+      color: #ED5347;
       
-      & .MuiFormGroup-root {
-        margin: 18px 0px 7px 0px;
-        justify-content: space-between;
-        
-        & .MuiFormControlLabel-root {
-          margin-right: 70px;
-        }
-  
-        & .MuiFormControlLabel-label {
-          font-weight: 600;
-          font-size: 16px;
-          color: $tundora;
-          line-height: 24px;
-        }
-      }
-      & .see-more {
-        display: flex;
-        font-weight: 400;
-        font-size: 18px;
-        line-height: 28px;
-        color: #005EFD;
-        align-items: center;
-        cursor: pointer;
-        width: fit-content;
-
-        svg {
-          margin-left: 10px;
-        }
-      }
-
-      & .MuiFormHelperText-root {
-        display: flex;
-
-        img {
-          margin-right: 5px;
-        }
+      img {
+        margin: 0px 5px 3px 0px;
       }
     }
   }
@@ -89,21 +74,5 @@
 .list-checkbox {
   .MuiGrid-container {
     flex-direction: column !important
-  }
-}
-
-.list-checkbox-repayment {
-  .see-more {
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    color: $dodgerBlue;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-
-    svg {
-      margin-left: 10px;
-    }
   }
 }

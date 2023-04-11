@@ -3,9 +3,12 @@ import { Box, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHea
 
 // import types
 import { IReviewSubmit } from "./ReviewSubmit";
+import { STEP_RM } from "@/utils/constants-rm";
 
 const FeesAndRates: React.FC<IReviewSubmit.IFeesAndRates> = (props) => {
-  const { cx, data, titles } = props;
+  // props
+  const { cx, feeAndRateData, titles } = props;
+
   const {
     titleMerchantDiscountRate,
     fees: {
@@ -23,43 +26,19 @@ const FeesAndRates: React.FC<IReviewSubmit.IFeesAndRates> = (props) => {
     }
   } = titles
 
-  const headersAcceptanceType:any [] = [
-    {
-      title: 'Acceptance type',
-      width: 380,
-    },
-    {
-      title: 'OCBC cards',
-      width: 120,
-    },
-    {
-      title: 'Domestic cards',
-      width: 120,
-    },
-    {
-      title: 'International cards',
-      width: 120,
-    }
-  ];
-
-  const headersServices:any [] = [
-    {
-      title: 'Services',
-      width: 380,
-    },
-    {
-      title: 'OCBC cards',
-      width: 120,
-    },
-    {
-      title: 'Domestic cards',
-      width: 120,
-    },
-    {
-      title: 'International cards',
-      width: 120,
-    }
-  ];
+  // constants
+  const { 
+    LIST_STEP: { 
+      feesAndRates: { 
+        section: { 
+          merchantDiscountRate: {
+            headersTableAcceptanceType,
+            headersTableServices
+          }
+        } 
+      } 
+    } 
+  } = STEP_RM;
 
   /**
    * render UI
@@ -92,14 +71,21 @@ const FeesAndRates: React.FC<IReviewSubmit.IFeesAndRates> = (props) => {
           <TableHead>
             <TableRow>
               {headers.length > 0 && headers.map((item: any, index: number) => (
-                <TableCell className={cx("table-header")} key={index} width={item.width} align={item.align}>{item.title}</ TableCell>
+                <TableCell 
+                  className={cx("table-header")} 
+                  key={index} 
+                  width={item.width} 
+                  align={item.align}
+                >
+                  {item.title}
+                </ TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
-            {list.length > 0 && list.map((row: any, index: number) => (
+            {list && list.length > 0 && list.map((row: any, index: number) => (
               <TableRow key={index} className={cx("table-row")}>
-                <TableCell component="th" scope="row">{row.acceptanceType}</TableCell>
+                <TableCell component="th" scope="row">{row.acceptanceType || row.services}</TableCell>
                 <TableCell align="center">{renderValueCell(row.ocbcCards)}</TableCell>  
                 <TableCell align="center">{renderValueCell(row.domesticCards)}</TableCell>
                 <TableCell align="center">{renderValueCell(row.internationalCards)}</TableCell>
@@ -116,29 +102,29 @@ const FeesAndRates: React.FC<IReviewSubmit.IFeesAndRates> = (props) => {
 
       {/* Merchant Discount Rate (MDR) Section */}
       <Typography className={cx("sub-title")}>{titleMerchantDiscountRate}</Typography>
-      {renderTable(data && data.merchantDiscountRate && data.merchantDiscountRate.acceptanceType, headersAcceptanceType)}
-      {renderTable(data && data.merchantDiscountRate && data.merchantDiscountRate.services, headersServices)}
+      {renderTable(feeAndRateData && feeAndRateData.tableAcceptanceType, headersTableAcceptanceType)}
+      {renderTable(feeAndRateData && feeAndRateData.tableServices, headersTableServices)}
       
       {/* Fees Section */}
       <Typography className={cx("sub-title")}>{titleFees}</Typography>
       <Grid className={cx("group-item-fees")} container spacing={4}>
-        <Grid item xs={3}>{renderContent(titleAnnual, data && data.fees && data.fees.annual)}</Grid>
+        <Grid item xs={3}>{renderContent(titleAnnual, feeAndRateData && feeAndRateData.annual)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>{renderContent(titleOneTimeSetupFee, data && data.fees && data.fees.oneTimeSetup)}</Grid>
+        <Grid item xs={3}>{renderContent(titleOneTimeSetupFee, feeAndRateData && feeAndRateData.oneTimeSetupFee)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>{renderContent(titlePerDomesticTransaction, data && data.fees && data.fees.perDomesticTransaction)}</Grid>
+        <Grid item xs={3}>{renderContent(titlePerDomesticTransaction, feeAndRateData && feeAndRateData.perDomesticTransaction)}</Grid>
         <Grid item xs={3}></Grid>        
-        <Grid item xs={3}>{renderContent(titlePerInternationalTransaction, data && data.fees && data.fees.perInternationalTransaction)}</Grid>
+        <Grid item xs={3}>{renderContent(titlePerInternationalTransaction, feeAndRateData && feeAndRateData.perInternationTransaction)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={12}>{renderContent(titleTokenisation, data && data.fees && data.fees.others)}</Grid>
-        <Grid item xs={3}>{renderContent(titleOtherFees, data && data.fees && data.fees.others)}</Grid>
+        <Grid item xs={12}>{renderContent(titleTokenisation, feeAndRateData && feeAndRateData.tokenisation)}</Grid>
+        <Grid item xs={3}>{renderContent(titleOtherFees, feeAndRateData && feeAndRateData.otherFees)}</Grid>
         <Grid item xs={3}></Grid>
-        <Grid item xs={3}>{renderContent(titleDescriptionForOtherFees, data && data.fees && data.fees.descriptionForOtherFees)}</Grid>
+        <Grid item xs={3}>{renderContent(titleDescriptionForOtherFees, feeAndRateData && feeAndRateData.descriptionFees)}</Grid>
       </Grid>
 
       {/* Refundable Fees Section */}
       <Typography className={cx("sub-title")}>{titleRefundableFees}</Typography>
-      {renderContent(titleRefundableFees, data && data.refundableFees && data.refundableFees.securityDeposit)}
+      {renderContent(titleRefundableFees, feeAndRateData && feeAndRateData.securityDeposit)}
     </Box>
   )
 }

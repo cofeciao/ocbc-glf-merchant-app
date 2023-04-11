@@ -30,7 +30,7 @@ declare namespace IReviewSubmit {
 
   export interface IFeesAndRates {
     cx: any;
-    data: any;
+    feeAndRateData: any;
     titles: {
       titleMerchantDiscountRate: string;
       titleFeeAndRates: string;
@@ -59,11 +59,12 @@ declare namespace IReviewSubmit {
       titleCopyOfBankStatement: string;
       titleAnyOtherSupportingDocuments: string;
     }; 
+    supplementaryDocumentData: any;
   }
 
   export interface IMaintenanceFeeAuthorisation {
     cx: any;
-    data: any;
+    feeAuthorisationData: any;
     titles: {
       titleFeeAuthorisation: string;
       titleFirstYearPayment: string;
@@ -83,19 +84,19 @@ declare namespace IReviewSubmit {
       titleNationality: string;
       titleAddress: string;
     };
-    data: any;
+    beneficialOwnershipData: any;
   }
 
   export interface ISensitiveData {
     cx: any;
-    data: any;
     titles: {
       titleStoreCreditCard: string;
       titleDataProtectedByHierachical: string;
       titleEncryptionMothod: string;
       titleCompliantWithThePaymentCard: string;
       titlePCIDSSCertificate: string;
-    }
+    };
+    sensitiveData: any;
   }
 
   export interface IProductsAndServices {

@@ -121,7 +121,8 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
   
   return (
     <React.Fragment>
-      {loading && <div className={cx('container-loading')}>
+      {loading && 
+        <div className={cx('container-loading')}>
           <div className={cx('content-loading')}>
             <Loading />
           </div>

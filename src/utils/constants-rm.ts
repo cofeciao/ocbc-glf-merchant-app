@@ -1908,7 +1908,7 @@ export const STEP_RM = {
                 "Will you be offering an Instalment Payment Plan (IPP) for OCBC credit cards?",
               name: "instalmentPaymentPlan",
               checked: false,
-              value: "no",
+              value: "",
               repaymentPeriodsOffered: {
                 title: "Please select repayment periods offered",
                 labelSeeMore: "Show more repayment periods",
@@ -1968,13 +1968,13 @@ export const STEP_RM = {
                 "Will you be offering Direct Currency Conversion (DCC) for Visa/Mastercard?",
               name: "directCurrencyConversion",
               checked: false,
-              value: "no",
+              value: "",
             },
             mailOrder: {
               description: "Will you be offering Mail Order/Telephone Order?",
               name: "mailOrder",
               checked: false,
-              value: "no",
+              value: "",
             },
           },
         },
@@ -2404,6 +2404,7 @@ export const STEP_RM = {
       title: "Fees and rates",
       check: false,
       status: true,
+      labelStartAdornment: "SGD",
       data: {
         id: "sensitive-data",
         numerical: "6",
@@ -2414,14 +2415,148 @@ export const STEP_RM = {
       section: {
         merchantDiscountRate: {
           titleMerchantDiscountRate: "Merchant Discount Rate (MDR)",
-          description:
-            "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
+          description: "Please refer to following tables for Merchant Discount Rate (MDR) based on transactions and services selected previously.",
+          headersTableAcceptanceType: [
+            {
+              title: 'Acceptance type',
+              width: 200,
+            },
+            {
+              title: 'OCBC cards',
+              width: 100,
+            },
+            {
+              title: 'Domestic cards',
+              width: 100,
+            },
+            {
+              title: 'International cards',
+              width: 100,
+            }
+          ],
+          tableAcceptanceType: [
+            {
+              acceptanceType: "Visa",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              acceptanceType: "MasterCard",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              acceptanceType: "Union Pay",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              acceptanceType: "JCB",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              acceptanceType: "WeChat Pay",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              acceptanceType: "Alipay",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            }
+          ],
+          headersTableServices: [
+            {
+              title: 'Services',
+              width: 190,
+            },
+            {
+              title: 'OCBC cards',
+              width: 100,
+            },
+            {
+              title: 'Domestic cards',
+              width: 100,
+            },
+            {
+              title: 'International cards',
+              width: 100,
+            }
+          ],
+          tableServices: [
+            {
+              services: "Direct Currency Conversion (DCC)",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              services: "Mail Order/Telephone Order",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              services: "Instalment Payment Plan (IPP) 3 months",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              services: "Instalment Payment Plan (IPP) 6 months",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+            {
+              services: "Instalment Payment Plan (IPP) 12 months",
+              ocbcCards: "",
+              domesticCards: "",
+              internationalCards: ""
+            },
+          ]
         },
         fees: {
           titleFees: "Fees (GST inclusive)",
+          annual: {
+            label: "Annual",
+            name: "annual",
+          },
+          oneTimeSetupFee: {
+            label: "One time setup fee",
+            name: "oneTimeSetupFee",
+          },
+          perDomesticTransaction: {
+            label: "Per domestic transaction",
+            name: "perDomesticTransaction",
+          },
+          perInternationTransaction: {
+            label: "Per international transaction",
+            name: "perInternationTransaction",
+          },
+          tokenisation: {
+            label: "Tokenisation",
+            name: "tokenisation",
+          },
+          otherFees: {
+            label: "Other fees",
+            name: "otherFees",
+          },
+          descriptionFees: {
+            label: "Description for other fees (optional)",
+            name: "descriptionFees"
+          }
         },
         refundabltFees: {
           titleRefundableFees: "Refundable fees (if applicable)",
+          labelRefundableFees: "Security deposit (one-time)",
         },
       },
     },
@@ -2674,7 +2809,7 @@ export const STEP_RM = {
             titleCopyOfRefundPolicy: "Copy of refund policy",
           },
         },
-        sensitiveData: {
+        sensitive: {
           titleSensitiveData: "Sensitive data",
           titleStoreCreditCard: "Store credit card in database",
           titleDataProtectedByHierachical:
