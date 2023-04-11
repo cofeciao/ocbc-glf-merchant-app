@@ -22,7 +22,7 @@
     line-height: 20px;
     color: #005EFD;
     display: flex;
-    align-items: center; 
+    align-items: center;
     cursor: pointer;
   }
 
@@ -43,12 +43,12 @@
       display: flex;
       align-items: center;
       position: relative;
-      
+
       label {
         top: 0px;
         right: 0px;
         position: absolute;
-        
+
         cursor: pointer;
         margin-left: 16px;
         font-weight: 400;
@@ -75,7 +75,7 @@
         color: #575D65;
         margin-bottom: 24px;
       }
-      
+
       & .label-remove {
         cursor: pointer;
         font-weight: 400;
@@ -93,7 +93,7 @@
     }
 
     & .add-field {
-      display: flex;
+      display: inline-flex;
       align-items: center;
       font-weight: 400;
       font-size: 14px;

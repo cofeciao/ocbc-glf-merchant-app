@@ -1,26 +1,27 @@
 // import modules
 import React, { useState, useEffect } from "react";
 import classnames from "classnames/bind";
-import CircularProgress from '@material-ui/core/CircularProgress';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import { Box } from "@material-ui/core";
 
 // import icons
 import IconRemove from "@/assets/images/icon-remove.svg";
 import IconImage from "@/assets/images/icon-image.svg";
 import IconUploadImage from "@/assets/images/icon-upload-image.svg";
 
-// import constants
-
 // import style
 import styles from "./rm.scss";
 
 // import types
 import { IRmFlow } from "./rm";
+
+// import constants
 import { SUB_TITLE_UPLOAD_IMAGE } from "@/utils/constants-rm";
 
 // render UI
 const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
   // props
-  const { 
+  const {
     onChange,
     onRemove,
     defaultImage,
@@ -30,6 +31,7 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
     disabled = false,
     placeholder = "Drag and drop to upload a file, or",
     name = "image-upload",
+    className,
   } = props;
 
   // classnames
@@ -89,7 +91,7 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
       setDragActive(false);
     }
   };
-  
+
   // triggers when file is dropped
   const handleDrop = function(e: any) {
     e.preventDefault();
@@ -154,9 +156,9 @@ const UploadImage: React.FC<IRmFlow.IUploadImage> = (props) => {
                 <label className={cx("file-name")}>{infoFile.name}</label>
                 <label className={cx("file-size")}>{infoFile.size}</label>
               </div>
-              <img 
-                src={IconRemove} 
-                alt="icon remove" 
+              <img
+                src={IconRemove}
+                alt="icon remove"
                 onClick={() => {
                   onRemove();
                   setBase64('')

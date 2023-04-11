@@ -1,4 +1,4 @@
-@import '../../../assets/style/variable.scss';
+@import "../../../assets/style/variable.scss";
 
 .servicer-applied-wrapper {
   & .title-checkbox {
@@ -56,13 +56,13 @@
     & .MuiFormHelperText-root {
       display: flex;
       color: #ED5347;
-      
+
       img {
         margin: 0px 5px 3px 0px;
       }
     }
   }
-} 
+}
 
 .label {
   font-weight: 400;

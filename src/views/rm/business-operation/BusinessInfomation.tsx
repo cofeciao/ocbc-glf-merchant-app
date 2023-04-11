@@ -1,5 +1,5 @@
 // import modules
-import React, { useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -15,7 +15,7 @@ import GroupRadio from "@/components/GroupRadio";
 import _ from "lodash";
 
 // import constants
-import { STEP_RM } from "@/utils/constants-rm";
+import { ERROR_ICON, STEP_RM } from "@/utils/constants-rm";
 
 // import styles
 import styles from "./BusinessOperation.scss";
@@ -30,7 +30,17 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
   props
 ) => {
-  const { data, register, dataRedux, optionSelected } = props;
+  const {
+    data,
+    register,
+    unregister,
+    setValue,
+    errors,
+    setError,
+    clearErrors,
+    dataRedux,
+    optionSelected,
+  } = props;
   const {
     labelPleaseIndicateWhenYourBusinessWillStartOperations,
     labelOperationsStartDate,
@@ -48,13 +58,83 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
 
   // states
   const [dataBusinessInformation, setDataBusinessinformation] = useState<any>({
-    checkedIsYourBusinessReadyForOperation: LIST_RADIO_YES_NO[0].value,
-    checkedDoYouCurrentHaveAnOCBCBusinessAccount: LIST_RADIO_YES_NO[0].value,
-    valueAtHowManyOutlet: 0,
-    valueOCBCBusinessAccountNumber: "",
-    valueIsYourBusinessReadyForOperation: LIST_RADIO_YES_NO[0].value,
-    valueDoYouCurrentHaveAnOCBCBusinessAccount: LIST_RADIO_YES_NO[0].value,
+    checkedIsYourBusinessReadyForOperation: true,
+    checkedDoYouCurrentHaveAnOCBCBusinessAccount: true,
+    valueAtHowManyOutlet: dataRedux.numberOfOutlets || "",
+    valueOCBCBusinessAccountNumber: dataRedux.ocbcBusinessAccountNumber || "",
+    valueIsYourBusinessReadyForOperation:
+      dataRedux.businessReadyToOperate || LIST_RADIO_YES_NO[0].value,
+    valueDoYouCurrentHaveAnOCBCBusinessAccount:
+      dataRedux.ocbcBusinessAccount || LIST_RADIO_YES_NO[0].value,
   });
+
+  /**
+   * Prevent user typing non-number
+   */
+  const handleChangeNumberOfOutlets = (e: ChangeEvent<HTMLInputElement>) => {
+    setDataBusinessinformation({
+      ...dataBusinessInformation,
+      valueAtHowManyOutlet: e.target.value.replace(/\D/g, ""),
+    });
+  };
+
+  /**
+   * Prevent user typing non-number
+   */
+  const handleChangeOCBCBusinessAccountNumber = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setDataBusinessinformation({
+      ...dataBusinessInformation,
+      valueOCBCBusinessAccountNumber: event.target.value
+        .replace(/\D/g, "")
+        .replace(/^(\d{3})(\d{6})(\d{3})$/, "$1-$2-$3"), // format: 123-123456-123
+    });
+  };
+
+  // Temporarily put here for dev
+  const handleBlurOCBCBusinessAccountNumber = (
+    _event: ChangeEvent<HTMLInputElement>
+  ) => {
+    if (_.size(dataBusinessInformation.valueOCBCBusinessAccountNumber)) {
+      if (_.size(dataBusinessInformation.valueOCBCBusinessAccountNumber) < 12) {
+        setTimeout(() => {
+          // Set error OCBC business account number
+          setError("ocbcBusinessAccountNumber", {
+            type: "pattern",
+            message: `${ERROR_ICON} ${textFieldOcbcBusinessAccountNumber.helperText}`,
+          });
+        }, 0);
+      } else {
+        clearErrors("ocbcBusinessAccountNumber");
+      }
+    }
+  };
+
+  /**
+   * Handle react-hook-form
+   */
+  useEffect(() => {
+    setValue(
+      "businessReadyToOperate",
+      dataBusinessInformation.valueIsYourBusinessReadyForOperation
+    );
+    setValue(
+      "ocbcBusinessAccount",
+      dataBusinessInformation.valueDoYouCurrentHaveAnOCBCBusinessAccount
+    );
+    if (
+      dataBusinessInformation.checkedIsYourBusinessReadyForOperation === true
+    ) {
+      unregister("operationStartingPeriod");
+    }
+    if (
+      dataBusinessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount ===
+      false
+    ) {
+      unregister("ocbcBusinessAccountNumber");
+    }
+  }, [dataBusinessInformation]);
 
   return (
     <Box className={cx("business-infomation-wrapper")}>
@@ -69,7 +149,7 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
           {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
-            name="isYourBusinessReadyForOperation"
+            name="businessReadyToOperate"
             value={dataBusinessInformation.valueIsYourBusinessReadyForOperation}
             listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
@@ -101,9 +181,11 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
                   IconComponent={ExpandMore}
                   placeholder={labelOperationsStartDate}
                   defaultValue={
-                    _.has(dataRedux, "duration") ? dataRedux.duration : ""
+                    _.has(dataRedux, "operationStartingPeriod")
+                      ? dataRedux.operationStartingPeriod
+                      : ""
                   }
-                  {...register(`duration`, {
+                  {...register(`operationStartingPeriod`, {
                     required: true,
                   })}
                 >
@@ -134,9 +216,11 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
                 fullWidth
                 label={labelNumberOfOutlets}
                 variant="filled"
-                type="number"
-                {...register(`duration`, {
+                type="text"
+                value={dataBusinessInformation.valueAtHowManyOutlet}
+                {...register(`numberOfOutlets`, {
                   required: true,
+                  onChange: handleChangeNumberOfOutlets,
                 })}
               />
             </Grid>
@@ -153,11 +237,11 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
           {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
-            name="doYouCurrentHaveAnOCBCBusinessAccount"
+            name="ocbcBusinessAccount"
+            listRadio={LIST_RADIO_YES_NO}
             value={
               dataBusinessInformation.valueDoYouCurrentHaveAnOCBCBusinessAccount
             }
-            listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
               setDataBusinessinformation({
@@ -174,12 +258,30 @@ const BusinessInfomation: React.FC<IBusinessOperations.IBusinessInfomation> = (
         {dataBusinessInformation.checkedDoYouCurrentHaveAnOCBCBusinessAccount && (
           <Grid item xs={12}>
             <Grid item xs={6}>
+              {/* {TextField} */}
               <TextField
                 fullWidth
-                label={textFieldOcbcBusinessAccountNumber.label}
+                type="text"
                 variant="filled"
+                label={textFieldOcbcBusinessAccountNumber.label}
+                value={dataBusinessInformation.valueOCBCBusinessAccountNumber}
+                error={
+                  _.has(errors, "ocbcBusinessAccountNumber.type") &&
+                  !_.isEqual(
+                    errors.ocbcBusinessAccountNumber.type,
+                    "required"
+                  ) &&
+                  true
+                }
+                helperText={
+                  _.has(errors, `ocbcBusinessAccountNumber.message`) &&
+                  errors.ocbcBusinessAccountNumber.message
+                }
                 {...register(`ocbcBusinessAccountNumber`, {
                   required: true,
+                  pattern: false,
+                  onChange: handleChangeOCBCBusinessAccountNumber,
+                  onBlur: handleBlurOCBCBusinessAccountNumber,
                 })}
               />
             </Grid>

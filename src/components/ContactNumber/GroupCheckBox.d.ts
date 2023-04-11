@@ -13,7 +13,7 @@ export type IContactNumber = {
 };
 
 export type ICountry = {
-  label: JSX.Element | string;
+  label?: JSX.Element | string;
   name?: string;
   description?: string;
   checked?: boolean;

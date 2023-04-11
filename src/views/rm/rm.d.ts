@@ -21,6 +21,7 @@ declare namespace IRmFlow {
     disabled?: boolean;
     placeholder?: string;
     name?: string;
+    className?: string;
   }
 
   export interface IGroupRadio {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Checkbox,
@@ -28,15 +28,18 @@ import { STEP_RM } from "@/utils/constants-rm";
 
 // import components
 import GroupRadio from "@/components/GroupRadio";
+import _ from "lodash";
 
 const OtherServices: React.FC<IServicesApplied.IOtherServices> = (props) => {
   // props
   const {
     cx,
+    setValue,
     dataOtherService,
     setDataOtherService,
     validateListCheckboxMonth,
     setValidateListCheckboxMonth,
+    dataRedux,
   } = props;
   const {
     LIST_STEP: { LIST_RADIO_YES_NO },
@@ -47,6 +50,29 @@ const OtherServices: React.FC<IServicesApplied.IOtherServices> = (props) => {
 
   // states
   const [showAll, setShowAll] = useState<boolean>(false);
+  const [dataListCheckbox, setDataListCheckbox] = useState<any>(
+    (_.has(
+      dataRedux,
+      "instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox"
+    ) &&
+      dataRedux.instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox) ||
+      repaymentPeriodsOffered.listCheckBox
+  );
+
+  useEffect(() => {
+    setDataListCheckbox(repaymentPeriodsOffered.listCheckBox);
+  }, [repaymentPeriodsOffered.listCheckBox]);
+
+  useEffect(() => {
+    if (instalmentPaymentPlan.value === "no") {
+      setValue("repaymentPeriodsOffered", null);
+    } else {
+      setValue(
+        "repaymentPeriodsOffered",
+        instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox
+      );
+    }
+  }, [instalmentPaymentPlan]);
 
   /**
    * render UI button
@@ -55,55 +81,82 @@ const OtherServices: React.FC<IServicesApplied.IOtherServices> = (props) => {
   const renderListCheckbox = () => {
     return (
       <Box className={cx("checkbox-wrapper")}>
-        <Typography className={cx("title-group-checkbox")}>{repaymentPeriodsOffered.title}</Typography>
+        <Typography className={cx("title-group-checkbox")}>
+          {repaymentPeriodsOffered.title}
+        </Typography>
         <Box>
-          {repaymentPeriodsOffered.listCheckBox.slice(0, showAll ? repaymentPeriodsOffered.listCheckBox.length : 3)
+          {repaymentPeriodsOffered.listCheckBox
+            .slice(0, showAll ? repaymentPeriodsOffered.listCheckBox.length : 3)
             .map((value: any, key: number) => {
-            return (
-              <FormControlLabel
-                label={value.label}
-                key={key}
-                control={
-                  <Checkbox 
-                    name={value.label} 
-                    checked={value.checked} 
-                    disableFocusRipple
-                    disableRipple
-                    disableTouchRipple
-                    onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                      setValidateListCheckboxMonth(false);
-                      setDataOtherService({
-                        ...dataOtherService,
-                        instalmentPaymentPlan: {
-                          ...instalmentPaymentPlan,
-                          repaymentPeriodsOffered: {
-                            ...dataOtherService.instalmentPaymentPlan.repaymentPeriodsOffered,
-                            listCheckBox: [
-                              ...repaymentPeriodsOffered.listCheckBox.map((el: any) => {
-                                if (el.value === value.value) {
-                                  return {
-                                    ...el,
-                                    checked: event.target.checked
+              return (
+                <FormControlLabel
+                  label={value.label}
+                  key={key}
+                  control={
+                    <Checkbox
+                      name={value.label}
+                      checked={value.checked}
+                      disableFocusRipple
+                      disableRipple
+                      disableTouchRipple
+                      onChange={(
+                        event: React.ChangeEvent<HTMLInputElement>
+                      ) => {
+                        setValidateListCheckboxMonth(false);
+                        setDataOtherService({
+                          ...dataOtherService,
+                          instalmentPaymentPlan: {
+                            ...instalmentPaymentPlan,
+                            repaymentPeriodsOffered: {
+                              ...dataOtherService.instalmentPaymentPlan
+                                .repaymentPeriodsOffered,
+                              listCheckBox: [
+                                ...repaymentPeriodsOffered.listCheckBox.map(
+                                  (el: any) => {
+                                    if (el.value === value.value) {
+                                      return {
+                                        ...el,
+                                        checked: event.target.checked,
+                                      };
+                                    }
+                                    return el;
                                   }
-                                }
-                                return el
-                              })
-                            ]
-                          }
-                      }})}
-                    }
-                    icon={<img src={IconCheckbox} alt="icon checkbox" />}
-                    checkedIcon={<img src={IconCheckboxBlack} alt="icon checkedbox black" />}
-                  />
-                }
-              />
-            )
-          })}
+                                ),
+                              ],
+                            },
+                          },
+                        });
+                      }}
+                      icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                      checkedIcon={
+                        <img
+                          src={IconCheckboxBlack}
+                          alt="icon checkedbox black"
+                        />
+                      }
+                    />
+                  }
+                />
+              );
+            })}
         </Box>
-        {!showAll ?
-          <Typography className={cx("see-more")} onClick={() => setShowAll(true)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelSeeMore}<ExpandMoreIcon /></Typography> :
-          <Typography className={cx("see-more")} onClick={() => setShowAll(false)}>{instalmentPaymentPlan.repaymentPeriodsOffered.labelLess}<ExpandLessIcon /></Typography>  
-        }
+        {!showAll ? (
+          <Typography
+            className={cx("see-more")}
+            onClick={() => setShowAll(true)}
+          >
+            {instalmentPaymentPlan.repaymentPeriodsOffered.labelSeeMore}
+            <ExpandMoreIcon />
+          </Typography>
+        ) : (
+          <Typography
+            className={cx("see-more")}
+            onClick={() => setShowAll(false)}
+          >
+            {instalmentPaymentPlan.repaymentPeriodsOffered.labelLess}
+            <ExpandLessIcon />
+          </Typography>
+        )}
         {validateListCheckboxMonth ? (
           <FormHelperText>
             <img src={IconWarning} alt="icon warning" />

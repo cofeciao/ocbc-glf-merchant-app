@@ -1,11 +1,9 @@
 // import modules
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
 import { STEP_RM } from "@/utils/constants-rm";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray } from "react-hook-form";
 
 // import style
 import styles from "./BusinessOperation.scss";
@@ -14,12 +12,23 @@ import styles from "./BusinessOperation.scss";
 import OutletForm from "./OutletForm";
 import UploadImage from "../UploadImage";
 import GroupRadio from "@/components/GroupRadio";
+import _ from "lodash";
 
 // render UI
 const OutletDetails: React.FC<any> = (props) => {
-  const { listRadio } = props;
+  const {
+    listRadio,
+    control,
+    errors,
+    register,
+    unregister,
+    setValue,
+    setError,
+    handleSubmit,
+    setDataForm,
+    dataRedux,
+  } = props;
   const cx = classnames.bind(styles);
-
   const {
     LIST_STEP: {
       businessOperation: {
@@ -28,48 +37,31 @@ const OutletDetails: React.FC<any> = (props) => {
     },
   } = STEP_RM;
 
-  // States
-  const [dataSectionOutletDetail, setDataSectionOutletDetail] = useState<any>(
-    {}
+  // states
+  const [checkedRadioPreferType, setCheckedRadioPreferType] = useState<string>(
+    _.get(dataRedux, "methodDoYouPrefer") || ""
   );
-  const [checkedRadioPreferType, setCheckedRadioPreferType] =
-    useState<string>("");
-  const [dataForm, setDataForm] = useState<any>({
-    inputFields: outletDetails.inputFields,
-    listRadioOutlet: outletDetails.listRadioOutlet,
-    inputFieldsIndicateBank: outletDetails.inputFieldsIndicateBank,
-  });
   const [fileImage, setFileImage] = useState<any>({});
 
-  // form
-  const {
-    register,
-    formState: { errors, isValid, isDirty },
-    setValue,
-    setError,
-    control,
-    handleSubmit,
-  } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      items: [dataForm],
-    },
-  });
-
+  // react-hook-form
   const { fields, append, remove } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "items", // unique name for your Field Array
+    name: "outlets", // unique name for your Field Array
   });
 
+  /**
+   * Add extra outlet
+   */
   const handleAddOutlet = () => {
-    append(dataForm);
+    append({
+      businessName: "",
+      blockNumber: "",
+      streetName: "",
+      unitNumber: "",
+      buildingName: "",
+      postalCode: "",
+    });
   };
-
-  useEffect(() => {
-    if (outletDetails) {
-      setDataSectionOutletDetail(outletDetails);
-    }
-  }, [outletDetails]);
 
   return (
     <Box className={cx("outlet-details-wrapper")}>
@@ -85,32 +77,37 @@ const OutletDetails: React.FC<any> = (props) => {
           <GroupRadio
             cx={cx}
             name="methodDoYouPrefer"
-            value={checkedRadioPreferType}
+            // value={checkedRadioPreferType}
+            defaultValue={_.get(dataRedux, "methodDoYouPrefer") || null}
             listRadio={listRadio}
             isRow={false}
             onChange={(event) => {
               const { value } = event.target;
               setCheckedRadioPreferType(value);
+              setValue("methodDoYouPrefer", value);
             }}
           />
         </Grid>
 
+        {/* {Fill in here} */}
         {checkedRadioPreferType === "fill_in_here" && (
           <OutletForm
             cx={cx}
             errors={errors}
             register={register}
+            unregister={unregister}
             setValue={setValue}
             setError={setError}
             remove={remove}
-            data={fields}
+            fields={fields}
             setDataForm={setDataForm}
             handleAddOutlet={handleAddOutlet}
-            dataSectionOutletDetail={dataSectionOutletDetail}
-            setDataSectionOutletDetail={setDataSectionOutletDetail}
             handleSubmit={handleSubmit}
+            dataRedux={dataRedux}
           />
         )}
+
+        {/* {Upload a list} */}
         {checkedRadioPreferType === "upload_a_list" && (
           <Grid item xs={12}>
             <UploadImage

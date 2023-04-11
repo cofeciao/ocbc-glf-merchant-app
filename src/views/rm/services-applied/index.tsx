@@ -25,6 +25,7 @@ import {
   saveDataTransactionServicesApplied,
   saveDataOtherServicesApplied,
 } from "@/store/form";
+import { useForm } from "react-hook-form";
 
 // render UI
 const ServicesApplied: React.FC<any> = (props) => {
@@ -60,6 +61,14 @@ const ServicesApplied: React.FC<any> = (props) => {
   const [validateListCheckboxMonth, setValidateListCheckboxMonth] =
     useState<boolean>(false);
   const [disabledButton, setDisabledButton] = useState<boolean>(true);
+
+  // react-hook-form
+  const { setValue, control, watch } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      repaymentPeriodsOffered: otherServices.sectionRadios.instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox || [],
+    }
+  });
 
   /**
    * Handle scrolling to top on page load
@@ -100,6 +109,9 @@ const ServicesApplied: React.FC<any> = (props) => {
   const getDataOtherServices = (datas: IServicesApplied.ISectionRadios) => {
     dispatch(saveDataOtherServicesApplied(datas));
   };
+
+  console.log("getDataFromListCheckbox", dataOtherServicesStore);
+
   /**
    * Handle update state when dataListCheckbox updated from store
    */
@@ -169,13 +181,16 @@ const ServicesApplied: React.FC<any> = (props) => {
       <SectionWrapper cx={cx} title={otherServices.title}>
         <OtherServices
           cx={cx}
+          setValue={setValue}
           dataOtherService={dataOtherService}
           setDataOtherService={setDataOtherService}
           validateListCheckboxMonth={validateListCheckboxMonth}
           setValidateListCheckboxMonth={setValidateListCheckboxMonth}
+          dataRedux={dataOtherServicesStore}
         />
       </SectionWrapper>
 
+      {/* {Divider} */}
       <Divider light />
 
       {/* Section button  */}
@@ -199,7 +214,6 @@ const ServicesApplied: React.FC<any> = (props) => {
             setValidateListCheckboxMonth(true);
             return;
           }
-
           history.push(URL_MANUAL_FLOW.businessOperation);
           getDataOtherServices(dataOtherService);
           setValidateListCheckboxMonth(false);

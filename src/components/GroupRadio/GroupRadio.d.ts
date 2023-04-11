@@ -6,6 +6,7 @@ declare namespace IGroupRadios {
     name: string;
     label?: string;
     value: string;
+    defaultValue?: string
     disabled?: boolean;
     onChange: (value: React.ChangeEvent<HTMLInputElement>) => void;
     isRow?: boolean;

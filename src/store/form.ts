@@ -12,8 +12,14 @@ const Formslice = createSlice({
         instalmentPaymentPlan: {},
         directCurrencyConversion: {},
         mailOrder: {},
-      }
+      },
     },
+    businessOperationDetails: {},
+    productsAndServices: {
+      pointOfSales: {},
+      eCommerce: {},
+    },
+
     acraAndContactInformationStep: {
       contactDetail: {},
       authorisedPersonDetails: {},
@@ -26,7 +32,7 @@ const Formslice = createSlice({
       authorisedSignatoryNRIC: [],
       tenacyDocumentOrSiteVisitPhotos: [],
       copyOfBankStatement: [],
-      anyOtherSupportingDocuments: []
+      anyOtherSupportingDocuments: [],
     },
 
     // Self flow
@@ -39,7 +45,6 @@ const Formslice = createSlice({
       pointOfSales: {},
       eCommerce: {},
     },
-
   },
   reducers: {
     /**
@@ -51,7 +56,7 @@ const Formslice = createSlice({
       state.cashlessPaymentMethod = action.payload;
     },
 
-     /**
+    /**
      * function save data of ACRA and contact information step
      * @param state - State for form
      * @param action  - Payload
@@ -69,13 +74,35 @@ const Formslice = createSlice({
      * @param action  - Payload
      */
     saveDataTransactionServicesApplied: (state, action) => {
-      state.servicesAppliedStep.transactionAndCardAcceptanceTypeStep = action.payload;
+      state.servicesAppliedStep.transactionAndCardAcceptanceTypeStep =
+        action.payload;
     },
     saveDataOtherServicesApplied: (state, action) => {
       state.servicesAppliedStep.otherServices = action.payload;
     },
 
     /**
+     * function save data of Business operation details step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataBusinessOperationDetails: (state, action) => {
+      state.businessOperationDetails = action.payload;
+    },
+
+    /**
+     * function save data of Products and services step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataProductsAndServicesEcomRM: (state, action) => {
+      state.productsAndServices.eCommerce = action.payload;
+    },
+    saveDataProductsAndServicesPosRM: (state, action) => {
+      state.productsAndServices.pointOfSales = action.payload;
+    },
+
+      /**
      * function save data of Sensitive Data step
      * @param state - State for form
      * @param action  - Payload
@@ -116,7 +143,7 @@ const Formslice = createSlice({
      * @param state - State for form
      * @param action  - Payload
      */
-     saveDataSupplementaryDocument: (state, action) => {
+    saveDataSupplementaryDocument: (state, action) => {
       state.supplementaryDocumentStep = action.payload;
     },
 
@@ -187,6 +214,9 @@ export const {
   saveDataCompanyDetail,
   saveDataTransactionServicesApplied,
   saveDataOtherServicesApplied,
+  saveDataBusinessOperationDetails,
+  saveDataProductsAndServicesEcomRM,
+  saveDataProductsAndServicesPosRM,
   saveDataSensitive,
   saveDataBeneficialOwnership,
   saveDataFeeAndRates,

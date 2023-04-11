@@ -48,7 +48,7 @@ const ContactDetails: React.FC<any> = (props) => {
                 labelId="salutation-select-filled-label"
                 defaultValue={
                   _.has(dataRedux, "contactDetail.salutation")
-                    ? dataRedux.salutation
+                    ? dataRedux.contactDetail.salutation
                     : ""
                 }
                 id="salutation-select-filled"
@@ -100,9 +100,7 @@ const ContactDetails: React.FC<any> = (props) => {
                     key={null}
                     variant="filled"
                     error={
-                      _.has(errors, "contactDetail") &&
-                      _.has(errors.contactDetail, "email") &&
-                      _.has(errors.contactDetail.email, "type") &&
+                      _.has(errors, "contactDetail.email.type") &&
                       !_.isEqual(errors.contactDetail.email.type, "required") &&
                       true
                     }
@@ -112,8 +110,7 @@ const ContactDetails: React.FC<any> = (props) => {
                         : ""
                     }
                     helperText={
-                      _.has(errors, "contactDetail") &&
-                      _.has(errors.contactDetail, "email") &&
+                      _.has(errors, "contactDetail.email") &&
                       errors.contactDetail.email.message
                     }
                     {...register("contactDetail.email", {

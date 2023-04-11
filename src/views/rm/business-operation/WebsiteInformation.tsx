@@ -1,5 +1,5 @@
 // import modules
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   FormControl,
@@ -29,10 +29,11 @@ import { ERROR_ICON, REMOVE, STEP_RM } from "@/utils/constants-rm";
 
 // render UI
 const WebsiteInformation: React.FC<any> = (props) => {
-  const { data, register, errors, control, dataRedux } = props;
+  const { data, register, unregister, setValue, errors, control, dataRedux } =
+    props;
   const {
     selectField,
-    checkedCanCustomersPlaceOrderThroughYourWebsite,
+    // checkedPlaceOrderThroughWebsite,
     labelCanCustomersPlaceOrderThroughYourWebsite,
     labelDoYouHaveAnExistingWebsite,
     labelAddMoreWebsite,
@@ -47,18 +48,35 @@ const WebsiteInformation: React.FC<any> = (props) => {
 
   // states
   const [dataWebsiteInformation, setDataWebsiteInformation] = useState<any>({
-    checkedYouHaveExistingWebsite: LIST_RADIO_YES_NO[0].value,
-    checkedCanCustomersPlaceOrderThroughYourWebsite:
-      checkedCanCustomersPlaceOrderThroughYourWebsite,
-    valueYouHaveExistingWebsite: LIST_RADIO_YES_NO[0].value,
-    valueCanCustomersPlaceOrderThroughYourWebsite: LIST_RADIO_YES_NO[0].value,
+    checkedExistingWebsite: true,
+    checkedPlaceOrderThroughWebsite: true,
+    valueExistingWebsite:
+      dataRedux.existingWebsite || LIST_RADIO_YES_NO[0].value,
+    valuePlaceOrderThroughWebsite:
+      dataRedux.placeOrderThroughWebsite || LIST_RADIO_YES_NO[0].value,
   });
 
   // react-hook-form
   const { fields, append, remove } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
-    name: "items", // unique name for your Field Array
+    name: "websites", // unique name for your Field Array
   });
+
+  /**
+   * Handle react-hook-form
+   */
+  useEffect(() => {
+    setValue("existingWebsite", dataWebsiteInformation.valueExistingWebsite);
+    setValue(
+      "placeOrderThroughWebsite",
+      dataWebsiteInformation.valuePlaceOrderThroughWebsite
+    );
+    if (dataWebsiteInformation.checkedExistingWebsite === true) {
+      unregister("websiteLiveDate");
+    } else {
+      unregister("websites");
+    }
+  }, [dataWebsiteInformation]);
 
   return (
     <Box className={cx("website-information-wrapper")}>
@@ -73,22 +91,22 @@ const WebsiteInformation: React.FC<any> = (props) => {
           {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
-            name="youHaveExistingWebsite"
-            value={dataWebsiteInformation.valueYouHaveExistingWebsite}
+            name="existingWebsite"
+            value={dataWebsiteInformation.valueExistingWebsite}
             listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
               setDataWebsiteInformation({
                 ...dataWebsiteInformation,
-                checkedYouHaveExistingWebsite: value === "yes" ? true : false,
-                valueYouHaveExistingWebsite: value,
+                checkedExistingWebsite: value === "yes" ? true : false,
+                valueExistingWebsite: value,
               });
             }}
           />
         </Grid>
 
         {/* {Please indicate when your business will start operations} */}
-        {!dataWebsiteInformation.checkedYouHaveExistingWebsite && (
+        {!dataWebsiteInformation.checkedExistingWebsite && (
           <Grid item xs={12}>
             {/* {Description} */}
             <Typography className={cx("sub-section-description")}>
@@ -108,9 +126,11 @@ const WebsiteInformation: React.FC<any> = (props) => {
                   IconComponent={ExpandMore}
                   placeholder={selectField.label}
                   defaultValue={
-                    _.has(dataRedux, "duration") ? dataRedux.duration : ""
+                    _.has(dataRedux, "websiteLiveDate")
+                      ? dataRedux.websiteLiveDate
+                      : ""
                   }
-                  {...register(`duration`, {
+                  {...register(`websiteLiveDate`, {
                     required: true,
                   })}
                 >
@@ -128,10 +148,10 @@ const WebsiteInformation: React.FC<any> = (props) => {
         )}
 
         {/* {Websites} */}
-        {dataWebsiteInformation.checkedYouHaveExistingWebsite && (
+        {dataWebsiteInformation.checkedExistingWebsite && (
           <Grid item xs={12}>
             <Grid container direction="column" style={{ rowGap: "12px" }}>
-              {fields.map((_item: any, index: number) => (
+              {fields.map((item: any, index: number) => (
                 <Grid item xs={12} key={index}>
                   <div className={cx("group-fields")}>
                     {/* {Title} */}
@@ -147,18 +167,18 @@ const WebsiteInformation: React.FC<any> = (props) => {
                           label={textFieldYourWebsiteURL.label}
                           variant="filled"
                           error={
-                            _.has(errors, `yourWebsiteURL${index}.type`) &&
+                            _.has(errors, `websites[${index}].web.type`) &&
                             !_.isEqual(
-                              errors[`yourWebsiteURL${index}`].type,
+                              errors.websites[index].web.type,
                               "required"
                             ) &&
                             true
                           }
                           helperText={
-                            _.has(errors, `yourWebsiteURL${index}.type`) &&
-                            errors[`yourWebsiteURL${index}`].message
+                            _.has(errors, `websites[${index}].web.type`) &&
+                            errors.websites[index].web.message
                           }
-                          {...register(`yourWebsiteURL${index}`, {
+                          {...register(`websites[${index}].web`, {
                             required: true,
                             pattern: {
                               value:
@@ -181,16 +201,18 @@ const WebsiteInformation: React.FC<any> = (props) => {
                 </Grid>
               ))}
               {fields.length < 3 && (
-                <div
-                  className={cx("add-field")}
-                  onClick={() => append({ value: "url" })}
-                >
-                  <img
-                    src={IconPlus}
-                    alt="icon"
-                    className={cx("text-field-add-icon")}
-                  />
-                  {labelAddMoreWebsite}
+                <div>
+                  <div
+                    className={cx("add-field")}
+                    onClick={() => append({ web: "" })}
+                  >
+                    <img
+                      src={IconPlus}
+                      alt="icon"
+                      className={cx("text-field-add-icon")}
+                    />
+                    {labelAddMoreWebsite}
+                  </div>
                 </div>
               )}
             </Grid>
@@ -207,18 +229,15 @@ const WebsiteInformation: React.FC<any> = (props) => {
           {/* {GroupRadio} */}
           <GroupRadio
             cx={cx}
-            name="youHaveExistingWebsite"
-            value={
-              dataWebsiteInformation.valueCanCustomersPlaceOrderThroughYourWebsite
-            }
+            name="placeOrderThroughWebsite"
+            value={dataWebsiteInformation.valuePlaceOrderThroughWebsite}
             listRadio={LIST_RADIO_YES_NO}
             onChange={(event) => {
               const { value } = event.target;
               setDataWebsiteInformation({
                 ...dataWebsiteInformation,
-                checkedCanCustomersPlaceOrderThroughYourWebsite:
-                  value === "yes" ? true : false,
-                valueCanCustomersPlaceOrderThroughYourWebsite: value,
+                checkedPlaceOrderThroughWebsite: value === "yes" ? true : false,
+                valuePlaceOrderThroughWebsite: value,
               });
             }}
           />

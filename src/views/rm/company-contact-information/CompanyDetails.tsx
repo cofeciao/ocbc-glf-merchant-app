@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -19,7 +19,7 @@ import AddIcon from "@material-ui/icons/Add";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import constants
-import { ERROR_ICON, STEP_RM } from "@/utils/constants-rm";
+import { ERROR_ICON, REMOVE, STEP_RM } from "@/utils/constants-rm";
 
 // render UI
 const CompanyDetails: React.FC<any> = (props) => {
@@ -28,9 +28,9 @@ const CompanyDetails: React.FC<any> = (props) => {
     key,
     data,
     register,
+    unregister,
     errors,
     setValue,
-    setError,
     dataRedux,
     fields,
     remove,
@@ -50,7 +50,6 @@ const CompanyDetails: React.FC<any> = (props) => {
     postalCode,
     directors,
   } = data.inputFields;
-
   const {
     LIST_STEP: {
       companyAndContactInformation: {
@@ -59,14 +58,33 @@ const CompanyDetails: React.FC<any> = (props) => {
     },
   } = STEP_RM;
 
-  const renderForm = (item: any, index: number) => {
+  const [
+    checkboxMailingRegisteredTheSame,
+    setCheckboxMailingRegisteredTheSame,
+  ] = useState(dataRedux.mailingAndRegisteredAddressAreTheSame || false);
+
+  /**
+   * Unregister when Mailing Address is hidden
+   */
+  useEffect(() => {
+    if (checkboxMailingRegisteredTheSame) {
+      unregister("mailingAddress");
+      setValue("mailingAndRegisteredAddressAreTheSame", true);
+    } else {
+      setValue("mailingAndRegisteredAddressAreTheSame", false);
+    }
+  }, [checkboxMailingRegisteredTheSame]);
+
+  const renderForm = (_item: any, index: number) => {
     return (
       <Grid className="container-wrapper" container spacing={4} key={index}>
         <Grid item xs={12}>
           {/* {Title} */}
           <Typography className={cx("title")}>
             {companyDetails.titleDirector} {index + 1}
-            {index !== 0 && <label onClick={() => remove(index)}>Remove</label>}
+            {index !== 0 && (
+              <label onClick={() => remove(index)}>{REMOVE}</label>
+            )}
           </Typography>
         </Grid>
 
@@ -156,13 +174,12 @@ const CompanyDetails: React.FC<any> = (props) => {
                       : ""
                   }
                   error={
-                    _.has(errors, "uniqueEntityNumber") &&
-                    _.has(errors.uniqueEntityNumber, "type") &&
+                    _.has(errors, "uniqueEntityNumber.type") &&
                     !_.isEqual(errors.uniqueEntityNumber.type, "required") &&
                     true
                   }
                   helperText={
-                    _.has(errors, "uniqueEntityNumber") &&
+                    _.has(errors, "uniqueEntityNumber.message") &&
                     errors.uniqueEntityNumber.message
                   }
                   {...register("uniqueEntityNumber", {
@@ -310,10 +327,16 @@ const CompanyDetails: React.FC<any> = (props) => {
               <FormControlLabel
                 control={
                   <Checkbox
+                    checked={checkboxMailingRegisteredTheSame}
                     name={data.mailingAndRegisteredAddressAreTheSame.name}
                     disableTouchRipple
                     disableRipple
                     disableFocusRipple
+                    onChange={(_event: ChangeEvent<HTMLInputElement>) => {
+                      setCheckboxMailingRegisteredTheSame(
+                        !checkboxMailingRegisteredTheSame
+                      );
+                    }}
                   />
                 }
                 label={data.mailingAndRegisteredAddressAreTheSame.label}
@@ -364,7 +387,126 @@ const CompanyDetails: React.FC<any> = (props) => {
         </Grid>
       </Grid>
 
-      {/* Section Directors */}
+      {!checkboxMailingRegisteredTheSame && (
+        <>
+          {/* {Mailing address} */}
+          <Typography className={cx("title")}>
+            {data.titleMailingAddress}
+          </Typography>
+
+          {/* Mailing address Content */}
+          <Grid container direction="row" wrap={"nowrap"}>
+            {/* {Column Left} */}
+            <Grid item xs={12} md={6}>
+              <Grid container>
+                {/* {Block / House number} */}
+                {_.has(blockNumber, "label") && (
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      type="number"
+                      defaultValue={
+                        _.has(dataRedux, "mailingAddress.blockNumber")
+                          ? dataRedux.mailingAddress.blockNumber
+                          : ""
+                      }
+                      label={blockNumber.label}
+                      variant="filled"
+                      {...register("mailingAddress.blockNumber", {
+                        required: true,
+                      })}
+                    />
+                  </Grid>
+                )}
+
+                {/* {Unit number} */}
+                {_.has(unitNumber, "label") && (
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      defaultValue={
+                        _.has(dataRedux, "mailingAddress.unitNumber")
+                          ? dataRedux.mailingAddress.unitNumber
+                          : ""
+                      }
+                      label={unitNumber.label}
+                      variant="filled"
+                      {...register("mailingAddress.unitNumber", {
+                        required: true,
+                      })}
+                    />
+                  </Grid>
+                )}
+
+                {/* {Postal Code} */}
+                {_.has(postalCode, "label") && (
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      type="number"
+                      defaultValue={
+                        _.has(dataRedux, "mailingAddress.postalCode")
+                          ? dataRedux.mailingAddress.postalCode
+                          : ""
+                      }
+                      label={postalCode.label}
+                      variant="filled"
+                      {...register("mailingAddress.postalCode", {
+                        required: true,
+                      })}
+                    />
+                  </Grid>
+                )}
+              </Grid>
+            </Grid>
+
+            {/* {Column Right} */}
+            <Grid item xs={12} md={6}>
+              <Grid container>
+                {/* {Street Name} */}
+                {_.has(streetName, "label") && (
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      defaultValue={
+                        _.has(dataRedux, "mailingAddress.streetName")
+                          ? dataRedux.mailingAddress.streetName
+                          : ""
+                      }
+                      label={streetName.label}
+                      variant="filled"
+                      {...register("mailingAddress.streetName", {
+                        required: true,
+                      })}
+                    />
+                  </Grid>
+                )}
+
+                {/* {Building Name} */}
+                {_.has(buildingName, "label") && (
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      defaultValue={
+                        _.has(dataRedux, "mailingAddress.buildingName")
+                          ? dataRedux.mailingAddress.buildingName
+                          : ""
+                      }
+                      label={buildingName.label}
+                      variant="filled"
+                      {...register("mailingAddress.buildingName", {
+                        required: true,
+                      })}
+                    />
+                  </Grid>
+                )}
+              </Grid>
+            </Grid>
+          </Grid>
+        </>
+      )}
+
+      {/* {Directors} */}
       <Typography className={cx("title")}>{data.titleDirectors}</Typography>
       {fields.map((item: any, index: number) => {
         return renderForm(item, index);

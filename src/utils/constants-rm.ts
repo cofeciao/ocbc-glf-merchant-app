@@ -1472,6 +1472,18 @@ export const RM_ACKNOWLEDGEMENT_PAGE = {
 // Step
 export const STEP_RM = {
   LABEL_ADD_MORE_WEBSITES: "Add website more",
+  LIST_RADIO_UPLOAD_POLICY: [
+    {
+      label: "Upload now",
+      value: "upload_now",
+      checked: false,
+    },
+    {
+      label: "Upload later",
+      value: "upload_later",
+      checked: false,
+    },
+  ],
   LIST_RADIO_FULFILMENT_INFORMATION: [
     {
       label: "Immediate fulfillment",
@@ -1693,6 +1705,7 @@ export const STEP_RM = {
           description:
             "Please ensure that these details from ACRA are updated.",
           titleRegisteredAddress: "Registered address",
+          titleMailingAddress: "Mailing address",
           titleDirector: "Director",
           titleDirectors: "Directors",
           labelAddMoreDirectors: "Add more directors",
@@ -2008,7 +2021,7 @@ export const STEP_RM = {
           labelNumberOfOutlets: "Number of outlets",
           textFieldOcbcBusinessAccountNumber: {
             label: "OCBC business account number",
-            helperText: "",
+            helperText: "Please enter a valid account number",
           },
           checkedIsYourBusinessReadyForOperation: false,
           checkedDoYouCurrentHaveAnOCBCBusinessAccount: false,
@@ -2099,9 +2112,6 @@ export const STEP_RM = {
                   checked: false,
                 },
               ],
-            },
-            listRadio: {
-              description: "Does your retail store accept card payments?",
             },
           },
         },
@@ -2208,7 +2218,7 @@ export const STEP_RM = {
     productAndService: {
       id: "product-and-service",
       numerical: "3",
-      title: "Product and service",
+      text: "Product and service",
       check: false,
       status: true,
       data: {
@@ -2218,31 +2228,71 @@ export const STEP_RM = {
         check: false,
         status: true,
       },
-      section: {
+      pointOfSalesForm: {
+        title: "Point-of-Sales terminal",
         businessOffering: {
-          label: "Business offering",
+          title: "Business offering",
           description:
             "What products and/or services is your business offering?",
-          helperText: "Cannot exceed 180 characters",
-          egText: "E.g. Bistro, café, workshops, salon, clinic, etc.",
+          textField: {
+            keyName: "typeOfProductAndService",
+            label: "Business offering",
+            helperText: "Cannot exceed 180 characters",
+            helperTextGuide:
+              "E.g. Bistro, café, workshops, salon, clinic, etc.",
+          },
         },
         fulfilmentInformation: {
           title: "Fulfilment information",
-          description:
-            "How quickly does your business fulfil these products and/or services?",
-          labelSelect: "Duration",
-          descriptionSelect: "Please indicate duration",
-          labelTextField: "Percentage",
-          descriptionTextField:
-            "Percentage of products/services not fulfilled immediately",
+          listRadio: {
+            description:
+              "How quickly does your business fulfil these products and/or services?",
+            list: [
+              {
+                label: "Immediate fulfillment",
+                value: "Immediate fulfillment",
+                checked: true,
+              },
+              {
+                label: "Fulfillment over a period of time",
+                value: "Fulfillment over a period of time",
+                checked: false,
+              },
+            ],
+          },
+          listDropdown: {
+            label: "Duration",
+            description: "Please indicate duration",
+            list: [
+              {
+                name: "Within a week",
+                value: "within-a-week",
+              },
+              {
+                name: "Within a month",
+                value: "within-a-month",
+              },
+              {
+                name: "Within 3 months",
+                value: "within-3-months",
+              },
+              {
+                name: "More than 3 months",
+                value: "more-than-3-months",
+              },
+            ],
+          },
+          textField: {
+            description:
+              "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
+          },
         },
         salesForecast: {
           title: "Sales forecast",
-          labelBasedOnYourProducts:
+          description:
             "Based on your products and/or services, what is your sales forecast?",
-          labelAverageAmountPerCreditCardTransaction:
-            "Average amount per credit card transaction",
-          labelAnnualCreditCardSalesForecast: "Annual credit card sales",
           listTextField: [
             {
               keyName: "averageAmountPerCreditCardTransaction",
@@ -2261,6 +2311,136 @@ export const STEP_RM = {
         refundPolicy: {
           title: "Refund policy",
           labelDoYouHaveRefundPolicy: "Do you have a refund policy?",
+          labelUploadACopyYourPolicy: "Upload a copy of your policy",
+          listRadio: [
+            {
+              text: "Yes",
+              checked: false,
+            },
+            {
+              text: "No",
+              checked: false,
+            },
+          ],
+        },
+      },
+      ecommerceForm: {
+        title: "e-Commerce",
+        businessOffering: {
+          title: "Business offering",
+          description:
+            "What products and/or services is your business offering?",
+          textField: {
+            keyName: "typeOfProductAndService",
+            label: "Business offering",
+            helperText: "Cannot exceed 180 characters",
+            helperTextGuide:
+              "E.g. Bistro, café, workshops, salon, clinic, etc.",
+          },
+        },
+        fulfilmentInformation: {
+          title: "Fulfilment information",
+          textField: {
+            description:
+              "Percentage of products/services not fulfilled immediately",
+            label: "Percentage",
+            helperText: "Please enter an amount between 0 – 100",
+          },
+          listRadio: {
+            description:
+              "How quickly does your business fulfil these products and/or services?",
+            list: [
+              {
+                label: "Immediate fulfillment",
+                value: "Immediate fulfillment",
+                checked: true,
+              },
+              {
+                label: "Fulfillment over a period of time",
+                value: "Fulfillment over a period of time",
+                checked: false,
+              },
+            ],
+          },
+          listCheckbox: {
+            description: "Where will your products come from?",
+            list: [
+              {
+                label: "Within Singapore",
+                value: "withinSingapore",
+                checked: false,
+              },
+              {
+                label: "Out of Singapore",
+                value: "outOfSingapore",
+                checked: false,
+              },
+            ],
+          },
+          listDropdown: {
+            description: "Approximate delivery time to customers",
+            placeholder: "Delivery time",
+            label: "Duration",
+            list: [
+              {
+                name: "Within a week",
+                value: "within-a-week",
+              },
+              {
+                name: "Within a month",
+                value: "within-a-month",
+              },
+              {
+                name: "Within 3 months",
+                value: "within-3-months",
+              },
+              {
+                name: "More than 3 months",
+                value: "more-than-3-months",
+              },
+            ],
+          },
+          listRadioSecondary: {
+            description: "How will your products be delivered?",
+            list: [
+              {
+                label: "Delivered by my supplier",
+                option: "By supplier",
+                value: "By supplier",
+                checked: true,
+              },
+              {
+                label: "Delivered by my business (after receipt from supplier)",
+                option: "By my business",
+                value: "By my business",
+                checked: false,
+              },
+            ],
+          },
+        },
+        salesForecast: {
+          title: "Sales forecast",
+          description:
+            "Based on your products and/or services, what is your sales forecast?",
+          listTextField: [
+            {
+              keyName: "averageAmountPerCreditCardTransaction",
+              description: "Average amount per credit card transaction",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+            {
+              keyName: "annualCreditCardSalesForecast",
+              description: "Annual credit card sales forecast",
+              helperText: "Please enter an amount above SGD 0",
+              label: "SGD",
+            },
+          ],
+        },
+        refundPolicy: {
+          title: "Refund policy",
+          labelDoYouHaveRefundPolicy: "Do you have a refund policy?",
+          labelUploadACopyYourPolicy: "Upload a copy of your policy",
           listRadio: [
             {
               text: "Yes",
