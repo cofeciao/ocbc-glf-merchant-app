@@ -1,6 +1,6 @@
 declare namespace IProductionServices {
   export interface IProps {
-    ref: any;
+    ref?: any;
   }
 
   export interface IBusinessOffering {

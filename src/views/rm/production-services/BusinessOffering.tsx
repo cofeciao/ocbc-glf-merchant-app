@@ -35,7 +35,11 @@ const BusinessOffering: React.FC<IProductionServices.IBusinessOffering> = (
       },
     },
   } = STEP_RM;
+
+  // const
   const maxLength = 180;
+
+  // states
   const [counter, setCounter] = useState<number>(
     _.has(dataRedux, "typeOfProductAndService")
       ? dataRedux.typeOfProductAndService.length
@@ -55,6 +59,7 @@ const BusinessOffering: React.FC<IProductionServices.IBusinessOffering> = (
           fullWidth
           multiline
           rowsMax={3}
+          variant="filled"
           label={
             <Box width="130%" className={cx("d-flex space-between")}>
               <span>{businessOffering.label}</span>
@@ -63,7 +68,6 @@ const BusinessOffering: React.FC<IProductionServices.IBusinessOffering> = (
               </span>
             </Box>
           }
-          variant="filled"
           error={
             _.has(errors, "typeOfProductAndService") &&
             !_.isEqual(errors.typeOfProductAndService.type, "required") &&

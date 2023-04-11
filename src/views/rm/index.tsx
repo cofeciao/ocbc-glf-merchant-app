@@ -4,7 +4,7 @@ import { adobeAbandon } from '@/utils/adobeTracking';
 
 // import component lib
 import { FormLayout, Header, Tabs } from '@sectionsg/orc';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useParams } from 'react-router';
 import { Container } from '@material-ui/core';
@@ -35,7 +35,7 @@ import styles from "./rm.scss"
 import ContactInformation from './contact-information';
 import ServicesApplied from './services-applied';
 import BusinessOperation from './business-operation';
-import ProductionServices from './production-services';
+import ProductionServices from './products-and-services';
 import FeesRates from './fees-rates';
 import Sensitive from './sensitive-data';
 import BeneficialOwnership from './beneficial-ownership';
@@ -121,11 +121,11 @@ const ContainerManual = () => {
             )}
             content={(
               <>
-                {slug === CONTACT_INFORMATION && <ContactInformation ref={childRef} handleCallAPI={() => {}} />}
-                {slug === COMPANY_CONTACT_INFORMATION && <CompanyContactInformation ref={childRef} handleCallAPI={() => {}} />}
-                {slug === SERVICES_APPLIED && <ServicesApplied ref={childRef} slug={slug} />}
-                {slug === BUSINESS_OPERATION && <BusinessOperation ref={childRef} />}
-                {slug === PRODUCTS_SERVICES && <ProductionServices ref={childRef} />}
+                {slug === CONTACT_INFORMATION && <ContactInformation handleCallAPI={() => {}} />}
+                {slug === COMPANY_CONTACT_INFORMATION && <CompanyContactInformation handleCallAPI={() => {}} />}
+                {slug === SERVICES_APPLIED && <ServicesApplied  slug={slug} />}
+                {slug === BUSINESS_OPERATION && <BusinessOperation  />}
+                {slug === PRODUCTS_SERVICES && <ProductionServices />}
                 {slug === SENSITIVE_DATA && <Sensitive ref={childRef} />}
                 {slug === FEE_RATES && <FeesRates ref={childRef} />}
                 {slug === FEE_AUTHORISATION && <FeeAuthorisation ref={childRef} />}

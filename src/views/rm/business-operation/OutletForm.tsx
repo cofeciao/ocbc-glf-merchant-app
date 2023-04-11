@@ -1,5 +1,5 @@
 // import modules
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -11,40 +11,54 @@ import {
   Typography,
 } from "@material-ui/core";
 import _ from "lodash";
+import GroupRadio from "@/components/GroupRadio";
+
+// import constants
 import { STEP_RM } from "@/utils/constants-rm";
 
 // import icons
-import AddIcon from '@material-ui/icons/Add';
-import GroupRadio from "@/components/GroupRadio";
+import AddIcon from "@material-ui/icons/Add";
+import { ExpandMore } from "@material-ui/icons";
 
 // render UI
 const OutletForm: React.FC<any> = (props) => {
   const {
     cx,
-    key,
-    data,
+    fields,
     register,
+    unregister,
     errors,
     setValue,
     setError,
     remove,
     handleAddOutlet,
-    setDataForm,
-    dataSectionOutletDetail,
-    setDataSectionOutletDetail,
-    handleSubmit
+    handleSubmit,
+    dataRedux,
   } = props;
+  const {
+    LIST_STEP: {
+      LIST_RADIO_YES_NO,
+      businessOperation: {
+        section: { outletDetails },
+      },
+    },
+  } = STEP_RM;
 
+  // state
+  const [dataSectionOutletDetail, _setDataSectionOutletDetail] = useState<any>(
+    {}
+  );
 
-  const { LIST_STEP: {
-    businessOperation: {
-      section: {
-        outletDetails
-      }
-    }
-  }} = STEP_RM
+  const [checkedRadioExtendField, setCheckedRadioExtendField] =
+    useState<any>({});
 
-  const renderForm = (val: any, index: number, idForm: string) => {
+  // useEffect(() => {
+  //   if (_.get(dataRedux, `outlets[${index}].radioTest`) === "yes") {
+  //     unregister([]);
+  //   }
+  // }, [dataRedux]);
+
+  const renderForm = (_val: any, index: number, _idForm: string) => {
     const {
       businessName,
       blockNumber,
@@ -52,34 +66,31 @@ const OutletForm: React.FC<any> = (props) => {
       unitNumber,
       buildingName,
       postalCode,
-    } = val.inputFields;
+    } = outletDetails.inputFields;
+    const { branchCode, accountNumber } = outletDetails.inputFieldsIndicateBank;
 
-    const {
-      branchCode,
-      accountNumber
-    } = val.inputFieldsIndicateBank;
-
-    const onSubmit = (values: any) => {
-      console.log(values)
-    }
+    // const checkedR =
+    //   _.get(dataRedux, `outlets[${index}].radioTest`) === "yes" ? true : false;
 
     return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form key={index}>
         <Grid className="container-wrapper" container spacing={4} key={index}>
           <Grid item xs={12}>
-            <Typography
-              className={cx("title")}
-            >
-              Outlet {index + 1} {index !== 0 && <label onClick={() => remove(index)}>{outletDetails.labelRemove}</label>}
+            <Typography className={cx("title")}>
+              Outlet {index + 1}
+              {index !== 0 && (
+                <label onClick={() => remove(index)}>
+                  {outletDetails.labelRemove}
+                </label>
+              )}
             </Typography>
           </Grid>
           <Grid item xs={6}>
             <TextField
               fullWidth
-              name={`businessName[${index}].businessName`}
               label={businessName.label}
               variant="filled"
-              {...register("businessName", {
+              {...register(`outlets[${index}].businessName`, {
                 required: true,
               })}
             />
@@ -88,10 +99,9 @@ const OutletForm: React.FC<any> = (props) => {
           <Grid item xs={6}>
             <TextField
               fullWidth
-              name={`blockNumber[${index}].blockNumber`}
               label={blockNumber.label}
               variant="filled"
-              {...register("blockNumber", {
+              {...register(`outlets[${index}].blockNumber`, {
                 required: true,
               })}
             />
@@ -100,9 +110,8 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               label={streetName.label}
-              name={`streetName[${index}].streetName`}
               variant="filled"
-              {...register("streetName", {
+              {...register(`outlets[${index}].streetName`, {
                 required: true,
               })}
             />
@@ -111,9 +120,8 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               label={unitNumber.label}
-              name={`unitNumber[${index}].unitNumber`}
               variant="filled"
-              {...register("unitNumber", {
+              {...register(`outlets[${index}].unitNumber`, {
                 required: true,
               })}
             />
@@ -122,9 +130,8 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               label={buildingName.label}
-              name={`buildingName[${index}].buildingName`}
               variant="filled"
-              {...register("buildingName", {
+              {...register(`outlets[${index}].buildingName`, {
                 required: true,
               })}
             />
@@ -133,82 +140,110 @@ const OutletForm: React.FC<any> = (props) => {
             <TextField
               fullWidth
               label={postalCode.label}
-              name={`postalCode[${index}].postalCode`}
               variant="filled"
-              {...register("postalCode", {
+              {...register(`outlets[${index}].postalCode`, {
                 required: true,
               })}
             />
           </Grid>
+
+          {/* {Will this outlet be using the bank account indicated above?} */}
           <Grid item xs={12}>
+            {/* {Description} */}
             <Typography className={cx("sub-section-description")}>
               {outletDetails.labelListOutletBeUsingTheBank}
             </Typography>
+
+            {/* {GroupRadio} */}
             <GroupRadio
               cx={cx}
-              name="bankAcccountIndicatedAbove"
-              value={dataSectionOutletDetail.checkedOutlet}
-              listRadio={val.listRadioOutlet}
+              name={`outlets[${index}].radioTest`}
+              // value={dataSectionOutletDetail.checkedRadio}
+              defaultValue={_.get(dataRedux, `outlets[${index}].radioTest`)}
+              listRadio={LIST_RADIO_YES_NO}
               onChange={(event) => {
                 const { value } = event.target;
-                setDataSectionOutletDetail ({
-                  ...dataSectionOutletDetail,
-                  checkedOutlet: value
-                })
+                setCheckedRadioExtendField({
+                  ...checkedRadioExtendField,
+                  [index]: value === "yes" ? true : false,
+                });
+                setValue(`outlets[${index}].radioTest`, value);
               }}
             />
           </Grid>
-          {!dataSectionOutletDetail.checkedOutlet && (
+
+          {/* {Please indicate the bank linked to your business} */}
+          {checkedRadioExtendField[index] === false && (
             <>
               <Grid item xs={12}>
                 <Typography className={cx("sub-section-description")}>
                   {outletDetails.labelPleaseIndicateTheBankLinkedToYourBusiness}
                 </Typography>
               </Grid>
+
+              {/* {Bank name} */}
               <Grid item xs={6}>
                 <FormControl
-                    variant="filled"
-                    className={cx("company-type-select")}
+                  variant="filled"
+                  className={cx("company-type-select")}
+                  fullWidth
+                >
+                  <InputLabel id="bank-name-select-filled-label">
+                    {outletDetails.labelBankName}
+                  </InputLabel>
+                  <Select
                     fullWidth
+                    labelId="bank-name-select-filled-label"
+                    id="bank-name-select-filled"
+                    IconComponent={ExpandMore}
+                    defaultValue={_.get(
+                      dataRedux,
+                      `outlets[${index}].bankName`
+                    )}
+                    {...register(`outlets[${index}].bankName`, {
+                      required: true,
+                    })}
                   >
-                    <InputLabel id="bank-name-select-filled-label">
-                      {outletDetails.labelBankName}
-                    </InputLabel>
-                    <Select
-                      fullWidth
-                      labelId="bank-name-select-filled-label"
-                      id="bank-name-select-filled"
-                      {...register("bankName", {
-                        required: true,
-                      })}
-                    >
-                      {_.map(outletDetails.listBankName, (item, index) => {
-                        return (
-                          <MenuItem key={index} value={item.value}>
-                            {item.name}
-                          </MenuItem>
-                        );
-                      })}
-                    </Select>
-                  </FormControl>
+                    {_.map(outletDetails.listBankName, (item, index) => {
+                      return (
+                        <MenuItem key={index} value={item.value}>
+                          {item.name}
+                        </MenuItem>
+                      );
+                    })}
+                  </Select>
+                </FormControl>
               </Grid>
+
+              {/* {Branch code} */}
               <Grid item xs={3}>
                 <TextField
                   fullWidth
-                  type="password"
+                  type="text"
                   label={branchCode.label}
                   variant="filled"
-                  {...register("branchCode", {
+                  defaultValue={_.get(
+                    dataRedux,
+                    `outlets[${index}].branchCode`
+                  )}
+                  {...register(`outlets[${index}].branchCode`, {
                     required: true,
                   })}
                 />
               </Grid>
+
+              {/* {Account number} */}
               <Grid item xs={3}>
                 <TextField
                   fullWidth
                   label={accountNumber.label}
+                  type="number"
                   variant="filled"
-                  {...register("accountNumber", {
+                  defaultValue={_.get(
+                    dataRedux,
+                    `outlets[${index}].accountNumber`
+                  )}
+                  {...register(`outlets[${index}].accountNumber`, {
                     required: true,
                   })}
                 />
@@ -217,19 +252,16 @@ const OutletForm: React.FC<any> = (props) => {
           )}
         </Grid>
       </form>
-    )
-  }
+    );
+  };
 
   return (
     <>
-      {data.map((item: any, index: number) => {
-        return renderForm(item, index, item.id)
+      {fields.map((item: any, index: number) => {
+        return renderForm(item, index, item.id);
       })}
-      <Typography
-        className={cx("add-outlet")}
-        onClick={handleAddOutlet}
-      >
-        <AddIcon fontSize="small"/> {outletDetails.labelAddAnOutlet}
+      <Typography className={cx("add-outlet")} onClick={handleAddOutlet}>
+        <AddIcon fontSize="small" /> {outletDetails.labelAddAnOutlet}
       </Typography>
     </>
   );

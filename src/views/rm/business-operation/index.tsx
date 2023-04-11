@@ -1,6 +1,6 @@
 // import modules
 import { Category } from "@sectionsg/orc";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
@@ -18,6 +18,8 @@ import { URL_MANUAL_FLOW, STEP_RM, WELCOME_PATH } from "@/utils/constants-rm";
 
 // import styles
 import styles from "./BusinessOperation.scss";
+import { saveDataBusinessOperationDetails } from "@/store/form";
+import _ from "lodash";
 
 // import types
 
@@ -39,26 +41,12 @@ const BusinessOperation: React.FC<any> = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  // react-hook-form
-  const {
-    register,
-    formState: { errors, isValid, isDirty },
-    control,
-  } = useForm({
-    mode: "onBlur",
-    defaultValues: {
-      items: [{ value: "url" }],
-    },
+  // state
+  const [dataForm, setDataForm] = useState<any>({
+    inputFields: outletDetails.inputFields,
+    listRadioOutlet: outletDetails.listRadioOutlet,
+    inputFieldsIndicateBank: outletDetails.inputFieldsIndicateBank,
   });
-
-  /**
-   * Handle scrolling to top on page load
-   */
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
-  }, []);
 
   /**
    * Retrieves data of step Transaction And Card Acceptance Type from Store
@@ -70,6 +58,65 @@ const BusinessOperation: React.FC<any> = () => {
       .filter((item: string) => item !== "")
       .join("-")
   );
+
+  /**
+   * Retrieves data of step Business Operation Details from Store
+   */
+  const dataBusinessOperationDetails = useSelector(
+    (state: any) => state.form.businessOperationDetails
+  );
+
+  // react-hook-form
+  const {
+    register,
+    unregister,
+    formState: { errors, isValid, isDirty },
+    control,
+    getValues,
+    setValue,
+    setError,
+    clearErrors,
+    handleSubmit,
+  } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      websites: (_.has(dataBusinessOperationDetails, "websites") &&
+        _.map(dataBusinessOperationDetails.websites, (item: any) => {
+          return {
+            web: item.web,
+          };
+        })) || [{ web: "" }],
+      outlets: (_.has(dataBusinessOperationDetails, "outlets") &&
+        _.map(dataBusinessOperationDetails.outlets, (item: any) => {
+          return {
+            businessName: item.businessName,
+            blockNumber: item.blockNumber,
+            streetName: item.streetName,
+            unitNumber: item.unitNumber,
+            buildingName: item.buildingName,
+            postalCode: item.postalCode,
+          };
+        })) || [
+        {
+          businessName: "",
+          blockNumber: "",
+          streetName: "",
+          unitNumber: "",
+          buildingName: "",
+          postalCode: "",
+        },
+      ],
+    },
+  });
+
+  /**
+   * Handle scrolling to top on page load
+   */
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, []);
 
   // render UI
   return (
@@ -88,7 +135,12 @@ const BusinessOperation: React.FC<any> = () => {
           optionSelected={optionSelected}
           data={businessInformation}
           register={register}
+          unregister={unregister}
+          dataRedux={dataBusinessOperationDetails}
+          setValue={setValue}
           errors={errors}
+          setError={setError}
+          clearErrors={clearErrors}
         />
       </SectionWrapper>
 
@@ -97,6 +149,9 @@ const BusinessOperation: React.FC<any> = () => {
         <WebsiteInformation
           data={websiteInfomation}
           register={register}
+          unregister={unregister}
+          setValue={setValue}
+          dataRedux={dataBusinessOperationDetails}
           errors={errors}
           control={control}
         />
@@ -109,6 +164,10 @@ const BusinessOperation: React.FC<any> = () => {
           labelDoesYourRetailStoreAccpetCardPayment={
             otherInfomation.labelDoesYourRetailStoreAccpetCardPayment
           }
+          dataRedux={dataBusinessOperationDetails}
+          register={register}
+          setValue={setValue}
+          control={control}
         />
       </SectionWrapper>
 
@@ -119,7 +178,19 @@ const BusinessOperation: React.FC<any> = () => {
           title={outletDetails.titleOutletDetail}
           description={outletDetails.description}
         >
-          <OutletDetails listRadio={outletDetails.listRadio} />
+          <OutletDetails
+            listRadio={outletDetails.listRadio}
+            control={control}
+            register={register}
+            unregister={unregister}
+            setError={setError}
+            setValue={setValue}
+            errors={errors}
+            handleSubmit={handleSubmit}
+            dataForm={dataForm}
+            setDataForm={setDataForm}
+            dataRedux={dataBusinessOperationDetails}
+          />
         </SectionWrapper>
       )}
 
@@ -133,6 +204,7 @@ const BusinessOperation: React.FC<any> = () => {
           history.push(URL_MANUAL_FLOW.servicesApplied);
         }}
         onClickNext={() => {
+          dispatch(saveDataBusinessOperationDetails(getValues()));
           history.push(URL_MANUAL_FLOW.productsServices);
         }}
         onClickContinue={() => {

@@ -1,16 +1,16 @@
-@import '../../../assets/style/variable.scss';
+@import "../../../assets/style/variable.scss";
 
 .servicer-applied-wrapper {
   & .title-checkbox {
     font-weight: 400;
     font-size: 18px;
     line-height: 20px;
-    color: #777E87;
+    color: #777e87;
   }
 
   & .category-wrapper {
     div::before {
-      background-color: #E30613
+      background-color: #e30613;
     }
     @media (max-width: 767px) {
       margin-bottom: 40px;
@@ -19,11 +19,13 @@
 
   & .checkbox-wrapper {
     & .MuiCheckbox-root {
-      color: #3D525D !important;
+      color: #3d525d !important;
     }
     & .group-checkbox {
       margin-top: 40px;
-  
+      & .MuiFormHelperText-root {
+        color: #ed5347 !important;
+      }
       & .MuiFormLabel-root {
         font-weight: 400;
         font-size: 14px;
@@ -37,15 +39,15 @@
       .w-116 {
         width: 116%;
       }
-      
+
       & .MuiFormGroup-root {
         margin: 18px 0px 7px 0px;
         justify-content: space-between;
-        
+
         & .MuiFormControlLabel-root {
           margin-right: 70px;
         }
-  
+
         & .MuiFormControlLabel-label {
           font-weight: 600;
           font-size: 16px;
@@ -58,7 +60,7 @@
         font-weight: 400;
         font-size: 18px;
         line-height: 28px;
-        color: #005EFD;
+        color: #005efd;
         align-items: center;
         cursor: pointer;
         width: fit-content;
@@ -77,7 +79,7 @@
       }
     }
   }
-} 
+}
 
 .label {
   font-weight: 400;
@@ -88,7 +90,7 @@
 
 .list-checkbox {
   .MuiGrid-container {
-    flex-direction: column !important
+    flex-direction: column !important;
   }
 }
 

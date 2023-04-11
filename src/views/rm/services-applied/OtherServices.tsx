@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Checkbox,
@@ -28,15 +28,18 @@ import { STEP_RM } from "@/utils/constants-rm";
 
 // import components
 import GroupRadio from "@/components/GroupRadio";
+import _ from "lodash";
 
 const OtherServices: React.FC<IServicesApplied.IOtherServices> = (props) => {
   // props
   const {
     cx,
+    setValue,
     dataOtherService,
     setDataOtherService,
     validateListCheckboxMonth,
     setValidateListCheckboxMonth,
+    dataRedux,
   } = props;
   const {
     LIST_STEP: { LIST_RADIO_YES_NO },
@@ -47,6 +50,29 @@ const OtherServices: React.FC<IServicesApplied.IOtherServices> = (props) => {
 
   // states
   const [showAll, setShowAll] = useState<boolean>(false);
+  const [dataListCheckbox, setDataListCheckbox] = useState<any>(
+    (_.has(
+      dataRedux,
+      "instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox"
+    ) &&
+      dataRedux.instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox) ||
+      repaymentPeriodsOffered.listCheckBox
+  );
+
+  useEffect(() => {
+    setDataListCheckbox(repaymentPeriodsOffered.listCheckBox);
+  }, [repaymentPeriodsOffered.listCheckBox]);
+
+  useEffect(() => {
+    if (instalmentPaymentPlan.value === "no") {
+      setValue("repaymentPeriodsOffered", null);
+    } else {
+      setValue(
+        "repaymentPeriodsOffered",
+        instalmentPaymentPlan.repaymentPeriodsOffered.listCheckBox
+      );
+    }
+  }, [instalmentPaymentPlan]);
 
   /**
    * render UI button
@@ -64,7 +90,7 @@ const OtherServices: React.FC<IServicesApplied.IOtherServices> = (props) => {
             {repaymentPeriodsOffered.title}
           </FormLabel>
           <FormGroup row className={showAll ? cx("w-59") : cx("w-116")}>
-            {repaymentPeriodsOffered.listCheckBox
+            {dataListCheckbox
               .slice(
                 0,
                 showAll ? repaymentPeriodsOffered.listCheckBox.length : 3
@@ -77,6 +103,7 @@ const OtherServices: React.FC<IServicesApplied.IOtherServices> = (props) => {
                     control={
                       <Checkbox
                         name={value.label}
+                        value={value.label}
                         checked={value.checked}
                         disableFocusRipple
                         disableRipple

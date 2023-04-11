@@ -21,7 +21,7 @@ declare namespace IServicesApplied {
     labelSeeMore?: string;
     labelLess?: string;
     listCheckBox: IListCheckBox[];
-    errorText?: string
+    errorText?: string;
   }
 
   export interface IDataOtherServices {
@@ -34,17 +34,18 @@ declare namespace IServicesApplied {
   interface ISectionRadios {
     instalmentPaymentPlan: IDataOtherServices;
     directCurrencyConversion: IDataOtherServices;
-    mailOrder: IDataOtherServices
+    mailOrder: IDataOtherServices;
   }
 
   export interface IOtherServices {
     cx: any;
+    setValue?: any;
     dataOtherService: ISectionRadios;
     setDataOtherService: (value: any) => void;
     validateListCheckboxMonth: boolean;
     setValidateListCheckboxMonth: (value: any) => void;
+    dataRedux?: any;
   }
-
 }
 
 export { IServicesApplied };

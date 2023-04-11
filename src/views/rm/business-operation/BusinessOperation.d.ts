@@ -11,11 +11,18 @@ declare namespace IBusinessOperations {
     name?: string;
   }
   export interface IBusinessInfomation {
-    optionSelected: "e-commerce" | "point-of-sales" | "point-of-sales-e-commerce"
+    optionSelected:
+      | "e-commerce"
+      | "point-of-sales"
+      | "point-of-sales-e-commerce";
     data: any;
     dataRedux?: any;
-    register?: any;
-    errors?: any
+    register?: Function;
+    unregister?: Function;
+    setValue?: Function;
+    errors?: any;
+    setError: Function;
+    clearErrors: Function;
   }
 }
 

@@ -69,6 +69,7 @@ const BusinessDetails: React.FC = () => {
     setValue,
     unregister,
     control,
+    watch,
   } = useForm({
     mode: "onBlur",
     defaultValues: {
@@ -79,6 +80,8 @@ const BusinessDetails: React.FC = () => {
       businessAccount: LIST_RADIO_YES_NO[0].label,
       existingWebsite: LIST_RADIO_YES_NO[0].label,
       placeOrderThroughWebsite: LIST_RADIO_YES_NO[0].label,
+      businessOfferings: businessDetailsStep.businessOfferings,
+      availableSpaces: businessDetailsStep.availableSpaces,
     },
   });
 
