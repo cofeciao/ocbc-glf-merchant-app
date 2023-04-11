@@ -40,10 +40,6 @@ import Declaration from "./Declaration";
 const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
   const cx = classNames.bind(styles);
   const history = useHistory()
-  const dispatch = useDispatch();
-  const { slug } = useParams<{ slug: string }>();
-
-  console.log(slug)
 
   const { LIST_STEP: {
     reviewAndSubmit: {
@@ -56,7 +52,7 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
         companyRegistration,
         businessOperationDetails,
         productsAndServices,
-        sensitiveData,
+        sensitive,
         beneficailOwnership,
         supplementaryDocuments
       }
@@ -315,6 +311,41 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
   };
 
   /**
+    * Retrieves data of Supplementary documents from Store
+   */
+  const supplementaryDocumentData = useSelector(
+    (state: any) => state.form.supplementaryDocumentStep
+  );
+
+  /**
+    * Retrieves data of Beneficial ownership from Store
+   */
+  const beneficialOwnershipData = useSelector(
+    (state: any) => state.form.beneficialOwnerShipStep
+  );
+
+  /**
+    * Retrieves data of Sensitive from Store
+  */
+  const sensitiveData = useSelector(
+    (state: any) => state.form.sensitiveStep
+  );
+
+  /**
+    * Retrieves data of Fee And Rates from Store
+  */
+  const feeAndRateData = useSelector(
+    (state: any) => state.form.feeAndRateStep
+  );
+
+  /**
+    * Retrieves data of Sensitive from Store
+  */
+  const feeAuthorisationData = useSelector(
+    (state: any) => state.form.feeAuthorisationStep
+  );
+  
+  /**
    * Handle button prev
    */
   const handlePrev = () => {
@@ -391,12 +422,12 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
 
           {/* Section Fees and rates */}
           <SectionWrapper cx={cx} title={feeAndRates.titleFeeAndRates} isEdit path="/rm/fee-rates">
-            <FeesAndRates cx={cx} titles={feeAndRates} data={dataReview.feesAndRates}/>
+            <FeesAndRates cx={cx} titles={feeAndRates} feeAndRateData={feeAndRateData}/>
           </SectionWrapper>
 
           {/* Section Fee authorisation */}
           <SectionWrapper cx={cx} title={feeAuthorisation.titleFeeAuthorisation} isEdit path="/rm/fee-authorisation">
-            <MaintenanceFeeAuthorisation cx={cx} titles={feeAuthorisation} data={dataReview.maintenanceFeeAuthorisation}/>
+            <MaintenanceFeeAuthorisation cx={cx} titles={feeAuthorisation} feeAuthorisationData={feeAuthorisationData}/>
           </SectionWrapper>
 
           {/* Section Company registeration */}
@@ -416,17 +447,17 @@ const ReviewSubmit: React.FC<IReviewSubmit.IProps> = forwardRef(({  }, ref) => {
 
           {/* Section Sensitive data */}
           <SectionWrapper cx={cx} title={sensitiveData.titleSensitiveData} isEdit path="/rm/sensitive-data">
-            <SensitiveData cx={cx} titles={sensitiveData} data={dataReview.sensitiveData}/>
+            <SensitiveData cx={cx} titles={sensitive} sensitiveData={sensitiveData}/>
           </SectionWrapper>
 
           {/* Section Beneficial ownership */}
           <SectionWrapper cx={cx} title={beneficailOwnership.titleBeneficialOwnership} isEdit path="/rm/beneficial-ownership">
-            <BeneficialOwnership cx={cx} titles={beneficailOwnership} data={dataReview.beneficialOwner} />
+            <BeneficialOwnership cx={cx} titles={beneficailOwnership} beneficialOwnershipData={beneficialOwnershipData} />
           </SectionWrapper>
 
           {/* Section Supplementary documents */}
           <SectionWrapper cx={cx} title={supplementaryDocuments.titleSupplementaryDocuments} isEdit path="/rm/supplementary-documents">
-            <SupplementaryDocuments cx={cx} titles={supplementaryDocuments} />
+            <SupplementaryDocuments cx={cx} titles={supplementaryDocuments} supplementaryDocumentData={supplementaryDocumentData} />
           </SectionWrapper>
         </Box>
       )}

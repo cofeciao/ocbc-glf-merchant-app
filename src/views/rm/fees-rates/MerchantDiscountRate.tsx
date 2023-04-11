@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -7,165 +7,163 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { InputAdornment, TextField } from '@material-ui/core';
+
+// constants
+import { STEP_RM } from '@/utils/constants-rm';
+
+// types
 import { IFeesRates } from './FeesRates';
 
 const FirstTable: React.FC<IFeesRates.ITableEdtiting> = (props) => {
-  const { cx } = props;
-
-  function createData(
-    acceptanceType: string, 
-    ocbsCards: string, 
-    domesticCards: string, 
-    internationalCards: string
-    ) {
-    return { acceptanceType, ocbsCards, domesticCards, internationalCards};
-  }
-
-  const rows = [
-    createData('Visa', '2.5', '2.5', '2.5'),
-    createData('MasterCard', '2.5', '2.5', '2.5'),
-    createData('Union Pay', '', '', '2.5'),
-    createData('JCB', '', '', '2.5'),
-    createData('WeChat Pay', '', '', '2.5'),
-    createData('Alipay', '', '', '2.5'),
-  ];
+  // props
+  const { cx, headers, dataSource, setDataSource } = props;
   
-  // States
-  const [dataSource, setDataSource] = useState<any[]>(rows);
+  const headerTable:IFeesRates.IHeaderTable[] = headers
 
-  const headers:IFeesRates.IHeaderTable[] = [
-    {
-      title: 'Acceptance type',
-      width: 380,
-    },
-    {
-      title: 'OCBC cards',
-      width: 120,
-    },
-    {
-      title: 'Domestic cards',
-      width: 120,
-    },
-    {
-      title: 'International cards',
-      width: 120,
-    }
-  ];
-
-  const handleEditRow = (indexCurrent: number, e: any, key: any) => {
+  const handleEditRow = (indexCurrent: number, event: React.ChangeEvent<HTMLInputElement>, key: any) => {
+    const { value } = event.target;
     const updateDataSource = [...dataSource];
-    updateDataSource[indexCurrent][key] = e.target.value;
-    setDataSource(updateDataSource);
+    updateDataSource[indexCurrent][key] = value;
+    setDataSource((preState: any) => ({
+      ...preState,
+      tableAcceptanceType: updateDataSource
+    }));
   }
 
-  const renderTextField = (rowValue: any, index: number, name: string) => {
+  const handleOnBlur = (indexCurrent: number, event: React.FocusEvent<HTMLInputElement>, key: any) => {
+    const { value } = event.target;
+    const updateDataSource = [...dataSource];
+    const isRegexNumber = /^([0-9]+.)*([0-9]+)$/.test(value);
+
+    if (isRegexNumber) {
+      updateDataSource[indexCurrent][key] = value;
+      setDataSource((preState: any) => ({
+        ...preState,
+        tableAcceptanceType: updateDataSource
+      }));
+    } else {
+      updateDataSource[indexCurrent][key] = ""
+      setDataSource((preState: any) => ({
+        ...preState,
+        tableAcceptanceType: updateDataSource
+      }));
+    }
+  }
+
+  const renderTextField = (rowValue: any, index: number, name: string, acceptanceType: string) => {
+    const isRowDisabled = (acceptanceType === "Union Pay" && name === "ocbcCards") || 
+      (acceptanceType === "Union Pay" && name === "domesticCards") ||
+      (acceptanceType === "JCB" && name === "ocbcCards") ||
+      (acceptanceType === "JCB" && name === "domesticCards") ||
+      (acceptanceType === "WeChat Pay" && name === "ocbcCards") ||
+      (acceptanceType === "WeChat Pay" && name === "domesticCards") ||
+      (acceptanceType === "Alipay" && name === "ocbcCards") ||
+      (acceptanceType === "Alipay" && name === "domesticCards");
+    
     return (
       <TextField 
         name={`${name}-${index}`} 
-        type='text'
         placeholder='-'
-        defaultValue={rowValue} 
-        disabled={rowValue === ''}
+        value={rowValue}
+        disabled={isRowDisabled}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEditRow(index, e, name)}
+        onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleOnBlur(index, e, name)}
         InputProps={{
-          endAdornment: rowValue !== '' && <InputAdornment position="end">%</InputAdornment>,
+          endAdornment: <InputAdornment position="end">{!isRowDisabled ? "%" : <div>&ensp;&nbsp;</div>}</InputAdornment>,
         }}
       />
     )
   }
-
+  
   return (
     <TableContainer component={Paper} className={cx("first-table")}>
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              {headers.length > 0 && headers.map((item: IFeesRates.IHeaderTable, index: number) => (
-                <TableCell className={cx("table-header")} key={index} width={item.width} align={item.align}>{item.title || ""}</ TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {dataSource.length > 0 && dataSource.map((row: any, index: number) => (
-              <TableRow key={row.name} className={cx("table-row")}>
-                <TableCell component="th" scope="row">
-                  {row.acceptanceType}
-                </TableCell>
-                <TableCell align="center">
-                  {renderTextField(row.ocbsCards, index, 'ocbsCards')}
-                </TableCell>  
-                <TableCell align="center">
-                  {renderTextField(row.domesticCards, index, 'domesticCards')}
-                </TableCell>
-                <TableCell align="center">
-                {renderTextField(row.internationalCards, index, 'internationalCards')}
-                </TableCell>
-              </TableRow>
+      <Table aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            {headerTable.length > 0 && headerTable.map((item: IFeesRates.IHeaderTable, index: number) => (
+              <TableCell className={cx("table-header")} key={index} width={item.width} align={item.align}>{item.title || ""}</ TableCell>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {dataSource.length > 0 && dataSource.map((row: any, index: number) => (
+            <TableRow key={index} className={cx("table-row")}>
+              <TableCell component="th" scope="row">
+                {row.acceptanceType}
+              </TableCell>
+              <TableCell align="center">
+                {renderTextField(row.ocbcCards, index, 'ocbcCards', row.acceptanceType)}
+              </TableCell>  
+              <TableCell align="center">
+                {renderTextField(row.domesticCards, index, 'domesticCards', row.acceptanceType)}
+              </TableCell>
+              <TableCell align="center">
+              {renderTextField(row.internationalCards, index, 'internationalCards', row.acceptanceType)}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 
 const SecondTable: React.FC<IFeesRates.ITableEdtiting> = (props) => {
-  const { cx } = props;
+  // props
+  const { cx, headers, dataSource, setDataSource } = props;
 
-  function createData(
-    services: string, 
-    ocbsCards: string, 
-    domesticCards: string, 
-    internationalCards: string
-    ) {
-    return { services, ocbsCards, domesticCards, internationalCards};
-  }
+  const headerTable:IFeesRates.IHeaderTable[] = headers
 
-  const rows = [
-    createData('Direct Currency Conversion (DCC)', '2.5', '', ''),
-    createData('Mail Order/Telephone Order', '2.5', '2.5', '2.5'),
-    createData('Instalment Payment Plan (IPP) 3 months', '2.5', '', ''),
-    createData('Instalment Payment Plan (IPP) 6 months', '2.5', '', ''),
-    createData('Instalment Payment Plan (IPP) 12 months', '2.5', '', ''),
-  ];
-
-  // States
-  const [dataSource, setDataSource] = useState<any[]>(rows);
-
-  const headers:IFeesRates.IHeaderTable[] = [
-    {
-      title: 'Services',
-      width: 380,
-    },
-    {
-      title: 'OCBC cards',
-      width: 120,
-    },
-    {
-      title: 'Domestic cards',
-      width: 120,
-    },
-    {
-      title: 'International cards',
-      width: 120,
-    }
-  ];
-
-  const handleEditRow = (indexCurrent: number, e: any, key: any) => {
+  const handleEditRow = (indexCurrent: number, event: React.ChangeEvent<HTMLInputElement>, key: any) => {
+    const { value } = event.target;
     const updateDataSource = [...dataSource];
-    updateDataSource[indexCurrent][key] = e.target.value;
-    setDataSource(updateDataSource);
+    updateDataSource[indexCurrent][key] = value;
+    setDataSource((preState: any) => ({
+      ...preState,
+      tableServices: updateDataSource
+    }));
   }
 
-  const renderTextField = (rowValue: any, index: number, name: string) => {
+  const handleOnBlur = (indexCurrent: number, event: React.FocusEvent<HTMLInputElement>, key: any) => {
+    const { value } = event.target;
+    const updateDataSource = [...dataSource];
+    const isRegexNumber = /^([0-9]+.)*([0-9]+)$/.test(value);
+
+    if (isRegexNumber) {
+      updateDataSource[indexCurrent][key] = value;
+      setDataSource((preState: any) => ({
+        ...preState,
+        tableServices: updateDataSource
+      }));
+    } else {
+      updateDataSource[indexCurrent][key] = ""
+      setDataSource((preState: any) => ({
+        ...preState,
+        tableServices: updateDataSource
+      }));
+    }
+  }
+
+  const renderTextField = (rowValue: any, index: number, name: string, services: string) => {
+    const isRowDisabled = (services === "Direct Currency Conversion (DCC)" && name === "ocbcCards") ||
+      (services === "Direct Currency Conversion (DCC)" && name === "domesticCards") || 
+      (services === "Instalment Payment Plan (IPP) 3 months" && name === "internationalCards") ||
+      (services === "Instalment Payment Plan (IPP) 3 months" && name === "domesticCards") ||
+      (services === "Instalment Payment Plan (IPP) 6 months" && name === "internationalCards") ||
+      (services === "Instalment Payment Plan (IPP) 6 months" && name === "domesticCards") ||
+      (services === "Instalment Payment Plan (IPP) 12 months" && name === "internationalCards") ||
+      (services === "Instalment Payment Plan (IPP) 12 months" && name === "domesticCards");
+
     return (
       <TextField 
         name={`${name}-${index}`} 
-        type='text'
         placeholder='-'
-        disabled={rowValue === ''}
-        defaultValue={rowValue} 
+        disabled={isRowDisabled}
+        value={rowValue} 
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleEditRow(index, e, name)}
+        onBlur={(e: React.FocusEvent<HTMLInputElement>) => handleOnBlur(index, e, name)}
         InputProps={{
-          endAdornment: rowValue !== '' && <InputAdornment position="end">%</InputAdornment>,
+          endAdornment: <InputAdornment position="end">{!isRowDisabled ? "%" : <div>&ensp;&nbsp;</div>}</InputAdornment>,
         }}
       />
     )
@@ -176,25 +174,25 @@ const SecondTable: React.FC<IFeesRates.ITableEdtiting> = (props) => {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              {headers.length > 0 && headers.map((item: IFeesRates.IHeaderTable, index: number) => (
+              {headerTable.length > 0 && headerTable.map((item: IFeesRates.IHeaderTable, index: number) => (
                 <TableCell className={cx("table-header")} key={index} width={item.width} align={item.align}>{item.title || ""}</ TableCell>
               ))}
             </TableRow>
           </TableHead>
           <TableBody>
             {dataSource.length > 0 && dataSource.map((row: any, index: number) => (
-              <TableRow key={row.name} className={cx("table-row")}>
+              <TableRow key={index} className={cx("table-row")}>
                 <TableCell component="th" scope="row">
                   {row.services}
                 </TableCell>
                 <TableCell align="center">
-                  {renderTextField(row.ocbsCards, index, 'ocbsCards')}
+                  {renderTextField(row.ocbcCards, index, 'ocbcCards', row.services)}
                 </TableCell>  
                 <TableCell align="center">
-                  {renderTextField(row.domesticCards, index, 'domesticCards')}
+                  {renderTextField(row.domesticCards, index, 'domesticCards', row.services)}
                 </TableCell>
                 <TableCell align="center">
-                {renderTextField(row.internationalCards, index, 'internationalCards')}
+                {renderTextField(row.internationalCards, index, 'internationalCards', row.services)}
                 </TableCell>
               </TableRow>
             ))}
@@ -204,11 +202,34 @@ const SecondTable: React.FC<IFeesRates.ITableEdtiting> = (props) => {
   )
 }
 
-const MerchantDiscountRate: React.FC<IFeesRates.ITableEdtiting> = (props) => {
+const MerchantDiscountRate: React.FC<any> = (props) => {
+  // props
+  const { cx, dataSource, setDataSource } = props;
+  
+  // constants
+  const { LIST_STEP: { 
+    feesAndRates: {
+    section: {
+      merchantDiscountRate: {
+        headersTableAcceptanceType, headersTableServices
+      }}}} 
+  } = STEP_RM
+
   return (
     <>
-      <FirstTable {...props }/>
-      <SecondTable {...props}/>
+      <FirstTable 
+        cx={cx}
+        headers={headersTableAcceptanceType} 
+        dataSource={dataSource.tableAcceptanceType}
+        setDataSource={setDataSource}
+      />
+
+      <SecondTable 
+        cx={cx}
+        headers={headersTableServices} 
+        dataSource={dataSource.tableServices}
+        setDataSource={setDataSource}
+      />
     </> 
   );
 }

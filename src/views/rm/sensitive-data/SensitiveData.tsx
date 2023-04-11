@@ -1,10 +1,7 @@
 // import modules
-import { Radio } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Box, Grid, TextField, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 
 // import images
@@ -21,20 +18,15 @@ import GroupRadio from "@/components/GroupRadio";
 // render UI
 const SensitiveData: React.FC<any> = (props) => {
   // props
-  const { listRadio, valueRadio, setValueRadio } = props;
+  const { listRadio, sensitiveData, setSensitiveData } = props;
 
   // classnames
   const cx = classnames.bind(styles);
-
-  //hooks
-  const dispatch = useDispatch();
-  const history = useHistory();
 
   // constants
   const {
     LIST_STEP: {
       sensitiveData: {
-        title,
         section: {
           labelDoYouStoreCreditCardDetails,
           labelIsTheDataProtected,
@@ -49,11 +41,37 @@ const SensitiveData: React.FC<any> = (props) => {
   //States
   const [radiosCreditCard, setRadiosCreditCard] = useState<any[]>(listRadio);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [valueEncryptionMethod, setValueEncryptionMethod] = useState<string>('');
 
   const toggleModal = () => {
     setIsOpenModal(!isOpenModal);
   }
-    
+
+  // handle value encode
+  const handleEncode = (val: string) => {
+    if (!val) {
+      return null;
+    }
+    const formattedText = "X".repeat(val.length);
+    return formattedText
+  }
+
+  // handle onChange textfield
+  const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setSensitiveData({
+      ...sensitiveData,
+      encryptionMethod: handleEncode(value),
+    });
+  };
+      
+  // set value encryptionMethod to state and value encoding 
+  useEffect(() => {
+    if (sensitiveData && sensitiveData.encryptionMethod) {
+      setValueEncryptionMethod(handleEncode(sensitiveData.encryptionMethod));
+    }
+  }, [sensitiveData])
+
   return (
     <>
       <ConfirmModal 
@@ -77,12 +95,12 @@ const SensitiveData: React.FC<any> = (props) => {
             <GroupRadio
               cx={cx}
               name="storeCreditCard"
-              value={valueRadio.storeCreditCard}
+              value={sensitiveData.storeCreditCard}
               listRadio={radiosCreditCard}
               onChange={(event) => {
                 const { value } = event.target;
-                setValueRadio({
-                  ...valueRadio,
+                setSensitiveData({
+                  ...sensitiveData,
                   storeCreditCard: value,
                 });
               }}
@@ -90,7 +108,7 @@ const SensitiveData: React.FC<any> = (props) => {
           </Grid>
 
           {/* Is the data protected by Hierachical Storage Management? */}
-          {valueRadio.storeCreditCard === "yes" && (
+          {sensitiveData.storeCreditCard === "yes" && (
             <>
               <Grid item xs={12}>
                 <Typography className={cx("sub-section-description")}>
@@ -100,44 +118,38 @@ const SensitiveData: React.FC<any> = (props) => {
                 <GroupRadio
                   cx={cx}
                   name="dataProtectedByHierachical"
-                  value={valueRadio.dataProtectedByHierachical}
+                  value={sensitiveData.dataProtectedByHierachical}
                   listRadio={radiosCreditCard}
                   onChange={(event) => {
                     const { value } = event.target;
-                    setValueRadio({
-                      ...valueRadio,
+                    setSensitiveData({
+                      ...sensitiveData,
                       dataProtectedByHierachical: value,
                     });
                   }}
                 />
               </Grid> 
 
-              {valueRadio.dataProtectedByHierachical === "no" && (
+              {sensitiveData.dataProtectedByHierachical === "no" && (
                 <Grid item xs={6}>
                   <Typography className={cx("sub-section-description")}>{labelPlaseIndicateYourEncryptionMethod}</Typography>
                   <TextField
                     fullWidth
-                    name="one_time_setup"
+                    name="encryptionMethod"
                     label={placeholderPlaseIndicateYourEncryptionMethod}
-                    // defaultValue={paramsFeeRates.refundable_fees}
-                    placeholder=""
+                    value={valueEncryptionMethod}
                     id={uuidv4()}
-                    type="password"
-                    // label={name.label}
+                    type="text"
                     variant="filled"
-                    // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-                    // {...register("authorised_person_details.name", {
-                    //   required: true,
-                    // })}
+                    onChange={handleOnChange}
                   />
-                  
                 </Grid> 
               )}
             </>
           )}
 
           {/* Are you compliant with the Payment Card Industry Data Security Standard (PCI DSS)? */}
-          {valueRadio.storeCreditCard === "yes" && (
+          {sensitiveData.storeCreditCard === "yes" && (
             <Grid item xs={12}>
               <Typography className={cx("sub-section-description")}>
                 {labelAreYouCompliantWithPaymentCard}
@@ -152,12 +164,12 @@ const SensitiveData: React.FC<any> = (props) => {
               <GroupRadio
                 cx={cx}
                 name="compliantWithThePaymentCardIndustry"
-                value={valueRadio.compliantWithThePaymentCardIndustry}
+                value={sensitiveData.compliantWithThePaymentCardIndustry}
                 listRadio={radiosCreditCard}
                 onChange={(event) => {
                   const { value } = event.target;
-                  setValueRadio({
-                    ...valueRadio,
+                  setSensitiveData({
+                    ...sensitiveData,
                     compliantWithThePaymentCardIndustry: value,
                   });
                 }}

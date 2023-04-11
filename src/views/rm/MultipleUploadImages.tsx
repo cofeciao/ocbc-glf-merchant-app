@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import classnames from "classnames/bind";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { Grid, Paper } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 
 // import icons
 import IconRemove from "@/assets/images/icon-remove.svg";
@@ -20,6 +20,7 @@ import { SUB_TITLE_UPLOAD_IMAGE } from "@/utils/constants-rm";
 
 // render UI
 const MultipleUploadImages: React.FC<IRmFlow.IMultipleUploadImages> = (props) => {
+  // props
   const { 
     onChange,
     onRemove,
@@ -32,7 +33,11 @@ const MultipleUploadImages: React.FC<IRmFlow.IMultipleUploadImages> = (props) =>
     name = "image-upload",
   } = props;
 
+  // classnames
   const cx = classnames.bind(styles);
+
+  // states
+  const [dragActive, setDragActive] = useState(false);
 
   const onFileChange = (e: any) => {
     if (!e.target.files) return;
@@ -41,11 +46,34 @@ const MultipleUploadImages: React.FC<IRmFlow.IMultipleUploadImages> = (props) =>
     file && onChange(file);
   };
 
+  // handle drag events
+  const handleDrag = function(e:any) {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  };
+
+  // triggers when file is dropped
+  const handleDrop = function(e: any) {
+    e.preventDefault();
+    e.stopPropagation();
+    setDragActive(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      if (!e.dataTransfer.files) return;
+      const file = e.dataTransfer.files[0];
+      file && onChange(file);
+    }
+  };
+
   return (
     <>
-     <div>
+     <form onDragEnter={handleDrag}>
         <input
-          accept="image/*, .pdf"
+          accept="image/*"
           id={name}
           // multiple
           type="file"
@@ -60,6 +88,14 @@ const MultipleUploadImages: React.FC<IRmFlow.IMultipleUploadImages> = (props) =>
               <span>{placeholder} <label>browse</label></span>
             </label>
             <div className={cx("sub-title")}>{SUB_TITLE_UPLOAD_IMAGE}</div>
+            {dragActive && 
+              <div id="drag-file-element" 
+                onDragEnter={handleDrag} 
+                onDragLeave={handleDrag} 
+                onDragOver={handleDrag} 
+                onDrop={handleDrop}>
+              </div> 
+            }
           </>
           <>
             {loading && (
@@ -75,7 +111,7 @@ const MultipleUploadImages: React.FC<IRmFlow.IMultipleUploadImages> = (props) =>
             <Grid container spacing={3}>
               {values.map((item: any, index: number) => {
                 return (
-                  <Grid item xs={6}>
+                  <Grid item xs={6} key={index}>
                     <div className={cx("upload-result")}>
                       <img src={IconImage} alt="icon image"/>
                       <div>
@@ -99,7 +135,7 @@ const MultipleUploadImages: React.FC<IRmFlow.IMultipleUploadImages> = (props) =>
               })}
             </Grid>
           </>
-      </div>
+      </form>
     </>
   );
 };

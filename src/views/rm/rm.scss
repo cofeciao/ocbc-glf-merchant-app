@@ -232,4 +232,49 @@
       gap: 40px;
     }
   }
+
+
+  .formatted-numberphone-input {
+    background: #fafcfc;
+    & .MuiInputBase-root {
+      height: 34px;
+      margin-top: 0;
+    }
+
+    .MuiInputLabel-root {
+      padding-left: 8px;
+    }
+
+    & label {
+      position: relative;
+      top: 5px;
+    }
+
+    & .formatted-numberphone-select {
+      padding-left: 8px;
+      & .MuiSelect-icon {
+        border-right: 1px solid #e2e7ec;
+        width: 60px;
+      }
+      & .MuiSelect-root {
+        padding-bottom: 5px;
+        padding-right: 50px;
+      }
+    }
+
+    input {
+      padding-left: 10px;
+    }
+  }
+}
+
+#drag-file-element {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
 }

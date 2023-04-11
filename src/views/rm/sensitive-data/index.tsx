@@ -29,6 +29,7 @@ import { ISensitive } from "./Sensitive";
 import SectionWrapper from "../SectionWrapper";
 import SensitiveData from "./SensitiveData";
 import UploadImage from "../UploadImage";
+import { saveDataSensitive } from "@/store/form";
 
 const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
   // hooks
@@ -53,12 +54,13 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
 
   // States
   const [loading, setLoading] = useState(false);
-  const [valueRadio, setValueRadio] = useState<any>({
+  const [sensitiveData, setSensitiveData] = useState<any>({
     storeCreditCard: "",
     dataProtectedByHierachical: "",
-    compliantWithThePaymentCardIndustry: ""
+    compliantWithThePaymentCardIndustry: "",
+    encryptionMethod: "",
+    certificate: null,
   }); 
-
 
   /**
    * Handle button prev
@@ -67,33 +69,60 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
     history.push(URL_MANUAL_FLOW.productsServices)
   }
 
-   /**
+  /**
    * Handle button next
    */
    const handleNext = async () => {
     history.push(URL_MANUAL_FLOW.beneficialOwnership);
+    getDataSensitiveStep(sensitiveData)
   }
 
-    /**
-   * render UI Button
-   * @returns {HTML}
+   /**
+   * Retrieves data of other service from Store
    */
-    const renderButton = () => {
-      return (
-        <Button 
-          backgroundClass="bgGunmetalBluegrey" 
-          onClick={handleNext}
-          // disabled={!isValid || !isDirty}
-        >
-          Next
-          <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
-        </Button>
-      )
-    }
+   const dataSensitiveStore = useSelector(
+    (state: any) =>
+      state.form.sensitiveStep
+  );
 
+  /**
+   * Set data from Transaction and card acceptance type section
+   * @param data
+   */
+  const getDataSensitiveStep = (datas: any) => {
+    dispatch(saveDataSensitive(datas));
+  };
+
+  /**
+ * render UI Button
+ * @returns {HTML}
+ */
+  const renderButton = () => {
+    return (
+      <Button 
+        backgroundClass="bgGunmetalBluegrey" 
+        onClick={handleNext}
+      >
+        Next
+        <ArrowForwardIcon className={cx('arrow', 'mrl-dt-5')} />
+      </Button>
+    )
+  }
+
+  useEffect(() => {
+    if(dataSensitiveStore && 
+      dataSensitiveStore.storeCreditCard ||
+      dataSensitiveStore.dataProtectedByHierachical ||
+      dataSensitiveStore.compliantWithThePaymentCardIndustry 
+    ) {
+      setSensitiveData(dataSensitiveStore)
+    }
+  }, [dataSensitiveStore])
+  
   return (
     <React.Fragment>
-      {loading && <div className={cx('container-loading')}>
+      {loading && 
+        <div className={cx('container-loading')}>
           <div className={cx('content-loading')}>
             <Loading />
           </div>
@@ -108,14 +137,29 @@ const Sensitive: React.FC<ISensitive.IProps> = forwardRef(({  }, ref) => {
         <SectionWrapper cx={cx} title={title}>
           <SensitiveData 
             listRadio={LIST_RADIO_YES_NO} 
-            valueRadio={valueRadio} 
-            setValueRadio={setValueRadio} 
+            sensitiveData={sensitiveData} 
+            setSensitiveData={setSensitiveData} 
           />
         </SectionWrapper>
         
-        {valueRadio.compliantWithThePaymentCardIndustry === "yes" && (
+        {sensitiveData.compliantWithThePaymentCardIndustry === "yes" && (
           <SectionWrapper cx={cx} title={labelUploadPCIDSSCerificate}>
-            <UploadImage onChange={(file: any) => console.log(file)} />
+            <UploadImage 
+              value={sensitiveData.certificate}
+              defaultImage={sensitiveData.certificate}
+              onChange={(file: any) => (
+                setSensitiveData({
+                  ...sensitiveData,
+                  certificate: file
+                })
+              )}
+              onRemove={() => {
+                setSensitiveData({
+                  ...sensitiveData,
+                  certificate: null
+                })
+              }}
+            />
           </SectionWrapper>
         )}
   

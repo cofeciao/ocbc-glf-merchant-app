@@ -1,120 +1,135 @@
-import { Box, Grid, TextField } from "@material-ui/core";
-import React from "react";
+import { Box, Grid, InputAdornment, TextField } from "@material-ui/core";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 // import types
 import { IFeesRates } from "./FeesRates";
+import { STEP_RM } from "@/utils/constants-rm";
 
 
 const Fees: React.FC<IFeesRates.IFees> = (props) => {
-  const { cx } = props;
+  // props
+  const { cx, form } = props;
+  const { setValue, register, watch } = form;
+
+  // constant
+  const {
+    LIST_STEP: {
+      feesAndRates: {
+        labelStartAdornment,
+        section: {
+          fees: {
+            titleFees,
+            annual,
+            oneTimeSetupFee,
+            perDomesticTransaction, 
+            perInternationTransaction,
+            tokenisation,
+            otherFees,
+            descriptionFees
+          },
+        }
+      },
+    },
+  } = STEP_RM;
+
+  // states
+  const [isSecurityDeposit, setIsSecurityDeposit] = useState<any>({
+    annual: false,
+    oneTimeSetupFee: false,
+    perDomesticTransaction: false,
+    perInternationTransaction: false,
+    tokenisation: false,
+    otherFees: false,
+  });
+
+  /**
+   * Handle numeric value from inputs
+   * @param event
+   */
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value, name } = event.target;
+    // Change value to thousand seperator, eg: 1000000 => 1,000,000
+    const sanitizedText = value.replace(/[^0-9]/g, "");
+    const formattedText = sanitizedText.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    setValue(name, formattedText);
+  };
+
+  /**
+  * render TextField SGD
+  */
+  const renderTextFieldSGD = (name: string, label: string) => {
+    return (
+      <TextField
+        fullWidth
+        variant="filled"
+        label={label}
+        name={name}
+        InputProps={
+          isSecurityDeposit[name] || watch()[name]
+            ? {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    {labelStartAdornment}
+                  </InputAdornment>
+                ),
+              }
+            : {}
+        }
+        onFocus={() => {
+          setIsSecurityDeposit({
+            ...isSecurityDeposit,
+            [name]: true
+          })
+        }}
+        {...register(name, {
+          required: true,
+          onChange: (event: React.ChangeEvent<HTMLInputElement>) => handleChange(event),
+          onBlur: (e: any) => {
+            e.target.value === ""
+              ? setIsSecurityDeposit({
+                ...isSecurityDeposit,
+                [name]: false
+              })
+              : null;
+          },
+        })}
+      />
+    )
+  }
+
   return (
     <Box className={cx("fees-form")}>
       <Grid container spacing={3}>
         <Grid item xs={6}>
-          <TextField
-            fullWidth
-            name="annual"
-            // defaultValue={paramsFeeRates.refundable_fees}
-            label="Annual"
-            id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-            // {...register("authorised_person_details.name", {
-            //   required: true,
-            // })}
-          />
+          {renderTextFieldSGD(annual.name, annual.label)}
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            fullWidth
-            name="one_time_setup"
-            // defaultValue={paramsFeeRates.refundable_fees}
-            label="One time setup fee"
-            id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-            // {...register("authorised_person_details.name", {
-            //   required: true,
-            // })}
-          />
+          {renderTextFieldSGD(oneTimeSetupFee.name, oneTimeSetupFee.label)}
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            fullWidth
-            name="per_domestic_transaction"
-            // defaulValue={paramsFeeRates.refundable_fees}
-            label="Per domestic transaction"
-            id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-            // {...register("authorised_person_details.name", {
-            //   required: true,
-            // })}
-          />
+          {renderTextFieldSGD(perDomesticTransaction.name, perDomesticTransaction.label)}
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            fullWidth
-            name="per_international_transaction"
-            // defaultValue={paramsFeeRates.refundable_fees}
-            label="Per international transaction"
-            id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-            // {...register("authorised_person_details.name", {
-            //   required: true,
-            // })}
-          />
+          {renderTextFieldSGD(perInternationTransaction.name, perInternationTransaction.label)}
         </Grid>
         <Grid item xs={6}>
-          <TextField
-            fullWidth
-            name="tokenisation"
-            // defaultValue={paramsFeeRates.refundable_fees}
-            label="Tokenisation"
-            id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-            // {...register("authorised_person_details.name", {
-            //   required: true,
-            // })}
-          />
+          {renderTextFieldSGD(tokenisation.name, tokenisation.label)}
         </Grid>
         <Grid item xs={6}></Grid>
         <Grid item xs={6}>
-          <TextField
-            fullWidth
-            name="otherFees"
-            // defaultValue={paramsFeeRates.refundable_fees}
-            label="Other fees"
-            id={uuidv4()}
-            // label={name.label}
-            variant="filled"
-            // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-            // {...register("authorised_person_details.name", {
-            //   required: true,
-            // })}
-          />
+          {renderTextFieldSGD(otherFees.name, otherFees.label)}
         </Grid>
         <Grid item xs={6}>
           <TextField
             fullWidth
-            name="description"
-            // defaultValue={paramsFeeRates.refundable_fees}
-            label="Description for other fees (optional)"
+            name={descriptionFees.name}
+            label={descriptionFees.label}
             id={uuidv4()}
-            // label={name.label}
             variant="filled"
-            // onChange={(e: any) => setParamsFeeRates({...paramsFeeRates, refundableFees: e.target.value})}
-            // {...register("authorised_person_details.name", {
-            //   required: true,
-            // })}
+            {...register(descriptionFees.name, {
+              required: true,
+            })}
           />
         </Grid>
       </Grid>

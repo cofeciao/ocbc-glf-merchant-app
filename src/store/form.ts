@@ -24,6 +24,10 @@ const Formslice = createSlice({
       contactDetail: {},
       authorisedPersonDetails: {},
     },
+    sensitiveStep: {},
+    beneficialOwnerShipStep: {},
+    feeAndRateStep: {},
+    feeAuthorisationStep: {},
     supplementaryDocumentStep: {
       authorisedSignatoryNRIC: [],
       tenacyDocumentOrSiteVisitPhotos: [],
@@ -96,6 +100,42 @@ const Formslice = createSlice({
     },
     saveDataProductsAndServicesPosRM: (state, action) => {
       state.productsAndServices.pointOfSales = action.payload;
+    },
+
+      /**
+     * function save data of Sensitive Data step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataSensitive: (state, action) => {
+      state.sensitiveStep = action.payload;
+    },
+
+    /**
+     * function save data of Beneficial Ownership step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataBeneficialOwnership: (state, action) => {
+      state.beneficialOwnerShipStep = action.payload;
+    },
+
+    /**
+     * function save data of Fee And Rates step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataFeeAndRates: (state, action) => {
+      state.feeAndRateStep = action.payload;
+    },
+
+    /**
+     * function save data of Fee Authorisation step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataFeeAuthorisation: (state, action) => {
+      state.feeAuthorisationStep = action.payload;
     },
 
     /**
@@ -177,6 +217,10 @@ export const {
   saveDataBusinessOperationDetails,
   saveDataProductsAndServicesEcomRM,
   saveDataProductsAndServicesPosRM,
+  saveDataSensitive,
+  saveDataBeneficialOwnership,
+  saveDataFeeAndRates,
+  saveDataFeeAuthorisation,
   saveDataSupplementaryDocument,
   saveDataCompanyAndContactInformationStep,
   saveDataAcraAndContactInformationStep,
