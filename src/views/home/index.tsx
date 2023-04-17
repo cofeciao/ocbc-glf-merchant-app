@@ -57,7 +57,7 @@ const Home: React.FC = () => {
   const cx = classnames.bind(styles);
   const history = useHistory();
 
-  // State
+  // state
   const [dataCardCheckbox, setDataCardCheckbox] = useState<ICheckBox[]>(
     CASHLESS_PAYMENTS_METHODS.data_list_checkbox
   );

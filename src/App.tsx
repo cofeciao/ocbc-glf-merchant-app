@@ -10,8 +10,6 @@ import propTypes from "prop-types";
 import routerRules from "./router";
 import theme from "./theme";
 import GlobalContext from "./common/GlobalContext";
-import { useEffect } from "react";
-import { trackingData } from "./utils/adobeTracking";
 import { createStore } from "@reduxjs/toolkit";
 import form from "./store/form";
 import { HashRouter } from "react-router-dom";
@@ -25,16 +23,6 @@ const App = (props: MFEPropsType) => {
   const store = createStore(form);
   const history = createBrowserHistory({ basename: activeRule });
 
-  useEffect(() => {
-    trackingData("", "");
-  }, []);
-
-  // call function adobe tracking
-  useEffect(() => {
-    return history.listen((location: any) => {
-      trackingData(location.pathname, "");
-    });
-  }, [history]);
   return (
     <StylesProvider generateClassName={generateClassName}>
       <ThemeProvider theme={theme}>

@@ -6,13 +6,11 @@ import { Box } from "@material-ui/core";
 import _ from "lodash";
 import { useHistory, useParams } from "react-router";
 
-
 // import constants
-import { TITLE_PAGE } from "@/utils/constants-rm";
+import { TITLE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./Acknowledgement.scss";
-import { adobeAbandon } from "@/utils/adobeTracking";
 
 // import components
 import Successful from "./Successful";
@@ -27,18 +25,29 @@ const Acknowledgement: React.FC = () => {
   const history = useHistory();
 
   /**
+   * Handle before unload
+   * @param event
+   */
+  const handleBeforeUnload = (event: any) => {
+    event.preventDefault();
+    event.returnValue = "";
+  };
+
+  /**
    * Detect reload page and start over
    */
   useEffect(() => {
     window.scrollTo(0, 0);
+    window.onload = function () {
+      window.addEventListener("beforeunload", handleBeforeUnload);
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
     if (history.action === "POP") {
       window.location.href = (process.env.myinfo as any).redirectUri;
     }
-    let trackingEvent = (window as any).attachEvent || window.addEventListener;
-    let chkevent = (window as any).attachEvent
-      ? "onbeforeunload"
-      : "beforeunload";
-    trackingEvent(chkevent, adobeAbandon);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
   }, []);
 
   // Render UI
