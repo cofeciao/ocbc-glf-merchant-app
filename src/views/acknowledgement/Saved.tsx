@@ -1,8 +1,7 @@
 // import modules
 import React from "react";
 import classnames from "classnames/bind";
-import { Category } from "@sectionsg/orc";
-import { Box, Container, Grid, Typography } from "@material-ui/core";
+
 import _ from "lodash";
 
 // import images
@@ -14,6 +13,10 @@ import { ACKNOWLEDGEMENT_PAGE } from "@/utils/constants";
 // import style
 import styles from "./Acknowledgement.scss";
 import { useSelector } from "react-redux";
+
+// import components
+import { Box, Container, Grid, Typography } from "@material-ui/core";
+import Category from "@/components/Category";
 
 const Saved: React.FC = () => {
   const {
@@ -35,9 +38,7 @@ const Saved: React.FC = () => {
         <Grid container spacing={2}>
           {/* {Category} */}
           <Grid item xs={12} lg={3}>
-            <Box className={cx("category-wrapper")}>
-              <Category>{title}</Category>
-            </Box>
+            <Category>{title}</Category>
           </Grid>
 
           {/* {Acknowledgement} */}

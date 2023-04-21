@@ -1,5 +1,4 @@
 // import modules
-import { Category } from "@sectionsg/orc";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ListCheckBox from "@/components/ListCheckBox";
@@ -7,8 +6,6 @@ import { saveDataTransactionAndCardAcceptanceTypeStep } from "@/store/form";
 import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
-import SectionWrapper from "@/views/self-serve/SectionWrapper";
-import RedirectButton from "@/views/self-serve/RedirectButton";
 import _ from "lodash";
 
 // import constants
@@ -19,6 +16,11 @@ import styles from "./TransactionAndCardAcceptanceType.scss";
 
 // import types
 import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
+
+// import components
+import Category from "@/components/Category";
+import SectionWrapper from "../SectionWrapper";
+import RedirectButton from "@/components/RedirectButton";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC = () => {
@@ -92,9 +94,7 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
       )}
     >
       {/* {Category} */}
-      <Box className={cx("category-wrapper")}>
-        <Category>{text}</Category>
-      </Box>
+      <Category>{text}</Category>
 
       {/* {Section Contact details} */}
       <SectionWrapper
@@ -115,7 +115,7 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
         />
       </SectionWrapper>
 
-      {/* {Next Button}  */}
+      {/* {Redirect Button}  */}
       <RedirectButton
         disabledNextButton={disabledButton}
         continueLater

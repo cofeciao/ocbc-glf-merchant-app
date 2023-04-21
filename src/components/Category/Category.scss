@@ -1,0 +1,18 @@
+.category-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  .highlight {
+    width: 60px;
+    height: 2px;
+    background: #e30613;
+  }
+  .title {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #363b40;
+  }
+}

@@ -60,18 +60,10 @@ input:-webkit-autofill {
 .self-serve-wrapper {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 56px;
 
   @media (max-width: 1024px) {
     display: block;
-  }
-
-  .step-wrapper {
-    .category-wrapper {
-      margin-bottom: 56px;
-      & > div::before {
-        background-color: #e30613;
-      }
-    }
   }
 
   & .MuiButtonBase-root {
@@ -229,18 +221,5 @@ input:-webkit-autofill {
 
   & .MuiInputBase-root {
     height: 57px;
-  }
-
-  .button-wrapper {
-    justify-content: space-between;
-    & > button {
-      border: 1px solid #3d525d;
-      max-width: 72px;
-      max-height: 52px;
-      & .MuiSvgIcon-root {
-        font-size: 25px;
-        color: #3d525d;
-      }
-    }
   }
 }

@@ -35,27 +35,15 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
 
   // states
   const [areaCode, setAreaCode] = useState<string>("+65");
-  const [numberPhone, setNumberPhone] = useState<string>("");
-  const [result, setResult] = useState<any>({});
-  const [valueContactNumber, setValueContactNumber] = useState<string>("");
-
-
-  /**
-   * Set errors with name case eg: "abc.xyz"
-   */
-  useEffect(() => {
-    if (_.size(name) && _.has(errors, name)) {
-      const keys = name.split("."); // ["a", "b"]
-      const reducer = keys.reduce((acc: any, key: string) => acc[key], errors);
-      setResult(reducer);
-    }
-  }, [valueContactNumber]);
+  const [numberPhone, setNumberPhone] = useState<string>(
+    _.get(dataRedux, name)
+  );
 
   /**
-   * contact number validation only apply for area code +65 (SG)
+   * Contact number validation only apply for area code +65 (SG)
    */
   useEffect(() => {
-    setValue(`${name}.areaCode`, areaCode);
+    setValue(`${name}AreaCode`, areaCode);
     if (areaCode === "+65") {
       if (!_.isEmpty(numberPhone) && numberPhone.length !== 8) {
         setError(name, {
@@ -77,7 +65,6 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
       });
     }
   }, [areaCode]);
-  console.log("errors", errors);
 
   /**
    * Prevent user typing non-number
@@ -95,25 +82,23 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
         type="text"
         label={label}
         value={numberPhone}
-        defaultValue={_.has(dataRedux, name) ? dataRedux[name] : ""}
         error={
-          _.has(result, "type") && _.isEqual(result.type, "required")
+          _.has(errors, name) && _.isEqual(_.get(errors, name).type, "required")
             ? false
-            : _.has(result, "type") &&
-              !_.isEqual(result.type, "required") &&
+            : _.has(errors, name) &&
+              !_.isEqual(_.get(errors, name).type, "required") &&
               true
         }
         helperText={
-          _.has(result, "type") && _.isEqual(result.type, "required")
+          _.has(errors, name) && _.isEqual(_.get(errors, name).type, "required")
             ? ""
-            : _.has(result, "type") &&
-              !_.isEqual(result.type, "required") &&
-              result.message
+            : _.has(errors, name) &&
+              !_.isEqual(_.get(errors, name).type, "required") &&
+              _.get(errors, name).message
         }
         {...register(name, {
           onChange: handleChangeContactNumber,
           onBlur: (event: ChangeEvent<HTMLInputElement>) => {
-            setValueContactNumber(event.target.value);
             if (event.target.value === "") {
               setValue(name, "");
               setError(name, {
@@ -136,13 +121,13 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
               <Select
                 renderValue={(value) => value}
                 IconComponent={ExpandMore}
-                name={`${name}.areaCode`}
-                onBlur={(event: any) => {
+                name={`${name}AreaCode`}
+                onChange={(event: any) => {
                   setAreaCode(event.target.value);
                 }}
                 defaultValue={
-                  _.has(dataRedux, `${name}.areaCode`)
-                    ? dataRedux.areaCode
+                  _.has(dataRedux, `${name}AreaCode`)
+                    ? _.get(dataRedux, `${name}AreaCode`)
                     : listCountry[0].value
                 }
                 MenuProps={{

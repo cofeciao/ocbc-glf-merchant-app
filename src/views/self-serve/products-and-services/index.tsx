@@ -1,19 +1,21 @@
 // import modules
-import { Category } from "@sectionsg/orc";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
-import RedirectButton from "@/views/self-serve/RedirectButton";
-import PointOfSalesForm from "./PointOfSalesForm";
 import _ from "lodash";
-import EcommerceForm from "./EcommerceForm";
 import { useForm } from "react-hook-form";
 import {
   saveDataProductsAndServicesEcom,
   saveDataProductsAndServicesPOS,
 } from "@/store/form";
+
+// import components
+import { Box } from "@material-ui/core";
+import RedirectButton from "@/components/RedirectButton";
+import PointOfSalesForm from "./PointOfSalesForm";
+import EcommerceForm from "./EcommerceForm";
+import Category from "@/components/Category";
 
 // import constants
 import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
@@ -97,9 +99,7 @@ const ProductsAndServices: React.FC = () => {
   return (
     <Box className={cx("products-and-services-wrapper step-wrapper")}>
       {/* {Category} */}
-      <Box className={cx("category-wrapper")}>
-        <Category>{text}</Category>
-      </Box>
+      <Category>{text}</Category>
 
       {/* {Dynamic main Form} */}
       {_.isEqual(optionSelected, "point-of-sales") ? (
@@ -161,7 +161,7 @@ const ProductsAndServices: React.FC = () => {
         </Box>
       )}
 
-      {/* {Next Button}  */}
+      {/* {Redirect Button}  */}
       <RedirectButton
         disabledNextButton={!isValid}
         continueLater

@@ -1,17 +1,14 @@
 // import modules
-import { Category } from "@sectionsg/orc";
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
 import { Box } from "@material-ui/core";
 import { useParams, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import SectionWrapper from "../SectionWrapper";
 import CompanyRegistration from "./CompanyRegistration";
 import ContactDetails from "./ContactDetails";
 import { saveDataCompanyAndContactInformationStep } from "@/store/form";
 import { useSelector } from "react-redux";
-import RedirectButton from "../RedirectButton";
 import _ from "lodash";
 
 // import constants
@@ -23,6 +20,11 @@ import {
 
 // import styles
 import styles from "./CompanyAndContactInformation.scss";
+
+// import components
+import Category from "@/components/Category";
+import RedirectButton from "@/components/RedirectButton";
+import SectionWrapper from "../SectionWrapper";
 
 // render UI
 const CompanyAndContactInformation: React.FC = () => {
@@ -85,9 +87,7 @@ const CompanyAndContactInformation: React.FC = () => {
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>
       {/* {Category} */}
-      <Box className={cx("category-wrapper")}>
-        <Category>{text}</Category>
-      </Box>
+      <Category>{text}</Category>
 
       {/* {Section Company registration} */}
       <SectionWrapper
@@ -123,18 +123,19 @@ const CompanyAndContactInformation: React.FC = () => {
         />
       </SectionWrapper>
 
-      {/* {Next Button} */}
+      {/* {Redirect Button} */}
       <RedirectButton
         disabledNextButton={!isValid}
         variant="next"
         onClickNext={() => {
           // redirect
-          history.push(
-            slug === "edit"
-              ? LIST_ROUTER.review_and_submit
-              : LIST_ROUTER.transaction_and_card_acceptance_type
-          );
-
+          const edit = localStorage.getItem("edit");
+          if (edit === "true") {
+            localStorage.setItem("edit", "false");
+            history.push(LIST_ROUTER.review_and_submit);
+          } else {
+            history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+          }
           // save to Redux
           dispatch(saveDataCompanyAndContactInformationStep(getValues()));
         }}
