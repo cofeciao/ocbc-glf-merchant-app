@@ -11,16 +11,16 @@ import ContinueLaterDialog from "@/views/self-serve/continue-later-dialog";
 import CloseIcon from "@/assets/images/icon-close.svg";
 
 // import styles
-import styles from "./SelfServe.scss";
+import styles from "./RedirectButton.scss";
 
 // import images
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
 
 // import type
-import { ISelfServe } from "./SelfServe";
+import { IRedirectButton } from "./RedirectButton";
 
-const RedirectButton: React.FC<ISelfServe.IRedirectButton> = (props) => {
+const RedirectButton = (props: IRedirectButton) => {
   const {
     variant,
     continueLater,
@@ -49,7 +49,7 @@ const RedirectButton: React.FC<ISelfServe.IRedirectButton> = (props) => {
   };
 
   return (
-    <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
+    <Box className={cx("button-wrapper")}>
       {/* {Back Button} */}
       {!_.isNil(backButton) && (
         <Button onClick={onClickBack} variant="outlined">

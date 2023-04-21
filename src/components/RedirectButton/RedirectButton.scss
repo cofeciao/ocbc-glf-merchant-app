@@ -1,0 +1,20 @@
+.button-wrapper {
+  justify-content: space-between;
+  & > button {
+    border: 1px solid #3d525d;
+    max-width: 72px;
+    max-height: 52px;
+    & .MuiSvgIcon-root {
+      font-size: 25px;
+      color: #3d525d;
+    }
+  }
+
+  a {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    text-decoration: none;
+    color: #005efd;
+  }
+}
