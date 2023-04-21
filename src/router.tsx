@@ -10,12 +10,6 @@ export default [
 
   // Self
   <Route exact path="/self/:slug" component={SelfServe} key="/self/:slug" />,
-  <Route
-    exact
-    path="/self/:slug/:slug"
-    component={SelfServe}
-    key="/self/:slug/:slug"
-  />,
 
   // Acknowledgement
   <Route

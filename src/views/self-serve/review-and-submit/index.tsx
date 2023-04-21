@@ -1,10 +1,14 @@
 // import modules
-import { Category } from "@sectionsg/orc";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
+import _ from "lodash";
+
+// import components
+import { Box } from "@material-ui/core";
+import Category from "@/components/Category";
+import Loading from "@/components/Loading";
 import SectionWrapper from "@/views/self-serve/SectionWrapper";
 import CashlessPaymentMethod from "./CashlessPaymentMethod";
 import CompanyAndContactInfomation from "./CompanyAndContactInfomation";
@@ -12,15 +16,13 @@ import TransactionAndCardAcceptanceType from "./TransactionAndCardAcceptanceType
 import AgreePolicy from "./AgreePolicy";
 import ProductsAndServices from "./ProductsAndServices";
 import BusinessDetails from "./BusinessDetails";
-import RedirectButton from "../RedirectButton";
-import _ from "lodash";
+import RedirectButton from "@/components/RedirectButton";
 
 // import constants
 import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
-import Loading from "@/components/Loading";
 
 // render UI
 const ReviewAndSubmit: React.FC = () => {
@@ -130,9 +132,7 @@ const ReviewAndSubmit: React.FC = () => {
       {loading && <Loading />}
 
       {/* {Category} */}
-      <Box className={cx("category-wrapper")}>
-        <Category>{text}</Category>
-      </Box>
+      <Category>{text}</Category>
 
       {/* {Section Cashless Payment Method} */}
       <SectionWrapper cx={cx} title={LABEL_CASHLESS_PAYMENT_METHOD}>
@@ -145,7 +145,8 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_COMPANY_REGISTRATION}
         edit={true}
         onClickEdit={() => {
-          history.push(`${LIST_ROUTER.company_and_contact_information}/edit`);
+          localStorage.setItem("edit", "true");
+          history.push(`${LIST_ROUTER.company_and_contact_information}`);
         }}
       >
         <CompanyAndContactInfomation data={companyAndContactInformationStep} />
@@ -157,9 +158,7 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE}
         edit={true}
         onClickEdit={() => {
-          history.push(
-            `${LIST_ROUTER.transaction_and_card_acceptance_type}/edit`
-          );
+          history.push(`${LIST_ROUTER.transaction_and_card_acceptance_type}`);
         }}
       >
         <TransactionAndCardAcceptanceType
@@ -173,7 +172,7 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_BUSINESS_DETAILS}
         edit={true}
         onClickEdit={() => {
-          history.push(`${LIST_ROUTER.business_details}/edit`);
+          history.push(`${LIST_ROUTER.business_details}`);
         }}
       >
         <BusinessDetails
@@ -189,7 +188,7 @@ const ReviewAndSubmit: React.FC = () => {
         title={LABEL_PRODUCTS_AND_SERVICES}
         edit={true}
         onClickEdit={() => {
-          history.push(`${LIST_ROUTER.products_and_services}/edit`);
+          history.push(`${LIST_ROUTER.products_and_services}`);
         }}
       >
         <ProductsAndServices
@@ -204,20 +203,22 @@ const ReviewAndSubmit: React.FC = () => {
       {/* {Agree Policy} */}
       <AgreePolicy onGetValue={(value: boolean) => setDisableButton(!value)} />
 
-      {/* {Next Button}  */}
-      <RedirectButton
-        disabledNextButton={disabledButton}
-        continueLater
-        backButton
-        isIcon={false}
-        variant="submit"
-        onClickBack={() => {
-          history.push(LIST_ROUTER.products_and_services);
-        }}
-        onClickNext={() => {
-          handleSubmit();
-        }}
-      />
+      {/* {Redirect Button}  */}
+      <Box className={cx("mt-dt-40")}>
+        <RedirectButton
+          disabledNextButton={disabledButton}
+          continueLater
+          backButton
+          isIcon={false}
+          variant="submit"
+          onClickBack={() => {
+            history.push(LIST_ROUTER.products_and_services);
+          }}
+          onClickNext={() => {
+            handleSubmit();
+          }}
+        />
+      </Box>
     </Box>
   );
 };
