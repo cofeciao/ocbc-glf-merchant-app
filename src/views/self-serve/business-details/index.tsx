@@ -1,17 +1,19 @@
 // import modules
-import { Category } from "@sectionsg/orc";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   saveDataBusinessDetailsStep,
   saveDataListWebsiteUrl,
 } from "@/store/form";
-import { Box } from "@material-ui/core";
 import classnames from "classnames/bind";
-import { useHistory, useParams } from "react-router-dom";
-import RedirectButton from "@/views/self-serve/RedirectButton";
-import BusinessDetailsForm from "./BusinessDetailsForm";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
+
+// import components
+import { Box } from "@material-ui/core";
+import RedirectButton from "@/components/RedirectButton";
+import BusinessDetailsForm from "./BusinessDetailsForm";
+import Category from "@/components/Category";
 
 // import constants
 import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
@@ -100,9 +102,7 @@ const BusinessDetails: React.FC = () => {
   return (
     <Box className={cx("business-details-wrapper step-wrapper")}>
       {/* {Category} */}
-      <Box className={cx("category-wrapper")}>
-        <Category>{text}</Category>
-      </Box>
+      <Category>{text}</Category>
 
       {/* {Form} */}
       <BusinessDetailsForm
@@ -119,7 +119,7 @@ const BusinessDetails: React.FC = () => {
         control={control}
       />
 
-      {/* {Next Button}  */}
+      {/* {Redirect Button}  */}
       <RedirectButton
         disabledNextButton={!isValid}
         continueLater

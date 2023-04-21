@@ -1,0 +1,51 @@
+.stepper-wrapper {
+  &.mobile-version {
+    .MuiGrid-container {
+      gap: 30px;
+      .MuiStep-horizontal {
+        padding: 0;
+      }
+
+      .MuiStepLabel-labelContainer {
+        display: none;
+      }
+
+      .MuiStepLabel-iconContainer {
+        padding: 0;
+      }
+    }
+  }
+
+  .MuiGrid-container {
+    .MuiPaper-root {
+      padding: 0;
+    }
+
+    .MuiStepConnector-vertical {
+      padding: 0;
+      margin-left: 16px;
+    }
+
+    .MuiStepIcon-root {
+      width: 32px;
+      height: 32px;
+      color: #b1b8c5;
+      &.MuiStepIcon-completed,
+      &.MuiStepIcon-active {
+        color: #567180;
+        text {
+          font-weight: 700;
+        }
+      }
+    }
+
+    .MuiStepLabel-labelContainer {
+      .MuiTypography-root {
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        color: #575d65;
+      }
+    }
+  }
+}

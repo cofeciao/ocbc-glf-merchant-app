@@ -1,30 +1,18 @@
 // import modules
-import {
-  Header,
-  Loading,
-  Category,
-} from "@sectionsg/orc";
-import {
-  Box,
-  Container,
-  Grid,
-  Button,
-  DialogContent,
-  Dialog,
-  TextField,
-} from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
 import React, { FocusEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+
+// import components
 import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
 import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
 import EntryDialog from "@/views/home/entry-dialog";
 import Captcha from "@/components/Captcha/captcha";
 
 // import images
-import CloseIcon from "@/assets/images/icon-close.svg"
+import CloseIcon from "@/assets/images/icon-close.svg";
 
 // import icons
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
@@ -44,7 +32,21 @@ import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // import style
 import styles from "./Home.scss";
+
+// import components
+import {
+  Box,
+  Container,
+  Grid,
+  Button,
+  DialogContent,
+  Dialog,
+  TextField,
+} from "@material-ui/core";
 import Footer from "@/components/Footer";
+import Category from "@/components/Category";
+import Header from "@/components/Header";
+import RedirectButton from "@/components/RedirectButton";
 
 // render UI
 const Home: React.FC = () => {
@@ -62,7 +64,6 @@ const Home: React.FC = () => {
     CASHLESS_PAYMENTS_METHODS.data_list_checkbox
   );
   const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
-  const [loading] = useState(false);
   const [interest, setInterest] = useState(false);
   const [openDialog, setOpenDialog] = useState<boolean>(true);
   const [captchaCode, setCaptchaCode] = useState<string>("");
@@ -145,7 +146,9 @@ const Home: React.FC = () => {
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        TransitionProps={{ style: { backgroundColor: "rgba(177, 184, 197, 0.7)" }}}
+        TransitionProps={{
+          style: { backgroundColor: "rgba(177, 184, 197, 0.7)" },
+        }}
       >
         <div className={cx("icon-close")}>
           <img src={CloseIcon} alt="icon close" onClick={handleRollBackPage} />
@@ -155,31 +158,17 @@ const Home: React.FC = () => {
         </DialogContent>
       </Dialog>
 
-      {/* {Loading} */}
-      {loading && (
-        <Box className={cx("container-loading")}>
-          <Box className={cx("content-loading")}>
-            <Loading />
-          </Box>
-        </Box>
-      )}
-
       {/* {Header} */}
-      <Header
-        namePage={TITLE_PAGE}
-        backLink={{ name: TITLE_PAGE, href: LINK_EXTERNAL_PAGE }}
-      />
+      <Header title={TITLE_PAGE} logoHref={LINK_EXTERNAL_PAGE} />
 
       {/* {Container} */}
       <Container className={cx("container")}>
         <Box className={cx("home-page-wrapper")}>
           <Grid container>
             {/* {Column left} */}
-            <Grid item xs={12} md={3}>
+            <Grid item xs={12} lg={3}>
               {/* Category */}
-              <Box className="home-category">
-                <Category class="">{TITLE_CASHLESS_PAYMENTS_HOME}</Category>
-              </Box>
+              <Category>{TITLE_CASHLESS_PAYMENTS_HOME}</Category>
             </Grid>
 
             {/* {Column right} */}
@@ -267,21 +256,12 @@ const Home: React.FC = () => {
               <Box id={cx("divider")} />
 
               {/* {Next Button} */}
-              <Box
-                className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
-              >
-                <Button
-                  variant="contained"
-                  disabled={hasDataCheckbox || !exactCaptcha}
-                  onClick={handleClickButton}
-                >
-                  {START}
-                  <img
-                    src={IconArrowRight}
-                    alt="icon arrow right"
-                    className={cx("arrow", "mrl-dt-5")}
-                  />
-                </Button>
+              <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
+                <RedirectButton
+                  disabledNextButton={hasDataCheckbox || !exactCaptcha}
+                  variant="start"
+                  onClickNext={handleClickButton}
+                />
               </Box>
             </Grid>
           </Grid>

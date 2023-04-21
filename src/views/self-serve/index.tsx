@@ -1,16 +1,19 @@
 // import modules
 import React, { useEffect } from "react";
-import { useHistory, useLocation } from "react-router-dom";
-import { Container } from "@material-ui/core";
+import { useLocation } from "react-router-dom";
 import classnames from "classnames/bind";
-import { Header, FormLayout, Tabs } from "@sectionsg/orc";
+import _ from "lodash";
+
+// import components
 import CompanyAndContactInformation from "@/views/self-serve/company-and-contact-information";
 import TransactionAndCardAcceptanceType from "@/views/self-serve/transaction-and-card-acceptance-type";
 import BusinessDetails from "@/views/self-serve/business-details";
 import ProductsAndServices from "@/views/self-serve/products-and-services";
 import ReviewAndSubmit from "@/views/self-serve/review-and-submit";
 import Footer from "@/components/Footer";
-import _ from "lodash";
+import Stepper from "@/components/Stepper";
+import { Container } from "@material-ui/core";
+import Header from "@/components/Header";
 
 // import constants
 import {
@@ -21,9 +24,7 @@ import {
 
 // import style
 import styles from "@/views/self-serve/SelfServe.scss";
-
-// import types
-import { ISelfServe } from "./SelfServe";
+import { useHistory } from "react-router";
 
 // render UI
 const SelfServe: React.FC = () => {
@@ -65,10 +66,11 @@ const SelfServe: React.FC = () => {
   };
 
   /**
-   * Dynamic stepper
+   * Get all step data
+   * @returns
    */
-  const handleDetectDynamicStepper = () => {
-    const dataListStep: ISelfServe.IDataStepper[] = [];
+  const getSteps = () => {
+    const dataListStep: any = [];
     Object.values(LIST_STEP).forEach((item) => {
       dataListStep.push(item.data);
     });
@@ -76,62 +78,39 @@ const SelfServe: React.FC = () => {
   };
 
   /**
-   * Handle click into on stepper
-   * @param {string} path - Slug for page
+   *  Content's steps
+   * @returns
    */
-  const handleClick = (path: string) => {
-    history.push(`/self/${path}`);
+  const getStepContent = () => {
+    switch (pathStep) {
+      case LIST_STEP.companyAndContactInformation.id:
+        return <CompanyAndContactInformation />;
+      case LIST_STEP.transactionAndCardAcceptanceType.id:
+        return <TransactionAndCardAcceptanceType />;
+      case LIST_STEP.businessDetails.id:
+        return <BusinessDetails />;
+      case LIST_STEP.productsAndService.id:
+        return <ProductsAndServices />;
+      case LIST_STEP.reviewAndSubmit.id:
+        return <ReviewAndSubmit />;
+      default:
+        return <></>;
+    }
   };
 
   // Render UI
   return (
     <>
       {/* {Header} */}
-      <Header
-        namePage={TITLE_PAGE}
-        backLink={{ name: TITLE_PAGE, href: LINK_EXTERNAL_PAGE }}
-      />
+      <Header title={TITLE_PAGE} logoHref={LINK_EXTERNAL_PAGE} />
 
-      {/* {Content} */}
+      {/* {Stepper} */}
       <Container className={cx("container")}>
         <section className={cx("self-serve-wrapper")}>
-          <FormLayout
-            isMyInfo={true}
-            tabs={
-              <Tabs
-                tabId={pathStep}
-                dataTabs={handleDetectDynamicStepper()}
-                handleClick={handleClick}
-              />
-            }
-            content={
-              <>
-                {/* {CompanyAndContactInformation} */}
-                {pathStep === LIST_STEP.companyAndContactInformation.id && (
-                  <CompanyAndContactInformation />
-                )}
-
-                {/* {TransactionAndCardAcceptanceType} */}
-                {pathStep === LIST_STEP.transactionAndCardAcceptanceType.id && (
-                  <TransactionAndCardAcceptanceType />
-                )}
-
-                {/* {BusinessDetails} */}
-                {pathStep === LIST_STEP.businessDetails.id && (
-                  <BusinessDetails />
-                )}
-
-                {/* {ProductsAndServices} */}
-                {pathStep === LIST_STEP.productsAndService.id && (
-                  <ProductsAndServices />
-                )}
-
-                {/* {ReviewAndSubmit} */}
-                {pathStep === LIST_STEP.reviewAndSubmit.id && (
-                  <ReviewAndSubmit />
-                )}
-              </>
-            }
+          <Stepper
+            getStepContent={getStepContent}
+            getSteps={getSteps}
+            pathStep={pathStep}
           />
         </section>
       </Container>

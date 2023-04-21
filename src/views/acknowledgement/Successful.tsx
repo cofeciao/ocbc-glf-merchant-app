@@ -1,8 +1,6 @@
 // import modules
 import React from "react";
 import classnames from "classnames/bind";
-import { Category } from "@sectionsg/orc";
-import { Box, Container, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
 
 // import images
@@ -13,6 +11,10 @@ import { ACKNOWLEDGEMENT_PAGE } from "@/utils/constants";
 
 // import style
 import styles from "./Acknowledgement.scss";
+
+// import components
+import { Box, Container, Grid, Typography } from "@material-ui/core";
+import Category from "@/components/Category";
 
 const Successful: React.FC = () => {
   const {
@@ -29,9 +31,7 @@ const Successful: React.FC = () => {
         <Grid container spacing={2}>
           {/* {Category} */}
           <Grid item xs={12} lg={3}>
-            <Box className={cx("category-wrapper")}>
-              <Category>{LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS}</Category>
-            </Box>
+            <Category>{LABEL_APPLY_FOR_OCBC_CASHLESS_PAYMENTS}</Category>
           </Grid>
 
           {/* {Acknowledgement} */}
