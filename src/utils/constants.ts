@@ -33,6 +33,7 @@ export const ACKNOWLEDGEMENT_PAGE = {
   LABEL_THANK_YOU_FOR_YOUR_INTEREST: "Thank you for your interest!",
   LABEL_TO_APPLY_FOR_PAYNOW_PLEASE_VISIT: "To apply for PayNow, please visit",
   LABEL_BUSINESS_INTERNET_BANKING: "Business Internet Banking",
+  LABEL_DOWNLOAD_APPLICATION: "Download application",
   SAVED: {
     title: "Your application is saved",
     description: {
