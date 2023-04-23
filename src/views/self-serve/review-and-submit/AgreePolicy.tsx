@@ -12,6 +12,8 @@ import styles from "./ReviewAndSubmit.scss";
 // import types
 import { IReviewAndSubmit } from "./ReviewAndSubmit";
 import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
+import { useDispatch } from "react-redux";
+import { saveDataAgreePolicy } from "@/store/form";
 
 // render UI
 const AgreePolicy: React.FC<IReviewAndSubmit.IAgreePolicy> = (props) => {
@@ -21,6 +23,7 @@ const AgreePolicy: React.FC<IReviewAndSubmit.IAgreePolicy> = (props) => {
   const [listPolicy, setListPolicy] = useState<ICheckBox[]>(
     LIST_CHECKBOX_AGREE_POLICY.listCheckbox
   );
+  const dispatch = useDispatch();
 
   /**
    * Check policy checkbox to handling submit button
@@ -51,6 +54,7 @@ const AgreePolicy: React.FC<IReviewAndSubmit.IAgreePolicy> = (props) => {
           <GroupCheckBox
             listCheckbox={listPolicy}
             getValueOnChange={(value: ICheckBox[]) => {
+              dispatch(saveDataAgreePolicy(value));
               setListPolicy(value);
             }}
           />

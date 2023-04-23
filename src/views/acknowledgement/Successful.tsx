@@ -68,6 +68,13 @@ const Successful: React.FC = () => {
     (state: any) => state.form.productsAndServicesStep
   );
 
+  /**
+   * Retrieves data of Products And Services step from Store
+   */
+  const reviewAndSubmitStep = useSelector(
+    (state: any) => state.form.reviewAndSubmit.agreePolicy
+  );
+
   const [instance, update] = usePDF({ 
     document: <PDF 
       cashlessPaymentsMethods={cashlessPaymentsMethods} 
@@ -75,6 +82,7 @@ const Successful: React.FC = () => {
       transactionAndCardAcceptanceTypeStep={transactionAndCardAcceptanceTypeStep}
       businessDetailsStep={businessDetailsStep}
       productsAndServicesStep={productsAndServicesStep}
+      reviewAndSubmitStep={reviewAndSubmitStep}
     />
   })
 

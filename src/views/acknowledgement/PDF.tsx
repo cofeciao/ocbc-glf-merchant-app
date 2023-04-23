@@ -14,8 +14,6 @@ import IconCheckbox from "@/assets/images/Checkbox.png";
 import IconCheckboxed from "@/assets/images/Checkboxed.png";
 
 import { SELF_SERVE_PAGE } from '@/utils/constants';
-import { useSelector } from 'react-redux';
-import _ from 'lodash';
 
 // types
 interface IPdf {
@@ -23,7 +21,8 @@ interface IPdf {
   companyAndContactInformationStep: any;
   transactionAndCardAcceptanceTypeStep: any;
   businessDetailsStep: any;
-  productsAndServicesStep: any
+  productsAndServicesStep: any;
+  reviewAndSubmitStep: any
 }
 
 // styles
@@ -164,7 +163,8 @@ const PDF = ({
   companyAndContactInformationStep,
   transactionAndCardAcceptanceTypeStep,
   businessDetailsStep,
-  productsAndServicesStep
+  productsAndServicesStep,
+  reviewAndSubmitStep
 }: IPdf) => {
 
   const {
@@ -185,6 +185,7 @@ const PDF = ({
     LABEL_EMAIL,
     LABEL_CONTACT_NUMBER,
 
+    LIST_CHECKBOX_AGREE_POLICY,
     LIST_STEP: {
       reviewAndSubmit: { text },
     },
@@ -359,26 +360,16 @@ const PDF = ({
         {/* Section Rules */}
         <View style={[styles.section, styles.rule]}>
           <View style={styles.divider}></View>
-          <Text style={styles.subTitle}>Before submitting your application, please ensure that you read and understand the following:</Text>
+          <Text style={styles.subTitle}>{LIST_CHECKBOX_AGREE_POLICY.description}</Text>
           
-          <View style={{display: "flex", flexDirection: "row", marginTop: 10}}>
-            <Image style={{ width: "15px", height: "15px", textAlign: "right", marginRight: 10 }} src={IconCheckboxed} />
-            <Text style={[styles.labelCheckbox, styles.content]}>I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.</Text>
-          </View>
-
-          <View style={{display: "flex", flexDirection: "row", marginTop: 10}}>
-            <Image style={{ width: "15px", height: "15px", textAlign: "right", marginRight: 10 }} src={IconCheckbox} />
-            <Text style={[styles.labelCheckbox, styles.content]}>
-              I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.
-            </Text>
-          </View>
-
-          <View style={{display: "flex", flexDirection: "row", marginTop: 10}}>
-            <Image style={{ width: "15px", height: "15px", textAlign: "right", marginRight: 10 }} src={IconCheckbox} />
-            <Text style={[styles.labelCheckbox, styles.content]}>
-              I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.
-            </Text>
-          </View>        
+          {reviewAndSubmitStep && reviewAndSubmitStep.map((item: any, index: number) => {
+            return (
+              <View style={{display: "flex", flexDirection: "row", marginTop: 10}} key={index}>
+                <Image style={{ width: "15px", height: "15px", textAlign: "right", marginRight: 10 }} src={item.checked ? IconCheckboxed : IconCheckbox} />
+                <Text style={[styles.labelCheckbox, styles.content]}>{item.label}</Text>
+              </View>
+            )
+          })}
         </View>
       </Page>
     </Document>

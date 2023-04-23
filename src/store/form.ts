@@ -45,6 +45,9 @@ const Formslice = createSlice({
       pointOfSales: {},
       eCommerce: {},
     },
+    reviewAndSubmit: {
+      agreePolicy: []
+    }
   },
   reducers: {
     /**
@@ -206,6 +209,15 @@ const Formslice = createSlice({
     saveDataAcraDetailStep: (state, action) => {
       state.dataAcraDetail = action.payload;
     },
+
+     /**
+     * function save data of step Review and Submit
+     * @param state - State for form
+     * @param action  - Payload
+     */
+     saveDataAgreePolicy: (state, action) => {
+      state.reviewAndSubmit.agreePolicy = action.payload;
+    },
   },
 });
 
@@ -230,6 +242,7 @@ export const {
   saveDataListWebsiteUrl,
   saveDataProductsAndServicesEcom,
   saveDataProductsAndServicesPOS,
+  saveDataAgreePolicy,
 } = Formslice.actions;
 
 export default Formslice.reducer;
