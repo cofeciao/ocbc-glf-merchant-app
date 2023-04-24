@@ -1,19 +1,20 @@
-import React from 'react';
-import { 
-  Page, 
-  Text, 
-  View, 
-  Document, 
-  StyleSheet, 
-  Font, 
-  Image 
-} from '@react-pdf/renderer';
+import React from "react";
+import {
+  Page,
+  Text,
+  View,
+  Document,
+  StyleSheet,
+  Font,
+  Image,
+} from "@react-pdf/renderer";
 
 // import images
 import IconCheckbox from "@/assets/images/Checkbox.png";
 import IconCheckboxed from "@/assets/images/Checkboxed.png";
 
-import { SELF_SERVE_PAGE } from '@/utils/constants';
+import { SELF_SERVE_PAGE } from "@/utils/constants";
+import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
 
 // types
 interface IPdf {
@@ -22,17 +23,17 @@ interface IPdf {
   transactionAndCardAcceptanceTypeStep: any;
   businessDetailsStep: any;
   productsAndServicesStep: any;
-  reviewAndSubmitStep: any
+  reviewAndSubmitStep: any;
 }
 
 // styles
 Font.register({
-  family: 'OpenSans',
+  family: "OpenSans",
   fonts: [
     {
       src: '"../fonts/OpenSans-Light.ttf"',
       fontStyle: "normal",
-      fontWeight: 300
+      fontWeight: 300,
     },
     {
       src: '"../fonts/OpenSans-Light.ttf"',
@@ -41,40 +42,40 @@ Font.register({
     },
     {
       src: '"../fonts/OpenSans-Light.ttf"',
-      fontWeight: 'normal',
-      fontStyle: 'normal',
+      fontWeight: "normal",
+      fontStyle: "normal",
     },
     {
       src: '"../fonts/OpenSans-Light.ttf"',
-      fontWeight: 'normal',
-      fontStyle: 'italic',
-    },
-    {
-      src: '"../fonts/OpenSans-Light.ttf"',
-      fontWeight: 600,
-      fontStyle: 'normal',
+      fontWeight: "normal",
+      fontStyle: "italic",
     },
     {
       src: '"../fonts/OpenSans-Light.ttf"',
       fontWeight: 600,
-      fontStyle: 'italic',
+      fontStyle: "normal",
+    },
+    {
+      src: '"../fonts/OpenSans-Light.ttf"',
+      fontWeight: 600,
+      fontStyle: "italic",
     },
     {
       src: '"../fonts/OpenSans-Light.ttf"',
       fontWeight: "bold",
-      fontStyle: 'normal',
+      fontStyle: "normal",
     },
     {
       src: '"../fonts/OpenSans-Light.ttf"',
       fontWeight: "bold",
-      fontStyle: 'italic',
+      fontStyle: "italic",
     },
   ],
 });
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'column',
+    flexDirection: "column",
   },
 
   titleReviewPage: {
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomWidth: 2,
     marginBottom: 10,
-    width: 60
+    width: 60,
   },
 
   section: {
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: "#777E87",
     marginBottom: 4,
-    marginTop: 20
+    marginTop: 20,
   },
 
   content: {
@@ -130,8 +131,8 @@ const styles = StyleSheet.create({
   },
 
   groupItem: {
-    display: "flex", 
-    flexDirection: "row", 
+    display: "flex",
+    flexDirection: "row",
   },
 
   item: {
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
   },
 
   rule: {
-    marginTop: 10
+    marginTop: 10,
   },
 
   divider: {
@@ -149,13 +150,13 @@ const styles = StyleSheet.create({
   },
 
   labelCheckbox: {
-    flex: 3
+    flex: 3,
   },
-  
+
   images: {
     marginVertical: 15,
     marginHorizontal: 100,
-  }
+  },
 });
 
 const PDF = ({
@@ -164,16 +165,15 @@ const PDF = ({
   transactionAndCardAcceptanceTypeStep,
   businessDetailsStep,
   productsAndServicesStep,
-  reviewAndSubmitStep
+  reviewAndSubmitStep,
 }: IPdf) => {
-
   const {
     LABEL_CASHLESS_PAYMENT_METHOD,
     LABEL_COMPANY_REGISTRATION,
     LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE,
     LABEL_BUSINESS_DETAILS,
     LABEL_PRODUCTS_AND_SERVICES,
-
+    LABEL_SERVICE,
     LABEL_MODE,
     LABEL_CONTACT_DETAILS,
     LABEL_UNIQUE_ENTITY_NUMBER,
@@ -184,7 +184,7 @@ const PDF = ({
     LABEL_DESIGNATION,
     LABEL_EMAIL,
     LABEL_CONTACT_NUMBER,
-
+    LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA,
     LIST_CHECKBOX_AGREE_POLICY,
     LIST_STEP: {
       reviewAndSubmit: { text },
@@ -196,13 +196,12 @@ const PDF = ({
       <>
         <Text style={styles.title}>{title}</Text>
       </>
-    )
-  }
+    );
+  };
 
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-
         <View style={styles.section}>
           <View style={styles.dividerFirst}></View>
           <Text style={styles.titleReviewPage}>{text}</Text>
@@ -212,9 +211,12 @@ const PDF = ({
         <View style={styles.section}>
           {renderSection(LABEL_CASHLESS_PAYMENT_METHOD)}
           <Text style={styles.subTitle}>{LABEL_MODE}</Text>
-          {cashlessPaymentsMethods && cashlessPaymentsMethods.map((item: any, index: number) => (
-            <Text key={index} style={styles.content}>{item.label ? `${item.label}` : "-"}</Text>
-          ))}
+          {cashlessPaymentsMethods &&
+            cashlessPaymentsMethods.map((item: any, index: number) => (
+              <Text key={index} style={styles.content}>
+                {item.label ? `${item.label}` : "-"}
+              </Text>
+            ))}
         </View>
 
         {/* Section Company registration */}
@@ -222,81 +224,121 @@ const PDF = ({
           {renderSection(LABEL_COMPANY_REGISTRATION)}
           <View style={styles.groupItem}>
             <View style={styles.item}>
-              <Text style={styles.subTitle}>{LABEL_REGISTERED_ENTITY_NAME}</Text>
-              <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.registeredEntityName}</Text>
+              <Text style={styles.subTitle}>
+                {LABEL_REGISTERED_ENTITY_NAME}
+              </Text>
+              <Text style={styles.content}>
+                {companyAndContactInformationStep &&
+                  companyAndContactInformationStep.registeredEntityName}
+              </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.subTitle}>{LABEL_COMPANY_TYPE}</Text>
-              <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.companyType}</Text>
+              <Text style={styles.content}>
+                {companyAndContactInformationStep &&
+                  companyAndContactInformationStep.companyType}
+              </Text>
             </View>
           </View>
 
           <Text style={styles.subTitle}>{LABEL_UNIQUE_ENTITY_NUMBER}</Text>
-          <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.uniqueEntityNumber}</Text>
+          <Text style={styles.content}>
+            {companyAndContactInformationStep &&
+              companyAndContactInformationStep.uniqueEntityNumber}
+          </Text>
 
           <Text style={styles.title1}>{LABEL_CONTACT_DETAILS}</Text>
 
           <Text style={styles.subTitle}>{LABEL_SALUTATION}</Text>
-          <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.salutation}</Text>
+          <Text style={styles.content}>
+            {companyAndContactInformationStep &&
+              companyAndContactInformationStep.salutation}
+          </Text>
 
           <View style={styles.groupItem}>
             <View style={styles.item}>
               <Text style={styles.subTitle}>{LABEL_NAME}</Text>
-              <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.name}</Text>
+              <Text style={styles.content}>
+                {companyAndContactInformationStep &&
+                  companyAndContactInformationStep.name}
+              </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.subTitle}>{LABEL_DESIGNATION}</Text>
-              <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.designation}</Text>
+              <Text style={styles.content}>
+                {companyAndContactInformationStep &&
+                  companyAndContactInformationStep.designation}
+              </Text>
             </View>
           </View>
 
           <View style={styles.groupItem}>
             <View style={styles.item}>
               <Text style={styles.subTitle}>{LABEL_EMAIL}</Text>
-              <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.email}</Text>
+              <Text style={styles.content}>
+                {companyAndContactInformationStep &&
+                  companyAndContactInformationStep.email}
+              </Text>
             </View>
             <View style={styles.item}>
               <Text style={styles.subTitle}>{LABEL_CONTACT_NUMBER}</Text>
-              <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.areaCode}</Text>
-              <Text style={styles.content}>{companyAndContactInformationStep && companyAndContactInformationStep.contactNumber}</Text>
+              <Text style={styles.content}>
+                {companyAndContactInformationStep &&
+                  companyAndContactInformationStep.areaCode}
+              </Text>
+              <Text style={styles.content}>
+                {companyAndContactInformationStep &&
+                  companyAndContactInformationStep.contactNumber}
+              </Text>
             </View>
           </View>
-
         </View>
 
         {/* Section Transaction and card acceptance type  */}
         <View style={styles.section}>
           {renderSection(LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE)}
-          <View style={styles.groupItem}>
-            <View style={styles.item}>
-              <Text style={styles.subTitle}>Service</Text>
-              <Text style={styles.content}>Point-of-Sales terminal</Text>
-            </View>
-            <View style={styles.item}>
-              <Text style={styles.subTitle}>Payment options</Text>
-              <View style={styles.groupItem}>
-                <View style={styles.item}>
-                  <Text style={styles.content}>VISA</Text>
-                  <Text style={styles.content}>Mastercard</Text>
-                  <Text style={styles.content}>Alipay</Text>
-                  <Text style={styles.content}>JCB</Text>
+          {transactionAndCardAcceptanceTypeStep &&
+            transactionAndCardAcceptanceTypeStep.map((item: any) => {
+              return (
+                <View style={styles.groupItem}>
+                  <View style={styles.item}>
+                    <Text style={styles.subTitle}>{LABEL_SERVICE}</Text>
+                    <Text style={styles.content}>{item.label}</Text>
+                  </View>
+                  <View style={styles.item}>
+                    <Text style={styles.subTitle}>
+                      {LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA}
+                    </Text>
+                    <View style={styles.groupItem}>
+                      <View style={styles.item}>
+                        {item.expandedListCheckbox.listCheckbox.map(
+                          (item: ICheckBox) => {
+                            if (item.checked) {
+                              return (
+                                <>
+                                  <Text style={styles.content}>
+                                    {item.label}
+                                  </Text>
+                                </>
+                              );
+                            }
+                          }
+                        )}
+                      </View>
+                    </View>
+                  </View>
                 </View>
-                <View style={styles.item}>
-                  <Text style={styles.content}>UnionPay</Text>
-                  <Text style={styles.content}>WeChat Pay</Text>
-                  <Text style={styles.content}>OCBC Intalment</Text>
-                  <Text style={styles.content}>Paynow</Text>
-                </View>
-              </View>
-            </View>
-          </View>
+              );
+            })}
         </View>
 
         {/* Section Business details */}
         <View style={styles.section} break>
           {renderSection(LABEL_BUSINESS_DETAILS)}
 
-          <Text style={styles.subTitle}>Number of outlets with Point-of-Sales termimals</Text>
+          <Text style={styles.subTitle}>
+            Number of outlets with Point-of-Sales termimals
+          </Text>
           <Text style={styles.content}>10</Text>
 
           <Text style={styles.subTitle}>Business ready to operate</Text>
@@ -330,7 +372,9 @@ const PDF = ({
               <Text style={styles.content}>Warehouse</Text>
             </View>
             <View style={styles.item}>
-              <Text style={styles.subTitle}>Card payment available at retail store</Text>
+              <Text style={styles.subTitle}>
+                Card payment available at retail store
+              </Text>
               <Text style={styles.content}>Yes</Text>
             </View>
           </View>
@@ -347,11 +391,15 @@ const PDF = ({
 
           <View style={styles.groupItem}>
             <View style={styles.item} fixed>
-              <Text style={styles.subTitle}>Average amount per credit card transaction</Text>
+              <Text style={styles.subTitle}>
+                Average amount per credit card transaction
+              </Text>
               <Text style={styles.content}>SGD 100</Text>
             </View>
             <View style={styles.item} fixed>
-              <Text style={styles.subTitle}>Annual credit card sales forecast</Text>
+              <Text style={styles.subTitle}>
+                Annual credit card sales forecast
+              </Text>
               <Text style={styles.content}>SGD 1,000,000</Text>
             </View>
           </View>
@@ -360,20 +408,40 @@ const PDF = ({
         {/* Section Rules */}
         <View style={[styles.section, styles.rule]}>
           <View style={styles.divider}></View>
-          <Text style={styles.subTitle}>{LIST_CHECKBOX_AGREE_POLICY.description}</Text>
-          
-          {reviewAndSubmitStep && reviewAndSubmitStep.map((item: any, index: number) => {
-            return (
-              <View style={{display: "flex", flexDirection: "row", marginTop: 10}} key={index}>
-                <Image style={{ width: "15px", height: "15px", textAlign: "right", marginRight: 10 }} src={item.checked ? IconCheckboxed : IconCheckbox} />
-                <Text style={[styles.labelCheckbox, styles.content]}>{item.label}</Text>
-              </View>
-            )
-          })}
+          <Text style={styles.subTitle}>
+            {LIST_CHECKBOX_AGREE_POLICY.description}
+          </Text>
+
+          {reviewAndSubmitStep &&
+            reviewAndSubmitStep.map((item: any, index: number) => {
+              return (
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    marginTop: 10,
+                  }}
+                  key={index}
+                >
+                  <Image
+                    style={{
+                      width: "15px",
+                      height: "15px",
+                      textAlign: "right",
+                      marginRight: 10,
+                    }}
+                    src={item.checked ? IconCheckboxed : IconCheckbox}
+                  />
+                  <Text style={[styles.labelCheckbox, styles.content]}>
+                    {item.label}
+                  </Text>
+                </View>
+              );
+            })}
         </View>
       </Page>
     </Document>
-  )
-}
+  );
+};
 
 export default PDF;
