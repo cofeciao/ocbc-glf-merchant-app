@@ -265,7 +265,7 @@ const PDF = ({
         </View>
 
         {/* Section Transaction and card acceptance type  */}
-        <View style={styles.section} break>
+        <View style={styles.section}>
           {renderSection(LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE)}
           <View style={styles.groupItem}>
             <View style={styles.item}>
@@ -293,7 +293,7 @@ const PDF = ({
         </View>
 
         {/* Section Business details */}
-        <View style={styles.section}>
+        <View style={styles.section} break>
           {renderSection(LABEL_BUSINESS_DETAILS)}
 
           <Text style={styles.subTitle}>Number of outlets with Point-of-Sales termimals</Text>
