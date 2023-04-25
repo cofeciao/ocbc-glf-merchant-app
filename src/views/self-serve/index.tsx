@@ -42,28 +42,28 @@ const SelfServe: React.FC = () => {
   /**
    * Add event listener to handle reload or leave page
    */
-  useEffect(() => {
-    window.scrollTo(0, 0);
-    window.onload = function () {
-      window.addEventListener("beforeunload", handleBeforeUnload);
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    if (history.action === "POP") {
-      window.location.href = (process.env.myinfo as any).redirectUri;
-    }
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  //   window.onload = function () {
+  //     window.addEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  //   window.addEventListener("beforeunload", handleBeforeUnload);
+  //   if (history.action === "POP") {
+  //     window.location.href = (process.env.myinfo as any).redirectUri;
+  //   }
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleBeforeUnload);
+  //   };
+  // }, []);
 
   /**
    * Handle before unload
    * @param event
    */
-  const handleBeforeUnload = (event: any) => {
-    event.preventDefault();
-    event.returnValue = "";
-  };
+  // const handleBeforeUnload = (event: any) => {
+  //   event.preventDefault();
+  //   event.returnValue = "";
+  // };
 
   /**
    * Get all step data
