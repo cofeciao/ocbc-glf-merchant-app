@@ -212,10 +212,6 @@ const PDF = ({
     );
   };
 
-  console.log(productsAndServicesStep);
-  console.log(productsAndServicesStep&&productsAndServicesStep.optionSelected);
-
-
   return (
     <Document>
       <Page size="A4" style={styles.page}>

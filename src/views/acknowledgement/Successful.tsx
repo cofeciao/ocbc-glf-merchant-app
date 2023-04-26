@@ -28,6 +28,8 @@ const Successful: React.FC = () => {
   } = ACKNOWLEDGEMENT_PAGE;
   const cx = classnames.bind(styles);
 
+  const currentTime = new Date().toLocaleDateString('en-SG')
+
   /**
    * * Retrieves data of Transaction And Card Acceptance Type step from Store
    * * return "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
@@ -137,7 +139,7 @@ const Successful: React.FC = () => {
                 </Typography>
 
                 <Box className={cx("btn-download")}>
-                  <a href={instance.url} download="test.pdf">
+                  <a href={instance.url} download={`OCBC_Cashless_Payment_Review_${currentTime}.pdf`}>
                     <Button variant="contained">
                       {LABEL_DOWNLOAD_APPLICATION}
                     </Button>

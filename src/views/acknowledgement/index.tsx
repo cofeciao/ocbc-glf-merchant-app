@@ -5,9 +5,6 @@ import classnames from "classnames/bind";
 import _ from "lodash";
 import { useHistory, useParams } from "react-router";
 
-// import icons 
-import GetAppIcon from '@material-ui/icons/GetApp';
-
 // import constants
 import { LINK_EXTERNAL_PAGE, TITLE_PAGE } from "@/utils/constants";
 
@@ -15,22 +12,18 @@ import { LINK_EXTERNAL_PAGE, TITLE_PAGE } from "@/utils/constants";
 import styles from "./Acknowledgement.scss";
 
 // import components
-import { Box, Button } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import Successful from "./Successful";
 import Interest from "./Interest";
 import Saved from "./Saved";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import PDF from "./PDF";
-import { usePDF } from '@react-pdf/renderer';
 
 // render UI
 const Acknowledgement: React.FC = () => {
   const cx = classnames.bind(styles);
   const { slug } = useParams<{ slug: string }>();
   const history = useHistory();
-
-  const [instance, updateInstance] = usePDF({ document: <PDF /> });
 
   /**
    * Handle before unload
