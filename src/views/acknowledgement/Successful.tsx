@@ -28,7 +28,18 @@ const Successful: React.FC = () => {
   } = ACKNOWLEDGEMENT_PAGE;
   const cx = classnames.bind(styles);
 
-    /**
+  /**
+   * * Retrieves data of Transaction And Card Acceptance Type step from Store
+   * * return "point-of-sales" || "e-commerce" || "point-of-sales-e-commerce"
+   */
+  const optionSelected = useSelector((state: any) =>
+    state.form.transactionAndCardAcceptanceTypeStep
+      .map((item: any) => (item.checked === true ? item.value : ""))
+      .filter((item: string) => item !== "")
+      .join("-")
+  );
+
+  /**
    * Retrieves data of Transaction And Card Acceptance Type step from Store
    */
     const cashlessPaymentsMethods = useSelector((state: any) =>
@@ -68,6 +79,11 @@ const Successful: React.FC = () => {
     (state: any) => state.form.productsAndServicesStep
   );
 
+  const productsAndServicesData = {
+    ...productsAndServicesStep, 
+    ...optionSelected
+  }
+
   /**
    * Retrieves data of Products And Services step from Store
    */
@@ -81,7 +97,7 @@ const Successful: React.FC = () => {
       companyAndContactInformationStep={companyAndContactInformationStep} 
       transactionAndCardAcceptanceTypeStep={transactionAndCardAcceptanceTypeStep}
       businessDetailsStep={businessDetailsStep}
-      productsAndServicesStep={productsAndServicesStep}
+      productsAndServicesStep={productsAndServicesData}
       reviewAndSubmitStep={reviewAndSubmitStep}
     />
   })

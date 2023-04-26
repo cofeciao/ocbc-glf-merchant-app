@@ -168,6 +168,19 @@ const PDF = ({
   reviewAndSubmitStep,
 }: IPdf) => {
   const {
+    LABEL_POINT_OF_SALES_TERMINAL,
+    LABEL_ECOMMERCE,
+    LABEL_TYPE_OF_PRODUCT_AND_SERVICE,
+    LABEL_ORDER_FULFILMENT,
+    LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION,
+    LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST,
+    LABEL_PRODUCT_DELIVERED_FROM,
+    LABEL_PRODUCT_DELIVERY,
+    LABEL_SGD,
+    LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY,
+    LABEL_DURATION,
+    LABEL_DELIVERY_TIME_TO_CUSTOMERS,
+
     LABEL_CASHLESS_PAYMENT_METHOD,
     LABEL_COMPANY_REGISTRATION,
     LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE,
@@ -198,6 +211,10 @@ const PDF = ({
       </>
     );
   };
+
+  console.log(productsAndServicesStep);
+  console.log(productsAndServicesStep&&productsAndServicesStep.optionSelected);
+
 
   return (
     <Document>
@@ -383,29 +400,139 @@ const PDF = ({
         {/* Section Products and services */}
         <View style={styles.section} break>
           {renderSection(LABEL_PRODUCTS_AND_SERVICES)}
-          <Text style={styles.subTitle}>Type of product and/or service</Text>
-          <Text style={styles.content}>Bistro / cafe</Text>
 
-          <Text style={styles.subTitle}>Order fulfilment</Text>
-          <Text style={styles.content}>Immediate fulfillment</Text>
+          <Text style={styles.title1}>{LABEL_POINT_OF_SALES_TERMINAL}</Text>
+          
+          {productsAndServicesStep && 
+            productsAndServicesStep.pointOfSales && 
+            productsAndServicesStep.pointOfSales.typeOfProductAndService && (
+            <>
+              <Text style={styles.subTitle}>{LABEL_TYPE_OF_PRODUCT_AND_SERVICE}</Text>
+              <Text style={styles.content}>{productsAndServicesStep && 
+                productsAndServicesStep.typeOfProductAndService && 
+                productsAndServicesStep.typeOfProductAndService.pointOfSales &&
+                productsAndServicesStep.typeOfProductAndService.pointOfSales.typeOfProductAndService}</Text>
+            </>
+          )}
+
+          {productsAndServicesStep && 
+            productsAndServicesStep.pointOfSales && 
+            productsAndServicesStep.pointOfSales.orderFulfilment && (
+            <>
+              <Text style={styles.subTitle}>{LABEL_ORDER_FULFILMENT}</Text>
+              <Text style={styles.content}>{productsAndServicesStep && 
+                productsAndServicesStep.typeOfProductAndService && 
+                productsAndServicesStep.typeOfProductAndService.pointOfSales &&
+                productsAndServicesStep.typeOfProductAndService.pointOfSales.orderFulfilment}</Text>
+            </>
+          )}
 
           <View style={styles.groupItem}>
-            <View style={styles.item} fixed>
-              <Text style={styles.subTitle}>
-                Average amount per credit card transaction
-              </Text>
-              <Text style={styles.content}>SGD 100</Text>
-            </View>
-            <View style={styles.item} fixed>
-              <Text style={styles.subTitle}>
-                Annual credit card sales forecast
-              </Text>
-              <Text style={styles.content}>SGD 1,000,000</Text>
-            </View>
+            {productsAndServicesStep && 
+              productsAndServicesStep.pointOfSales && 
+              productsAndServicesStep.pointOfSales.duration && (
+                <View style={styles.item} fixed>
+                  <Text style={styles.subTitle}>{LABEL_DURATION}</Text>
+                  <Text style={styles.content}>{productsAndServicesStep && productsAndServicesStep.pointOfSales &&
+                    productsAndServicesStep.pointOfSales.duration.charAt(0).toUpperCase() +
+                    productsAndServicesStep.pointOfSales.duration.slice(1).replace(/-/g, " ")}
+                  </Text>
+                </View>
+              )}
+              {productsAndServicesStep && 
+              productsAndServicesStep.pointOfSales && 
+              productsAndServicesStep.pointOfSales.percentageOfProductsNotFulfilledImmediately && (
+                <View style={styles.item} fixed>
+                  <Text style={styles.subTitle}>{LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY}</Text>
+                  <Text style={styles.content}>{`${productsAndServicesStep && 
+                    productsAndServicesStep.pointOfSales && 
+                    productsAndServicesStep.pointOfSales.percentageOfProductsNotFulfilledImmediately}%`}</Text>
+                </View>
+              )}
           </View>
+
+          <View style={styles.groupItem}>
+            {productsAndServicesStep && 
+              productsAndServicesStep.pointOfSales && 
+              productsAndServicesStep.pointOfSales.averageAmountPerCreditCardTransaction && (
+                <View style={styles.item} fixed>
+                  <Text style={styles.subTitle}>{LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}</Text>
+                  <Text style={styles.content}>{`${LABEL_SGD} ${productsAndServicesStep && 
+                    productsAndServicesStep.pointOfSales && 
+                    productsAndServicesStep.pointOfSales.averageAmountPerCreditCardTransaction}`}</Text>
+                </View>
+              )}
+              {productsAndServicesStep && 
+              productsAndServicesStep.pointOfSales && 
+              productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast && (
+                <View style={styles.item} fixed>
+                  <Text style={styles.subTitle}>{LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}</Text>
+                  <Text style={styles.content}>{`${LABEL_SGD} ${productsAndServicesStep && 
+                    productsAndServicesStep.pointOfSales &&
+                    productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast}`}</Text>
+                </View>
+              )}
+          </View>
+
+          <Text style={styles.title1}>{LABEL_ECOMMERCE}</Text>
+
+          {productsAndServicesStep && 
+            productsAndServicesStep.eCommerce && 
+            productsAndServicesStep.eCommerce.typeOfProductAndService && (
+            <>
+              <Text style={styles.subTitle}>{LABEL_TYPE_OF_PRODUCT_AND_SERVICE}</Text>
+              <Text style={styles.content}>{productsAndServicesStep && productsAndServicesStep.typeOfProductAndService && 
+                productsAndServicesStep.typeOfProductAndService.eCommerce &&
+                productsAndServicesStep.typeOfProductAndService.eCommerce.typeOfProductAndService}</Text>
+            </>
+          )}
+
+          {productsAndServicesStep && 
+            productsAndServicesStep.eCommerce && 
+            productsAndServicesStep.eCommerce.orderFulfilment && (
+            <>
+              <Text style={styles.subTitle}>{LABEL_ORDER_FULFILMENT}</Text>
+              <Text style={styles.content}>{productsAndServicesStep && 
+                productsAndServicesStep.typeOfProductAndService && 
+                productsAndServicesStep.typeOfProductAndService.eCommerce &&
+                productsAndServicesStep.typeOfProductAndService.eCommerce.orderFulfilment}</Text>
+            </>
+          )}
+
+          {productsAndServicesStep && 
+            productsAndServicesStep.eCommerce && 
+            productsAndServicesStep.eCommerce.productDelivery && (
+            <>
+              <Text style={styles.subTitle}>{LABEL_PRODUCT_DELIVERY}</Text>
+              <Text style={styles.content}>{productsAndServicesStep && 
+                productsAndServicesStep.typeOfProductAndService && 
+                productsAndServicesStep.typeOfProductAndService.eCommerce &&
+                productsAndServicesStep.typeOfProductAndService.eCommerce.productDelivery}</Text>
+            </>
+          )}
+
+          <View style={styles.groupItem}>
+            {productsAndServicesStep && 
+              productsAndServicesStep.eCommerce && 
+              productsAndServicesStep.eCommerce.averageAmountPerCreditCardTransaction && (
+                <View style={styles.item} fixed>
+                  <Text style={styles.subTitle}>{LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}</Text>
+                  <Text style={styles.content}>{`${LABEL_SGD} ${productsAndServicesStep && productsAndServicesStep.eCommerce && productsAndServicesStep.eCommerce.averageAmountPerCreditCardTransaction}`}</Text>
+                </View>
+              )}
+              {productsAndServicesStep && 
+              productsAndServicesStep.eCommerce && 
+              productsAndServicesStep.eCommerce.annualCreditCardSalesForecast && (
+                <View style={styles.item} fixed>
+                  <Text style={styles.subTitle}>{LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}</Text>
+                  <Text style={styles.content}>{`${LABEL_SGD} ${productsAndServicesStep && productsAndServicesStep.eCommerce && productsAndServicesStep.eCommerce.annualCreditCardSalesForecast}`}</Text>
+                </View>
+              )}
+          </View>
+
         </View>
 
-        {/* Section Rules */}
+        {/* Section Agree Policy */}
         <View style={[styles.section, styles.rule]}>
           <View style={styles.divider}></View>
           <Text style={styles.subTitle}>
