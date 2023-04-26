@@ -55,7 +55,7 @@ const Header = (props: IHeader) => {
   }, []);
 
   return (
-    <div className={cx(`header-wrapper ${isMobile && "mobile-version"}`)}>
+    <div className={cx(`header-sticky-wrapper ${isMobile && "mobile-version"}`)}>
       <header className={cx(`header ${isScrolled ? "scroll" : ""}`)}>
         <a href={logoHref} className={cx("logo")}>
           <img src={isMobile ? favicon : logo} alt="OCBC Bank" />
