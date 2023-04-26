@@ -1,6 +1,38 @@
 @import "../../../assets/style/variable.scss";
 
 .review-and-submit-wrapper {
+  & .content {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #575d65;
+  }
+
+  & .MuiGrid-container {
+    row-gap: 30px !important;
+  }
+
+  & .sub-title {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #777e87;
+  }
+
+  & .section-title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: #363b40;
+  }
+
+  & .option-title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+    color: #363b40;
+  }
+
   #divider {
     height: 1px;
     width: 100%;
@@ -65,10 +97,7 @@
       gap: 30px;
     }
 
-    & .ecommerce-container {
-      margin-bottom: 56px;
-      gap: 30px;
-    }
+
 
     & .section-title {
       margin-bottom: 40px;
@@ -76,6 +105,12 @@
 
     & .section-seperate {
       display: none;
+    }
+  }
+
+  & .product-and-services-wrapper {
+    & .ecommerce-container {
+      gap: 30px;
     }
   }
 

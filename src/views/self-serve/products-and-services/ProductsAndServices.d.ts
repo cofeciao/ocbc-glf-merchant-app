@@ -10,9 +10,10 @@ declare namespace IProductsAndServices {
   export interface IBusinessOfferingSection {
     cx: any;
     data: IBusinessOffering;
-    register: any;
+    register: Function;
     errors: any;
     dataRedux: any;
+    name: string;
   }
 
   export interface IBusinessOffering {
@@ -79,11 +80,11 @@ declare namespace IProductsAndServices {
     data: IFulfilmentInformation;
     dataRedux?: any;
     variant?: string;
-    unregister?: any;
-    setError?: any;
-    clearErrors?: any;
+    unregister?: Function;
+    setError?: Function;
+    clearErrors?: Function;
     setValue?: any;
-    register?: any;
+    register?: Function;
     errors?: any;
     control?: any;
   }

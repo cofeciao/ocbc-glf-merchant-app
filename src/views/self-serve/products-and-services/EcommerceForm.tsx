@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import _ from "lodash";
 import SectionWrapper from "@/views/self-serve/SectionWrapper";
-import BusinessOfferingEcommerce from "./BusinessOfferingEcommerce";
+import BusinessOffering from "./BusinessOffering";
 import FulfilmentInformationEcommerce from "./FulfilmentInformationEcommerce";
 import SalesForecastEcommerce from "./SalesForecastEcommerce";
 
@@ -52,12 +52,13 @@ const EcommerceForm: React.FC<IProductsAndServices.IForm> = (props) => {
                 {businessOffering.description}
               </Typography>
             )}
-            <BusinessOfferingEcommerce
+            <BusinessOffering
               cx={cx}
               data={businessOffering}
-              dataRedux={dataRedux}
+              dataRedux={dataRedux["typeOfProductAndService"]}
               register={register}
               errors={errors}
+              name="Ecom.typeOfProductAndService"
             />
           </Grid>
 

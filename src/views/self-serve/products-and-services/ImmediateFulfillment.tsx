@@ -1,28 +1,22 @@
 // import modules
 import React, { useEffect, useState } from "react";
-import {
-  Box,
-  FormControl,
-  Grid,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from "@material-ui/core";
-import GroupRadio from "@/components/GroupRadio";
-import GroupCheckBox from "@/components/GroupCheckBox";
 import _ from "lodash";
 import { Controller } from "react-hook-form";
-
-// import icons
-import ExpandMore from "@material-ui/icons/ExpandMore";
 
 // import types
 import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
 import { IProductsAndServices } from "./ProductsAndServices";
 
+// import components
+import { Box, Grid, Typography } from "@material-ui/core";
+import GroupRadio from "@/components/GroupRadio";
+import GroupCheckBox from "@/components/GroupCheckBox";
+import Select from "@/components/Select";
+
 // render UI
-const ImmediateFulfillment: React.FC<IProductsAndServices.IImmediateFulfillment> = (props) => {
+const ImmediateFulfillment: React.FC<
+  IProductsAndServices.IImmediateFulfillment
+> = (props) => {
   // props
   const { cx, data, setValue, register, dataRedux, control } = props;
   const { listCheckbox, listDropdown, listRadioSecondary } = data;
@@ -93,41 +87,17 @@ const ImmediateFulfillment: React.FC<IProductsAndServices.IImmediateFulfillment>
             )}
 
             {/* {Dropdown} */}
-            <FormControl
-              variant="filled"
-              className={cx("duration-select")}
-              fullWidth
-            >
-              {!_.isEmpty(listDropdown.placeholder) && (
-                <InputLabel id="select-duration-label">
-                  {listDropdown.placeholder}
-                </InputLabel>
-              )}
-              {!_.isEmpty(listDropdown.list) && (
-                <Select
-                  fullWidth
-                  labelId="select-duration-label"
-                  id="select-duration"
-                  IconComponent={ExpandMore}
-                  defaultValue={
-                    _.has(dataRedux, "deliveryTimeToCustomers")
-                      ? dataRedux.deliveryTimeToCustomers
-                      : ""
-                  }
-                  {...register("Ecom.deliveryTimeToCustomers", {
-                    required: false,
-                  })}
-                >
-                  {_.map(listDropdown.list, (item, index) => {
-                    return (
-                      <MenuItem key={index} value={item.value}>
-                        {item.name}
-                      </MenuItem>
-                    );
-                  })}
-                </Select>
-              )}
-            </FormControl>
+            {!_.isEmpty(listDropdown) && (
+              <Select
+                fullWidth
+                required
+                register={register}
+                label={listDropdown.placeholder}
+                listSelect={listDropdown.list}
+                name={`Ecom.deliveryTimeToCustomers`}
+                defaultValue={_.get(dataRedux, `deliveryTimeToCustomers`)}
+              />
+            )}
           </Grid>
         </Grid>
 
