@@ -10,28 +10,23 @@ import { ERROR_ICON } from "@/utils/constants";
 import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const BusinessOfferingEcommerce: React.FC<
+const BusinessOfferingPointOfSales: React.FC<
   IProductsAndServices.IBusinessOfferingSection
 > = (props) => {
-  const { cx, data, register, errors, dataRedux } = props;
+  const { cx, data, register, errors, dataRedux, name } = props;
   const { textField } = data;
   const maxLength = 180;
-
-  // State
   const [counter, setCounter] = useState<number>(
-    !_.isEmpty(dataRedux[textField.keyName])
-      ? dataRedux[textField.keyName].length
-      : 0
+    !_.isEmpty(_.get(dataRedux, name)) ? _.size(_.get(dataRedux, name)) : 0
   );
 
   return (
     <Box className={cx("business-offering-wrapper")}>
-      {/* {TextField} */}
-      {!_.isEmpty(textField) && (
+      {/* {What products and/or services is your business offering?} */}
+      {!_.isNil(textField) && (
         <Box className={cx("main-input-field")}>
           <TextField
             fullWidth
-            variant="filled"
             multiline
             rowsMax={3}
             label={
@@ -42,28 +37,20 @@ const BusinessOfferingEcommerce: React.FC<
                 </span>
               </Box>
             }
+            variant="filled"
             error={
-              _.has(errors, "Ecom") &&
-              _.has(errors.Ecom, "typeOfProductAndService") &&
-              !_.isEqual(
-                errors.Ecom.typeOfProductAndService.type,
-                "required"
-              ) &&
+              _.has(errors, name) &&
+              !_.isEqual(_.get(errors, `${name}.type`), "required") &&
               true
             }
-            defaultValue={
-              _.has(dataRedux, "typeOfProductAndService")
-                ? dataRedux.typeOfProductAndService
-                : ""
-            }
+            defaultValue={dataRedux ? dataRedux : ""}
             helperText={
-              _.has(errors, "Ecom") &&
-              _.has(errors.Ecom, "typeOfProductAndService") &&
-              !_.isEqual(errors.Ecom.typeOfProductAndService.type, "required")
-                ? errors.Ecom.typeOfProductAndService.message
+              _.has(errors, name) &&
+              !_.isEqual(_.get(errors, `${name}.type`), "required")
+                ? _.get(errors, `${name}.message`)
                 : textField.helperTextGuide
             }
-            {...register(`Ecom.${textField.keyName}`, {
+            {...register(name, {
               required: true,
               pattern: {
                 // eslint-disable-next-line no-useless-escape
@@ -80,4 +67,4 @@ const BusinessOfferingEcommerce: React.FC<
     </Box>
   );
 };
-export default BusinessOfferingEcommerce;
+export default BusinessOfferingPointOfSales;
