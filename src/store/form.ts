@@ -13,6 +13,7 @@ const Formslice = createSlice({
       pointOfSales: {},
       eCommerce: {},
     },
+    otherRequirements: "",
   },
   reducers: {
     /**
@@ -71,6 +72,15 @@ const Formslice = createSlice({
     saveDataProductsAndServicesEcom: (state, action) => {
       state.productsAndServicesStep.eCommerce = action.payload;
     },
+
+    /**
+     * function save data Other Requirements in Review and Submit step
+     * @param state - State for form
+     * @param action  - Payload
+     */
+    saveDataOtherRequirements: (state, action) => {
+      state.otherRequirements = action.payload;
+    },
   },
 });
 
@@ -82,6 +92,7 @@ export const {
   saveDataListWebsiteUrl,
   saveDataProductsAndServicesPos,
   saveDataProductsAndServicesEcom,
+  saveDataOtherRequirements,
 } = Formslice.actions;
 
 export default Formslice.reducer;

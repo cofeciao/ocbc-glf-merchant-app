@@ -29,6 +29,7 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
     LABEL_CARD_PAYMENT_AVAILABLE_AT_RETAIL_STORE,
   } = SELF_SERVE_PAGE;
   const { optionSelected, data, listWebsiteUrl } = props;
+
   const {
     businessReadyToOperate,
     operationStartingPeriod,
@@ -62,77 +63,87 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
       )}
 
       <Grid container className={cx("point-of-sales-container")}>
-        {/* {Number of outlets with Point-of-Sales termimals} */}
-        {!_.isEmpty(numberOfOutlets) && (
-          <Grid item xs={12} className={cx("row-item")}>
-            <Box className={cx("d-flex-column")}>
-              {/* {Label} */}
-              <Box component="span" className={cx("text-item-input")}>
-                {LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS}
-              </Box>
-
-              {/* {Content} */}
-              <Box component="span" className={cx("text-item-value")}>
-                {numberOfOutlets}
-              </Box>
-            </Box>
-          </Grid>
-        )}
-
-        <Grid item xs={12} className={cx("row-item")}>
+        <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
-            {/* {Business ready to operate} */}
-            {!_.isEmpty(businessReadyToOperate) && (
-              <Grid item xs={12} md={6} className={cx("row-item")}>
-                <Box className={cx("d-flex-column")}>
-                  {/* {Label} */}
-                  <Box component="span" className={cx("text-item-input")}>
-                    {LABEL_BUSINESS_READY_TO_OPERATE}
-                  </Box>
+            {/* {Number of outlets with Point-of-Sales termimals} */}
+            {
+              <Grid item xs={12} md={4} className={cx("row-item")}>
+                {!_.isEmpty(numberOfOutlets) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_NUMBER_OF_OUTLETS_WITH_POINT_OF_SALES_TERMIMALS}
+                    </Box>
 
-                  {/* {Content} */}
-                  <Box component="span" className={cx("text-item-value")}>
-                    {businessReadyToOperate}
+                    {/* {Content} */}
+                    <Box component="span" className={cx("text-item-value")}>
+                      {numberOfOutlets}
+                    </Box>
                   </Box>
-                </Box>
+                )}
               </Grid>
-            )}
+            }
+
+            {/* {Business ready to operate} */}
+            {
+              <Grid item xs={12} md={4} className={cx("row-item")}>
+                {!_.isEmpty(businessReadyToOperate) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_BUSINESS_READY_TO_OPERATE}
+                    </Box>
+
+                    {/* {Content} */}
+                    <Box component="span" className={cx("text-item-value")}>
+                      {businessReadyToOperate}
+                    </Box>
+                  </Box>
+                )}
+              </Grid>
+            }
 
             {/* {Operation starting period} */}
-            {!_.isEmpty(operationStartingPeriod) && (
-              <Grid item xs={12} md={6}>
-                <Box className={cx("d-flex-column")}>
-                  {/* {Label} */}
-                  <Box component="span" className={cx("text-item-input")}>
-                    {LABEL_OPERATION_STARTING_PERIOD}
-                  </Box>
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(operationStartingPeriod) &&
+                  _.isEqual(businessReadyToOperate, "No") && (
+                    <Box className={cx("d-flex-column w70p")}>
+                      {/* {Label} */}
+                      <Box component="span" className={cx("text-item-input")}>
+                        {LABEL_OPERATION_STARTING_PERIOD}
+                      </Box>
 
-                  {/* {Content} */}
-                  <Box component="span" className={cx("text-item-value")}>
-                    {operationStartingPeriod.charAt(0).toUpperCase() + operationStartingPeriod.slice(1).replace(/-/g, ' ')}
-                  </Box>
-                </Box>
+                      {/* {Content} */}
+                      <Box component="span" className={cx("text-item-value")}>
+                        {operationStartingPeriod.charAt(0).toUpperCase() +
+                          operationStartingPeriod.slice(1).replace(/-/g, " ")}
+                      </Box>
+                    </Box>
+                  )}
               </Grid>
-            )}
+            }
           </Grid>
         </Grid>
 
         {/* {OCBC business account} */}
-        {!_.isEmpty(businessAccount) && (
+        {
           <Grid item xs={12} className={cx("row-item")}>
-            <Box className={cx("d-flex-column")}>
-              {/* {Label} */}
-              <Box component="span" className={cx("text-item-input")}>
-                {LABEL_OCBC_BUSINESS_ACCOUNT}
-              </Box>
+            {!_.isEmpty(businessAccount) && (
+              <Box className={cx("d-flex-column w70p")}>
+                {/* {Label} */}
+                <Box component="span" className={cx("text-item-input")}>
+                  {LABEL_OCBC_BUSINESS_ACCOUNT}
+                </Box>
 
-              {/* {Content} */}
-              <Box component="span" className={cx("text-item-value")}>
-                {businessAccount}
+                {/* {Content} */}
+                <Box component="span" className={cx("text-item-value")}>
+                  {businessAccount}
+                </Box>
               </Box>
-            </Box>
+            )}
           </Grid>
-        )}
+        }
       </Grid>
 
       {/* {Section Title} */}
@@ -146,179 +157,191 @@ const BusinessDetails: React.FC<IReviewAndSubmit.IBusinessDetails> = (
         <Grid item xs={12} className={cx("row-item")}>
           <Grid container className={cx("n-wrap")}>
             {/* {Existing website} */}
-            {!_.isEmpty(existingWebsite) && (
-              <Grid item xs={12} md={6}>
-                <Box className={cx("d-flex-column")}>
-                  {/* {Label} */}
-                  <Box component="span" className={cx("text-item-input")}>
-                    {LABEL_EXISTING_WEBSITE}
-                  </Box>
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(existingWebsite) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_EXISTING_WEBSITE}
+                    </Box>
 
-                  {/* {Content} */}
-                  <Box component="span" className={cx("text-item-value")}>
-                    {existingWebsite}
+                    {/* {Content} */}
+                    <Box component="span" className={cx("text-item-value")}>
+                      {existingWebsite}
+                    </Box>
                   </Box>
-                </Box>
+                )}
               </Grid>
-            )}
+            }
 
             {/* {Website’s URL} */}
-            {!_.isEmpty(listWebsiteUrlFilter) && (
-              <Grid item xs={12} md={6}>
-                <Box className={cx("d-flex-column")}>
-                  {/* {Label} */}
-                  {
-                    <Box component="span" className={cx("text-item-input")}>
-                      {LABEL_WEBSITE_URL}
-                    </Box>
-                  }
+            {!_.isEmpty(listWebsiteUrlFilter) &&
+              _.isEqual(existingWebsite, "Yes") && (
+                <Grid item xs={12} md={4}>
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    {
+                      <Box component="span" className={cx("text-item-input")}>
+                        {LABEL_WEBSITE_URL}
+                      </Box>
+                    }
 
-                  {/* {Content list} */}
-                  {_.map(listWebsiteUrlFilter, (website, index) => {
-                    return _.size(listWebsiteUrlFilter) > 1 ? (
-                      <Box
-                        key={index}
-                        component="ul"
-                        className={cx("text-item-value")}
-                      >
-                        <Box component="li">{website}</Box>
-                      </Box>
-                    ) : (
-                      <Box
-                        key={index}
-                        component="span"
-                        className={cx("text-item-value")}
-                      >
-                        {website}
-                      </Box>
-                    );
-                  })}
-                </Box>
-              </Grid>
-            )}
+                    {/* {Content list} */}
+                    {_.map(listWebsiteUrlFilter, (website, index) => {
+                      return _.size(listWebsiteUrlFilter) > 1 ? (
+                        <Box
+                          key={index}
+                          component="ul"
+                          className={cx("text-item-value")}
+                        >
+                          <Box component="li">{website}</Box>
+                        </Box>
+                      ) : (
+                        <Box
+                          key={index}
+                          component="span"
+                          className={cx("text-item-value")}
+                        >
+                          {website}
+                        </Box>
+                      );
+                    })}
+                  </Box>
+                </Grid>
+              )}
 
             {/* {Website live date} */}
-            {!_.isEmpty(websiteLiveDate) && (
-              <Grid item xs={12} md={6}>
-                <Box className={cx("d-flex-column")}>
-                  {/* {Label} */}
-                  {
-                    <Box component="span" className={cx("text-item-input")}>
-                      {LABEL_WEBSITE_LIVE_DATE}
-                    </Box>
-                  }
+            {!_.isEmpty(websiteLiveDate) &&
+              _.isEqual(existingWebsite, "No") && (
+                <Grid item xs={12} md={4}>
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    {
+                      <Box component="span" className={cx("text-item-input")}>
+                        {LABEL_WEBSITE_LIVE_DATE}
+                      </Box>
+                    }
 
-                  {/* {Content} */}
-                  <Box component="span" className={cx("text-item-value")}>
-                    {websiteLiveDate}
+                    {/* {Content} */}
+                    <Box component="span" className={cx("text-item-value")}>
+                      {websiteLiveDate}
+                    </Box>
                   </Box>
-                </Box>
+                </Grid>
+              )}
+
+            {/* {Place order through website} */}
+            {
+              <Grid item xs={12} md={4} className={cx("row-item")}>
+                {!_.isEmpty(placeOrderThroughWebsite) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_PLACE_ORDER_THROUGH_WEBSITE}
+                    </Box>
+
+                    {/* {Content} */}
+                    <Box component="span" className={cx("text-item-value")}>
+                      {placeOrderThroughWebsite}
+                    </Box>
+                  </Box>
+                )}
               </Grid>
-            )}
+            }
           </Grid>
         </Grid>
 
-        {/* {Place order through website} */}
-        {!_.isEmpty(placeOrderThroughWebsite) && (
-          <Grid item xs={12} className={cx("row-item")}>
-            <Box className={cx("d-flex-column")}>
-              {/* {Label} */}
-              <Box component="span" className={cx("text-item-input")}>
-                {LABEL_PLACE_ORDER_THROUGH_WEBSITE}
-              </Box>
-
-              {/* {Content} */}
-              <Box component="span" className={cx("text-item-value")}>
-                {placeOrderThroughWebsite}
-              </Box>
-            </Box>
-          </Grid>
-        )}
-
-        {/* {Business offerings} */}
-        {!_.isEmpty(businessOfferings) && (
-          <Grid item xs={12} className={cx("row-item")}>
-            <Box className={cx("d-flex-column")}>
-              {/* {Label} */}
-              <Box component="span" className={cx("text-item-input")}>
-                {LABEL_BUSINESS_OFFERINGS}
-              </Box>
-
-              {/* {Content list} */}
-              {_.map(listBusinessOfferings, (item, index) => {
-                return _.size(listBusinessOfferings) > 1 ? (
-                  <Box
-                    key={index}
-                    component="ul"
-                    className={cx("text-item-value")}
-                  >
-                    <Box component="li">{item.label}</Box>
-                  </Box>
-                ) : (
-                  <Box
-                    key={index}
-                    component="div"
-                    className={cx("text-item-value")}
-                  >
-                    {item.label}
-                  </Box>
-                );
-              })}
-            </Box>
-          </Grid>
-        )}
-
         <Grid item xs={12} className={cx("row-item")}>
           <Grid container className={cx("n-wrap")}>
-            {/* {Available spaces} */}
-            {!_.isEmpty(availableSpaces) && (
-              <Grid item xs={12} md={6}>
-                <Box className={cx("d-flex-column")}>
-                  {/* {Label} */}
-                  <Box component="span" className={cx("text-item-input")}>
-                    {LABEL_AVAILABLE_SPACES}
-                  </Box>
+            {/* {Business offerings} */}
+            {
+              <Grid item xs={12} md={4} className={cx("row-item")}>
+                {!_.isEmpty(businessOfferings) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_BUSINESS_OFFERINGS}
+                    </Box>
 
-                  {/* {Content list} */}
-                  {_.map(listAvailableSpaces, (item, index) => {
-                    return _.size(listAvailableSpaces) > 1 ? (
-                      <Box
-                        key={index}
-                        component="ul"
-                        className={cx("text-item-value")}
-                      >
-                        <Box component="li">{item.label}</Box>
-                      </Box>
-                    ) : (
-                      <Box
-                        key={index}
-                        component="div"
-                        className={cx("text-item-value")}
-                      >
-                        {item.label}
-                      </Box>
-                    );
-                  })}
-                </Box>
+                    {/* {Content list} */}
+                    {_.map(listBusinessOfferings, (item, index) => {
+                      return _.size(listBusinessOfferings) > 1 ? (
+                        <Box
+                          key={index}
+                          component="ul"
+                          className={cx("text-item-value")}
+                        >
+                          <Box component="li">{item.label}</Box>
+                        </Box>
+                      ) : (
+                        <Box
+                          key={index}
+                          component="div"
+                          className={cx("text-item-value")}
+                        >
+                          {item.label}
+                        </Box>
+                      );
+                    })}
+                  </Box>
+                )}
               </Grid>
-            )}
+            }
+
+            {/* {Available spaces} */}
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(availableSpaces) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_AVAILABLE_SPACES}
+                    </Box>
+
+                    {/* {Content list} */}
+                    {_.map(listAvailableSpaces, (item, index) => {
+                      return _.size(listAvailableSpaces) > 1 ? (
+                        <Box
+                          key={index}
+                          component="ul"
+                          className={cx("text-item-value")}
+                        >
+                          <Box component="li">{item.label}</Box>
+                        </Box>
+                      ) : (
+                        <Box
+                          key={index}
+                          component="div"
+                          className={cx("text-item-value")}
+                        >
+                          {item.label}
+                        </Box>
+                      );
+                    })}
+                  </Box>
+                )}
+              </Grid>
+            }
 
             {/* {Card payment available at retail store} */}
-            {!_.isEmpty(cardPaymentAvailableAtRetailStore) && (
-              <Grid item xs={12} md={6}>
-                <Box className={cx("d-flex-column")}>
-                  {/* {Label} */}
-                  <Box component="span" className={cx("text-item-input")}>
-                    {LABEL_CARD_PAYMENT_AVAILABLE_AT_RETAIL_STORE}
-                  </Box>
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(cardPaymentAvailableAtRetailStore) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    {/* {Label} */}
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_CARD_PAYMENT_AVAILABLE_AT_RETAIL_STORE}
+                    </Box>
 
-                  {/* {Content} */}
-                  <Box component="span" className={cx("text-item-value")}>
-                    {cardPaymentAvailableAtRetailStore}
+                    {/* {Content} */}
+                    <Box component="span" className={cx("text-item-value")}>
+                      {cardPaymentAvailableAtRetailStore}
+                    </Box>
                   </Box>
-                </Box>
+                )}
               </Grid>
-            )}
+            }
           </Grid>
         </Grid>
       </Grid>

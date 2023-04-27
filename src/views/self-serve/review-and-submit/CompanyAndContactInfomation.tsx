@@ -9,6 +9,9 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 import styles from "./ReviewAndSubmit.scss";
 import { IReviewAndSubmit } from "./ReviewAndSubmit";
 
+// import utils
+import { toUppercaseFirstLetter } from "@/utils/utils";
+
 // render UI
 const CompanyAndContactInfomation: React.FC<
   IReviewAndSubmit.ICompanyAndContactInfomation
@@ -32,7 +35,8 @@ const CompanyAndContactInfomation: React.FC<
       <Grid container className={cx("company-registration-container")}>
         <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
-            <Grid item xs={12} md={6}>
+            {/* {Registered entity name} */}
+            <Grid item xs={12} md={4}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
                   {LABEL_REGISTERED_ENTITY_NAME}
@@ -43,7 +47,8 @@ const CompanyAndContactInfomation: React.FC<
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            {/* {Company type} */}
+            <Grid item xs={12} md={4}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
                   {LABEL_COMPANY_TYPE}
@@ -53,38 +58,44 @@ const CompanyAndContactInfomation: React.FC<
                 </Box>
               </Box>
             </Grid>
-          </Grid>
-        </Grid>
 
-        <Grid item xs={12}>
-          <Box className={cx("d-flex-column")}>
-            <Box component="span" className={cx("text-item-input")}>
-              {LABEL_UNIQUE_ENTITY_NUMBER}
-            </Box>
-            <Box component="span" className={cx("text-item-value")}>
-              {data.uniqueEntityNumber}
-            </Box>
-          </Box>
+            {/* {Unique Entity Number (UEN)} */}
+            <Grid item xs={12} md={4}>
+              <Box className={cx("d-flex-column")}>
+                <Box component="span" className={cx("text-item-input")}>
+                  {LABEL_UNIQUE_ENTITY_NUMBER}
+                </Box>
+                <Box component="span" className={cx("text-item-value")}>
+                  {data.uniqueEntityNumber}
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
 
-      <Box className={cx("sub-title-contact-detail")}>{LABEL_CONTACT_DETAILS}</Box>
+      {/* {Contact details} */}
+      <Box className={cx("sub-title-contact-detail")}>
+        {LABEL_CONTACT_DETAILS}
+      </Box>
 
       <Grid container className={cx("contact-details-container")}>
-        <Grid item xs={12}>
-          <Box className={cx("d-flex-column")}>
-            <Box component="span" className={cx("text-item-input")}>
-              {LABEL_SALUTATION}
-            </Box>
-            <Box component="span" className={cx("text-item-value")}>
-              {data.salutation}
-            </Box>
-          </Box>
-        </Grid>
-
         <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
-            <Grid item xs={12} md={6}>
+            {/* {Salutation} */}
+            <Grid item xs={12} md={4}>
+              <Box className={cx("d-flex-column")}>
+                <Box component="span" className={cx("text-item-input")}>
+                  {LABEL_SALUTATION}
+                </Box>
+                <Box component="span" className={cx("text-item-value")}>
+                  {toUppercaseFirstLetter(data.salutation)}
+                </Box>
+              </Box>
+            </Grid>
+
+            {/* {Name} */}
+            <Grid item xs={12} md={4}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
                   {LABEL_NAME}
@@ -95,7 +106,8 @@ const CompanyAndContactInfomation: React.FC<
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            {/* {Designation} */}
+            <Grid item xs={12} md={4}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
                   {LABEL_DESIGNATION}
@@ -110,7 +122,8 @@ const CompanyAndContactInfomation: React.FC<
 
         <Grid item xs={12} className={cx("n-wrap")}>
           <Grid container className={cx("n-wrap")}>
-            <Grid item xs={12} md={6}>
+            {/* {Email} */}
+            <Grid item xs={12} md={4}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
                   {LABEL_EMAIL}
@@ -121,7 +134,8 @@ const CompanyAndContactInfomation: React.FC<
               </Box>
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            {/* {Contact number} */}
+            <Grid item xs={12} md={4}>
               <Box className={cx("d-flex-column")}>
                 <Box component="span" className={cx("text-item-input")}>
                   {LABEL_CONTACT_NUMBER}

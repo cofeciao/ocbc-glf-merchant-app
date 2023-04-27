@@ -1,101 +1,91 @@
 // import modules
 import React from "react";
-import { Box, Grid } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import classnames from "classnames/bind";
 import _ from "lodash";
 
 // import style
 import styles from "./ReviewAndSubmit.scss";
 
-// import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
-
-// import contants
+// import type
 import { IReviewAndSubmit } from "./ReviewAndSubmit";
+import { ICheckBox } from "@/components/ListCheckBox/ListCheckBox";
 
 // render UI
 const TransactionAndCardAcceptanceType: React.FC<
   IReviewAndSubmit.ITransactionAndCardAcceptanceType
 > = (props) => {
   const { data } = props;
-  const { LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA, LABEL_SERVICE } =
-    SELF_SERVE_PAGE;
+
+  // classnames
   const cx = classnames.bind(styles);
-  const listItemChecked = data.filter((item: any) => item.checked === true); // Filter from the data list to get checked items
+
+  // Filter from the data list to get checked items
+  const listItemChecked = data.filter(
+    (item) => item.checked === true
+  );
 
   return (
-    <Box>
-      <Grid item xs={12} className={cx("n-wrap")}>
-        <Grid
-          container
-          className={cx("transaction-and-card-acceptance-type-container")}
-        >
-          {_.map(listItemChecked, (item, index) => {
-            return (
-              <Grid key={index} container className={cx("n-wrap")}>
-                <Grid item xs={12} md={6}>
-                  <Box className={cx("d-flex-column")}>
-                    {/* {Label} */}
-                    {
-                      <Box component="span" className={cx("text-item-input")}>
-                        {LABEL_SERVICE}
-                      </Box>
-                    }
+    <Box
+      className={cx(
+        "transaction-and-card-acceptance-type-container d-flex-column"
+      )}
+    >
+      {_.map(listItemChecked, (item: ICheckBox, index: number) => {
+        return (
+          <Box key={index}>
+            {/* {Option} */}
+            <Grid item xs={12}>
+              <Box className={cx("mb-32")}>
+                <Box component="span" className={cx("sub-section-title")}>
+                  {item.label}
+                </Box>
+              </Box>
+            </Grid>
 
-                    {/* {Item} */}
-                    <Box component="span" className={cx("text-item-value")}>
-                      {item.label}
-                    </Box>
-                  </Box>
-                </Grid>
+            <Grid item xs={12}>
+              <Grid container>
+                {_.map(item.expandedListCheckbox, (expandedItem, idx) => {
+                  const filter = expandedItem.listCheckbox.filter(
+                    (filterItem) => filterItem.checked === true
+                  );
+                  return (
+                    <Grid item key={idx} xs={12} md={4}>
+                      <Box className={cx("w70p")}>
+                        <Typography
+                          component="span"
+                          className={cx("text-item-input")}
+                        >
+                          {expandedItem.description}
+                        </Typography>
 
-                <Grid item xs={12} md={6}>
-                  <Box className={cx("d-flex-column")}>
-                    {/* {Label} */}
-                    <Box component="span" className={cx("text-item-input")}>
-                      {LABEL_PAYMENT_OPTIONS_INCLUDES_MASTERCARD_AND_VISA}
-                    </Box>
-
-                    <Box display="flex" gridColumnGap={"71px"} flexWrap="wrap">
-                      {/* {column Left} */}
-                      <Box component="ul" className={cx("text-item-value")}>
-                        {_.map(
-                          item.expandedListCheckbox.listCheckbox,
-                          (subItem, index: number) => {
-                            if (subItem.checked === true && index <= 3) {
-                              return (
-                                <Box key={index} component="li">
-                                  {subItem.label}
-                                </Box>
-                              );
-                            }
-                          }
+                        {_.size(filter) ? (
+                          <Box component="ul" className={cx("text-item-value")}>
+                            {_.map(
+                              expandedItem.listCheckbox,
+                              (subItem, index) => {
+                                if (subItem.checked === true) {
+                                  return (
+                                    <Box key={index} component="li">
+                                      {subItem.label}
+                                    </Box>
+                                  );
+                                }
+                              }
+                            )}
+                          </Box>
+                        ) : (
+                          <Box>{"-"}</Box>
                         )}
                       </Box>
-
-                      {/* {column Right} */}
-                      <Box component="ul" className={cx("text-item-value")}>
-                        {_.map(
-                          item.expandedListCheckbox.listCheckbox,
-                          (subItem, index: number) => {
-                            if (subItem.checked === true && index > 3) {
-                              return (
-                                <Box key={index} component="li">
-                                  {subItem.label}
-                                </Box>
-                              );
-                            }
-                          }
-                        )}
-                      </Box>
-                    </Box>
-                  </Box>
-                </Grid>
+                    </Grid>
+                  );
+                })}
               </Grid>
-            );
-          })}
-        </Grid>
-      </Grid>
+            </Grid>
+          </Box>
+        );
+      })}
     </Box>
   );
 };
