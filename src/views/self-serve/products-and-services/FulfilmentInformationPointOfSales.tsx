@@ -1,14 +1,16 @@
 // import modules
 import React, { useEffect, useState } from "react";
-import { Box, Grid, Typography } from "@material-ui/core";
-import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 import _ from "lodash";
-import TooltipDialog from "./TooltipDialog";
-import GroupRadio from "@/components/GroupRadio";
 import { updateDataListRadio } from "@/utils/utils";
-import { IProductsAndServices } from "./ProductsAndServices";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
+
+// import components
+import GroupRadio from "@/components/GroupRadio";
+import { Box, Grid, Typography } from "@material-ui/core";
+import TooltipDialog from "./TooltipDialog";
+import FulfillmentOverAPeriodOfTime from "./FulfillmentOverAPeriodOfTime";
 
 // render UI
 const FulfilmentInformationPointOfSales: React.FC<
@@ -35,12 +37,8 @@ const FulfilmentInformationPointOfSales: React.FC<
    */
   useEffect(() => {
     if (!_.isEqual(valueSelected, listRadio.list[1].label)) {
-      unregister(
-        ["POS.duration", "POS.percentageOfProductsNotFulfilledImmediately"],
-        {
-          keepDefaultValue: false,
-        }
-      );
+      unregister("Pos.duration");
+      unregister("Pos.percentageOfProductsNotFulfilledImmediately");
     }
   }, [valueSelected]);
 
@@ -71,7 +69,7 @@ const FulfilmentInformationPointOfSales: React.FC<
             listRadio={listOrderFulfilment}
             onChange={(event) => {
               const { value } = event.target;
-              setValue("POS.orderFulfilment", value);
+              setValue("Pos.orderFulfilment", value);
               setValueSelected(value);
               setListOrderFulfilment(
                 updateDataListRadio(value, listOrderFulfilment)

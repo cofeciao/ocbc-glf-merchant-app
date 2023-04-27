@@ -110,6 +110,7 @@ const CompanyAndContactInformation: React.FC = () => {
         cx={cx}
         title={contactDetails.title}
         description={contactDetails.description}
+        className="contact-details-section"
       >
         <ContactDetails
           cx={cx}

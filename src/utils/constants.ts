@@ -23,6 +23,10 @@ export const LIST_ROUTER = {
 };
 
 export const ERROR_ICON = "\u26A0";
+export const LIST_ICON = "\u2022";
+export const OPTION_POS = "point-of-sales";
+export const OPTION_ECOM = "e-commerce";
+export const OPTION_POS_AND_ECOM = "point-of-sales-e-commerce";
 
 export const ACKNOWLEDGEMENT_PAGE = {
   LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION:
@@ -129,17 +133,20 @@ export const SELF_SERVE_PAGE = {
       "Before submitting your application, please ensure that you read and understand the following:",
     listCheckbox: [
       {
-        label: "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
+        label:
+          "I/We declare and warrant that the information furnished in this application and all documents submitted are complete, true and accurate.",
         value: "policy1",
         checked: false,
       },
       {
-        label: "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
+        label:
+          "I/We hereby authorise you and give you consent to conduct credit checks on me/my company including but not limited to checks with any credit bureau recognised as such by the Monetary Authority of Singapore and obtain any verify and/or to disclose with you from or to any party or to any party or source as you may from time to time deem fit at your own discretion and without and liability or notice to me/us.",
         value: "policy2",
         checked: false,
       },
       {
-        label: "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
+        label:
+          "I/We confirm that any funds and assets that the Company places with OCBC Bank, and any profits that they generate, will comply with the tax laws of the countries where the Company is established or incorporated or of which the Company is carrying on business or which the Company is otherwise subject to.",
         value: "policy3",
         checked: false,
       },
@@ -227,8 +234,8 @@ export const SELF_SERVE_PAGE = {
   LABEL_TYPE_OF_PRODUCT_AND_SERVICE: "Type of product and/or service",
   LABEL_ORDER_FULFILMENT: "Order fulfilment",
   LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION:
-    "Average amount per credit card transaction",
-  LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST: "Annual credit card sales forecast",
+    "Estimated amount per credit card transaction (SGD)",
+  LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST: "Estimated annual credit card sales (SGD)",
   LABEL_PRODUCT_DELIVERED_FROM: "Product delivered from",
   LABEL_DELIVERY_TIME_TO_CUSTOMERS: "Delivery time to customers",
   LABEL_PRODUCT_DELIVERY: "Product delivery",
@@ -450,99 +457,109 @@ export const SELF_SERVE_PAGE = {
       },
       section: {
         whichServiceAreYouApplyingFor: {
-          title: "Which service are you applying for?",
+          title:
+            "Are you applying for Point-of-Sales terminals and/or e-Commerce?",
           description:
-            "Both services automatically come with Mastercard and Visa. You may choose other card acceptance options.",
+            "Select the applicable card acceptance type(s). Please note that Mastercard and Visa are automatically included.",
           data_list_checkbox: [
             {
               label: "Point-of-Sales terminal",
               value: "point-of-sales",
               checked: false,
-              expandedListCheckbox: {
-                description:
-                  "Please select the payment options for your Point-of-Sales terminal",
-                listCheckbox: [
-                  {
-                    label: "Visa",
-                    checked: true,
-                    value: "pos-visa",
-                    disabled: true,
-                  },
-                  {
-                    label: "Mastercard",
-                    checked: true,
-                    value: "pos-mastercard",
-                    disabled: true,
-                  },
-                  {
-                    label: "UnionPay",
-                    value: "pos-unionPay",
-                  },
-                  {
-                    label: "JCB",
-                    value: "pos-jcb",
-                  },
-                  {
-                    label: "WeChat Pay",
-                    value: "pos-wechat-pay",
-                  },
-                  {
-                    label: "AliPay",
-                    value: "pos-alipay",
-                  },
-                  {
-                    label: "OCBC Instalment Payment Plan (IPP)",
-                    value: "pos-ocbc-ipp",
-                  },
-                  {
-                    label: "Diners Club",
-                    value: "pos-dinners-club",
-                  },
-                  {
-                    label: "AMEX",
-                    value: "pos-amex",
-                  },
-                  {
-                    label: "Paynow",
-                    value: "pos-paynow",
-                  },
-                ],
-              },
+              expandedListCheckbox: [
+                {
+                  description: "Standard card payments",
+                  listCheckbox: [
+                    {
+                      label: "Visa",
+                      checked: true,
+                      value: "pos-visa",
+                      disabled: true,
+                    },
+                    {
+                      label: "Mastercard",
+                      checked: true,
+                      value: "pos-mastercard",
+                      disabled: true,
+                    },
+                    {
+                      label: "UnionPay",
+                      value: "pos-unionPay",
+                    },
+                    {
+                      label: "JCB",
+                      value: "pos-jcb",
+                    },
+                  ],
+                },
+                {
+                  description: "QR payments",
+                  listCheckbox: [
+                    {
+                      label: "WeChat Pay",
+                      value: "pos-wechatPay",
+                    },
+                    {
+                      label: "Alipay",
+                      value: "pos-alipay",
+                    },
+                    {
+                      label: "Paynow",
+                      value: "pos-paynow",
+                    },
+                  ],
+                },
+                {
+                  description: "0% instalment payment plan",
+                  listCheckbox: [
+                    {
+                      label: "OCBC Instalment Payment Plan (IPP)",
+                      value: "pos-ocbc-ipp",
+                    },
+                  ],
+                },
+              ],
             },
             {
               label: "e-Commerce",
               value: "e-commerce",
               checked: false,
-              expandedListCheckbox: {
-                description:
-                  "Please select the payment options for your e-Commerce platform",
-                listCheckbox: [
-                  {
-                    label: "Visa",
-                    checked: true,
-                    value: "ecom-visa",
-                    disabled: true,
-                  },
-                  {
-                    label: "Mastercard",
-                    checked: true,
-                    value: "ecom-mastercard",
-                    disabled: true,
-                  },
-                  {
-                    label: "JCB",
-                    value: "ecom-jcb",
-                  },
-                  {
-                    label: "UnionPay",
-                    value: "ecom-union-pay",
-                  },
-                  {
-                    label: "OCBC Instalment Payment Plan (IPP)",
-                    value: "ecom-ocbc-ipp",
-                  },
-                ],
-              },
+              expandedListCheckbox: [
+                {
+                  description: "Standard card payments",
+                  listCheckbox: [
+                    {
+                      label: "Visa",
+                      checked: true,
+                      value: "ecom-visa",
+                      disabled: true,
+                    },
+                    {
+                      label: "Mastercard",
+                      checked: true,
+                      value: "ecom-mastercard",
+                      disabled: true,
+                    },
+                    {
+                      label: "UnionPay",
+                      value: "ecom-union-pay",
+                    },
+                    {
+                      label: "JCB",
+                      value: "ecom-jcb",
+                    },
+                  ],
+                },
+                {
+                  description: "0% instalment payment plan",
+                  listCheckbox: [
+                    {
+                      label: "OCBC Instalment Payment Plan (IPP)",
+                      value: "ecom-ocbc-ipp",
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
@@ -611,7 +628,7 @@ export const SELF_SERVE_PAGE = {
             subTitle: "Website information",
             listField: {
               listRadioExistingWebsite: {
-                description: "Do you have an existing website?",
+                description: "Do you have an existing corporate website?",
               },
               listRadioPlaceOrderThroughWebsite: {
                 description: "Can customers place orders through your website?",
@@ -683,7 +700,7 @@ export const SELF_SERVE_PAGE = {
                 ],
               },
               listRadio: {
-                description: "Does your retail store accept card payments?",
+                description: "Does your retail store currently accept card payments?",
               },
             },
           },
@@ -711,14 +728,14 @@ export const SELF_SERVE_PAGE = {
             "What products and/or services is your business offering?",
           textField: {
             keyName: "typeOfProductAndService",
-            label: "Business offering",
+            label: "Business offerings",
             helperText: "Cannot exceed 180 characters",
             helperTextGuide:
               "E.g. Bistro, café, workshops, salon, clinic, etc.",
           },
         },
         fulfilmentInformation: {
-          title: "Fulfilment information",
+          title: "Fulfilment information (optional)",
           listRadio: {
             description:
               "How quickly does your business fulfil these products and/or services?",
@@ -765,19 +782,17 @@ export const SELF_SERVE_PAGE = {
           },
         },
         salesForecast: {
-          title: "Sales forecast",
+          title: "Estimated sales forecast (optional)",
           description:
-            "Based on your products and/or services, what is your sales forecast?",
+            "To help us better understand your business, let us know your estimate sales forecast based on your products and/or services.",
           listTextField: [
             {
-              keyName: "averageAmountPerCreditCardTransaction",
-              description: "Average amount per credit card transaction",
+              description: "Estimated amount per credit card transaction",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },
             {
-              keyName: "annualCreditCardSalesForecast",
-              description: "Annual credit card sales forecast",
+              description: "Estimated annual credit card sales",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },
@@ -879,19 +894,17 @@ export const SELF_SERVE_PAGE = {
           },
         },
         salesForecast: {
-          title: "Sales forecast",
+          title: "Estimated sales forecast",
           description:
-            "Based on your products and/or services, what is your sales forecast?",
+            "To help us better understand your business, let us know your estimated sales forecast based on your products and/or services.",
           listTextField: [
             {
-              keyName: "averageAmountPerCreditCardTransaction",
-              description: "Average amount per credit card transaction",
+              description: "Estimated amount per credit card transaction",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },
             {
-              keyName: "annualCreditCardSalesForecast",
-              description: "Annual credit card sales forecast",
+              description: "Estimated annual credit card sales",
               helperText: "Please enter an amount above SGD 0",
               label: "SGD",
             },

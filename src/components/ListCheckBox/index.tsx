@@ -8,7 +8,7 @@ import {
   Box,
 } from "@material-ui/core";
 import classnames from "classnames/bind";
-import React from "react";
+import React, { ChangeEvent } from "react";
 import _ from "lodash";
 import { isEmpty } from "lodash";
 
@@ -16,11 +16,10 @@ import { isEmpty } from "lodash";
 import styles from "./ListCheckBox.scss";
 
 // import types
-import { ICheckBox, IListCheckBox } from "./ListCheckBox";
+import { ICheckBox, IExpandedCheckBox, IListCheckBox } from "./ListCheckBox";
 
 // import images
 import IconCheckbox from "@/assets/images/icon-checkbox.svg";
-import IconCheckedBox from "@/assets/images/icon-checkedbox.svg";
 import IconCheckboxBlack from "@/assets/images/icon-checkedbox-black.svg";
 import IconCheckboxBlackTransparent from "@/assets/images/icon-checkedbox-transparent.svg";
 
@@ -34,7 +33,10 @@ const ListCheckbox = (props: IListCheckBox) => {
    * @param event
    * @param checked
    */
-  const handleCheckBox = (event: any, checked: boolean) => {
+  const handleCheckBox = (
+    event: ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => {
     const newData: any = dataCardCheckbox.reduce((acc, item) => {
       const newItem: any = { ...item }; // Create a new object to avoid changing the original object
       if (newItem.value === event.target.value) {
@@ -52,32 +54,46 @@ const ListCheckbox = (props: IListCheckBox) => {
    * @param event
    * @param checked
    */
-  const handleExpandedCheckBox = (event: any, checked: boolean) => {
-    const newData: any = dataCardCheckbox.reduce((acc, item) => {
-      const expandedListCheckbox = {
+  const handleExpandedCheckBox = (
+    event: ChangeEvent<HTMLInputElement>,
+    checked: boolean
+  ) => {
+    const newData: unknown = dataCardCheckbox.reduce((acc, item) => {
+      const expandedListCheckbox: IExpandedCheckBox[] = {
         ...item.expandedListCheckbox,
       };
 
-      const newDataExpandedListCheckbox =
-        expandedListCheckbox.listCheckbox.reduce((init: any, checkbox: any) => {
-          const newitemExpanded: any = { ...checkbox }; // Create a new object to avoid changing the original object
-          if (newitemExpanded.value === event.target.value) {
-            newitemExpanded.checked = checked;
-          }
-          init.push(newitemExpanded);
-          return init;
-        }, []);
+      const newDataExpandedListCheckbox = _.map(
+        expandedListCheckbox,
+        (item) => {
+          const newReduce = item.listCheckbox.reduce(
+            (init: ICheckBox[], checkbox: ICheckBox) => {
+              const newitemExpanded: any = { ...checkbox }; // Create a new object to avoid changing the original object
+              if (newitemExpanded.value === event.target.value) {
+                newitemExpanded.checked = checked;
+              }
+              init.push(newitemExpanded);
+              return init;
+            },
+            []
+          );
+          return newReduce;
+        }
+      );
 
       acc.push({
         ...item,
-        expandedListCheckbox: {
-          ...item.expandedListCheckbox,
-          listCheckbox: newDataExpandedListCheckbox,
-        },
+        expandedListCheckbox: item.expandedListCheckbox.map(
+          (itemExp: IExpandedCheckBox, index: number) => {
+            return {
+              ...itemExp,
+              listCheckbox: newDataExpandedListCheckbox[index],
+            };
+          }
+        ),
       });
       return acc;
     }, []);
-    newData.name = event.target.value;
     getValue(newData);
   };
 
@@ -85,50 +101,54 @@ const ListCheckbox = (props: IListCheckBox) => {
    * Run to show expanded template inside checkbox item
    * @returns {HTML}
    */
-  const renderExpanded = (item: ICheckBox) => {
+  const renderExpanded = (item: IExpandedCheckBox) => {
     return (
       <Grid item xs={12}>
         <Box className={cx("expanded-wrapper")}>
           {/* {Expanded description} */}
-          {item.expandedListCheckbox.description && (
+          {item.description && (
             <Typography className={cx("expanded-description")}>
-              {item.expandedListCheckbox.description}
+              {item.description}
             </Typography>
           )}
 
           {/* {Expanded list checkbox} */}
-          {item.expandedListCheckbox.listCheckbox && (
+          {item.listCheckbox && (
             <Box className={cx("expanded-list-checkbox")}>
-              {_.map(
-                item.expandedListCheckbox.listCheckbox,
-                (checkbox, index) => {
-                  return (
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          disableRipple
-                          disableTouchRipple
-                          disableFocusRipple
-                          {...checkbox}
-                          onChange={(event: any, checked: boolean) => {
-                            handleExpandedCheckBox(event, checked)
-                          }
-                          }
-                          icon={<img src={IconCheckbox} alt="icon checkbox" />}
-                          checkedIcon={
-                            checkbox.disabled
-                            ? <img src={IconCheckboxBlackTransparent} alt="checkbox black transparent"/>
-                            : <img src={IconCheckboxBlack} alt="icon checkedbox black" />
-                          }
-                        />
-                      }
-                      disabled={checkbox.disabled}
-                      key={index}
-                      label={checkbox.label}
-                    />
-                  );
-                }
-              )}
+              {_.map(item.listCheckbox, (checkbox, index) => {
+                return (
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        disableRipple
+                        disableTouchRipple
+                        disableFocusRipple
+                        {...checkbox}
+                        onChange={(event: any, checked: boolean) => {
+                          handleExpandedCheckBox(event, checked);
+                        }}
+                        icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                        checkedIcon={
+                          checkbox.disabled ? (
+                            <img
+                              src={IconCheckboxBlackTransparent}
+                              alt="checkbox black transparent"
+                            />
+                          ) : (
+                            <img
+                              src={IconCheckboxBlack}
+                              alt="icon checkedbox black"
+                            />
+                          )
+                        }
+                      />
+                    }
+                    disabled={checkbox.disabled}
+                    key={index}
+                    label={checkbox.label}
+                  />
+                );
+              })}
             </Box>
           )}
         </Box>
@@ -138,7 +158,7 @@ const ListCheckbox = (props: IListCheckBox) => {
 
   return (
     <FormGroup className={cx("list-checkbox-wrapper")}>
-      {_.map(dataCardCheckbox, (item: any, index: number) => {
+      {_.map(dataCardCheckbox, (item: ICheckBox, index: number) => {
         return (
           <Box key={index}>
             <Grid key={index} item xs={xs} sm={sm} md={md} lg={lg}>
@@ -169,17 +189,32 @@ const ListCheckbox = (props: IListCheckBox) => {
                     disableRipple
                     disableTouchRipple
                     icon={<img src={IconCheckbox} alt="icon checkbox" />}
-                    checkedIcon={<img src={IconCheckedBox} alt="icon checkedbox" />}
-                  />} // Checkbox from Material
+                    checkedIcon={
+                      <img
+                        src={IconCheckboxBlack}
+                        alt="icon checkedbox black"
+                      />
+                    }
+                  />
+                } // Checkbox from Material
               />
             </Grid>
 
-            {/* {Expanded content} */}
-            {
-              item.checked &&
-                !isEmpty(item.expandedListCheckbox) &&
-                renderExpanded(item) // render expanded after checkbox item is checked
-            }
+            <Grid container>
+              {/* {Expanded content} */}
+              {item.checked && item.expandedListCheckbox &&
+                item.expandedListCheckbox.map(
+                  (expanded: IExpandedCheckBox, idx) => {
+                    return (
+                      <Grid key={idx} item xs={4}>
+                        {
+                          !isEmpty(expanded) && renderExpanded(expanded) // render expanded after checkbox item is checked
+                        }
+                      </Grid>
+                    );
+                  }
+                )}
+            </Grid>
           </Box>
         );
       })}

@@ -51,43 +51,49 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
       )}
 
       <Grid container className={cx("point-of-sales-container")}>
-        {/* {Type of product and/or service} */}
-        {_.has(pointOfSales, "typeOfProductAndService") &&
-          !_.isEmpty(pointOfSales.typeOfProductAndService) && (
-            <Grid item xs={12}>
-              <Box className={cx("d-flex-column")}>
-                <Box component="span" className={cx("text-item-input")}>
-                  {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
-                </Box>
-                <Box component="span" className={cx("text-item-value")}>
-                  {pointOfSales.typeOfProductAndService}
-                </Box>
-              </Box>
-            </Grid>
-          )}
+        <Grid item xs={12} className={cx("n-wrap")}>
+          <Grid container className={cx("n-wrap")}>
+            {/* {Type of product and/or service} */}
+            {_.has(pointOfSales, "typeOfProductAndService") &&
+              !_.isEmpty(pointOfSales.typeOfProductAndService) && (
+                <Grid item xs={4}>
+                  <Box className={cx("d-flex-column")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
+                    </Box>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {pointOfSales.typeOfProductAndService}
+                    </Box>
+                  </Box>
+                </Grid>
+              )}
 
-        {/* {Order fulfilment} */}
-        {_.has(pointOfSales, "orderFulfilment") &&
-          !_.isEmpty(pointOfSales.orderFulfilment) && (
-            <Grid item xs={12}>
-              <Box className={cx("d-flex-column")}>
-                <Box component="span" className={cx("text-item-input")}>
-                  {LABEL_ORDER_FULFILMENT}
-                </Box>
-                <Box component="span" className={cx("text-item-value")}>
-                  {pointOfSales.orderFulfilment}
-                </Box>
-              </Box>
-            </Grid>
-          )}
+            {/* {Order fulfilment} */}
+            {_.has(pointOfSales, "orderFulfilment") &&
+              !_.isEmpty(pointOfSales.orderFulfilment) && (
+                <Grid item xs={4}>
+                  <Box className={cx("d-flex-column")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_ORDER_FULFILMENT}
+                    </Box>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {pointOfSales.orderFulfilment}
+                    </Box>
+                  </Box>
+                </Grid>
+              )}
+
+            <Grid item xs={4}></Grid>
+          </Grid>
+        </Grid>
 
         {_.has(pointOfSales, "duration") && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
-              {/* {Average amount per credit card transaction} */}
+              {/* {Duration} */}
               {_.has(pointOfSales, "duration") &&
                 !_.isEmpty(pointOfSales.duration) && (
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <Box className={cx("d-flex-column")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_DURATION}
@@ -108,7 +114,7 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                 !_.isEmpty(
                   pointOfSales.percentageOfProductsNotFulfilledImmediately
                 ) && (
-                  <Grid item xs={12} md={6}>
+                  <Grid item xs={12} md={4}>
                     <Box className={cx("d-flex-column")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY}
@@ -120,43 +126,44 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                   </Grid>
                 )}
             </Grid>
+            <Grid item xs={4}></Grid>
           </Grid>
         )}
 
-        {_.has(pointOfSales, "averageAmountPerCreditCardTransaction") && (
+        {_.has(pointOfSales, "estimatedAmount") && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
-              {/* {Average amount per credit card transaction} */}
-              {_.has(pointOfSales, "averageAmountPerCreditCardTransaction") &&
-                !_.isEmpty(
-                  pointOfSales.averageAmountPerCreditCardTransaction
-                ) && (
-                  <Grid item xs={12} md={6}>
+              {/* {Estimated amount per credit card transaction (SGD)} */}
+              {_.has(pointOfSales, "estimatedAmount") &&
+                !_.isEmpty(pointOfSales.estimatedAmount) && (
+                  <Grid item xs={12} md={4}>
                     <Box className={cx("d-flex-column")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${pointOfSales.averageAmountPerCreditCardTransaction}`}
+                        {`${LABEL_SGD} ${pointOfSales.estimatedAmount}`}
                       </Box>
                     </Box>
                   </Grid>
                 )}
 
-              {/* {Annual credit card sales forecast} */}
-              {_.has(pointOfSales, "annualCreditCardSalesForecast") &&
-                !_.isEmpty(pointOfSales.annualCreditCardSalesForecast) && (
-                  <Grid item xs={12} md={6}>
+              {/* {Estimated annual credit card sales (SGD)} */}
+              {_.has(pointOfSales, "estimatedAnnualCredit") &&
+                !_.isEmpty(pointOfSales.estimatedAnnualCredit) && (
+                  <Grid item xs={12} md={4}>
                     <Box className={cx("d-flex-column")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${pointOfSales.annualCreditCardSalesForecast}`}
+                        {`${LABEL_SGD} ${pointOfSales.estimatedAnnualCredit}`}
                       </Box>
                     </Box>
                   </Grid>
                 )}
+
+              <Grid item xs={4}></Grid>
             </Grid>
           </Grid>
         )}
@@ -301,34 +308,34 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
             </Grid>
           )}
 
-        {_.has(eCommerce, "averageAmountPerCreditCardTransaction") && (
+        {_.has(eCommerce, "estimatedAmount") && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
               {/* {Average amount per credit card transaction} */}
-              {_.has(eCommerce, "averageAmountPerCreditCardTransaction") &&
-                !_.isEmpty(eCommerce.averageAmountPerCreditCardTransaction) && (
+              {_.has(eCommerce, "estimatedAmount") &&
+                !_.isEmpty(eCommerce.estimatedAmount) && (
                   <Grid item xs={12} md={6}>
                     <Box className={cx("d-flex-column")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${eCommerce.averageAmountPerCreditCardTransaction}`}
+                        {`${LABEL_SGD} ${eCommerce.estimatedAmount}`}
                       </Box>
                     </Box>
                   </Grid>
                 )}
 
               {/* {Annual credit card sales forecast} */}
-              {_.has(eCommerce, "annualCreditCardSalesForecast") &&
-                !_.isEmpty(eCommerce.annualCreditCardSalesForecast) && (
+              {_.has(eCommerce, "estimatedAnnualCredit") &&
+                !_.isEmpty(eCommerce.estimatedAnnualCredit) && (
                   <Grid item xs={12} md={6}>
                     <Box className={cx("d-flex-column")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${eCommerce.annualCreditCardSalesForecast}`}
+                        {`${LABEL_SGD} ${eCommerce.estimatedAnnualCredit}`}
                       </Box>
                     </Box>
                   </Grid>
