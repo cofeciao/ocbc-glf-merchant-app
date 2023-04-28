@@ -61,7 +61,7 @@ const Acknowledgement: React.FC = () => {
     <>
       {/* {Header} */}
       <Header title={TITLE_PAGE} logoHref={LINK_EXTERNAL_PAGE} />
-
+      
       {/* {Content} */}
       <Box className={cx("mt-dt-56")}>
         {slug === "successful" && <Successful />}
