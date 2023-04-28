@@ -1,4 +1,6 @@
+import { IAmountTextField } from "@/components/AmountTextField/AmountTextField";
 import { ICheckBox } from "@/components/GroupCheckBox/GroupCheckBox";
+import { IPercentageTextField } from "@/components/PercentageTextField/PercentageTextField";
 
 declare namespace IProductsAndServices {
   export interface ITooltipDialog {
@@ -56,7 +58,7 @@ declare namespace IProductsAndServices {
     listRadio?: IListRadio;
     listDropdown?: IListDropdown;
     listCheckbox?: IListCheckbox;
-    textField?: ITextField;
+    textField?: IPercentageTextField;
     listCheckboxSecondary?: IListCheckbox;
     listRadioSecondary?: IListRadio;
   }
@@ -126,21 +128,21 @@ declare namespace IProductsAndServices {
   export interface ISalesForecast {
     title: string;
     description: string;
-    listTextField: ITextField[];
+    listTextField: IAmountTextField[];
   }
 
   export interface ISalesForecastSection {
     cx: any;
     data: ISalesForecast;
     dataRedux?: any;
-    title?: any;
+    title?: string;
     optionSelected?: string;
     variant?: string;
-    register?: any;
-    unregister?: any;
-    setValue?: any;
+    register?: Function;
+    unregister?: Function;
+    setValue?: Function;
     errors?: any;
-    clearErrors?: any;
+    clearErrors?: Function;
     setError?: any;
   }
 }

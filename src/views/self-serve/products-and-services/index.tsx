@@ -77,11 +77,11 @@ const ProductsAndServices: React.FC = () => {
     defaultValues: {
       Pos: {
         orderFulfilment:
-          productsAndServicesStep.pointOfSales.orderFulfilment
+          productsAndServicesStep.pointOfSales.orderFulfilment || ""
       },
       Ecom: {
         orderFulfilment:
-          productsAndServicesStep.eCommerce.orderFulfilment
+          productsAndServicesStep.eCommerce.orderFulfilment || ""
       },
     },
   });

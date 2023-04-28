@@ -113,6 +113,7 @@ const FulfilmentInformationEcommerce: React.FC<
               adornment={PERCENT_CHARACTERS}
               errors={errors}
               register={register}
+              required={false}
               dataRedux={_.get(
                 dataRedux,
                 "percentageOfProductsNotFulfilledImmediately"

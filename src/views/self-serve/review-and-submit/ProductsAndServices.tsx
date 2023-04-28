@@ -145,7 +145,7 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
           </Grid>
         )}
 
-        {_.has(pointOfSales, "estimatedAmount") && (
+        {!_.isEmpty(_.get(pointOfSales, "estimatedAmount")) && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
               {/* {Estimated amount per credit card transaction (SGD)} */}
@@ -251,7 +251,7 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
           </Grid>
         </Grid>
 
-        {_.has(eCommerce, "productDeliveredFrom") && (
+        {!_.isEmpty(_.get(eCommerce, "productDeliveredFrom")) && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
               {/* {Product delivered from} */}
@@ -326,7 +326,7 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
           </Grid>
         )}
 
-        {_.has(eCommerce, "estimatedAmount") && (
+        {!_.isEmpty(_.get(eCommerce, "estimatedAmount"))  && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
               {/* {Estimated amount per credit card transaction (SGD)} */}

@@ -39,7 +39,7 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
   const history = useHistory();
 
   // states
-  const [dataCheckbox, setDataCheckbox] = useState(
+  const [dataCheckbox, setDataCheckbox] = useState<ICheckBox[]>(
     whichServiceAreYouApplyingFor.data_list_checkbox
   );
   const [disabledButton, setDisabledButton] = useState<boolean>(true);

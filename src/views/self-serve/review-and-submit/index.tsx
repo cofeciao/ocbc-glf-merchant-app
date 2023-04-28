@@ -165,19 +165,6 @@ const ReviewAndSubmit: React.FC = () => {
         <CashlessPaymentMethod data={cashlessPaymentsMethods} />
       </SectionWrapper>
 
-      {/* {Section Company And Contact Infomation} */}
-      <SectionWrapper
-        cx={cx}
-        title={LABEL_COMPANY_REGISTRATION}
-        edit={true}
-        onClickEdit={() => {
-          localStorage.setItem("edit", "true");
-          history.push(`${LIST_ROUTER.company_and_contact_information}`);
-        }}
-      >
-        <CompanyAndContactInfomation data={companyAndContactInformationStep} />
-      </SectionWrapper>
-
       {/* {Section Transaction And Card Acceptance Type} */}
       <SectionWrapper
         cx={cx}
@@ -190,6 +177,19 @@ const ReviewAndSubmit: React.FC = () => {
         <TransactionAndCardAcceptanceType
           data={transactionAndCardAcceptanceTypeStep}
         />
+      </SectionWrapper>
+
+      {/* {Section Company And Contact Infomation} */}
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_COMPANY_REGISTRATION}
+        edit={true}
+        onClickEdit={() => {
+          localStorage.setItem("edit", "true");
+          history.push(`${LIST_ROUTER.company_and_contact_information}`);
+        }}
+      >
+        <CompanyAndContactInfomation data={companyAndContactInformationStep} />
       </SectionWrapper>
 
       {/* {Section Business Details} */}

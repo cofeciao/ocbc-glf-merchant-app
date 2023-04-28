@@ -12,7 +12,10 @@ import { ERROR_ICON } from "@/utils/constants";
 // import components
 import { Box, InputAdornment, TextField } from "@material-ui/core";
 
-const AmountTextField = (props: any) => {
+// import type
+import { IAmountTextField } from "./AmountTextField";
+
+const AmountTextField = (props: IAmountTextField) => {
   const {
     register,
     errors,
@@ -21,6 +24,7 @@ const AmountTextField = (props: any) => {
     description,
     label,
     helperText,
+    required
   } = props;
 
   // states
@@ -76,7 +80,7 @@ const AmountTextField = (props: any) => {
         }
         helperText={_.has(errors, name) && helperText}
         {...register(name, {
-          required: false,
+          required,
           pattern: {
             // eslint-disable-next-line no-useless-escape
             value: /^[1-9]\d{0,2}(,\d{3})*$/,

@@ -5,9 +5,10 @@ import _ from "lodash";
 import AmountTextField from "@/components/AmountTextField";
 
 // import types
+import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const SalesForecast: React.FC<any> = (props) => {
+const SalesForecast: React.FC<IProductsAndServices.ISalesForecastSection> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
 
   // render UI
