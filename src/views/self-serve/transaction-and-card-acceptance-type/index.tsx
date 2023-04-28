@@ -104,8 +104,6 @@ const TransactionAndCardAcceptanceType: React.FC = () => {
       >
         {/* {List Checkbox} */}
         <ListCheckBox
-          label=""
-          textError={`errorMessage`}
           dataCardCheckbox={dataCheckbox}
           lg={4}
           md={4}

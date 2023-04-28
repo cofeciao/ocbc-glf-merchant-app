@@ -11,7 +11,7 @@ import ExpandMore from "@material-ui/icons/ExpandMore";
 import styles from "./ContactNumber.scss";
 
 // import types
-import { IContactNumber, ICountry } from "./GroupCheckBox";
+import { IContactNumber, ICountry } from "./ContactNumber";
 
 // render UI
 const ContactNumber: React.FC<IContactNumber> = (props) => {
@@ -151,18 +151,8 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
               >
                 {_.map(listCountry, (item: ICountry, index: number) => {
                   return (
-                    <MenuItem
-                      className={cx("item-selected")}
-                      key={index}
-                      value={item.value}
-                    >
-                      <span
-                        className={cx(
-                          areaCode === item.value
-                            ? "item-selected"
-                            : "item-unselected"
-                        )}
-                      >{`${item.name} (${item.value})`}</span>
+                    <MenuItem key={index} value={item.value}>
+                      <span>{`${item.name} (${item.value})`}</span>
                     </MenuItem>
                   );
                 })}

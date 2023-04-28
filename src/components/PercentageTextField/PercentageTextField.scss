@@ -1,0 +1,18 @@
+.percentage-textfield-wrapper {
+  .MuiFilledInput-input {
+    padding: 27px 10px 10px;
+  }
+
+  .MuiInputAdornment-root {
+    padding: 0;
+    align-items: self-start;
+    padding-bottom: 5px;
+    p {
+      padding-top: 0;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 24px;
+      color: #777e87;
+    }
+  }
+}

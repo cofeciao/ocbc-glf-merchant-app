@@ -66,16 +66,16 @@ declare namespace IReviewAndSubmit {
         productDelivery: string;
         typeOfProductAndService: string;
         deliveryTimeToCustomers: string;
-        averageAmountPerCreditCardTransaction: string;
-        annualCreditCardSalesForecast: string;
+        estimatedAmount: string;
+        estimatedAnnualCredit: string;
         productDeliveredFrom: ICheckBox[];
         percentageOfProductsNotFulfilledImmediately: string;
       };
       pointOfSales: {
         orderFulfilment: string;
         typeOfProductAndService: string;
-        averageAmountPerCreditCardTransaction: string;
-        annualCreditCardSalesForecast: string;
+        estimatedAmount: string;
+        estimatedAnnualCredit: string;
         deliveryTimeToCustomers: string;
         percentageOfProductsNotFulfilledImmediately: string;
         duration: string;

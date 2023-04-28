@@ -3,38 +3,6 @@ import { createSlice } from "@reduxjs/toolkit";
 const Formslice = createSlice({
   name: "form",
   initialState: {
-    // RM flow
-    dataCompanyDetail: {},
-    dataAcraDetail: {},
-    servicesAppliedStep: {
-      transactionAndCardAcceptanceTypeStep: [],
-      otherServices: {
-        instalmentPaymentPlan: {},
-        directCurrencyConversion: {},
-        mailOrder: {},
-      },
-    },
-    businessOperationDetails: {},
-    productsAndServices: {
-      pointOfSales: {},
-      eCommerce: {},
-    },
-
-    acraAndContactInformationStep: {
-      contactDetail: {},
-      authorisedPersonDetails: {},
-    },
-    sensitiveStep: {},
-    beneficialOwnerShipStep: {},
-    feeAndRateStep: {},
-    feeAuthorisationStep: {},
-    supplementaryDocumentStep: {
-      authorisedSignatoryNRIC: [],
-      tenacyDocumentOrSiteVisitPhotos: [],
-      copyOfBankStatement: [],
-      anyOtherSupportingDocuments: [],
-    },
-
     // Self flow
     cashlessPaymentMethod: [],
     companyAndContactInformationStep: {},
@@ -47,7 +15,8 @@ const Formslice = createSlice({
     },
     reviewAndSubmit: {
       agreePolicy: []
-    }
+    },
+    otherRequirements: "",
   },
   reducers: {
     /**
@@ -60,106 +29,12 @@ const Formslice = createSlice({
     },
 
     /**
-     * function save data of ACRA and contact information step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataAcraDetail: (state, action) => {
-      state.dataAcraDetail = action.payload;
-    },
-    saveDataCompanyDetail: (state, action) => {
-      state.dataCompanyDetail = action.payload;
-    },
-
-    /**
-     * function save data of ACRA and contact information step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataTransactionServicesApplied: (state, action) => {
-      state.servicesAppliedStep.transactionAndCardAcceptanceTypeStep =
-        action.payload;
-    },
-    saveDataOtherServicesApplied: (state, action) => {
-      state.servicesAppliedStep.otherServices = action.payload;
-    },
-
-    /**
-     * function save data of Business operation details step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataBusinessOperationDetails: (state, action) => {
-      state.businessOperationDetails = action.payload;
-    },
-
-    /**
-     * function save data of Products and services step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataProductsAndServicesEcomRM: (state, action) => {
-      state.productsAndServices.eCommerce = action.payload;
-    },
-    saveDataProductsAndServicesPosRM: (state, action) => {
-      state.productsAndServices.pointOfSales = action.payload;
-    },
-
-      /**
-     * function save data of Sensitive Data step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataSensitive: (state, action) => {
-      state.sensitiveStep = action.payload;
-    },
-
-    /**
-     * function save data of Beneficial Ownership step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataBeneficialOwnership: (state, action) => {
-      state.beneficialOwnerShipStep = action.payload;
-    },
-
-    /**
-     * function save data of Fee And Rates step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataFeeAndRates: (state, action) => {
-      state.feeAndRateStep = action.payload;
-    },
-
-    /**
-     * function save data of Fee Authorisation step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataFeeAuthorisation: (state, action) => {
-      state.feeAuthorisationStep = action.payload;
-    },
-
-    /**
-     * function save data of Supplementary documents step
-     * @param state - State for form
-     * @param action  - Payload
-     */
-    saveDataSupplementaryDocument: (state, action) => {
-      state.supplementaryDocumentStep = action.payload;
-    },
-
-    /**
      * function save data of step Company And Contact Information
      * @param state - State for form
      * @param action  - Payload
      */
     saveDataCompanyAndContactInformationStep: (state, action) => {
       state.companyAndContactInformationStep = action.payload;
-    },
-    saveDataAcraAndContactInformationStep: (state, action) => {
-      state.acraAndContactInformationStep = action.payload;
     },
 
     /**
@@ -194,20 +69,20 @@ const Formslice = createSlice({
      * @param state - State for form
      * @param action  - Payload
      */
+    saveDataProductsAndServicesPos: (state, action) => {
+      state.productsAndServicesStep.pointOfSales = action.payload;
+    },
     saveDataProductsAndServicesEcom: (state, action) => {
       state.productsAndServicesStep.eCommerce = action.payload;
     },
 
     /**
-     * function save data of step Products And Services
+     * function save data Other Requirements in Review and Submit step
      * @param state - State for form
      * @param action  - Payload
      */
-    saveDataProductsAndServicesPOS: (state, action) => {
-      state.productsAndServicesStep.pointOfSales = action.payload;
-    },
-    saveDataAcraDetailStep: (state, action) => {
-      state.dataAcraDetail = action.payload;
+    saveDataOtherRequirements: (state, action) => {
+      state.otherRequirements = action.payload;
     },
 
      /**
@@ -223,26 +98,14 @@ const Formslice = createSlice({
 
 export const {
   saveDataCashlessPaymentMethod,
-  saveDataCompanyDetail,
-  saveDataTransactionServicesApplied,
-  saveDataOtherServicesApplied,
-  saveDataBusinessOperationDetails,
-  saveDataProductsAndServicesEcomRM,
-  saveDataProductsAndServicesPosRM,
-  saveDataSensitive,
-  saveDataBeneficialOwnership,
-  saveDataFeeAndRates,
-  saveDataFeeAuthorisation,
-  saveDataSupplementaryDocument,
   saveDataCompanyAndContactInformationStep,
-  saveDataAcraAndContactInformationStep,
   saveDataTransactionAndCardAcceptanceTypeStep,
-  saveDataAcraDetailStep,
   saveDataBusinessDetailsStep,
   saveDataListWebsiteUrl,
+  saveDataProductsAndServicesPos,
   saveDataProductsAndServicesEcom,
-  saveDataProductsAndServicesPOS,
   saveDataAgreePolicy,
+  saveDataOtherRequirements,
 } = Formslice.actions;
 
 export default Formslice.reducer;

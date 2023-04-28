@@ -8,7 +8,10 @@ import _ from "lodash";
 import styles from "./ReviewAndSubmit.scss";
 
 // import constants
-import { SELF_SERVE_PAGE } from "@/utils/constants";
+import {
+  OPTION_POS_AND_ECOM,
+  SELF_SERVE_PAGE,
+} from "@/utils/constants";
 
 // import types
 import { IReviewAndSubmit } from "./ReviewAndSubmit";
@@ -27,12 +30,15 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
     LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST,
     LABEL_PRODUCT_DELIVERED_FROM,
     LABEL_PRODUCT_DELIVERY,
-    LABEL_SGD,
     LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY,
     LABEL_DURATION,
     LABEL_DELIVERY_TIME_TO_CUSTOMERS,
+    LIST_RADIO_HOW_QUICKLY_DOES_YOUR_BUSINESS_FULFIL_THESE_PRODUCTS_AND_SERVICES:
+      { listRadio },
   } = SELF_SERVE_PAGE;
   const { eCommerce, pointOfSales } = data;
+
+  // classnames
   const cx = classnames.bind(styles);
 
   // Filter
@@ -44,51 +50,62 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
   return (
     <Box>
       {/* {Point-of-Sales terminal} */}
-      {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
+      {_.isEqual(optionSelected, OPTION_POS_AND_ECOM) && (
         <Typography className={cx("sub-section-title")}>
           {LABEL_POINT_OF_SALES_TERMINAL}
         </Typography>
       )}
 
       <Grid container className={cx("point-of-sales-container")}>
-        {/* {Type of product and/or service} */}
-        {_.has(pointOfSales, "typeOfProductAndService") &&
-          !_.isEmpty(pointOfSales.typeOfProductAndService) && (
-            <Grid item xs={12}>
-              <Box className={cx("d-flex-column")}>
-                <Box component="span" className={cx("text-item-input")}>
-                  {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
-                </Box>
-                <Box component="span" className={cx("text-item-value")}>
-                  {pointOfSales.typeOfProductAndService}
-                </Box>
-              </Box>
-            </Grid>
-          )}
+        <Grid item xs={12} className={cx("n-wrap")}>
+          <Grid container className={cx("n-wrap")}>
+            {/* {Type of product and/or service} */}
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(_.get(pointOfSales, "typeOfProductAndService")) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
+                    </Box>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {pointOfSales.typeOfProductAndService}
+                    </Box>
+                  </Box>
+                )}
+              </Grid>
+            }
 
-        {/* {Order fulfilment} */}
-        {_.has(pointOfSales, "orderFulfilment") &&
-          !_.isEmpty(pointOfSales.orderFulfilment) && (
-            <Grid item xs={12}>
-              <Box className={cx("d-flex-column")}>
-                <Box component="span" className={cx("text-item-input")}>
-                  {LABEL_ORDER_FULFILMENT}
-                </Box>
-                <Box component="span" className={cx("text-item-value")}>
-                  {pointOfSales.orderFulfilment}
-                </Box>
-              </Box>
-            </Grid>
-          )}
+            {/* {Order fulfilment} */}
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(_.get(pointOfSales, "orderFulfilment")) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_ORDER_FULFILMENT}
+                    </Box>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {pointOfSales.orderFulfilment}
+                    </Box>
+                  </Box>
+                )}
+              </Grid>
+            }
 
-        {_.has(pointOfSales, "duration") && (
+            <Grid item xs={12} md={4}></Grid>
+          </Grid>
+        </Grid>
+
+        {_.isEqual(
+          _.get(pointOfSales, "orderFulfilment"),
+          listRadio[1].label
+        ) && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
-              {/* {Average amount per credit card transaction} */}
-              {_.has(pointOfSales, "duration") &&
-                !_.isEmpty(pointOfSales.duration) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {/* {Duration} */}
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(pointOfSales, "duration")) && (
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_DURATION}
                       </Box>
@@ -97,146 +114,151 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                           pointOfSales.duration.slice(1).replace(/-/g, " ")}
                       </Box>
                     </Box>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+              }
 
               {/* {Percentage of products/services not fulfilled immediately} */}
-              {_.has(
-                pointOfSales,
-                "percentageOfProductsNotFulfilledImmediately"
-              ) &&
-                !_.isEmpty(
-                  pointOfSales.percentageOfProductsNotFulfilledImmediately
-                ) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {
+                <Grid item xs={12} md={4}>
+                  {
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${pointOfSales.percentageOfProductsNotFulfilledImmediately}%`}
+                        {!_.isEmpty(
+                          _.get(
+                            pointOfSales,
+                            "percentageOfProductsNotFulfilledImmediately"
+                          )
+                        )
+                          ? pointOfSales.percentageOfProductsNotFulfilledImmediately
+                          : "-"}
                       </Box>
                     </Box>
-                  </Grid>
-                )}
+                  }
+                </Grid>
+              }
             </Grid>
+            <Grid item xs={12} md={4}></Grid>
           </Grid>
         )}
 
-        {_.has(pointOfSales, "averageAmountPerCreditCardTransaction") && (
+        {_.has(pointOfSales, "estimatedAmount") && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
-              {/* {Average amount per credit card transaction} */}
-              {_.has(pointOfSales, "averageAmountPerCreditCardTransaction") &&
-                !_.isEmpty(
-                  pointOfSales.averageAmountPerCreditCardTransaction
-                ) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {/* {Estimated amount per credit card transaction (SGD)} */}
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(pointOfSales, "estimatedAmount")) && (
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${pointOfSales.averageAmountPerCreditCardTransaction}`}
+                        {pointOfSales.estimatedAmount}
                       </Box>
                     </Box>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+              }
 
-              {/* {Annual credit card sales forecast} */}
-              {_.has(pointOfSales, "annualCreditCardSalesForecast") &&
-                !_.isEmpty(pointOfSales.annualCreditCardSalesForecast) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {/* {Estimated annual credit card sales (SGD)} */}
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(pointOfSales, "estimatedAnnualCredit")) && (
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${pointOfSales.annualCreditCardSalesForecast}`}
+                        {pointOfSales.estimatedAnnualCredit}
                       </Box>
                     </Box>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+              }
+
+              <Grid item xs={12} md={4}></Grid>
             </Grid>
           </Grid>
         )}
       </Grid>
 
       {/* {Ecommerce} */}
-      {_.isEqual(optionSelected, "point-of-sales-e-commerce") && (
+      {_.isEqual(optionSelected, OPTION_POS_AND_ECOM) && (
         <Typography className={cx("sub-section-title")}>
           {LABEL_ECOMMERCE}
         </Typography>
       )}
 
       <Grid container className={cx("ecommerce-container")}>
-        {/* {Type of product and/or service} */}
-        {_.has(eCommerce, "typeOfProductAndService") &&
-          !_.isEmpty(eCommerce.typeOfProductAndService) && (
-            <Grid item xs={12}>
-              <Box className={cx("d-flex-column")}>
-                <Box component="span" className={cx("text-item-input")}>
-                  {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
-                </Box>
-                <Box component="span" className={cx("text-item-value")}>
-                  {eCommerce.typeOfProductAndService}
-                </Box>
-              </Box>
-            </Grid>
-          )}
-
-        {_.has(eCommerce, "orderFulfilment") && (
-          <Grid item xs={12} className={cx("n-wrap")}>
-            <Grid container className={cx("n-wrap")}>
-              {/* {Order fulfilment} */}
-              {_.has(eCommerce, "orderFulfilment") &&
-                !_.isEmpty(eCommerce.orderFulfilment) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
-                      <Box component="span" className={cx("text-item-input")}>
-                        {LABEL_ORDER_FULFILMENT}
-                      </Box>
-                      <Box component="span" className={cx("text-item-value")}>
-                        {eCommerce.orderFulfilment}
-                      </Box>
+        <Grid item xs={12} className={cx("n-wrap")}>
+          <Grid container className={cx("n-wrap")}>
+            {/* {Type of product and/or service} */}
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(_.get(eCommerce, "typeOfProductAndService")) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_TYPE_OF_PRODUCT_AND_SERVICE}
                     </Box>
-                  </Grid>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {eCommerce.typeOfProductAndService}
+                    </Box>
+                  </Box>
                 )}
+              </Grid>
+            }
 
-              {/* {Percentage of products/services not fulfilled immediately} */}
-              {_.has(
-                eCommerce,
-                "percentageOfProductsNotFulfilledImmediately"
-              ) &&
-                !_.isEmpty(
-                  eCommerce.percentageOfProductsNotFulfilledImmediately
+            {/* {Order fulfilment} */}
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(_.get(eCommerce, "orderFulfilment")) && (
+                  <Box className={cx("d-flex-column w70p")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_ORDER_FULFILMENT}
+                    </Box>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {eCommerce.orderFulfilment}
+                    </Box>
+                  </Box>
+                )}
+              </Grid>
+            }
+
+            {/* {Percentage of products/services not fulfilled immediately} */}
+            {
+              <Grid item xs={12} md={4}>
+                {!_.isEmpty(
+                  _.get(
+                    eCommerce,
+                    "percentageOfProductsNotFulfilledImmediately"
+                  )
                 ) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
-                      <Box component="span" className={cx("text-item-input")}>
-                        {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY}
-                      </Box>
-                      <Box component="span" className={cx("text-item-value")}>
-                        {`${eCommerce.percentageOfProductsNotFulfilledImmediately}%`}
-                      </Box>
+                  <Box className={cx("d-flex-column w70p")}>
+                    <Box component="span" className={cx("text-item-input")}>
+                      {LABEL_PERCENTAGE_OF_SERVICES_NOT_FULFILLED_IMMEDIATELY}
                     </Box>
-                  </Grid>
+                    <Box component="span" className={cx("text-item-value")}>
+                      {`${eCommerce.percentageOfProductsNotFulfilledImmediately}%`}
+                    </Box>
+                  </Box>
                 )}
-            </Grid>
+              </Grid>
+            }
           </Grid>
-        )}
+        </Grid>
 
-        {_.has(
-          eCommerce,
-          "productDeliveredFrom" || "deliveryTimeToCustomers"
-        ) && (
+        {_.has(eCommerce, "productDeliveredFrom") && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
               {/* {Product delivered from} */}
-              {_.has(eCommerce, "productDeliveredFrom") &&
-                !_.isEmpty(eCommerce.productDeliveredFrom) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(eCommerce, "productDeliveredFrom")) && (
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_PRODUCT_DELIVERED_FROM}
                       </Box>
@@ -260,14 +282,15 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                         );
                       })}
                     </Box>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+              }
 
               {/* {Delivery time to customers} */}
-              {_.has(eCommerce, "deliveryTimeToCustomers") &&
-                !_.isEmpty(eCommerce.deliveryTimeToCustomers) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(eCommerce, "deliveryTimeToCustomers")) && (
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_DELIVERY_TIME_TO_CUSTOMERS}
                       </Box>
@@ -280,59 +303,64 @@ const ProductsAndServices: React.FC<IReviewAndSubmit.IProductsAndServices> = (
                             .replace(/-/g, " ")}
                       </Box>
                     </Box>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+              }
+
+              {/* {Product delivery} */}
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(eCommerce, "productDelivery")) && (
+                    <Box className={cx("d-flex-column w70p")}>
+                      <Box component="span" className={cx("text-item-input")}>
+                        {LABEL_PRODUCT_DELIVERY}
+                      </Box>
+                      <Box component="span" className={cx("text-item-value")}>
+                        {eCommerce.productDelivery}
+                      </Box>
+                    </Box>
+                  )}
+                </Grid>
+              }
             </Grid>
           </Grid>
         )}
 
-        {/* {Product delivery} */}
-        {_.has(eCommerce, "productDelivery") &&
-          !_.isEmpty(eCommerce.productDelivery) && (
-            <Grid item xs={12}>
-              <Box className={cx("d-flex-column")}>
-                <Box component="span" className={cx("text-item-input")}>
-                  {LABEL_PRODUCT_DELIVERY}
-                </Box>
-                <Box component="span" className={cx("text-item-value")}>
-                  {eCommerce.productDelivery}
-                </Box>
-              </Box>
-            </Grid>
-          )}
-
-        {_.has(eCommerce, "averageAmountPerCreditCardTransaction") && (
+        {_.has(eCommerce, "estimatedAmount") && (
           <Grid item xs={12} className={cx("n-wrap")}>
             <Grid container className={cx("n-wrap")}>
-              {/* {Average amount per credit card transaction} */}
-              {_.has(eCommerce, "averageAmountPerCreditCardTransaction") &&
-                !_.isEmpty(eCommerce.averageAmountPerCreditCardTransaction) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {/* {Estimated amount per credit card transaction (SGD)} */}
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(eCommerce, "estimatedAmount")) && (
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${eCommerce.averageAmountPerCreditCardTransaction}`}
+                        {eCommerce.estimatedAmount}
                       </Box>
                     </Box>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+              }
 
-              {/* {Annual credit card sales forecast} */}
-              {_.has(eCommerce, "annualCreditCardSalesForecast") &&
-                !_.isEmpty(eCommerce.annualCreditCardSalesForecast) && (
-                  <Grid item xs={12} md={6}>
-                    <Box className={cx("d-flex-column")}>
+              {/* {Estimated annual credit card sales (SGD)} */}
+              {
+                <Grid item xs={12} md={4}>
+                  {!_.isEmpty(_.get(eCommerce, "estimatedAnnualCredit")) && (
+                    <Box className={cx("d-flex-column w70p")}>
                       <Box component="span" className={cx("text-item-input")}>
                         {LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST}
                       </Box>
                       <Box component="span" className={cx("text-item-value")}>
-                        {`${LABEL_SGD} ${eCommerce.annualCreditCardSalesForecast}`}
+                        {eCommerce.estimatedAnnualCredit}
                       </Box>
                     </Box>
-                  </Grid>
-                )}
+                  )}
+                </Grid>
+              }
+              <Grid item xs={4}></Grid>
             </Grid>
           </Grid>
         )}

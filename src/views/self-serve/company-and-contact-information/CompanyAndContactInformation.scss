@@ -5,9 +5,23 @@
     & .section-seperate {
       display: none;
     }
+
+    & .company-registration-wrapper {
+      & .MuiGrid-container {
+        column-gap: 24px;
+      }
+    }
   }
+
+  & .contact-details-section {
+    & .contact-details-wrapper {
+      & .MuiGrid-container {
+        column-gap: 24px;
+      }
+    }
+  }
+
   & .button-wrapper {
     justify-content: flex-end !important;
   }
-  
 }

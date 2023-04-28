@@ -3,7 +3,7 @@ import React from "react";
 import { Box, Grid, Typography } from "@material-ui/core";
 import SectionWrapper from "../SectionWrapper";
 import _ from "lodash";
-import BusinessOfferingPointOfSales from "./BusinessOfferingPointOfSales";
+import BusinessOffering from "./BusinessOffering";
 import FulfilmentInformationPointOfSales from "./FulfilmentInformationPointOfSales";
 import SalesForecastPointOfSales from "./SalesForecastPointOfSales";
 
@@ -14,28 +14,20 @@ import { SELF_SERVE_PAGE } from "@/utils/constants";
 import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const PointOfSalesForm: React.FC<IProductsAndServices.IForm> = (
-  props
-) => {
+const PointOfSalesForm: React.FC<IProductsAndServices.IForm> = (props) => {
   const {
     cx,
     data,
-    dataRedux,
     title,
+    dataRedux,
     optionSelected,
     variant = "point-of-sales",
     register,
     unregister,
     setValue,
     errors,
-    setError,
   } = props;
   const { businessOffering, fulfilmentInformation, salesForecast } = data; // sub sections
-  const {
-    LABEL_BUSINESS_OFFERING,
-    LABEL_FULFILMENT_INFORMATION,
-    LABEL_SALES_FORECAST,
-  } = SELF_SERVE_PAGE;
 
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
@@ -45,7 +37,7 @@ const PointOfSalesForm: React.FC<IProductsAndServices.IForm> = (
           <Grid item xs={12}>
             {!_.isNil(optionSelected) && businessOffering.title && (
               <Typography className={cx("sub-section-title")}>
-                {LABEL_BUSINESS_OFFERING}
+                {businessOffering.title}
               </Typography>
             )}
             {!_.isEmpty(businessOffering.description) && (
@@ -57,12 +49,13 @@ const PointOfSalesForm: React.FC<IProductsAndServices.IForm> = (
                 {businessOffering.description}
               </Typography>
             )}
-            <BusinessOfferingPointOfSales
+            <BusinessOffering
               cx={cx}
               data={businessOffering}
-              dataRedux={dataRedux}
+              dataRedux={dataRedux["typeOfProductAndService"]}
               register={register}
               errors={errors}
+              name="Pos.typeOfProductAndService"
             />
           </Grid>
 
@@ -70,7 +63,7 @@ const PointOfSalesForm: React.FC<IProductsAndServices.IForm> = (
           <Grid item xs={12}>
             {!_.isNil(optionSelected) && fulfilmentInformation.title && (
               <Typography className={cx("sub-section-title")}>
-                {LABEL_FULFILMENT_INFORMATION}
+                {fulfilmentInformation.title}
               </Typography>
             )}
             <FulfilmentInformationPointOfSales
@@ -89,7 +82,7 @@ const PointOfSalesForm: React.FC<IProductsAndServices.IForm> = (
           <Grid item xs={12}>
             {!_.isNil(optionSelected) && salesForecast.title && (
               <Typography className={cx("sub-section-title")}>
-                {LABEL_SALES_FORECAST}
+                {salesForecast.title}
               </Typography>
             )}
             <SalesForecastPointOfSales

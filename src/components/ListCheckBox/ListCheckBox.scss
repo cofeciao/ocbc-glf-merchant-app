@@ -10,12 +10,17 @@
     width: 100%;
     padding: 17px 20px 17px 20px;
     position: relative;
-    box-shadow: 0px 0px 10px 0px #0000001a;
+    box-shadow: 0px 2px 8px 2px rgba(0, 0, 0, 0.12);
     box-sizing: "border-box";
     align-items: "flex-start";
     margin-left: 0;
     border-radius: 8px;
     align-items: flex-start;
+    &:hover {
+      border: 1px solid #567180;
+      background-color: #F7F8F9;
+    }
+
     & .checkbox-content {
       & .title {
         font-weight: 600;
@@ -31,12 +36,15 @@
         color: #575d65;
       }
     }
+
     & .MuiIconButton-root {
       padding: 0px;
     }
+
     & .MuiIconButton-label {
       color: #575d65;
     }
+
     & .MuiFormControlLabel-label {
       color: #575d65;
       font-weight: 600;
@@ -44,14 +52,16 @@
       line-height: 24px;
       color: #575d65;
     }
+
     &:has(.Mui-checked) {
-      background-color: $shuttleGray;
+      background-color: #f7f8f9;
+      border: 1px solid #2d3d45;
       & .MuiIconButton-label {
-        color: #ffffff;
+        color: #3d525d;
       }
       & .title,
       .description {
-        color: #ffffff;
+        color: #3d525d;
       }
     }
   }
@@ -70,9 +80,11 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+
       & .MuiCheckbox-root {
         justify-content: flex-start;
       }
+
       &:has(.Mui-checked) {
         & .MuiIconButton-label {
           color: $shuttleGray;
@@ -82,6 +94,7 @@
           color: #ffffff;
         }
       }
+
       & .MuiFormControlLabel-root {
         background-color: unset;
         width: unset;
@@ -93,7 +106,9 @@
         border-radius: unset;
         align-items: unset;
         width: fit-content;
+        border: unset;
       }
+
       & .Mui-disabled {
         & .MuiSvgIcon-root {
           color: #d3dae1;

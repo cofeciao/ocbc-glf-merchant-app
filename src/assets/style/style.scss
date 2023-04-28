@@ -309,6 +309,18 @@ body {
     margin-bottom: 24px;
   }
 
+  .mb-32 {
+    margin-bottom: 32px;
+  }
+
+  .mb-40 {
+    margin-bottom: 40px;
+  }
+
+  .mb-56 {
+    margin-bottom: 56px;
+  }
+
   .mt-dt-40 {
     margin-top: 40px;
   }
@@ -1057,35 +1069,5 @@ body {
     svg {
       cursor: pointer;
     }
-  }
-}
-
-// styled select phone number
-.MuiList-root {
-  & .item-selected {
-    span {
-      font-size: 16px;
-      line-height: 30px;
-    }
-    & .item-selected {
-      color: #575d65;
-      font-weight: 600;
-    }
-    & .item-unselected {
-      font-weight: 400;
-      color: #777e87;
-    }
-  }
-  & .item-selected.MuiMenuItem-root {
-    padding-top: 5px;
-    padding-bottom: 5px;
-  }
-
-  & .item-selected.Mui-selected {
-    background-color: transparent;
-  }
-
-  & .MuiListItem-button:hover {
-    background-color: #ebeff1;
   }
 }

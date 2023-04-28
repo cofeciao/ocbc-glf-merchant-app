@@ -18,7 +18,7 @@ import _ from "lodash";
 // import images
 import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 import IconRadioBorder from '@/assets/images/icon-radio-border.svg';
-import IconRadioCheckedWhite from '@/assets/images/icon-radio-checked-white.svg';
+import IconRadioCheckedBlack from "@/assets/images/icon-radio-checked-black.svg";
 import CloseIcon from "@/assets/images/icon-close.svg";
 
 // import constant
@@ -89,6 +89,10 @@ const EntryDialog: React.FC<IEntryDialog.IDialog> = (props) => {
     }
   };
 
+  /**
+   * render Group Radio
+   * @returns
+   */
   const renderGroupRadio = () => {
     return (
       <FormControl component="fieldset" className={cx("group-radio")}>
@@ -108,7 +112,12 @@ const EntryDialog: React.FC<IEntryDialog.IDialog> = (props) => {
                   disableRipple
                   disableTouchRipple
                   icon={<img src={IconRadioBorder} alt="icon radio border" />}
-                  checkedIcon={<img src={IconRadioCheckedWhite} alt="icon radio checked white" />}
+                  checkedIcon={
+                    <img
+                      src={IconRadioCheckedBlack}
+                      alt="icon checkedbox black"
+                    />
+                  }
                 />
               }
               label={item.label}

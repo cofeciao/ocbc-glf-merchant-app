@@ -1,23 +1,20 @@
 // import modules
-import React, { ChangeEvent, useEffect, useState } from "react";
-import {
-  Box,
-  Grid,
-  InputAdornment,
-  TextField,
-  Typography,
-} from "@material-ui/core";
-import ImmediateFulfillment from "./ImmediateFulfillment";
+import React, { useEffect, useState } from "react";
 import _ from "lodash";
-import TooltipDialog from "./TooltipDialog";
 import { updateDataListRadio } from "@/utils/utils";
-import GroupRadio from "@/components/GroupRadio";
 
 // import constants
-import { ERROR_ICON, SELF_SERVE_PAGE } from "@/utils/constants";
+import { SELF_SERVE_PAGE } from "@/utils/constants";
 
 // import types
 import { IProductsAndServices } from "./ProductsAndServices";
+
+// import components
+import PercentageTextField from "@/components/PercentageTextField";
+import { Box, Grid, Typography } from "@material-ui/core";
+import TooltipDialog from "./TooltipDialog";
+import GroupRadio from "@/components/GroupRadio";
+import ImmediateFulfillment from "./ImmediateFulfillment";
 
 // render UI
 const FulfilmentInformationEcommerce: React.FC<
@@ -34,9 +31,10 @@ const FulfilmentInformationEcommerce: React.FC<
     clearErrors,
     setValue,
     dataRedux,
-    control
+    control,
   } = props;
   const { listRadio, textField } = data;
+  const { PERCENT_CHARACTERS } = SELF_SERVE_PAGE;
 
   // states
   const [valueSelected, setValueSelected] = useState<string>(
@@ -47,29 +45,15 @@ const FulfilmentInformationEcommerce: React.FC<
       ? updateDataListRadio(dataRedux.orderFulfilment, listRadio.list)
       : listRadio.list
   );
-  const [inputValue, setInputValue] = useState(
-    dataRedux.percentageOfProductsNotFulfilledImmediately || ""
-  );
 
   /**
    * Handle unregister if fields are hidden
    */
   useEffect(() => {
     if (!_.isEqual(valueSelected, listRadio.list[1].value)) {
-      unregister("Ecom.percentageOfProductsNotFulfilledImmediately", {
-        keepDefaultValue: false,
-      });
-      setInputValue("");
+      unregister("Ecom.percentageOfProductsNotFulfilledImmediately");
     }
   }, [valueSelected]);
-
-  /**
-   * Prevent user typing non-number
-   * @param e
-   */
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setInputValue(e.target.value.replace(/\D/g, ""));
-  }
 
   return (
     <Box className={cx("fulfilment-information-wrapper")}>
@@ -124,51 +108,16 @@ const FulfilmentInformationEcommerce: React.FC<
 
           {/* {TextField} */}
           <Grid item xs={12} md={5}>
-            <TextField
-              fullWidth
-              label={textField.label}
-              variant="filled"
-              type="text"
-              value={inputValue}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    {SELF_SERVE_PAGE.PERCENT_CHARACTERS}
-                  </InputAdornment>
-                ),
-              }}
-              error={
-                _.has(errors, "Ecom") &&
-                _.has(
-                  errors.Ecom,
-                  "percentageOfProductsNotFulfilledImmediately"
-                ) &&
-                !_.isEqual(
-                  errors.Ecom.percentageOfProductsNotFulfilledImmediately.type,
-                  "required"
-                ) &&
-                true
-              }
-              helperText={
-                _.has(errors, "Ecom") &&
-                _.has(
-                  errors.Ecom,
-                  "percentageOfProductsNotFulfilledImmediately"
-                )
-                  ? errors.Ecom.percentageOfProductsNotFulfilledImmediately
-                      .message
-                  : ""
-              }
-              className={cx("percentage-input-field")}
-              {...register("Ecom.percentageOfProductsNotFulfilledImmediately", {
-                required: true,
-                pattern: {
-                  // eslint-disable-next-line no-useless-escape
-                  value: /^\b(0|[1-9][0-9]?|100)\b$/,
-                  message: `${ERROR_ICON} ${textField.helperText}`,
-                },
-                onChange: handleChange,
-              })}
+            <PercentageTextField
+              name="Ecom.percentageOfProductsNotFulfilledImmediately"
+              adornment={PERCENT_CHARACTERS}
+              errors={errors}
+              register={register}
+              dataRedux={_.get(
+                dataRedux,
+                "percentageOfProductsNotFulfilledImmediately"
+              )}
+              {...textField}
             />
           </Grid>
         </Grid>

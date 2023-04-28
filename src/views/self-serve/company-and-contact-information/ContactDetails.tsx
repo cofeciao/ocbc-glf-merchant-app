@@ -1,15 +1,5 @@
 // import modules
 import React, { ChangeEvent, useEffect, useState } from "react";
-import {
-  Box,
-  Grid,
-  TextField,
-  Select,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  InputAdornment,
-} from "@material-ui/core";
 import _ from "lodash";
 
 // import constant
@@ -23,9 +13,21 @@ import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 // import icons
 import ExpandMore from "@material-ui/icons/ExpandMore";
 
-// render UI
-const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = (props) => {
+// import components
+import {
+  Box,
+  Grid,
+  TextField,
+  MenuItem,
+  InputAdornment,
+} from "@material-ui/core";
+import Select from "@/components/Select";
+import ContactNumber from "@/components/ContactNumber";
 
+// render UI
+const ContactDetails: React.FC<
+  ICompanyAndContactInformation.IContactDetails
+> = (props) => {
   // props
   const {
     cx,
@@ -46,7 +48,8 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
 
   // states
   const [areaCode, setAreaCode] = useState<string>("+65");
-  const [valueDefaultSalutation, setValueDefaultSalutation] = useState<string>("");
+  const [valueDefaultSalutation, setValueDefaultSalutation] =
+    useState<string>("");
 
   /**
    * Prevent user typing non-number
@@ -59,12 +62,12 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
    * setState value default salutation
    */
   useEffect(() => {
-   if (dataRedux && dataRedux.salutation) {
-      setValueDefaultSalutation(dataRedux.salutation)
-   } else {
-      setValueDefaultSalutation(LIST_SALUTATION[0].name)
-   }
-  }, [dataRedux])
+    if (dataRedux && dataRedux.salutation) {
+      setValueDefaultSalutation(dataRedux.salutation);
+    } else {
+      setValueDefaultSalutation(LIST_SALUTATION[0].name);
+    }
+  }, [dataRedux]);
 
   /**
    * contact number validation only apply for area code +65 (SG)
@@ -101,40 +104,15 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
         {/* {Salutation} */}
         {_.has(salutation, "label") && (
           <Grid item xs={3}>
-            <FormControl
-              variant="filled"
-              className={cx("company-type-select")}
+            <Select
               fullWidth
-            >
-              <InputLabel id="salutation-select-filled-label">
-                {salutation.label}
-              </InputLabel>
-              <Select
-                fullWidth
-                labelId="salutation-select-filled-label"
-                id="salutation-select-filled"
-                IconComponent={ExpandMore}
-                defaultValue={
-                  _.has(dataRedux, "salutation") ? dataRedux.salutation : ""
-                }
-                {...register("salutation", {
-                  required: true,
-                  onChange: (event: any) => setValueDefaultSalutation(event.target.value)
-                })}
-              >
-                {_.map(LIST_SALUTATION, (item, index) => {
-                  return (
-                    <MenuItem
-                      className={cx("item-selected")}
-                      key={index} 
-                      value={item.name}
-                    >
-                      <span className={cx(valueDefaultSalutation === item.name ? "item-selected" : "item-unselected")}>{item.name}</span>
-                    </MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
+              required
+              register={register}
+              label={salutation.label}
+              listSelect={LIST_SALUTATION}
+              name={`salutation`}
+              defaultValue={_.get(dataRedux, `salutation`)}
+            />
           </Grid>
         )}
 
@@ -215,82 +193,19 @@ const ContactDetails: React.FC<ICompanyAndContactInformation.IContactDetails> = 
 
               <Grid item xs={12}>
                 {/* {Contact Number} */}
-                {!_.isEmpty(LIST_COUNTRIES_CODE) &&
-                  _.has(contactNumber, "label") && (
-                    <TextField
-                      fullWidth
-                      className={cx("formatted-numberphone-input")}
-                      type="text"
-                      label={contactNumber.label}
-                      name="contactNumber"
-                      value={numberPhone}
-                      error={
-                        _.has(errors, "contactNumber") &&
-                        !_.isEqual(errors.contactNumber.type, "required") &&
-                        true
-                      }
-                      helperText={
-                        _.has(errors, "contactNumber") &&
-                        _.has(errors.contactNumber, "type") &&
-                        !_.isEqual(errors.contactNumber.type, "required") &&
-                        errors.contactNumber.message
-                      }
-                      {...register("contactNumber", {
-                        onChange: handleChangeContactNumber,
-                        onBlur: (event: ChangeEvent<HTMLInputElement>) => {
-                          if (event.target.value === "") {
-                            setValue("contactNumber", "");
-                            setError("contactNumber", {
-                              type: "required",
-                              message: "",
-                            });
-                          } else {
-                            setValue("contactNumber", event.target.value);
-                          }
-                        },
-                      })}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment
-                            position="start"
-                            component="div"
-                            className={cx("formatted-numberphone-select")}
-                          >
-                            {/* {Phone Number adorment} */}
-                            <Select
-                              renderValue={(value) => value}
-                              IconComponent={ExpandMore}
-                              defaultValue={
-                                _.has(dataRedux, "areaCode")
-                                  ? dataRedux.areaCode
-                                  : LIST_COUNTRIES_CODE[0].value
-                              }
-                              {...register("areaCode", {
-                                required: true,
-                                onChange: (
-                                  event: ChangeEvent<HTMLInputElement>
-                                ) => {
-                                  setAreaCode(event.target.value);
-                                },
-                              })}
-                            >
-                              {_.map(LIST_COUNTRIES_CODE, (item, index) => {
-                                return (
-                                  <MenuItem
-                                    className={cx("item-selected")}
-                                    key={index}
-                                    value={item.value}
-                                  >
-                                    <span className={cx(areaCode === item.value ? "item-selected" : "item-unselected")}>{`${item.name} (${item.value})`}</span>
-                                  </MenuItem>
-                                );
-                              })}
-                            </Select>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-                  )}
+                <ContactNumber
+                  label={contactNumber.label}
+                  listCountry={LIST_COUNTRIES_CODE}
+                  name="contactNumber"
+                  helperText={contactNumber.helperText}
+                  required
+                  register={register}
+                  unregister={unregister}
+                  errors={errors}
+                  setValue={setValue}
+                  setError={setError}
+                  dataRedux={dataRedux}
+                />
               </Grid>
             </Grid>
           </Grid>

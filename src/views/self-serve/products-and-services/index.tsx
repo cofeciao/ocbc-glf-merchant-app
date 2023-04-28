@@ -7,21 +7,26 @@ import _ from "lodash";
 import { useForm } from "react-hook-form";
 import {
   saveDataProductsAndServicesEcom,
-  saveDataProductsAndServicesPOS,
+  saveDataProductsAndServicesPos,
 } from "@/store/form";
 
 // import components
 import { Box } from "@material-ui/core";
 import RedirectButton from "@/components/RedirectButton";
 import PointOfSalesForm from "./PointOfSalesForm";
-import EcommerceForm from "./EcommerceForm";
 import Category from "@/components/Category";
 
 // import constants
-import { LIST_ROUTER, SELF_SERVE_PAGE } from "@/utils/constants";
+import {
+  LIST_ROUTER,
+  OPTION_ECOM,
+  OPTION_POS,
+  SELF_SERVE_PAGE,
+} from "@/utils/constants";
 
 // import style
 import styles from "./ProductsAndServices.scss";
+import EcommerceForm from "./EcommerceForm";
 
 // render UI
 const ProductsAndServices: React.FC = () => {
@@ -70,18 +75,14 @@ const ProductsAndServices: React.FC = () => {
   } = useForm({
     mode: "onBlur",
     defaultValues: {
-      POS: {
+      Pos: {
         orderFulfilment:
-          productsAndServicesStep.pointOfSales.orderFulfilment ||
-          pointOfSalesForm.fulfilmentInformation.listRadio.list[0].label,
-        averageAmountPerCreditCardTransaction:
-          productsAndServicesStep.pointOfSales
-            .averageAmountPerCreditCardTransaction || "",
-        annualCreditCardSalesForecast:
-          productsAndServicesStep.pointOfSales.annualCreditCardSalesForecast ||
-          "",
+          productsAndServicesStep.pointOfSales.orderFulfilment
       },
-      Ecom: {},
+      Ecom: {
+        orderFulfilment:
+          productsAndServicesStep.eCommerce.orderFulfilment
+      },
     },
   });
 
@@ -101,8 +102,8 @@ const ProductsAndServices: React.FC = () => {
       {/* {Category} */}
       <Category>{text}</Category>
 
-      {/* {Dynamic main Form} */}
-      {_.isEqual(optionSelected, "point-of-sales") ? (
+      {/* {Form} */}
+      {_.isEqual(optionSelected, OPTION_POS) ? (
         <PointOfSalesForm
           cx={cx}
           variant="point-of-sales"
@@ -114,7 +115,7 @@ const ProductsAndServices: React.FC = () => {
           setValue={setValue}
           errors={errors}
         />
-      ) : _.isEqual(optionSelected, "e-commerce") ? (
+      ) : _.isEqual(optionSelected, OPTION_ECOM) ? (
         <EcommerceForm
           cx={cx}
           variant="e-commerce"
@@ -175,8 +176,8 @@ const ProductsAndServices: React.FC = () => {
           history.push(LIST_ROUTER.review_and_submit);
 
           // save to Redux
+          dispatch(saveDataProductsAndServicesPos(getValues("Pos")));
           dispatch(saveDataProductsAndServicesEcom(getValues("Ecom")));
-          dispatch(saveDataProductsAndServicesPOS(getValues("POS")));
         }}
       />
     </Box>
