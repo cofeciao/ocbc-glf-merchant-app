@@ -109,6 +109,8 @@ export const HOME_PAGE = {
 };
 
 export const SELF_SERVE_PAGE = {
+  LABEL_OTHER_REQUIREMENTS: "Other requirements (if applicable)",
+  LABEL_ADDITIONAL_REQUIREMENTS: "Additional requirements",
   LABEL_EDIT: "Edit",
   LABEL_SGD: "SGD",
   TOOLTIP_CONTENT: {

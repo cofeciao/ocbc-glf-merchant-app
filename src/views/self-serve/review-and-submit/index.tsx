@@ -4,9 +4,12 @@ import { useSelector } from "react-redux";
 import classnames from "classnames/bind";
 import { useHistory } from "react-router-dom";
 import _ from "lodash";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { saveDataOtherRequirements } from "@/store/form";
 
 // import components
-import { Box } from "@material-ui/core";
+import { Box, TextField } from "@material-ui/core";
 import Category from "@/components/Category";
 import Loading from "@/components/Loading";
 import SectionWrapper from "@/views/self-serve/SectionWrapper";
@@ -32,14 +35,36 @@ const ReviewAndSubmit: React.FC = () => {
     LABEL_TRANSACTION_AND_CARD_ACCEPTANCE_TYPE,
     LABEL_BUSINESS_DETAILS,
     LABEL_PRODUCTS_AND_SERVICES,
+    LABEL_OTHER_REQUIREMENTS,
+    LABEL_ADDITIONAL_REQUIREMENTS,
     LIST_STEP: {
       reviewAndSubmit: { text },
     },
   } = SELF_SERVE_PAGE;
   const cx = classnames.bind(styles);
-  const [disabledButton, setDisableButton] = useState<boolean>(true);
+
+  // hooks
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  // states
+  const [disabledButton, setDisableButton] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+
+  /**
+   * Retrieves data of Other Requirements textfield
+   */
+  const otherRequirements = useSelector(
+    (state: any) => state.form.otherRequirements
+  );
+
+  // react-hook-form
+  const { register, getValues } = useForm({
+    mode: "onBlur",
+    defaultValues: {
+      otherRequirements: otherRequirements || "",
+    },
+  });
 
   /**
    * Handle scrolling to top on page load
@@ -65,6 +90,7 @@ const ReviewAndSubmit: React.FC = () => {
         businessDetailsStep,
       },
       productsAndServicesStep: productsAndServicesStep,
+      otherRequirements: otherRequirements,
     };
     setTimeout(() => {
       history.push(LIST_ROUTER.acknowledgement_successful);
@@ -197,6 +223,23 @@ const ReviewAndSubmit: React.FC = () => {
         />
       </SectionWrapper>
 
+      {/* {Section Other Requirements} */}
+      <SectionWrapper
+        cx={cx}
+        title={LABEL_OTHER_REQUIREMENTS}
+        className={cx("other-requirements-section")}
+      >
+        {/* {TextField} */}
+        <TextField
+          fullWidth
+          label={LABEL_ADDITIONAL_REQUIREMENTS}
+          variant="filled"
+          {...register("otherRequirements", {
+            required: true,
+          })}
+        />
+      </SectionWrapper>
+
       {/* {Divider} */}
       <Box id={cx("divider")} />
 
@@ -215,6 +258,7 @@ const ReviewAndSubmit: React.FC = () => {
             history.push(LIST_ROUTER.products_and_services);
           }}
           onClickNext={() => {
+            dispatch(saveDataOtherRequirements(getValues()));
             handleSubmit();
           }}
         />
