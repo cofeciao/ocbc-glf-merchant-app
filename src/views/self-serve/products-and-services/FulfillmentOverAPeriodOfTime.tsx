@@ -43,7 +43,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<
               {!_.isEmpty(listDropdown) && (
                 <Select
                   fullWidth
-                  required
+                  required={false}
                   register={register}
                   label={listDropdown.label}
                   listSelect={listDropdown.list}
@@ -70,6 +70,7 @@ const FulfillmentOverAPeriodOfTime: React.FC<
               <Grid item xs={12} md={5}>
                 <PercentageTextField
                   name="Pos.percentageOfProductsNotFulfilledImmediately"
+                  required={false}
                   adornment={PERCENT_CHARACTERS}
                   errors={errors}
                   register={register}

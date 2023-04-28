@@ -163,46 +163,52 @@ const ListCheckbox = (props: IListCheckBox) => {
           <Box key={index}>
             <Grid key={index} item xs={xs} sm={sm} md={md} lg={lg}>
               {/* {Form Control & Checkbox inside} */}
-              <FormControlLabel
-                label={
-                  <Box className={cx("checkbox-content")}>
-                    {item.label && (
-                      <Typography component={"span"} className={cx("title")}>
-                        {item.label}
-                      </Typography>
-                    )}
-                    {item.description && (
-                      <Typography component={"p"} className={cx("description")}>
-                        {item.description}
-                      </Typography>
-                    )}
-                  </Box>
-                }
-                onChange={(event: any, checked: boolean) =>
-                  handleCheckBox(event, checked)
-                }
-                checked={item.checked}
-                value={item.value}
-                control={
-                  <Checkbox
-                    disableFocusRipple
-                    disableRipple
-                    disableTouchRipple
-                    icon={<img src={IconCheckbox} alt="icon checkbox" />}
-                    checkedIcon={
-                      <img
-                        src={IconCheckboxBlack}
-                        alt="icon checkedbox black"
-                      />
-                    }
-                  />
-                } // Checkbox from Material
-              />
+              <Box className="test">
+                <FormControlLabel
+                  label={
+                    <Box className={cx("checkbox-content")}>
+                      {item.label && (
+                        <Typography component={"span"} className={cx("title")}>
+                          {item.label}
+                        </Typography>
+                      )}
+                      {item.description && (
+                        <Typography
+                          component={"p"}
+                          className={cx("description")}
+                        >
+                          {item.description}
+                        </Typography>
+                      )}
+                    </Box>
+                  }
+                  onChange={(event: any, checked: boolean) =>
+                    handleCheckBox(event, checked)
+                  }
+                  checked={item.checked}
+                  value={item.value}
+                  control={
+                    <Checkbox
+                      disableFocusRipple
+                      disableRipple
+                      disableTouchRipple
+                      icon={<img src={IconCheckbox} alt="icon checkbox" />}
+                      checkedIcon={
+                        <img
+                          src={IconCheckboxBlack}
+                          alt="icon checkedbox black"
+                        />
+                      }
+                    />
+                  } // Checkbox from Material
+                />
+              </Box>
             </Grid>
 
             <Grid container>
               {/* {Expanded content} */}
-              {item.checked && item.expandedListCheckbox &&
+              {item.checked &&
+                item.expandedListCheckbox &&
                 item.expandedListCheckbox.map(
                   (expanded: IExpandedCheckBox, idx) => {
                     return (

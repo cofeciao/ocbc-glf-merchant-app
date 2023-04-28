@@ -12,7 +12,10 @@ import { ERROR_ICON } from "@/utils/constants";
 // import components
 import { Box, InputAdornment, TextField } from "@material-ui/core";
 
-const PercentageTextField = (props: any) => {
+// import type
+import { IPercentageTextField } from "./PercentageTextField";
+
+const PercentageTextField = (props: IPercentageTextField) => {
   const {
     register,
     errors,

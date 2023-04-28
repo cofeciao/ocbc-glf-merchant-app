@@ -817,7 +817,7 @@ export const SELF_SERVE_PAGE = {
           },
         },
         fulfilmentInformation: {
-          title: "Fulfilment information",
+          title: "Fulfilment information (optional)",
           textField: {
             description:
               "Percentage of products/services not fulfilled immediately",
@@ -897,7 +897,7 @@ export const SELF_SERVE_PAGE = {
           },
         },
         salesForecast: {
-          title: "Estimated sales forecast",
+          title: "Estimated sales forecast (optional)",
           description:
             "To help us better understand your business, let us know your estimated sales forecast based on your products and/or services.",
           listTextField: [

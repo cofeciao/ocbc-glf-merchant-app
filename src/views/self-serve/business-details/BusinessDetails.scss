@@ -72,6 +72,9 @@
     }
     & .business-infomation-section-wrapper,
     .website-infomation-section-wrapper {
+      .section-title {
+        margin-bottom: 40px;
+      }
       & .section-seperate {
         display: none;
       }

@@ -29,13 +29,6 @@ const ImmediateFulfillment: React.FC<
     dataRedux.productDeliveredFrom || listCheckbox.list
   );
 
-  /**
-   * Set value to react-hook-form
-   */
-  useEffect(() => {
-    setValue("Ecom.productDeliveredFrom", listDataCheckbox);
-  }, [listDataCheckbox]);
-
   return (
     <Box className={cx("products-and-services-form-wrapper")}>
       <Grid container className={cx("mt-dt-40")}>
@@ -60,11 +53,12 @@ const ImmediateFulfillment: React.FC<
                   name="Ecom.productDeliveredFrom"
                   listCheckbox={listDataCheckbox}
                   register={register}
-                  required
+                  required={false}
                   onBlur={field.onBlur}
                   onChange={field.onBlur}
                   getValue={(value: ICheckBox[]) => {
                     setListDataCheckbox(value);
+                    setValue("Ecom.productDeliveredFrom", value);
                   }}
                 />
               )}
@@ -90,7 +84,7 @@ const ImmediateFulfillment: React.FC<
             {!_.isEmpty(listDropdown) && (
               <Select
                 fullWidth
-                required
+                required={false}
                 register={register}
                 label={listDropdown.placeholder}
                 listSelect={listDropdown.list}

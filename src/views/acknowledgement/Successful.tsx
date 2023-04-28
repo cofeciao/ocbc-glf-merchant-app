@@ -57,7 +57,7 @@ const Successful: React.FC = () => {
     (state: any) => state.form.companyAndContactInformationStep
   );
 
-  
+
   /**
    * Retrieves data of Transaction And Card Acceptance Type step from Store
    */
@@ -82,7 +82,7 @@ const Successful: React.FC = () => {
   );
 
   const productsAndServicesData = {
-    ...productsAndServicesStep, 
+    ...productsAndServicesStep,
     ...optionSelected
   }
 
@@ -93,15 +93,17 @@ const Successful: React.FC = () => {
     (state: any) => state.form.reviewAndSubmit.agreePolicy
   );
 
-  const [instance, update] = usePDF({ 
-    document: <PDF 
-      cashlessPaymentsMethods={cashlessPaymentsMethods} 
-      companyAndContactInformationStep={companyAndContactInformationStep} 
-      transactionAndCardAcceptanceTypeStep={transactionAndCardAcceptanceTypeStep}
-      businessDetailsStep={businessDetailsStep}
-      productsAndServicesStep={productsAndServicesData}
-      reviewAndSubmitStep={reviewAndSubmitStep}
-    />
+  const [instance, update] = usePDF({
+    document: <></>
+    // Temporarily hidden to update new designs
+    // <PDF
+    //   cashlessPaymentsMethods={cashlessPaymentsMethods}
+    //   companyAndContactInformationStep={companyAndContactInformationStep}
+    //   transactionAndCardAcceptanceTypeStep={transactionAndCardAcceptanceTypeStep}
+    //   businessDetailsStep={businessDetailsStep}
+    //   productsAndServicesStep={productsAndServicesData}
+    //   reviewAndSubmitStep={reviewAndSubmitStep}
+    // />
   })
 
   if (instance.loading) return <div>Loading ...</div>;

@@ -1,7 +1,8 @@
-export type IAmountTextField = {
+export type IPercentageTextField = {
   register?: Function;
   errors?: any;
   name: string;
+  adornment: string;
   dataRedux: string;
   description: string;
   label: string;
