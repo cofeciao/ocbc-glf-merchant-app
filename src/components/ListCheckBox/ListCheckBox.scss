@@ -17,8 +17,7 @@
     border-radius: 8px;
     align-items: flex-start;
     &:hover {
-      padding: 16px 20px 16px 20px;
-      border: 1px solid #567180;
+      outline: 1px solid #567180;
       background-color: #F7F8F9;
     }
 
@@ -56,8 +55,7 @@
 
     &:has(.Mui-checked) {
       background-color: #f7f8f9;
-      border: 1px solid #2d3d45;
-      padding: 16px 20px 16px 20px;
+      outline: 1px solid #2d3d45;
       & .MuiIconButton-label {
         color: #3d525d;
       }
@@ -108,7 +106,7 @@
         border-radius: unset;
         align-items: unset;
         width: fit-content;
-        border: unset;
+        outline: unset;
       }
 
       & .Mui-disabled {
