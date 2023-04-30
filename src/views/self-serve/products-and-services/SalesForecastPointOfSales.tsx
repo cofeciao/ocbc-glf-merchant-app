@@ -8,7 +8,7 @@ import AmountTextField from "@/components/AmountTextField";
 import { IProductsAndServices } from "./ProductsAndServices";
 
 // render UI
-const SalesForecast: React.FC<IProductsAndServices.ISalesForecastSection> = (props) => {
+const SalesForecastPointOfSales: React.FC<IProductsAndServices.ISalesForecastSection> = (props) => {
   const { cx, data, register, errors, dataRedux } = props;
 
   // render UI
@@ -47,4 +47,4 @@ const SalesForecast: React.FC<IProductsAndServices.ISalesForecastSection> = (pro
     </Box>
   );
 };
-export default SalesForecast;
+export default SalesForecastPointOfSales;
