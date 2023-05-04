@@ -1,5 +1,7 @@
 .amount-textfield-wrapper {
-  height: 57px;
+  & .MuiInputBase-root {
+    height: 57px;
+  }
 
   & .MuiFormLabel-root {
     transform: translate(12px, 17px);
