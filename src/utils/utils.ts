@@ -1,6 +1,44 @@
 import { IGroupRadios } from "@/components/GroupRadio/GroupRadio";
 
 /**
+ * Use for random Reference number
+ * @param {number} numberOfDigits
+ * @returns
+ */
+export const generateRandomReferenceNumber = () => {
+  const numbers = '0123456789';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let result = '';
+
+  // generate 8 random numbers
+  for (let i = 0; i < 8; i++) {
+    const randomIndex = Math.floor(Math.random() * numbers.length);
+    result += numbers[randomIndex];
+  }
+
+  // generate 3 random letters
+  for (let i = 0; i < 3; i++) {
+    const randomIndex = Math.floor(Math.random() * letters.length);
+    result += letters[randomIndex];
+  }
+
+  return result;
+}
+
+/**
+ * Use for random numbers
+ * @param {number} numberOfDigits
+ * @returns
+ */
+export const generateRandomNumber = (numberOfDigits: number) => {
+  let randomNumber = "";
+  for (let i = 0; i < numberOfDigits; i++) {
+    randomNumber += Math.floor(Math.random() * 10);
+  }
+  return randomNumber.toString();
+};
+
+/**
  * Use to convert a string value to text, eg: xxxx_xxx_xx => Xxxx xxx xx
  * @param {string} text
  * @returns

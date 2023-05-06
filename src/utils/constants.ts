@@ -27,6 +27,11 @@ export const LIST_ICON = "\u2022";
 export const OPTION_POS = "point-of-sales";
 export const OPTION_ECOM = "e-commerce";
 export const OPTION_POS_AND_ECOM = "point-of-sales-e-commerce";
+export const LABEL_SUBMIT = "Submit";
+export const LABEL_ONE_TIME_PASSWORD_TITLE = "Enter your One-Time-Password (OTP)";
+export const LABEL_ONE_TIME_PASSWORD_DESCRIPTION = "Did not receive an OTP?";
+export const LABEL_ONE_TIME_PASSWORD_RESEND_LINK = "Have us send another.";
+export const LABEL_ONE_TIME_PASSWORD_ERROR = "Invalid OTP. Please try again";
 
 export const ACKNOWLEDGEMENT_PAGE = {
   LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION:
