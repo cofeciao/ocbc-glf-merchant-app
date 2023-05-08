@@ -1,12 +1,9 @@
 // import modules
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import classnames from "classnames/bind";
-import { Box } from "@material-ui/core";
 import { useParams, useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import CompanyRegistration from "./CompanyRegistration";
-import ContactDetails from "./ContactDetails";
 import { saveDataCompanyAndContactInformationStep } from "@/store/form";
 import { useSelector } from "react-redux";
 import _ from "lodash";
@@ -22,9 +19,16 @@ import {
 import styles from "./CompanyAndContactInformation.scss";
 
 // import components
+import { Box, Dialog, DialogContent } from "@material-ui/core";
 import Category from "@/components/Category";
 import RedirectButton from "@/components/RedirectButton";
 import SectionWrapper from "../SectionWrapper";
+import OneTimeOTP from "@/components/OneTimeOTP";
+import CompanyRegistration from "./CompanyRegistration";
+import ContactDetails from "./ContactDetails";
+
+// import icons
+import CloseIcon from "@/assets/images/icon-close.svg";
 
 // render UI
 const CompanyAndContactInformation: React.FC = () => {
@@ -36,6 +40,12 @@ const CompanyAndContactInformation: React.FC = () => {
       },
     },
   } = SELF_SERVE_PAGE;
+
+  // states
+  const [openOneTimeOTPDialog, setOpenOneTimeOTPDialog] =
+    useState<boolean>(false);
+
+  // classnames
   const cx = classnames.bind(styles);
 
   // hooks
@@ -83,6 +93,16 @@ const CompanyAndContactInformation: React.FC = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, []);
+
+  /**
+   *  Handle One Time OTP successful
+   * @param {boolean} result
+   */
+  const handleOneTimeOTPSucessful = (result: boolean) => {
+    if (result === true) {
+      history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+    }
+  };
 
   return (
     <Box className={cx("company-and-contact-information-wrapper step-wrapper")}>
@@ -135,12 +155,32 @@ const CompanyAndContactInformation: React.FC = () => {
             localStorage.setItem("edit", "false");
             history.push(LIST_ROUTER.review_and_submit);
           } else {
-            history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+            // open dialog
+            setOpenOneTimeOTPDialog(true);
           }
           // save to Redux
           dispatch(saveDataCompanyAndContactInformationStep(getValues()));
         }}
       />
+
+      {/* {One Time OTP Dialog} */}
+      <Dialog
+        open={openOneTimeOTPDialog}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}>
+          <img
+            src={CloseIcon}
+            alt="icon close"
+            onClick={() => setOpenOneTimeOTPDialog(false)}
+          />
+        </div>
+        <DialogContent>
+          <OneTimeOTP successful={handleOneTimeOTPSucessful} />
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };

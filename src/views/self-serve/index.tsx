@@ -24,7 +24,7 @@ import {
 
 // import style
 import styles from "@/views/self-serve/SelfServe.scss";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 
 // render UI
 const SelfServe: React.FC = () => {
@@ -47,14 +47,15 @@ const SelfServe: React.FC = () => {
       event.preventDefault();
       event.returnValue = "";
     };
-    if (history.action === "POP") {
-      window.location.href = (process.env.myinfo as any).redirectUri;
-    }
+
+    window.scrollTo(0, 0);
     window.addEventListener("beforeunload", handleBeforeUnload);
     return () => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
+
+
 
   /**
    * Get all step data
@@ -69,7 +70,7 @@ const SelfServe: React.FC = () => {
   };
 
   /**
-   *  Content's steps
+   * Content's steps
    * @returns
    */
   const getStepContent = () => {
@@ -88,6 +89,12 @@ const SelfServe: React.FC = () => {
         return <></>;
     }
   };
+
+  // Prevent user input URL
+  if (history.action === "POP") {
+    window.location.href = (process.env.myinfo as any).redirectUri;
+    return <></>
+  }
 
   // Render UI
   return (

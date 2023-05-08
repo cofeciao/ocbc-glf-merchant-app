@@ -1,5 +1,27 @@
 // import modules
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import classnames from "classnames/bind";
+import { useHistory } from "react-router-dom";
+import { useForm } from "react-hook-form";
+
+import _ from "lodash";
+
+// import images
+import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
+import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
+import CloseIcon from "@/assets/images/icon-close.svg";
+
+// import utils
+import { ERROR_ICON, HOME_PAGE, LIST_ROUTER, NEXT } from "@/utils/constants";
+import { generateRandomReferenceNumber } from "@/utils/utils";
+
+// import style
+import styles from "./EntryDialog.scss";
+
+// import types
+import { IEntryDialog } from "./EntryDialog";
+
+// import components
 import {
   Box,
   Grid,
@@ -9,32 +31,29 @@ import {
   DialogContent,
   Dialog,
 } from "@material-ui/core";
-import classnames from "classnames/bind";
-import { useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
+import OneTimeOTP from "@/components/OneTimeOTP";
 import ExpiredDialog from "./ExpiredDialog";
-import _ from "lodash";
-
-// import images
-import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
-import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
-
-// import constants
-import { ERROR_ICON, HOME_PAGE, NEXT } from "@/utils/constants";
-
-// import style
-import styles from "./EntryDialog.scss";
-
-// import types
-import { IEntryDialog } from "./EntryDialog";
 
 // render UI
 const RetrieveDialog: React.FC<IEntryDialog.IDialog> = (props) => {
   const { onCloseDialog } = props;
-  const cx = classnames.bind(styles);
   const { PLEASE_FILL_IN_THE_DETAILS, TEXT_FIELD_REFERENCE_NUMBER } =
     HOME_PAGE.ENTRY_POINT;
+  const [referenceNumber, setReferenceNumber] = useState(
+    generateRandomReferenceNumber()
+  );
+
+  // states
   const [openExpiredDialog, setOpenExpiredDialog] = useState<boolean>(false);
+  const [openOneTimeOTPDialog, setOpenOneTimeOTPDialog] =
+    useState<boolean>(false);
+  const [error, setError] = useState("");
+
+  // hooks
+  const history = useHistory();
+
+  // classnames
+  const cx = classnames.bind(styles);
 
   // react-hook-form
   const {
@@ -45,12 +64,31 @@ const RetrieveDialog: React.FC<IEntryDialog.IDialog> = (props) => {
     mode: "onChange",
   });
 
+  useEffect(() => {
+    // A temporary hold is placed here to display a random Reference Number
+    console.log("Reference Number: ", referenceNumber);
+  }, []);
+
   /**
    * Temporariy put here for dev
+   * Handle click next
    */
   const handleClickNextButton = () => {
-    const referenceNumber = getValues("referenceNumber");
-    setOpenExpiredDialog(true);
+    if (getValues("referenceNumber") !== referenceNumber) {
+      setError(`${ERROR_ICON} ${TEXT_FIELD_REFERENCE_NUMBER.helperText}`);
+    } else {
+      setOpenOneTimeOTPDialog(true);
+    }
+  };
+
+  /**
+   *  Handle One Time OTP successful
+   * @param {boolean} result
+   */
+  const handleOneTimeOTPSucessful = (result: boolean) => {
+    if (result === true) {
+      history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+    }
   };
 
   return (
@@ -69,29 +107,20 @@ const RetrieveDialog: React.FC<IEntryDialog.IDialog> = (props) => {
                 <TextField
                   fullWidth
                   label={TEXT_FIELD_REFERENCE_NUMBER.label}
-                  error={
-                    errors.referenceNumber &&
-                    !_.isEqual(errors.referenceNumber.type, "required") &&
-                    true
-                  }
+                  error={_.size(error) && true}
                   helperText={
-                    errors.referenceNumber
-                      ? errors.referenceNumber.message
+                    _.size(error)
+                      ? error
                       : TEXT_FIELD_REFERENCE_NUMBER.description
                   }
                   variant="filled"
                   {...register(`referenceNumber`, {
                     required: true,
-                    pattern: {
-                      // eslint-disable-next-line no-useless-escape
-                      value: /^[0-9]{8}[A-Z]{3}$/,
-                      message: `${ERROR_ICON} ${TEXT_FIELD_REFERENCE_NUMBER.helperText}`,
-                    },
                   })}
                 />
               </Box>
             </Box>
-          </Grid>{" "}
+          </Grid>
         </Grid>
       </Box>
 
@@ -107,7 +136,7 @@ const RetrieveDialog: React.FC<IEntryDialog.IDialog> = (props) => {
           {/* {Next Button} */}
           <Button
             variant="contained"
-            disabled={!isValid || !isDirty}
+            // disabled={getValues("referenceNumber") !== referenceNumber}
             onClick={handleClickNextButton}
           >
             {NEXT}
@@ -120,7 +149,7 @@ const RetrieveDialog: React.FC<IEntryDialog.IDialog> = (props) => {
         </Box>
       </Box>
 
-      {/* {Dialog} */}
+      {/* {Expired Dialog} */}
       <Dialog
         open={openExpiredDialog}
         onClose={() => {}}
@@ -130,6 +159,26 @@ const RetrieveDialog: React.FC<IEntryDialog.IDialog> = (props) => {
       >
         <DialogContent>
           <ExpiredDialog />
+        </DialogContent>
+      </Dialog>
+
+      {/* {One Time OTP Dialog} */}
+      <Dialog
+        open={openOneTimeOTPDialog}
+        onClose={() => {}}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}>
+          <img
+            src={CloseIcon}
+            alt="icon close"
+            onClick={() => setOpenOneTimeOTPDialog(false)}
+          />
+        </div>
+        <DialogContent>
+          <OneTimeOTP successful={handleOneTimeOTPSucessful} />
         </DialogContent>
       </Dialog>
     </Box>

@@ -33,6 +33,7 @@ import RetrieveDialog from "./RetrieveDialog";
 // import types
 import { IGroupRadios } from "@/components/GroupRadio/GroupRadio";
 import { IEntryDialog } from "./EntryDialog";
+import OneTimeOTP from "@/components/OneTimeOTP";
 
 // render UI
 const EntryDialog: React.FC<IEntryDialog.IDialog> = (props) => {
