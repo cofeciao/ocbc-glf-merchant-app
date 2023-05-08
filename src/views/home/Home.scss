@@ -87,28 +87,4 @@
       color: #777e87;
     }
   }
-
-  & .captcha-wrapper {
-    .MuiFormLabel-root {
-      color: #777e87;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      &::before {
-        border-color: #e2e7ec;
-      }
-      & input {
-        background-color: #fafcfc;
-      }
-    }
-
-    & .get-another-code-button {
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
-      color: #005efd;
-      cursor: pointer;
-      user-select: none;
-    }
-  }
 }

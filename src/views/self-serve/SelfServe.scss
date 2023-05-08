@@ -78,7 +78,6 @@ input:-webkit-autofill {
     margin-bottom: 56px;
     & .MuiGrid-container {
       row-gap: 40px;
-      // column-gap: 24px;
     }
 
     & .error-text {
@@ -217,9 +216,5 @@ input:-webkit-autofill {
     & .MuiInputBase-root {
       padding-right: 8px;
     }
-  }
-
-  & .MuiInputBase-root {
-    // height: 57px;
   }
 }
