@@ -106,14 +106,14 @@ const RetrieveDialog: React.FC<IEntryDialog.IDialog> = (props) => {
               <Box className={cx("text-field-item")}>
                 <TextField
                   fullWidth
+                  variant="filled"
                   label={TEXT_FIELD_REFERENCE_NUMBER.label}
-                  error={_.size(error) && true}
+                  error={_.size(error) > 0 && true}
                   helperText={
-                    _.size(error)
+                    _.size(error) > 0
                       ? error
                       : TEXT_FIELD_REFERENCE_NUMBER.description
                   }
-                  variant="filled"
                   {...register(`referenceNumber`, {
                     required: true,
                   })}
