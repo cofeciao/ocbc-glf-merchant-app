@@ -1,6 +1,6 @@
 // import modules
 import { Box, Button, Typography } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import OtpInput from "react-otp-input";
 import classnames from "classnames";
 
@@ -16,7 +16,6 @@ import {
   LABEL_ONE_TIME_PASSWORD_TITLE,
   LABEL_SUBMIT,
 } from "@/utils/constants";
-import { generateRandomNumber } from "@/utils/utils";
 
 // import type
 import { IOneTimeOTP } from "./OneTimeOTP";
@@ -30,27 +29,22 @@ const OneTimeOTP = (props: IOneTimeOTP) => {
     LABEL_BACK_TO_CARD_ACCEPTANCE,
   } = HOME_PAGE.ENTRY_POINT;
   const sizeInput = 6;
+  const failureNumber = "666666";
+  const errorNumber = "555555";
 
   // states
   const [otpValue, setOtpValue] = useState("");
   const [error, setError] = useState("");
-  const [counterError, setCounterError] = useState<number>(0);
-  const [randomOTP, setRandomOTP] = useState(generateRandomNumber(6));
+  const [renderFailureContent, setRenderFailureContent] =
+    useState<boolean>(false);
 
   // classnames
   const cx = classnames.bind(styles);
 
-  useEffect(() => {
-    // A temporary hold is placed here to display a random OTP
-    console.log("random OTP:", randomOTP);
-  }, [randomOTP]);
-
   /**
    * Handle click resend link
    */
-  const handleClickResendLink = () => {
-    setRandomOTP(generateRandomNumber(6));
-  };
+  const handleClickResendLink = () => {};
 
   /**
    * Handle otp inputs change
@@ -64,16 +58,18 @@ const OneTimeOTP = (props: IOneTimeOTP) => {
    * Handle submit button
    */
   const handleSubmit = () => {
-    if (otpValue !== randomOTP) {
+    if (otpValue === errorNumber) {
       setError(LABEL_ONE_TIME_PASSWORD_ERROR);
-      setCounterError(counterError + 1);
+      return;
+    }
+    if (otpValue === failureNumber) {
+      setRenderFailureContent(true);
     } else {
       successful(true);
-      setError("");
     }
   };
 
-  if (counterError >= 5) {
+  if (renderFailureContent) {
     return (
       <Box className={cx("failure-content-wrapper")}>
         <Box className={cx("content-wrapper")}>
