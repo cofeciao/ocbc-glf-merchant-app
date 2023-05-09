@@ -1,5 +1,5 @@
 // import modules
-import React, { useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import classnames from "classnames/bind";
 import _ from "lodash";
 
@@ -9,7 +9,6 @@ import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
 
 // import utils
 import { ERROR_ICON, HOME_PAGE, NEXT } from "@/utils/constants";
-import { generateRandomReferenceNumber } from "@/utils/utils";
 
 // import style
 import styles from "./RetrieveDialogContent.scss";
@@ -32,8 +31,7 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
   } = HOME_PAGE.ENTRY_POINT;
 
   // states
-  const [validReferenceNumber] = useState(generateRandomReferenceNumber());
-  const [expiredReferenceNumber] = useState(generateRandomReferenceNumber());
+  const [expiredReferenceNumber] = useState("666666AAA");
   const [renderExpiredContent, setRenderExpiredContent] = useState<boolean>();
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
@@ -41,24 +39,19 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
   // classnames
   const cx = classnames.bind(styles);
 
-  // Temporarily hold is placed here to display a random Reference Number
-  useEffect(() => {
-    console.log("random valid Reference Number: ", validReferenceNumber);
-    console.log("random expired Reference Number: ", expiredReferenceNumber);
-  }, []);
-
   /**
    * Handle click next
    */
   const handleClickNextButton = () => {
-    if (value === expiredReferenceNumber) {
-      setRenderExpiredContent(true);
-    }
-    if (value !== validReferenceNumber) {
-      setError(`${ERROR_ICON} ${TEXT_FIELD_REFERENCE_NUMBER.helperText}`);
-      successful(false);
+    const regex = /^\d{6}[A-Z]{3}$/;
+    if (regex.test(value)) {
+      if (value !== expiredReferenceNumber) {
+        successful(true);
+      } else {
+        setRenderExpiredContent(true);
+      }
     } else {
-      successful(true);
+      setError(`${ERROR_ICON} ${TEXT_FIELD_REFERENCE_NUMBER.helperText}`);
     }
   };
 
@@ -117,7 +110,9 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
                 ? error
                 : TEXT_FIELD_REFERENCE_NUMBER.description
             }
-            onChange={(event) => setValue(event.target.value)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setValue(e.target.value)
+            }
           />
         </Grid>
       </Box>
