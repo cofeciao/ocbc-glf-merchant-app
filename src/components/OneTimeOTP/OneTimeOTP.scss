@@ -17,6 +17,8 @@
     }
 
     & .resend-link {
+      display: inline-block;
+      cursor: pointer;
       font-weight: 400;
       font-size: 18px;
       line-height: 28px;
@@ -69,5 +71,36 @@
       line-height: 28px;
       margin-bottom: 56px;
     }
+  }
+}
+
+.failure-content-wrapper {
+  & .content-wrapper {
+    & .title {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 32px;
+      color: #363b40;
+      margin-bottom: 16px;
+    }
+
+    & .description {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      color: #777e87;
+    }
+  }
+
+  & .divider {
+    height: 2px;
+    width: 100%;
+    background: #e2e7ec;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  & .next-button {
+    margin-bottom: 56px;
   }
 }

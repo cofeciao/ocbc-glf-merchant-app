@@ -28,7 +28,8 @@ export const OPTION_POS = "point-of-sales";
 export const OPTION_ECOM = "e-commerce";
 export const OPTION_POS_AND_ECOM = "point-of-sales-e-commerce";
 export const LABEL_SUBMIT = "Submit";
-export const LABEL_ONE_TIME_PASSWORD_TITLE = "Enter your One-Time-Password (OTP)";
+export const LABEL_ONE_TIME_PASSWORD_TITLE =
+  "Enter your One-Time-Password (OTP)";
 export const LABEL_ONE_TIME_PASSWORD_DESCRIPTION = "Did not receive an OTP?";
 export const LABEL_ONE_TIME_PASSWORD_RESEND_LINK = "Have us send another.";
 export const LABEL_ONE_TIME_PASSWORD_ERROR = "Invalid OTP. Please try again";
@@ -66,6 +67,9 @@ export const HOME_PAGE = {
     LABEL_PLEASE_RESTART_YOUR_APPLICATION: "Please restart your application.",
     LABEL_WHAT_ARE_YOU_HERE_FOR: "What are you here for?",
     LABEL_START_OVER: "Start over",
+    LABEL_EXCEEDED_NUMBER_OF_TRIES: "Exceeded number of tries",
+    LABEL_PLEASE_TRY_AGAIN_LATER: "Please try again later.",
+    LABEL_BACK_TO_CARD_ACCEPTANCE: "Back to Card acceptance",
     TEXT_FIELD_REFERENCE_NUMBER: {
       label: "Reference number",
       description: "Check your email for the reference number",
@@ -243,7 +247,8 @@ export const SELF_SERVE_PAGE = {
   LABEL_ORDER_FULFILMENT: "Order fulfilment",
   LABEL_AVERAGE_AMOUNT_PER_CREDIT_CARD_TRANSACTION:
     "Estimated amount per credit card transaction (SGD)",
-  LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST: "Estimated annual credit card sales (SGD)",
+  LABEL_ANNUAL_CREDIT_CARD_SALES_FORECAST:
+    "Estimated annual credit card sales (SGD)",
   LABEL_PRODUCT_DELIVERED_FROM: "Product delivered from",
   LABEL_DELIVERY_TIME_TO_CUSTOMERS: "Delivery time to customers",
   LABEL_PRODUCT_DELIVERY: "Product delivery",
@@ -708,7 +713,8 @@ export const SELF_SERVE_PAGE = {
                 ],
               },
               listRadio: {
-                description: "Does your retail store currently accept card payments?",
+                description:
+                  "Does your retail store currently accept card payments?",
               },
             },
           },

@@ -55,8 +55,6 @@ const SelfServe: React.FC = () => {
     };
   }, []);
 
-
-
   /**
    * Get all step data
    * @returns

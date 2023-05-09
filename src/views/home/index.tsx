@@ -8,21 +8,16 @@ import { useSelector } from "react-redux";
 // import components
 import HomeCashlessPaymentMethods from "./HomeCashlessPaymentMethods";
 import HomeThingsToTakeNoteOf from "./HomeThingsToTakeNoteOf";
-import EntryDialog from "@/views/home/entry-dialog";
 import Captcha from "@/components/Captcha/captcha";
 
 // import images
 import CloseIcon from "@/assets/images/icon-close.svg";
-
-// import icons
-import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 
 // import constants
 import {
   LINK_EXTERNAL_PAGE,
   TITLE_PAGE,
   HOME_PAGE,
-  START,
   LIST_ROUTER,
   ERROR_ICON,
 } from "../../utils/constants";
@@ -38,7 +33,6 @@ import {
   Box,
   Container,
   Grid,
-  Button,
   DialogContent,
   Dialog,
   TextField,
@@ -47,6 +41,9 @@ import Footer from "@/components/Footer";
 import Category from "@/components/Category";
 import Header from "@/components/Header";
 import RedirectButton from "@/components/RedirectButton";
+import OneTimeOTP from "@/components/OneTimeOTP";
+import RetrieveDialog from "@/components/RetrieveDialogContent";
+import EntryDialog from "@/components/EntryDialogContent";
 
 // render UI
 const Home: React.FC = () => {
@@ -65,11 +62,46 @@ const Home: React.FC = () => {
   );
   const [hasDataCheckbox, setHasDataCheckbox] = useState<boolean>(true);
   const [interest, setInterest] = useState(false);
-  const [openDialog, setOpenDialog] = useState<boolean>(true);
+  const [openEntryDialog, setOpenEntryDialog] = useState<boolean>(true);
   const [captchaCode, setCaptchaCode] = useState<string>("");
   const [exactCaptcha, setExactCaptcha] = useState<boolean>();
   const [inputCaptcha, setInputCaptcha] = useState<string>("");
   const [reloadCaptchaMethod, setReloadCaptchaMethod] = useState<Function>();
+  const [openOneTimeOTPDialog, setOpenOneTimeOTPDialog] =
+    useState<boolean>(false);
+  const [openRetrieveDialog, setOpenRetrieveDialog] = useState<boolean>(false);
+
+  /**
+   *  Handle Retrieve Dialog sucessful
+   * @param {boolean} result
+   */
+  const handleRetrieveDialogSucessful = (result: boolean) => {
+    if (result === true) {
+      setOpenRetrieveDialog(false);
+      setOpenOneTimeOTPDialog(true);
+    }
+  };
+
+  /**
+   *  Handle Entry Dialog sucessful
+   * @param {boolean} result
+   */
+  const handleEntryDialogSuccessful = (result: boolean) => {
+    if (result === true) {
+      setOpenRetrieveDialog(true);
+      setOpenEntryDialog(false);
+    }
+  };
+
+  /**
+   *  Handle One Time OTP successful
+   * @param {boolean} result
+   */
+  const handleOneTimeOTPSucessful = (result: boolean) => {
+    if (result === true) {
+      history.push(LIST_ROUTER.transaction_and_card_acceptance_type);
+    }
+  };
 
   /**
    * Back to Card Acceptance page
@@ -80,10 +112,25 @@ const Home: React.FC = () => {
   };
 
   /**
-   * Handle close Dialog
+   * Handle close Entry Dialog
    */
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
+  const handleCloseEntryDialog = () => {
+    setOpenEntryDialog(false);
+  };
+
+  /**
+   * Handle close Retrieve Dialog
+   */
+  const handleCloseRetrieveDialog = () => {
+    setOpenRetrieveDialog(false);
+    setOpenEntryDialog(true);
+  };
+
+  /**
+   * Handle close Retrieve Dialog
+   */
+  const handleCloseOneTimeOtpDialog = () => {
+    window.location.reload();
   };
 
   /**
@@ -140,21 +187,62 @@ const Home: React.FC = () => {
   // Render UI
   return (
     <>
+      {/* {Entry Dialog} */}
       <Dialog
-        open={openDialog}
-        onClose={handleRollBackPage}
+        open={openEntryDialog}
         maxWidth="md"
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        TransitionProps={{
-          style: { backgroundColor: "rgba(177, 184, 197, 0.7)" },
-        }}
       >
         <div className={cx("icon-close")}>
           <img src={CloseIcon} alt="icon close" onClick={handleRollBackPage} />
         </div>
         <DialogContent>
-          <EntryDialog onCloseDialog={handleCloseDialog} />
+          <EntryDialog
+            successful={handleEntryDialogSuccessful}
+            onCloseDialog={handleCloseEntryDialog}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* {Retrieve Dialog} */}
+      <Dialog
+        open={openRetrieveDialog}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}>
+          <img
+            src={CloseIcon}
+            alt="icon close"
+            onClick={handleCloseRetrieveDialog}
+          />
+        </div>
+        <DialogContent>
+          <RetrieveDialog
+            successful={handleRetrieveDialogSucessful}
+            onCloseDialog={handleCloseRetrieveDialog}
+          />
+        </DialogContent>
+      </Dialog>
+
+      {/* {One Time OTP Dialog} */}
+      <Dialog
+        open={openOneTimeOTPDialog}
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}>
+          <img
+            src={CloseIcon}
+            alt="icon close"
+            onClick={() => handleCloseOneTimeOtpDialog()}
+          />
+        </div>
+        <DialogContent>
+          <OneTimeOTP successful={handleOneTimeOTPSucessful} />
         </DialogContent>
       </Dialog>
 
@@ -256,7 +344,9 @@ const Home: React.FC = () => {
               <Box id={cx("divider")} />
 
               {/* {Next Button} */}
-              <Box className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}>
+              <Box
+                className={cx("button-wrapper", "d-flex justify-end mt-dt-40")}
+              >
                 <RedirectButton
                   disabledNextButton={hasDataCheckbox || !exactCaptcha}
                   variant="start"
