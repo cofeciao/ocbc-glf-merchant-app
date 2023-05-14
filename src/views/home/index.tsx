@@ -56,7 +56,7 @@ const Home: React.FC = () => {
   const cx = classnames.bind(styles);
   const history = useHistory();
 
-  // state
+  // states
   const [dataCardCheckbox, setDataCardCheckbox] = useState<ICheckBox[]>(
     CASHLESS_PAYMENTS_METHODS.data_list_checkbox
   );
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
   const [openRetrieveDialog, setOpenRetrieveDialog] = useState<boolean>(false);
 
   /**
-   *  Handle Retrieve Dialog sucessful
+   * Handle Retrieve Dialog sucessful
    * @param {boolean} result
    */
   const handleRetrieveDialogSucessful = (result: boolean) => {
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
   };
 
   /**
-   *  Handle Entry Dialog sucessful
+   * Handle Entry Dialog sucessful
    * @param {boolean} result
    */
   const handleEntryDialogSuccessful = (result: boolean) => {
@@ -94,7 +94,7 @@ const Home: React.FC = () => {
   };
 
   /**
-   *  Handle One Time OTP successful
+   * Handle One Time OTP successful
    * @param {boolean} result
    */
   const handleOneTimeOTPSucessful = (result: boolean) => {
@@ -180,6 +180,9 @@ const Home: React.FC = () => {
     }
   };
 
+  /**
+   * Handle Captcha reload
+   */
   const reloadCaptcha = () => {
     typeof reloadCaptchaMethod === "function" && reloadCaptchaMethod();
   };
@@ -280,11 +283,11 @@ const Home: React.FC = () => {
                 getValueCheckbox={handleGetValueCheckbox}
               />
 
-              {/* {Captcha} */}
+              {/* {Captcha Section} */}
               <Box className={cx("captcha-wrapper")}>
                 <Grid item xs={12}>
                   <Grid container>
-                    {/* {CAPTCHA} */}
+                    {/* {Captcha} */}
                     <Grid item xs={12} md={3}>
                       <Captcha
                         textColor="black"

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import classnames from "classnames/bind";
 import _ from "lodash";
+import { useHistory } from "react-router-dom";
 
 // import components
 import CompanyAndContactInformation from "@/views/self-serve/company-and-contact-information";
@@ -24,7 +25,6 @@ import {
 
 // import style
 import styles from "@/views/self-serve/SelfServe.scss";
-import { useHistory } from "react-router-dom";
 
 // render UI
 const SelfServe: React.FC = () => {
@@ -91,7 +91,7 @@ const SelfServe: React.FC = () => {
   // Prevent user input URL
   if (history.action === "POP") {
     window.location.href = (process.env.myinfo as any).redirectUri;
-    return <></>
+    return <></>;
   }
 
   // Render UI
