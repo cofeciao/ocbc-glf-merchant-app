@@ -30,8 +30,8 @@ const ListCheckbox = (props: IListCheckBox) => {
 
   /**
    * Run after clicking any item checkboxes to process data stream
-   * @param event
-   * @param checked
+   * @param {ChangeEvent<HTMLInputElement>,} event
+   * @param {boolean} checked
    */
   const handleCheckBox = (
     event: ChangeEvent<HTMLInputElement>,
@@ -51,8 +51,8 @@ const ListCheckbox = (props: IListCheckBox) => {
 
   /**
    * Run after clicking any expanded item checkboxes to process data stream
-   * @param event
-   * @param checked
+   * @param {ChangeEvent<HTMLInputElemen>} event
+   * @param {boolean} checked
    */
   const handleExpandedCheckBox = (
     event: ChangeEvent<HTMLInputElement>,
@@ -105,14 +105,14 @@ const ListCheckbox = (props: IListCheckBox) => {
     return (
       <Grid item xs={12}>
         <Box className={cx("expanded-wrapper")}>
-          {/* {Expanded description} */}
+          {/* {Expanded Description} */}
           {item.description && (
             <Typography className={cx("expanded-description")}>
               {item.description}
             </Typography>
           )}
 
-          {/* {Expanded list checkbox} */}
+          {/* {Expanded List Checkbox} */}
           {item.listCheckbox && (
             <Box className={cx("expanded-list-checkbox")}>
               {_.map(item.listCheckbox, (checkbox, index) => {
@@ -123,11 +123,13 @@ const ListCheckbox = (props: IListCheckBox) => {
                         disableRipple
                         disableTouchRipple
                         disableFocusRipple
-                        {...checkbox}
+                        value={_.get(checkbox, "value") || ""}
+                        checked={_.get(checkbox, "checked") || false}
+                        disabled={_.get(checkbox, "disabled") || false}
+                        icon={<img src={IconCheckbox} alt="icon checkbox" />}
                         onChange={(event: any, checked: boolean) => {
                           handleExpandedCheckBox(event, checked);
                         }}
-                        icon={<img src={IconCheckbox} alt="icon checkbox" />}
                         checkedIcon={
                           checkbox.disabled ? (
                             <img
@@ -163,7 +165,7 @@ const ListCheckbox = (props: IListCheckBox) => {
           <Box key={index}>
             <Grid key={index} item xs={xs} sm={sm} md={md} lg={lg}>
               {/* {Form Control & Checkbox inside} */}
-              <Box className="test">
+              <Box>
                 <FormControlLabel
                   label={
                     <Box className={cx("checkbox-content")}>
@@ -210,7 +212,7 @@ const ListCheckbox = (props: IListCheckBox) => {
               {item.checked &&
                 item.expandedListCheckbox &&
                 item.expandedListCheckbox.map(
-                  (expanded: IExpandedCheckBox, idx) => {
+                  (expanded: IExpandedCheckBox, idx: number) => {
                     return (
                       <Grid key={idx} item xs={4}>
                         {
