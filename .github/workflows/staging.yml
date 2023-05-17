@@ -64,6 +64,7 @@ jobs:
         run: |
           node -v
           npm -v
+          export NODE_OPTIONS=--openssl-legacy-provider
           npm install --force
           npm run build:staging
       - name: 📂 Upload build folder to staging
