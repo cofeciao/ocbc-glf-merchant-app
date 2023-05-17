@@ -59,7 +59,7 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 18
       - name: Build files...
         run: |
           node -v
@@ -76,44 +76,11 @@ jobs:
           remote_path: ${{ secrets.SERVER_REMOTE_PATH_OCBCEXT1_STAGING }}
           sftp_only: true
           
-  build_zip_upload:
-    # The type of runner that the job will run on
-    runs-on: self-hosted
-    needs: [pre]
-    name: Build, zip and upload production package
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 12
-      - name: Build files...
-        run: |
-          node -v
-          npm -v
-          npm install
-          npm run build:uat
-
-      - name: Zip folder
-        uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r glf-staging-${{ github.sha }}.zip ./dist
-
-      - name: 📂 Sync files
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          username: ${{ secrets.SERVER_USER_NAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          server: ${{ secrets.SERVER_HOST }}
-          local_path: 'glf-staging-${{ github.sha }}.zip'
-          remote_path: ${{ secrets.SERVER_REMOTE_PATH_PACKAGE }}
-          sftp_only: true
 
   slack:
     name: sending slack message
     if: ${{ always() }}
-    needs: [build_zip_upload, staging, pre]
+    needs: [staging, pre]
     runs-on: self-hosted
     steps:
       - name: Send custom JSON data to Slack workflow
@@ -137,7 +104,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "Staging: ${{ needs.staging.result }}\nPackage: ${{ needs.build_zip_upload.result }}\nDownload https://files.ext1.wearesection.com/package/glf-staging-${{ github.sha }}.zip"
+                    "text": "Staging: ${{ needs.staging.result }}"
                   }
                 },
                 {

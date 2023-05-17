@@ -36,7 +36,7 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
   // states
   const [areaCode, setAreaCode] = useState<string>("+65");
   const [numberPhone, setNumberPhone] = useState<string>(
-    _.get(dataRedux, name)
+    _.get(dataRedux, name) || ""
   );
 
   /**

@@ -51,7 +51,6 @@ const CompanyAndContactInformation: React.FC = () => {
   // hooks
   const dispatch = useDispatch();
   const history = useHistory();
-  const { slug } = useParams();
 
   /**
    * Retrieves data of Company And Contact Information step from Store
@@ -92,6 +91,8 @@ const CompanyAndContactInformation: React.FC = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
+
+    return () => localStorage.setItem("edit", "false");
   }, []);
 
   /**
@@ -109,7 +110,7 @@ const CompanyAndContactInformation: React.FC = () => {
       {/* {Category} */}
       <Category>{text}</Category>
 
-      {/* {Section Company registration} */}
+      {/* {Company registration} */}
       <SectionWrapper
         cx={cx}
         title={companyRegistration.title}
@@ -125,7 +126,7 @@ const CompanyAndContactInformation: React.FC = () => {
         />
       </SectionWrapper>
 
-      {/* {Section Contact details} */}
+      {/* {Contact details} */}
       <SectionWrapper
         cx={cx}
         title={contactDetails.title}
@@ -152,7 +153,6 @@ const CompanyAndContactInformation: React.FC = () => {
           // redirect
           const edit = localStorage.getItem("edit");
           if (edit === "true") {
-            localStorage.setItem("edit", "false");
             history.push(LIST_ROUTER.review_and_submit);
           } else {
             // open dialog
