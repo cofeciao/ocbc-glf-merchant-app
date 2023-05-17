@@ -137,7 +137,7 @@ export const SELF_SERVE_PAGE = {
     fulfilmentOver: {
       title: "Fulfilment over a period of time",
       description:
-        "Customers receive a product or service spread out over a period of time after payment e.g., subscriptions, spa packages, etc.",
+        "Customers receive a product or service spread out over a period of time after payment e.g., subscriptions or packages.",
     },
   },
   LIST_CHECKBOX_AGREE_POLICY: {
