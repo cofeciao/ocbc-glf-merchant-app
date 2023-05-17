@@ -52,7 +52,7 @@ jobs:
           
   staging:
     # The type of runner that the job will run on
-    runs-on: rd-hosted
+    runs-on: node18
     needs: [pre]
     name: Build and upload to staging
     steps:
