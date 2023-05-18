@@ -34,6 +34,12 @@ export const LABEL_ONE_TIME_PASSWORD_DESCRIPTION = "Did not receive an OTP?";
 export const LABEL_ONE_TIME_PASSWORD_RESEND_LINK = "Have us send another.";
 export const LABEL_ONE_TIME_PASSWORD_ERROR = "Invalid OTP. Please try again";
 
+export const ERROR_PAGE = {
+  LABEL_WE_ARE_UNABLE_TO_PROCEED_AT_THE_MOMENT: "We are unable to proceed at the moment",
+  LABEL_PLEASE_TRY_AGAIN_LATER: "Please try again later.",
+  LABEL_BACK_TO_OCBC: "Back to ocbc.com"
+};
+
 export const ACKNOWLEDGEMENT_PAGE = {
   LABEL_GREAT_WE_HAVE_RECEIVED_YOUR_APPLICATION:
     "Great, we have received your application!",

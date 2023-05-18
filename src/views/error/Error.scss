@@ -1,0 +1,31 @@
+@import "../../assets/style/variable.scss";
+
+.error-wrapper {
+  margin-top: 56px;
+  height: 60vh;
+  & .title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    color: #363B40;
+    margin-bottom: 16px;
+  }
+
+  & .description {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 28px;
+    color: #777E87;
+    margin-bottom: 52px;
+  }
+
+  & .back-button {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #3D525D;
+    border: 1px solid #3D525D;
+    border-radius: 8px;
+    text-transform: inherit;
+  }
+}
