@@ -4,7 +4,12 @@ import classnames from "classnames/bind";
 import _ from "lodash";
 
 // import constants
-import { ERROR_PAGE, LINK_EXTERNAL_PAGE, TITLE_PAGE } from "@/utils/constants";
+import {
+  ERROR_PAGE,
+  LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE,
+  LINK_EXTERNAL_PAGE,
+  TITLE_PAGE,
+} from "@/utils/constants";
 
 // import style
 import styles from "./Error.scss";
@@ -47,7 +52,7 @@ const Error = () => {
           {/* {Button} */}
           <Button
             className={cx("back-button")}
-            href={LINK_EXTERNAL_PAGE}
+            href={LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE}
           >
             {LABEL_BACK_TO_OCBC}
           </Button>

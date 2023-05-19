@@ -953,6 +953,7 @@ export const ERROR = "error";
 
 export const TITLE_PAGE = "Cashless Payments Application";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
+export const LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE = "https://www.ocbc.com/business-banking";
 export const CONTINUE_LATER = "Continue later";
 
 export const TITLE_LOGIN = "OCBC Cashless Payments";
