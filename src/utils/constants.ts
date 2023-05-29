@@ -79,14 +79,13 @@ export const HOME_PAGE = {
     LABEL_YOU_HAVE_ALREADY_SUBMITTED_AN_APPLICATION:
       "You have already submitted an application",
     LABEL_PLEASE_RESTART_YOUR_APPLICATION: "Please restart your application.",
-    LABEL_PLEASE_START_A_NEW_APPLICATION: "You may wait for our Relationship Manager to contact you or start a new application.",
+    LABEL_PLEASE_START_A_NEW_APPLICATION:
+      "You may wait for our Relationship Manager to contact you or start a new application.",
     LABEL_WHAT_ARE_YOU_HERE_FOR: "What are you here for?",
     LABEL_START_OVER: "Start over",
     LABEL_START_NEW_APPLICATION: "Star new application",
-    LABEL_EXCEEDED_NUMBER_OF_TRIES:
-      "Exceeded number of tries",
-    LABEL_UNABLE_TO_SEND:
-      "We are unable to send you an OTP at the moment",
+    LABEL_EXCEEDED_NUMBER_OF_TRIES: "Exceeded number of tries",
+    LABEL_UNABLE_TO_SEND: "We are unable to send you an OTP at the moment",
     LABEL_PLEASE_TRY_AGAIN_LATER: "Please try again later.",
     LABEL_TRY_AGAIN_LATER: "Try again later.",
     LABEL_BACK_TO_CARD_ACCEPTANCE: "Back to Card acceptance",
@@ -969,6 +968,8 @@ export const TITLE_PAGE = "Cashless Payments Application";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
 export const LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE =
   "https://www.ocbc.com/business-banking";
+export const LINK_EXTERNAL_OCBC_ACCEPTANCE_TYPE =
+  "https://www.ocbc.com/business-banking/smes/transactions/cards-acceptance.page";
 export const CONTINUE_LATER = "Continue later";
 
 export const TITLE_LOGIN = "OCBC Cashless Payments";

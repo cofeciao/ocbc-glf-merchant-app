@@ -8,7 +8,12 @@ import IconArrowRight from "@/assets/images/icon-arrow-right.svg";
 import IconArrowLeft from "@/assets/images/icon-arrow-left.svg";
 
 // import utils
-import { ERROR_ICON, HOME_PAGE, NEXT } from "@/utils/constants";
+import {
+  ERROR_ICON,
+  HOME_PAGE,
+  LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE,
+  NEXT,
+} from "@/utils/constants";
 
 // import style
 import styles from "./RetrieveDialogContent.scss";
@@ -89,12 +94,16 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
           <Box className="button-group">
             <Button
               variant="contained"
-              onClick={() => window.location.reload()}
+              href={LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE}
             >
               {LABEL_START_NEW_APPLICATION}
             </Button>
 
-            <Typography component="a" href="/" className={cx("back-to-home-button")}>
+            <Typography
+              component="a"
+              href="/"
+              className={cx("back-to-home-button")}
+            >
               {LABEL_BACK_TO_HOME}
             </Typography>
           </Box>
@@ -126,7 +135,7 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
           <Box className="d-inline">
             <Button
               variant="contained"
-              onClick={() => window.location.reload()}
+              href="/"
             >
               {LABEL_START_OVER}
             </Button>

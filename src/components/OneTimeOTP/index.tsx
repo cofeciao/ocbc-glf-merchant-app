@@ -18,6 +18,8 @@ import {
   LABEL_SUBMIT,
   ERROR_ICON,
   LABEL_ONE_TIME_PASSWORD_ALREADY_ERROR,
+  LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE,
+  LINK_EXTERNAL_OCBC_ACCEPTANCE_TYPE,
 } from "@/utils/constants";
 
 // import type
@@ -32,7 +34,7 @@ const OneTimeOTP = (props: IOneTimeOTP) => {
     LABEL_BACK_TO_CARD_ACCEPTANCE,
     LABEL_BACK_TO_HOME,
     LABEL_UNABLE_TO_SEND,
-    LABEL_TRY_AGAIN_LATER
+    LABEL_TRY_AGAIN_LATER,
   } = HOME_PAGE.ENTRY_POINT;
   const sizeInput = 6;
   const exceededNumber = "777777";
@@ -115,7 +117,7 @@ const OneTimeOTP = (props: IOneTimeOTP) => {
           <Box className="d-inline">
             <Button
               variant="contained"
-              onClick={() => window.location.reload()}
+              href={LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE}
             >
               {LABEL_BACK_TO_HOME}
             </Button>
@@ -148,7 +150,7 @@ const OneTimeOTP = (props: IOneTimeOTP) => {
           <Box className="d-inline">
             <Button
               variant="contained"
-              onClick={() => window.location.reload()}
+              href={LINK_EXTERNAL_OCBC_ACCEPTANCE_TYPE}
             >
               {LABEL_BACK_TO_CARD_ACCEPTANCE}
             </Button>
