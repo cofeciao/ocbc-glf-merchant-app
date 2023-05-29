@@ -92,16 +92,13 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
         {/* {Next Button} */}
         <Box className={cx("next-button mt-dt-40")}>
           <Box className="button-group">
-            <Button
-              variant="contained"
-              href={LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE}
-            >
+            <Button variant="contained" href="/">
               {LABEL_START_NEW_APPLICATION}
             </Button>
 
             <Typography
               component="a"
-              href="/"
+              href={LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE}
               className={cx("back-to-home-button")}
             >
               {LABEL_BACK_TO_HOME}
@@ -133,10 +130,7 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
         {/* {Next Button} */}
         <Box className={cx("next-button mt-dt-40")}>
           <Box className="d-inline">
-            <Button
-              variant="contained"
-              href="/"
-            >
+            <Button variant="contained" href="/">
               {LABEL_START_OVER}
             </Button>
           </Box>
