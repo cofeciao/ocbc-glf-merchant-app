@@ -26,7 +26,7 @@ import { Box, Grid, TextField, Typography, Button } from "@material-ui/core";
 
 // render UI
 const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
-  const { onCloseDialog, successful } = props;
+  const { onCloseDialog, successful, startNewApplication } = props;
   const {
     PLEASE_FILL_IN_THE_DETAILS,
     TEXT_FIELD_REFERENCE_NUMBER,
@@ -92,7 +92,7 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
         {/* {Next Button} */}
         <Box className={cx("next-button mt-dt-40")}>
           <Box className="button-group">
-            <Button variant="contained" href="/">
+            <Button variant="contained" onClick={() => {startNewApplication(false)}}>
               {LABEL_START_NEW_APPLICATION}
             </Button>
 

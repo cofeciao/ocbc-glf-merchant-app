@@ -226,6 +226,7 @@ const Home: React.FC = () => {
           <RetrieveDialog
             successful={handleRetrieveDialogSucessful}
             onCloseDialog={handleCloseRetrieveDialog}
+            startNewApplication={(boolean: boolean) => setOpenRetrieveDialog(boolean)}
           />
         </DialogContent>
       </Dialog>
