@@ -65,6 +65,16 @@
     margin-bottom: 40px;
   }
 
+  & .button-group {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    & .back-to-home-button {
+      text-decoration: none;
+      color: #005efd;
+    }
+  }
+
   & .next-button {
     margin-bottom: 56px;
   }

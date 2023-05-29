@@ -28,11 +28,18 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
     LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED,
     LABEL_PLEASE_RESTART_YOUR_APPLICATION,
     LABEL_START_OVER,
+    LABEL_YOU_HAVE_ALREADY_SUBMITTED_AN_APPLICATION,
+    LABEL_PLEASE_START_A_NEW_APPLICATION,
+    LABEL_START_NEW_APPLICATION,
+    LABEL_BACK_TO_HOME,
   } = HOME_PAGE.ENTRY_POINT;
 
   // states
   const [expiredReferenceNumber] = useState("666666AAA");
-  const [renderExpiredContent, setRenderExpiredContent] = useState<boolean>();
+  const [alreadySubmittedNumber] = useState("555555AAA");
+  const [renderExpired, setRenderExpired] = useState<boolean>(false);
+  const [renderAlreadySubmitted, setRenderAlreadySubmitted] =
+    useState<boolean>(false);
   const [value, setValue] = useState("");
   const [error, setError] = useState("");
 
@@ -45,18 +52,59 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
   const handleClickNextButton = () => {
     const regex = /^\d{6}[A-Z]{3}$/;
     if (regex.test(value)) {
-      if (value !== expiredReferenceNumber) {
-        successful(true);
-      } else {
-        setRenderExpiredContent(true);
+      if (value === expiredReferenceNumber) {
+        setRenderExpired(true);
+        return;
       }
+      if (value === alreadySubmittedNumber) {
+        setRenderAlreadySubmitted(true);
+        return;
+      }
+      successful(true);
     } else {
       setError(`${ERROR_ICON} ${TEXT_FIELD_REFERENCE_NUMBER.helperText}`);
     }
   };
 
-  // Render Expired Content
-  if (renderExpiredContent) {
+  // Already Submitted UI
+  if (renderAlreadySubmitted) {
+    return (
+      <Box className={cx("failure-content-wrapper")}>
+        <Box className={cx("content-wrapper")}>
+          {/* {Title} */}
+          <Typography className={cx("title mb-16")}>
+            {LABEL_YOU_HAVE_ALREADY_SUBMITTED_AN_APPLICATION}
+          </Typography>
+
+          {/* {Description} */}
+          <Typography className={cx("description")}>
+            {LABEL_PLEASE_START_A_NEW_APPLICATION}
+          </Typography>
+        </Box>
+
+        <Box className={cx("divider")}></Box>
+
+        {/* {Next Button} */}
+        <Box className={cx("next-button mt-dt-40")}>
+          <Box className="button-group">
+            <Button
+              variant="contained"
+              onClick={() => window.location.reload()}
+            >
+              {LABEL_START_NEW_APPLICATION}
+            </Button>
+
+            <Typography component="a" href="/" className={cx("back-to-home-button")}>
+              {LABEL_BACK_TO_HOME}
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
+    );
+  }
+
+  // Render Expired UI
+  if (renderExpired) {
     return (
       <Box className={cx("failure-content-wrapper")}>
         <Box className={cx("content-wrapper")}>
@@ -123,7 +171,6 @@ const RetrieveDialogContent: React.FC<IRetrieveDialogContent> = (props) => {
       <Box className={cx("group-button")}>
         <Box className="d-flex space-between">
           {/* {Back Button} */}
-
           <Button onClick={() => onCloseDialog(true)} variant="outlined">
             <img src={IconArrowLeft} alt="icon arrow left" />
           </Button>

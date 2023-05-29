@@ -31,13 +31,19 @@ export const LABEL_SUBMIT = "Submit";
 export const LABEL_ONE_TIME_PASSWORD_TITLE =
   "Enter your One-Time-Password (OTP)";
 export const LABEL_ONE_TIME_PASSWORD_DESCRIPTION = "Did not receive an OTP?";
-export const LABEL_ONE_TIME_PASSWORD_RESEND_LINK = "Have us send another.";
-export const LABEL_ONE_TIME_PASSWORD_ERROR = "Invalid OTP. Please try again";
+export const LABEL_ONE_TIME_PASSWORD_RESEND_LINK = "Resend";
+export const LABEL_ONE_TIME_PASSWORD_INVALID_ERROR =
+  "OTP is invalid. Request for another.";
+export const LABEL_ONE_TIME_PASSWORD_EXPIRED_ERROR =
+  "OTP has expired. Request for another.";
+export const LABEL_ONE_TIME_PASSWORD_ALREADY_ERROR =
+  "OTP has already been used. Request for another.";
 
 export const ERROR_PAGE = {
-  LABEL_WE_ARE_UNABLE_TO_PROCEED_AT_THE_MOMENT: "We are unable to proceed at the moment",
+  LABEL_WE_ARE_UNABLE_TO_PROCEED_AT_THE_MOMENT:
+    "We are unable to proceed at the moment",
   LABEL_PLEASE_TRY_AGAIN_LATER: "Please try again later.",
-  LABEL_BACK_TO_OCBC: "Back to ocbc.com"
+  LABEL_BACK_TO_OCBC: "Back to ocbc.com",
 };
 
 export const ACKNOWLEDGEMENT_PAGE = {
@@ -70,12 +76,21 @@ export const HOME_PAGE = {
     PLEASE_FILL_IN_THE_DETAILS: "Please fill in the details",
     LABEL_YOUR_SAVED_APPLICATION_HAS_EXPIRED:
       "Your saved application has expired",
+    LABEL_YOU_HAVE_ALREADY_SUBMITTED_AN_APPLICATION:
+      "You have already submitted an application",
     LABEL_PLEASE_RESTART_YOUR_APPLICATION: "Please restart your application.",
+    LABEL_PLEASE_START_A_NEW_APPLICATION: "You may wait for our Relationship Manager to contact you or start a new application.",
     LABEL_WHAT_ARE_YOU_HERE_FOR: "What are you here for?",
     LABEL_START_OVER: "Start over",
-    LABEL_EXCEEDED_NUMBER_OF_TRIES: "Exceeded number of tries",
+    LABEL_START_NEW_APPLICATION: "Star new application",
+    LABEL_EXCEEDED_NUMBER_OF_TRIES:
+      "Exceeded number of tries",
+    LABEL_UNABLE_TO_SEND:
+      "We are unable to send you an OTP at the moment",
     LABEL_PLEASE_TRY_AGAIN_LATER: "Please try again later.",
+    LABEL_TRY_AGAIN_LATER: "Try again later.",
     LABEL_BACK_TO_CARD_ACCEPTANCE: "Back to Card acceptance",
+    LABEL_BACK_TO_HOME: "Back to Home",
     TEXT_FIELD_REFERENCE_NUMBER: {
       label: "Reference number",
       description: "Check your email for the reference number",
@@ -950,10 +965,10 @@ export const SELF_SERVE_PAGE = {
 };
 
 export const ERROR = "error";
-
 export const TITLE_PAGE = "Cashless Payments Application";
 export const LINK_EXTERNAL_PAGE = "https://www.ocbc.com/group/gateway";
-export const LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE = "https://www.ocbc.com/business-banking";
+export const LINK_EXTERNAL_OCBC_BUSINESS_BANKING_PAGE =
+  "https://www.ocbc.com/business-banking";
 export const CONTINUE_LATER = "Continue later";
 
 export const TITLE_LOGIN = "OCBC Cashless Payments";
