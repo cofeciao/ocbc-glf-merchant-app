@@ -91,7 +91,7 @@ const SelfServe: React.FC = () => {
 
   // Prevent user input URL
   if (history.action === "POP") {
-    window.location.href = (process.env.myinfo as any).redirectUri;
+    history.goBack();
     return <></>;
   }
 
