@@ -97,8 +97,13 @@ const CompanyAndContactInformation: React.FC = () => {
    * @returns
    */
   const handleClickNext = () => {
+    console.log(getValues("uniqueEntityNumber"));
+
+    // save to Redux
+    dispatch(saveDataCompanyAndContactInformationStep(getValues()));
+
     const edit = localStorage.getItem("edit");
-    if (getValues("uniqueEntityNumber") === EXISTING_APPLICATION_NUMBER || UNABLE_TO_SEND_OTP_NUMBER) {
+    if (getValues("uniqueEntityNumber") === EXISTING_APPLICATION_NUMBER || getValues("uniqueEntityNumber") === UNABLE_TO_SEND_OTP_NUMBER) {
       // set open dialog
       setOpenExistingApplication(true);
       return;
@@ -110,15 +115,18 @@ const CompanyAndContactInformation: React.FC = () => {
       // open dialog
       setOpenOneTimeOTPDialog(true);
     }
-    // save to Redux
-    dispatch(saveDataCompanyAndContactInformationStep(getValues()));
   }
 
   useEffect(() => {
-    if (openExistingApplication) {
-
+    if (getValues("uniqueEntityNumber") === UNABLE_TO_SEND_OTP_NUMBER) {
+      setRenderFailureOtpContent(true)
+    } else {
+      setRenderFailureOtpContent(false)
     }
-  },[openExistingApplication])
+  },[getValues("uniqueEntityNumber")])
+
+  console.log("remderfail", renderFailureOtpContent);
+
 
   /**
    * Handle scrolling to top on page load
@@ -241,9 +249,6 @@ const CompanyAndContactInformation: React.FC = () => {
                   onClick={() => {
                     setOpenExistingApplication(false)
                     setOpenOneTimeOTPDialog(true)
-                    if (getValues("uniqueEntityNumber") === UNABLE_TO_SEND_OTP_NUMBER) {
-                      setRenderFailureOtpContent(true)
-                    }
                   }}
                 >
                   {LABEL_CONTINUE_WITH_SAVED_APPLICATION}
