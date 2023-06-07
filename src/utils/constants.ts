@@ -38,6 +38,10 @@ export const LABEL_ONE_TIME_PASSWORD_EXPIRED_ERROR =
   "OTP has expired. Request for another.";
 export const LABEL_ONE_TIME_PASSWORD_ALREADY_ERROR =
   "OTP has already been used. Request for another.";
+export const LABEL_YOU_HAVE_AN_EXISTING_SAVED_APPLICATION =
+  "You have an existing saved application";
+export const LABEL_CONTINUE_WITH_SAVED_APPLICATION =
+  "Continue with saved application";
 
 export const ERROR_PAGE = {
   LABEL_WE_ARE_UNABLE_TO_PROCEED_AT_THE_MOMENT:

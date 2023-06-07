@@ -141,7 +141,7 @@ const CompanyAndContactInfomation: React.FC<
                   {LABEL_CONTACT_NUMBER}
                 </Box>
                 <Box component="span" className={cx("text-item-value")}>
-                  {data.areaCode}
+                  {data.contactNumberAreaCode}
                   {data.contactNumber}
                 </Box>
               </Box>

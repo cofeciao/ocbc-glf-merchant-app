@@ -82,7 +82,7 @@ const Select: React.FC<ISelect> = (props) => {
         >
           {_.map(listSelect, (item, index) => {
             return (
-              <MenuItem key={index} value={item.value}>
+              <MenuItem key={index} value={item.name}>
                 {item.name}
               </MenuItem>
             );

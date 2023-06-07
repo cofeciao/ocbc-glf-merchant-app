@@ -27,7 +27,7 @@ import { IOneTimeOTP } from "./OneTimeOTP";
 
 // render UI
 const OneTimeOTP = (props: IOneTimeOTP) => {
-  const { successful } = props;
+  const { successful, renderFailure = false } = props;
   const {
     LABEL_EXCEEDED_NUMBER_OF_TRIES,
     LABEL_PLEASE_TRY_AGAIN_LATER,
@@ -49,7 +49,7 @@ const OneTimeOTP = (props: IOneTimeOTP) => {
   const [renderExceededContent, setRenderExceededContent] =
     useState<boolean>(false);
   const [renderFailureContent, setRenderFailureContent] =
-    useState<boolean>(false);
+    useState<boolean>(renderFailure);
 
   // classnames
   const cx = classnames.bind(styles);

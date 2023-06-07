@@ -34,7 +34,7 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
   const cx = classNames.bind(styles);
 
   // states
-  const [areaCode, setAreaCode] = useState<string>("+65");
+  const [areaCode, setAreaCode] = useState<string>(_.get(dataRedux, `${name}AreaCode`) || "+65");
   const [numberPhone, setNumberPhone] = useState<string>(
     _.get(dataRedux, name) || ""
   );
@@ -63,8 +63,11 @@ const ContactNumber: React.FC<IContactNumber> = (props) => {
       register(name, {
         required: required,
       });
+      setValue(name, numberPhone);
     }
+
   }, [areaCode]);
+
 
   /**
    * Prevent user typing non-number

@@ -1,5 +1,5 @@
 // import modules
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React from "react";
 import _ from "lodash";
 
 // import constant
@@ -8,18 +8,15 @@ import {
   LIST_COUNTRIES_CODE,
   SELF_SERVE_PAGE,
 } from "@/utils/constants";
-import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
-// import icons
-import ExpandMore from "@material-ui/icons/ExpandMore";
+// import type
+import { ICompanyAndContactInformation } from "./CompanyAndContactInformation";
 
 // import components
 import {
   Box,
   Grid,
   TextField,
-  MenuItem,
-  InputAdornment,
 } from "@material-ui/core";
 import Select from "@/components/Select";
 import ContactNumber from "@/components/ContactNumber";
@@ -42,61 +39,6 @@ const ContactDetails: React.FC<
   const { LIST_SALUTATION } = SELF_SERVE_PAGE;
   const { salutation, name, designation, email, contactNumber } =
     data.inputFields;
-  const [numberPhone, setNumberPhone] = useState<string>(
-    dataRedux.contactNumber || ""
-  );
-
-  // states
-  const [areaCode, setAreaCode] = useState<string>("+65");
-  const [valueDefaultSalutation, setValueDefaultSalutation] =
-    useState<string>("");
-
-  /**
-   * Prevent user typing non-number
-   */
-  function handleChangeContactNumber(event: ChangeEvent<HTMLInputElement>) {
-    setNumberPhone(event.target.value.replace(/\D/g, ""));
-  }
-
-  /**
-   * setState value default salutation
-   */
-  useEffect(() => {
-    if (dataRedux && dataRedux.salutation) {
-      setValueDefaultSalutation(dataRedux.salutation);
-    } else {
-      setValueDefaultSalutation(LIST_SALUTATION[0].name);
-    }
-  }, [dataRedux]);
-
-  /**
-   * contact number validation only apply for area code +65 (SG)
-   */
-  useEffect(() => {
-    const handleUnregisterPattern = () => {
-      unregister("contactNumber");
-    };
-    if (areaCode === "+65") {
-      if (!_.isEmpty(numberPhone) && numberPhone.length !== 8) {
-        setError("contactNumber", {
-          type: "pattern",
-          message: `${ERROR_ICON} ${contactNumber.helperText}`,
-        });
-      }
-      register("contactNumber", {
-        required: true,
-        pattern: {
-          value: /^(?:\+65|65)?[689]\d{7}$/g,
-          message: `${ERROR_ICON} ${contactNumber.helperText}`,
-        },
-      });
-    } else {
-      handleUnregisterPattern();
-      register("contactNumber", {
-        required: true,
-      });
-    }
-  }, [areaCode]);
 
   return (
     <Box className={cx("contact-details-wrapper")}>

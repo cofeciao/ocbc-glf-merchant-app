@@ -10,6 +10,8 @@ import _ from "lodash";
 
 // import constants
 import {
+  LABEL_CONTINUE_WITH_SAVED_APPLICATION,
+  LABEL_YOU_HAVE_AN_EXISTING_SAVED_APPLICATION,
   LIST_COUNTRIES_CODE,
   LIST_ROUTER,
   SELF_SERVE_PAGE,
@@ -19,7 +21,7 @@ import {
 import styles from "./CompanyAndContactInformation.scss";
 
 // import components
-import { Box, Dialog, DialogContent } from "@material-ui/core";
+import { Box, Button, Dialog, DialogContent, Typography } from "@material-ui/core";
 import Category from "@/components/Category";
 import RedirectButton from "@/components/RedirectButton";
 import SectionWrapper from "../SectionWrapper";
@@ -40,9 +42,15 @@ const CompanyAndContactInformation: React.FC = () => {
       },
     },
   } = SELF_SERVE_PAGE;
+  const EXISTING_APPLICATION_NUMBER = "000000000N"
+  const UNABLE_TO_SEND_OTP_NUMBER = "100000000N"
 
   // states
   const [openOneTimeOTPDialog, setOpenOneTimeOTPDialog] =
+    useState<boolean>(false);
+  const [openExistingApplication, setOpenExistingApplication] =
+    useState<boolean>(false);
+  const [renderFailureOtpContent, setRenderFailureOtpContent] =
     useState<boolean>(false);
 
   // classnames
@@ -85,6 +93,34 @@ const CompanyAndContactInformation: React.FC = () => {
   });
 
   /**
+   * Handle when users click next button
+   * @returns
+   */
+  const handleClickNext = () => {
+    const edit = localStorage.getItem("edit");
+    if (getValues("uniqueEntityNumber") === EXISTING_APPLICATION_NUMBER || UNABLE_TO_SEND_OTP_NUMBER) {
+      // set open dialog
+      setOpenExistingApplication(true);
+      return;
+    }
+    if (edit === "true") {
+       // redirect
+      history.push(LIST_ROUTER.review_and_submit);
+    } else {
+      // open dialog
+      setOpenOneTimeOTPDialog(true);
+    }
+    // save to Redux
+    dispatch(saveDataCompanyAndContactInformationStep(getValues()));
+  }
+
+  useEffect(() => {
+    if (openExistingApplication) {
+
+    }
+  },[openExistingApplication])
+
+  /**
    * Handle scrolling to top on page load
    */
   useEffect(() => {
@@ -92,7 +128,8 @@ const CompanyAndContactInformation: React.FC = () => {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
-    return () => localStorage.setItem("edit", "false");
+    // remove edit from localStorage
+    return () => localStorage.removeItem("edit");
   }, []);
 
   /**
@@ -149,18 +186,7 @@ const CompanyAndContactInformation: React.FC = () => {
       <RedirectButton
         disabledNextButton={!isValid}
         variant="next"
-        onClickNext={() => {
-          // redirect
-          const edit = localStorage.getItem("edit");
-          if (edit === "true") {
-            history.push(LIST_ROUTER.review_and_submit);
-          } else {
-            // open dialog
-            setOpenOneTimeOTPDialog(true);
-          }
-          // save to Redux
-          dispatch(saveDataCompanyAndContactInformationStep(getValues()));
-        }}
+        onClickNext={() => handleClickNext()}
       />
 
       {/* {One Time OTP Dialog} */}
@@ -178,7 +204,53 @@ const CompanyAndContactInformation: React.FC = () => {
           />
         </div>
         <DialogContent>
-          <OneTimeOTP successful={handleOneTimeOTPSucessful} />
+          <OneTimeOTP successful={handleOneTimeOTPSucessful} renderFailure={renderFailureOtpContent}  />
+        </DialogContent>
+      </Dialog>
+
+      {/* {Existing Saved Application Dialog} */}
+      <Dialog
+        open={openExistingApplication} //openExistingApplication
+        maxWidth="md"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <div className={cx("icon-close")}>
+          <img
+            src={CloseIcon}
+            alt="icon close"
+            onClick={() => setOpenExistingApplication(false)}
+          />
+        </div>
+        <DialogContent>
+          <Box className={cx("failure-content-wrapper")}>
+            <Box className={cx("content-wrapper")}>
+              {/* {Title} */}
+              <Typography className={cx("title")}>
+                {LABEL_YOU_HAVE_AN_EXISTING_SAVED_APPLICATION}
+              </Typography>
+            </Box>
+
+            <Box className={cx("divider")}></Box>
+
+            {/* {Continue Button} */}
+            <Box className={cx("next-button")}>
+              <Box className="d-inline">
+                <Button
+                  variant="contained"
+                  onClick={() => {
+                    setOpenExistingApplication(false)
+                    setOpenOneTimeOTPDialog(true)
+                    if (getValues("uniqueEntityNumber") === UNABLE_TO_SEND_OTP_NUMBER) {
+                      setRenderFailureOtpContent(true)
+                    }
+                  }}
+                >
+                  {LABEL_CONTINUE_WITH_SAVED_APPLICATION}
+                </Button>
+              </Box>
+            </Box>
+          </Box>
         </DialogContent>
       </Dialog>
     </Box>

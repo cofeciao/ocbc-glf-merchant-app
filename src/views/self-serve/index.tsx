@@ -45,6 +45,7 @@ const SelfServe: React.FC = () => {
   useEffect(() => {
     const handleBeforeUnload = (event: any) => {
       event.preventDefault();
+      localStorage.removeItem("edit");
       event.returnValue = "";
     };
 
