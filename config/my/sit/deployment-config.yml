@@ -1,0 +1,102 @@
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: $(PROJECT_NAME)-my
+  name: $(PROJECT_NAME)-my
+  namespace: $(NAMESPACE)-my
+  selfLink: /apis/apps.openshift.io/v1/namespaces/$(NAMESPACE)-my/deploymentconfigs/$(PROJECT_NAME)-my
+spec:
+  replicas: 1
+  selector:
+    app: $(PROJECT_NAME)-my
+    deploymentconfig: $(PROJECT_NAME)-my
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 180
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftWebConsole
+      labels:
+        app: $(PROJECT_NAME)-my
+        deploymentconfig: $(PROJECT_NAME)-my
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: $(PROJECT_NAME)-my
+          image: docker-registry.default.svc:5000/$(NAMESPACE)-my/$(PROJECT_NAME)-my:1.0
+          imagePullPolicy: Always
+          name: $(PROJECT_NAME)-my
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          securityContext:
+            runAsUser: 1000710000
+            supplementalGroups:
+              - 1000770000
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /$(NAMESPACE)-my
+              name: $(NAMESPACE)-my-pv
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - name: $(NAMESPACE)-my-pv
+          persistentVolumeClaim:
+            claimName: $(NAMESPACE)-my-pvc
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - $(PROJECT_NAME)-my
+        from:
+          kind: ImageStreamTag
+          name: '$(PROJECT_NAME)-my:1.0'
+          namespace: $(NAMESPACE)-my
+        lastTriggeredImage: docker-registry.default.svc:5000/$(NAMESPACE)-my/$(PROJECT_NAME)-my:1.0
+      type: ImageChange
+to:
+  apiVersion: v1
+  kind: Service
+  name: $(PROJECT_NAME)-my
+  metadata:
+    annotations:
+      openshift.io/generated-by: OpenShiftWebConsole
+    labels:
+      app: $(PROJECT_NAME)-my
+    name: $(PROJECT_NAME)-my
+    namespace: $(NAMESPACE)-my
+  spec:
+    ports:
+      - name: 8443-tcp
+        port: 8443
+        protocol: TCP
+        targetPort: 8443
+    selector:
+      deploymentconfig: $(PROJECT_NAME)-my
+    sessionAffinity: None
+    type: ClusterIP
+  status:
+    loadBalancer: {}

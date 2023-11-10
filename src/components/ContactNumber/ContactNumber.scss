@@ -1,0 +1,72 @@
+.formatted-numberphone-input {
+  background: #fafcfc;
+  & .MuiInputBase-root {
+    height: 34px;
+    margin-top: 0;
+  }
+
+  .MuiInputLabel-root {
+    padding-left: 8px;
+  }
+
+  & label {
+    position: relative;
+    top: 5px;
+  }
+
+  & .formatted-numberphone-select {
+    padding-left: 8px;
+    & .MuiSelect-icon {
+      border-right: 1px solid #e2e7ec;
+      width: 60px;
+    }
+    & .MuiSelect-root {
+      padding-bottom: 5px;
+      padding-right: 50px;
+    }
+  }
+
+  input {
+    padding-left: 10px;
+  }
+}
+
+// styled select phone number
+.MuiList-root {
+  & .MuiMenuItem-root {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    height: 54px;
+  }
+  & .item-selected.MuiMenuItem-root {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+
+  & .item-selected.Mui-selected {
+    background-color: transparent;
+  }
+
+  & .MuiListItem-button:hover {
+    background-color: #ebeff1;
+  }
+}
+
+.MuiPaper-root {
+  & .MuiMenuItem-root {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #777e87;
+  }
+  & .Mui-selected {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #575d65;
+    background-color: transparent !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+}

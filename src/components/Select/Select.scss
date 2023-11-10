@@ -1,0 +1,25 @@
+.MuiPaper-root {
+  .MuiInputLabel-filled {
+    z-index: 1;
+    transform: translate(12px, 19px) scale(1);
+    pointer-events: none;
+  }
+
+  & .MuiMenuItem-root {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #777e87;
+  }
+  
+  & .Mui-selected {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #575d65;
+    background-color: transparent !important;
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+}

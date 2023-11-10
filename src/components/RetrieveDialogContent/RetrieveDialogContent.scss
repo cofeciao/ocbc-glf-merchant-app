@@ -1,0 +1,81 @@
+.retrieve-dialog-content-wrapper {
+  padding-bottom: 56px;
+  & .content-wrapper {
+    & .title {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 32px;
+      color: #363b40;
+      margin-bottom: 40px;
+    }
+
+    & .MuiInputLabel-filled {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      color: #777e87;
+    }
+  }
+
+  & .divider {
+    height: 2px;
+    width: 100%;
+    background: #e2e7ec;
+    margin-top: 64px;
+    margin-bottom: 40px;
+  }
+}
+
+.MuiFormLabel-root {
+  color: #777e87;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  &::before {
+    border-color: #e2e7ec;
+  }
+  & input {
+    background-color: #fafcfc;
+  }
+}
+
+.failure-content-wrapper {
+  & .content-wrapper {
+    & .title {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 32px;
+      color: #363b40;
+      margin-bottom: 16px;
+    }
+
+    & .description {
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 28px;
+      color: #777e87;
+    }
+  }
+
+  & .divider {
+    height: 2px;
+    width: 100%;
+    background: #e2e7ec;
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  & .button-group {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    & .back-to-home-button {
+      text-decoration: none;
+      color: #005efd;
+    }
+  }
+
+  & .next-button {
+    margin-bottom: 56px;
+  }
+}
